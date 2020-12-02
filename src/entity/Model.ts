@@ -3,6 +3,7 @@ import {
   BeforeInsert,
   Column,
   CreateDateColumn,
+  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,6 +12,7 @@ import { v4 as uuid } from 'uuid';
 //Model is optional - just holds shared columns
 export default abstract class Model extends BaseEntity {
   @PrimaryGeneratedColumn()
+  @Index()
   id: number;
 
   @CreateDateColumn()
@@ -20,6 +22,7 @@ export default abstract class Model extends BaseEntity {
   updatedAt: Date;
 
   @Column({ type: 'uuid' })
+  @Index()
   uuid: string;
 
   // do before saving

@@ -1,34 +1,129 @@
 import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
-import { validate } from 'class-validator';
+import { isEmpty, validate } from 'class-validator';
+import bcrypt from 'bcryptjs';
+import { logIn, logOut } from '../middleware/auth';
 
 //
 //create a user
 //
-export const addUser = async (req, res: Response) => {
+export const register = async (req, res: Response) => {
   const { login, email, role, password } = req.body;
 
   try {
     const user = await User.create({ login, email, role, password });
-    const errors = await validate(user);
-    if (errors.length > 0) throw errors;
+    const emailUser = await User.find({ email });
+    const loginUser = await User.find({ login });
+
+    let errors: any = {};
+    if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
+    if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
+
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({
+        status: 'fail',
+        msgPL: 'Niepoprawne dane rejestracji',
+        msg: 'Incorrect credentials',
+        errors,
+      });
+    }
+
+    errors = await validate(user);
+
     await user.save();
-    req.session.userId = user.id;
+
+    logIn(req, user.id);
 
     return res.status(201).json({
       status: 'success',
       msg: 'User created',
-      msgDis: 'Pomyślnie utworzono użytkownika',
-      count: 1,
+      msgPL: 'Pomyślnie utworzono użytkownika',
       data: user,
     });
   } catch (err) {
     return res.status(500).json({
       status: 'fail',
-      err,
+      errors: err.messsage,
       msg: err.message,
-      msgDis: msgDis500,
+      msgPL: msgDis500,
+    });
+  }
+};
+
+//
+//login
+//
+
+export const login = async (req: Request, res: Response) => {
+  const { login, password } = req.body;
+
+  try {
+    let errors: any = {};
+    if (isEmpty(login)) errors.login = 'Login nie może być pusty';
+    if (isEmpty(password)) errors.password = 'Hasło nie może być puste';
+
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({
+        status: 'fail',
+        msgPL: 'Wprowadzono niepoprawne dane',
+        msg: 'Wrong credentials',
+        errors,
+      });
+    }
+    const user = await User.findOne({ login });
+
+    const passwordMathes = await bcrypt.compare(password, user.password);
+    if (!passwordMathes) {
+      return res.status(400).json({
+        status: 'fail',
+        msgPL: 'Wprowadzono niepoprawne dane',
+        msg: 'Wrong credentials',
+        errors,
+      });
+    }
+
+    logIn(req, user.id);
+
+    return res.status(200).json({
+      status: 'success',
+      msgPL: 'Pomyślnie zalogowano.',
+      msg: 'Successfully logged in',
+      user,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'fail',
+      msgPL: 'Coś poszło nie tak',
+      msg: 'Error server',
+      error: err.message,
+    });
+  }
+};
+
+//
+//Logout
+//
+export const logout = async (req: Request, res: Response) => {
+  await logOut(req, res);
+  // return res.json({ msg: 'Pomyślnie wylogowano' });
+};
+
+//
+//me
+//
+export const me = async (req: any, res: Response) => {
+  try {
+    const user = await User.findOne({ id: req.session.userId });
+    return res.json({
+      user,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      status: 'fail',
+      msgPL: 'Brak dostępu',
+      msg: 'Unauthenticated',
+      error: err.message,
     });
   }
 };
@@ -51,7 +146,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     return res.status(500).json({
       status: 'fail',
       msg: err.message,
-      msgDis: msgDis500,
+      msgPD: msgDis500,
     });
   }
 };
@@ -70,7 +165,7 @@ export const getOneUser = async (req: Request, res: Response) => {
       return res.status(400).json({
         status: 'fail',
         msg: 'User not exist',
-        msgDis: 'Nie znaleziono użytkownika',
+        msgPL: 'Nie znaleziono użytkownika',
       });
     }
 

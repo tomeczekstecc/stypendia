@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, Length } from 'class-validator';
-import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm';
+import { Entity, Column, OneToMany, BeforeInsert, Index } from 'typeorm';
 import { classToPlain, Exclude } from 'class-transformer';
 import bcrypt from 'bcryptjs';
 import Model from './Model';
@@ -9,11 +9,13 @@ import { Post } from './Post';
 export class User extends Model {
   @Column({ unique: true })
   @Length(1, 50)
+  @Index()
   login: string;
 
   @Column({ unique: true })
   @Length(2, 100)
   @IsEmail()
+  @Index()
   email: string;
 
   @Exclude()
@@ -40,7 +42,6 @@ export class User extends Model {
     enum: ['wnioskodawca', 'admin', 'ocen', 'god'],
     default: 'wnioskodawca',
   })
-  @IsEnum(['wnioskodawca', 'admin', 'ocen', 'god'])
   role: string;
 
   @OneToMany(() => Post, (post) => post.user)

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, json } from 'express';
 import { SESSION_ABSOLUTE_TIMEOUT, SESSION_NAME } from '../config';
 
 export const isLoggedIn = (req: any) => !!req.session.userId;
@@ -7,7 +7,7 @@ export const logIn = (req: any, userId: any) => {
   req.session!.userId = userId;
   req.session!.createdAt = Date.now();
 };
-export const logOut = (req: any, res: any):any => {
+export const logOut = (req: any, res: any): any => {
   new Promise((resolve, reject) => {
     req.session!.destroy((err: Error) => {
       if (err) reject(err);
@@ -21,7 +21,7 @@ export const guest = (req: Request, res: Response, next: NextFunction) => {
   try {
     if (isLoggedIn(req)) {
       //TODO: logger
-  return res.status(400).json({
+      return res.status(400).json({
         status: 'fail',
         msgPL: 'Jesteś już zalogowany',
         msg: 'You are already logged in',
@@ -46,6 +46,7 @@ export const active = async (req: any, res: Response, next: NextFunction) => {
     try {
       if (now > createdAt + SESSION_ABSOLUTE_TIMEOUT) {
         await logOut(req, res);
+        return res.json({msg:'Session expired'})
         //TODO: logger
       }
     } catch (err) {

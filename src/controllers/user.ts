@@ -11,11 +11,11 @@ import { logIn, logOut } from '../middleware/auth';
 export const register = async (req, res: Response) => {
   const { login, email, role, password } = req.body;
 
+
   try {
-    const user = await User.create({ login, email, role, password });
     const emailUser = await User.find({ email });
     const loginUser = await User.find({ login });
-
+    console.log(emailUser, loginUser)
     let errors: any = {};
     if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
     if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
@@ -29,6 +29,7 @@ export const register = async (req, res: Response) => {
       });
     }
 
+    const user = await User.create({ login, email, role, password });
     errors = await validate(user);
 
     await user.save();
@@ -44,8 +45,7 @@ export const register = async (req, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       status: 'fail',
-      errors: err.messsage,
-      msg: err.message,
+       msg: err.message,
       msgPL: msgDis500,
     });
   }
@@ -115,6 +115,7 @@ export const logout = async (req: Request, res: Response) => {
 export const me = async (req: any, res: Response) => {
   try {
     const user = await User.findOne({ id: req.session.userId });
+    if (!user) throw new Error('Brak dostępu');
     return res.json({
       user,
     });

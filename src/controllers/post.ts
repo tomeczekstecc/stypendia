@@ -1,7 +1,7 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
-import { Post } from '../entity/Post';
+import { Post } from '../entity/Wniosek';
 import { User } from '../entity/User';
 
 //

@@ -1,21 +1,22 @@
-import { IsEmail, IsEnum, Length } from 'class-validator';
-import { Entity, Column, OneToMany, BeforeInsert, Index } from 'typeorm';
+import { IsEmail, Length } from 'class-validator';
+import { Entity, Column, OneToMany, BeforeInsert, Index, JoinColumn } from 'typeorm';
 import { classToPlain, Exclude } from 'class-transformer';
 import bcrypt from 'bcryptjs';
 import Model from './Model';
-import { Post } from './Post';
+import { Wniosek} from './Wniosek';
 
 @Entity('users')
 export class User extends Model {
+  // @Index()
+
   @Column({ unique: true })
   @Length(1, 50)
-  @Index()
   login: string;
 
+  // @Index()
   @Column({ unique: true })
   @Length(2, 100)
   @IsEmail()
-  @Index()
   email: string;
 
   @Exclude()
@@ -44,8 +45,9 @@ export class User extends Model {
   })
   role: string;
 
-  @OneToMany(() => Post, (post) => post.user)
-  posts: Post[];
+  @OneToMany(() => Wniosek, (wniosek) => wniosek.user)
+  wnioski: Wniosek[];
+
 
   @BeforeInsert()
   async hashPassword() {

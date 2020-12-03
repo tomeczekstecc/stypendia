@@ -5,7 +5,7 @@ import colors from 'colors';
 import Redis from 'ioredis';
 import connectRedis from 'connect-redis';
 import { createApp } from './app';
-import { REDIS_OPTIONS } from './config';
+import { APP_PORT, REDIS_OPTIONS } from './config';
 
 colors.enable();
 
@@ -15,8 +15,10 @@ const store = new RedisStore({ client });
 
 const app = createApp(store);
 
-app.listen(5000, async () => {
-  console.log(`Server startet on port 5000`.green);
+
+
+app.listen(APP_PORT, async () => {
+  console.log(`Server startet on ${APP_PORT}`.green);
 
   try {
     await createConnection();

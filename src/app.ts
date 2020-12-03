@@ -2,7 +2,7 @@ import express from 'express';
 import session, { Store } from 'express-session';
 
 import { SESSION_OPTIONS } from './config';
-import { active, notFound, serverError } from './middleware';
+import { active,notFound, serverError } from './middleware';
 import userRouter from './routes/user';
 
 export const createApp = (store: Store) => {
@@ -16,12 +16,13 @@ export const createApp = (store: Store) => {
       store,
     })
   );
+  app.use(active);// TODO wywala aplikację
 
-  app.use((req, res, next) => {
+
+  app.use((req, _, next) => {
     console.log(req.session);
     next();
   });
-  // app.use(active);
 
   app.use('/api/v1/users', userRouter);
   app.use(serverError);

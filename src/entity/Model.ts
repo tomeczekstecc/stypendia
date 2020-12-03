@@ -12,8 +12,7 @@ import { v4 as uuid } from 'uuid';
 //Model is optional - just holds shared columns
 export default abstract class Model extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Index()
-  id: number;
+   id: number;
 
   @CreateDateColumn()
   createdAt: Date;

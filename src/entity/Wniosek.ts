@@ -1,16 +1,44 @@
 import { IsEmail, Min } from 'class-validator';
-import { Entity, Column, ManyToOne, BeforeInsert, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  BeforeInsert,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
+import WniHistory from './WniHistory';
 
 @Entity('wnioski')
-export class Wniosek extends Model {
+export class Wni extends Model {
+  constructor(wni: Partial<Wni>) {
+    super();
+    Object.assign(this, wni);
+  }
   //
   //I. dane osobowe
   //
   @Column({ comment: 'Wersja wniosku' })
   ver: number;
+
+  @Column({
+    type: 'enum',
+    enum: [
+      'rozp',
+      'zlozony',
+      'w_ocenie',
+      'w_poprawie',
+      'odrzucony',
+      'negatywny',
+      'pozytywny',
+      'porzucony',
+    ],
+    default: 'rozp',
+  })
+  status: string;
 
   @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
   isParent: boolean;
@@ -94,23 +122,23 @@ export class Wniosek extends Model {
   //
   // V.  PODSTAWOWE KRYTERIA OCENY
   //
-  @Column({type: "float"})
+  @Column('decimal', { precision: 5, scale: 2 })
   priMathAver: number;
 
   @Column()
   priLang: string;
-  @Column({type: "float"})
+  @Column('decimal', { precision: 5, scale: 2 })
   priLangAver: number;
 
   @Column()
   priOtherSubj: string;
- @Column({type: "float"})
+  @Column('decimal', { precision: 5, scale: 2 })
   priOtherSubjAver: number;
 
- @Column({type: "float"})
+  @Column('decimal', { precision: 5, scale: 2 })
   priTotalAver: number;
 
-  @Column({type: "float"})
+  @Column('decimal', { precision: 5, scale: 2 })
   allTotalAver: number;
 
   //
@@ -129,15 +157,20 @@ export class Wniosek extends Model {
   @Column()
   userUuid: string;
 
-  @ManyToOne(() => User, (user) => user.wnioski)
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  user: User;
+  @Column()
+  userId: number;
 
   @ManyToOne(() => User, (user) => user.wnioski)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   @JoinColumn({ name: 'userUuid', referencedColumnName: 'uuid' })
+  user: User;
+
+  @OneToMany(() => Wni, (wniosek) => wniosek.history)
+  history: WniHistory;
   @BeforeInsert()
   calculatePriAver() {
-    this.priTotalAver =
-      (this.priMathAver + this.priLangAver + this.priTotalAver) / 3;
+    this.priTotalAver = Math.round(
+      (this.priMathAver + this.priLangAver + this.priOtherSubjAver) / 3
+    );
   }
 }

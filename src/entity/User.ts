@@ -1,9 +1,16 @@
 import { IsEmail, Length } from 'class-validator';
-import { Entity, Column, OneToMany, BeforeInsert, Index, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  OneToMany,
+  BeforeInsert,
+  Index,
+  JoinColumn,
+} from 'typeorm';
 import { classToPlain, Exclude } from 'class-transformer';
 import bcrypt from 'bcryptjs';
 import Model from './Model';
-import { Wniosek} from './Wniosek';
+import { Wni } from './Wniosek';
 
 @Entity('users')
 export class User extends Model {
@@ -45,9 +52,8 @@ export class User extends Model {
   })
   role: string;
 
-  @OneToMany(() => Wniosek, (wniosek) => wniosek.user)
-  wnioski: Wniosek[];
-
+  @OneToMany(() => Wni, (wniosek) => wniosek.user)
+  wnioski: Wni[];
 
   @BeforeInsert()
   async hashPassword() {

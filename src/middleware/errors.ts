@@ -13,9 +13,10 @@ export const serverError = (
   if (!err.status) {
     console.error(err.stack);
   }
-  res
+ return res
     .status(err.status || 500)
     .json({ message: err.message || 'Internal Server Error' });
+    next()
 };
 
 export const notFound = (req: Request, res: Response, next: NextFunction) =>

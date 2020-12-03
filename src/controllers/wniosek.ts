@@ -1,18 +1,17 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
-import { Post } from '../entity/Wniosek';
+import { Wni } from '../entity/Wniosek';
 import { User } from '../entity/User';
 
+//
 //
 //add a post
 //
 
-export const addPost = async (req: Request, res: Response) => {
-  const { userUuid, title, body } = req.body;
-
+export const addWniosek = async (req: any, res: Response) => {
   try {
-    const user = await User.findOne({ uuid: userUuid });
+    const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
       return res.status(400).json({
@@ -22,16 +21,23 @@ export const addPost = async (req: Request, res: Response) => {
       });
     }
 
-    const post = await Post.create({ userUuid, title, body, user });
-    const errors = await validate(post);
+    const wni = Wni.create({
+      ...req.body,
+      userId: req.session.userId,
+      userUuid: user.uuid,
+      user,
+    });
+    const errors = await validate(wni);
     if (errors.length > 0) throw errors;
-    await post.save();
+
+    await wni.save();
+
     return res.status(201).json({
       stau: 'success',
-      msg: 'Post created',
-      msgDis: 'Utworzono wpis',
+      msg: 'Wniosek created',
+      msgDis: 'Utworzono wniosek',
       count: 1,
-      data: post,
+      data: wni,
     });
   } catch (err) {
     return res.status(500).json({
@@ -49,7 +55,7 @@ export const addPost = async (req: Request, res: Response) => {
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
     //find posts,  include users data
-    const posts = await Post.find({ relations: ['user'] });
+    const posts = await Wni.find({ relations: ['user'] });
 
     return res.status(201).json({
       stau: 'success',

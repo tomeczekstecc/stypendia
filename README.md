@@ -20,6 +20,25 @@ https://typeorm.io/#/
 
 ## snippets
 
+## connect mysql outside a dockerz
+```sh
+docker exec -it readit_db_1 mysql -u root -p
+```
+
+## drop schemas - clear db
+```sh
+npm run typeorm schema:drop
+```
+
+## generate migrations
+```sh
+npm run typeorm migration:generate -- --name create-users-table
+```
+
+## run migrations
+```sh
+npm run typeorm migration:run
+```
 sync data with mysql (only in development:)
 
 ```

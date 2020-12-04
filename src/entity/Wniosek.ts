@@ -167,6 +167,7 @@ export class Wni extends Model {
 
   @OneToMany(() => Wni, (wniosek) => wniosek.history)
   history: WniHistory;
+
   @BeforeInsert()
   calculatePriAver() {
     this.priTotalAver = Math.round(

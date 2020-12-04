@@ -23,13 +23,13 @@ export class WniHistory extends Model {
   })
   status: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   date_official: Date;
 
   @Column()
   userId: number;
 
-  @ManyToOne(() => Wni, (wniosek) => wniosek.history)
+  @ManyToOne(() => Wni, (wniosek) => wniosek.history,{nullable: false})
   @JoinColumn({ name: 'wniId', referencedColumnName: 'id' })
   wniosek: Wni;
 }

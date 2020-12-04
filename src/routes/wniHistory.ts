@@ -1,13 +1,13 @@
 import express from 'express';
 
-import { addWniosek,  getAllWni } from '../controllers/wniosek';
+import { addWniHistory,  getAllWniHistory } from '../controllers/wniHistory';
 import { auth } from '../middleware';
 
 const router = express.Router();
 
-router.route('/').post(auth, addWniosek);
+router.route('/').post(auth, addWniHistory);
 // router.route('/:uuid').get(getPost);
-router.route('/').get(getAllWni);
+router.route('/').get(getAllWniHistory);
 // router.route('/:uuid').delete(deletePost);
 // router.route('/:uuid').put(updatePost);
 

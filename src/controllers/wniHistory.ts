@@ -3,41 +3,44 @@ import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
 import { Wni } from '../entity/Wniosek';
 import { User } from '../entity/User';
+import { WniHistory } from '../entity/WniHistory';
 
 //
 //
 //add a wnioski
 //
 
-export const addWniosek = async (req: any, res: Response) => {
+export const addWniHistory = async (req: any, res: Response) => {
   try {
     const user = await User.findOne({ id: req.session.userId });
+    const wniosek = await Wni.findOne({ id:req.body.wniId});
 
-    if (!user) {
+    if (!user || !wniosek) {
       return res.status(400).json({
         status: 'fail',
-        msg: 'No such user',
-        msgDis: 'Nie znaleziono uzytkownika',
+        msg: 'No such user or wni',
+        msgDis: 'Nie znaleziono uzytkownika lub wniosku',
       });
     }
 
-    const wni = Wni.create({
+    const wniHistory = WniHistory.create({
       ...req.body,
+      wniId: wniosek.id,
       userId: req.session.userId,
-      userUuid: user.uuid,
-      user,
+      wniosek,
+      user
     });
-    const errors = await validate(wni);
+    const errors = await validate(wniHistory);
     if (errors.length > 0) throw errors;
 
-    await wni.save();
+    await wniHistory.save();
 
     return res.status(201).json({
       stau: 'success',
-      msg: 'Wniosek created',
-      msgDis: 'Utworzono wniosek',
+      msg: 'WniHistory created',
+      msgDis: 'Utworzono wpis w historii wniosku',
       count: 1,
-      data: wni,
+      data: wniHistory,
     });
   } catch (err) {
     return res.status(500).json({
@@ -52,17 +55,17 @@ export const addWniosek = async (req: any, res: Response) => {
 //
 //get all post
 //
-export const getAllWni = async (req: Request, res: Response) => {
+export const getAllWniHistory = async (req: Request, res: Response) => {
   try {
     //find posts,  include users data
-    const wnioski = await Wni.find({ relations: ['user'] });
+    const wnioski_history = await WniHistory.find({ relations: ['wni'] });
 
     return res.status(201).json({
       stau: 'success',
-      msg: 'Post fetched',
+      msg: 'History fetched',
       msgDis: 'Pobrano wszystkie wpisy',
-      count: wnioski.length,
-      data: wnioski,
+      count: wnioski_history.length,
+      data: wnioski_history,
     });
   } catch (err) {
     return res.status(500).json({

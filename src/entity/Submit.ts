@@ -10,13 +10,13 @@ import {
 
 import Model from './Model';
 import { User } from './User';
-import WniHistory from './WniHistory';
+import SubmitHistory from './SubmitHistory';
 
-@Entity('wnioski')
-export class Wni extends Model {
-  constructor(wni: Partial<Wni>) {
+@Entity('submits')
+export class Submit extends Model {
+  constructor(submit: Partial<Submit>) {
     super();
-    Object.assign(this, wni);
+    Object.assign(this, submit);
   }
   //
   //I. dane osobowe
@@ -26,19 +26,14 @@ export class Wni extends Model {
 
   @Column({
     type: 'enum',
-    enum: [
-      'rozp',
-      'zlozony',
-      'w_ocenie',
-      'w_poprawie',
-      'odrzucony',
-      'negatywny',
-      'pozytywny',
-      'porzucony',
-    ],
-    default: 'rozp',
+    comment: '1:obowiązujący, 0:archiwalny',
+    enum: [0, 1],
+    default: 1,
   })
-  status: string;
+  fresh: boolean;
+
+  @Column({default:1})
+  status: number;
 
   @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
   isParent: boolean;
@@ -160,13 +155,13 @@ export class Wni extends Model {
   @Column()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.wnioski)
+  @ManyToOne(() => User, (user) => user.submits)
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   @JoinColumn({ name: 'userUuid', referencedColumnName: 'uuid' })
   user: User;
 
-  @OneToMany(() => Wni, (wniosek) => wniosek.history)
-  history: WniHistory;
+  @OneToMany(() => Submit, (submit) => submit.history)
+  history: SubmitHistory;
 
   @BeforeInsert()
   calculatePriAver() {

@@ -4,8 +4,10 @@ import session, { Store } from 'express-session';
 import { SESSION_OPTIONS } from './config';
 import { active, notFound, serverError } from './middleware';
 import userRouter from './routes/user';
-import wnioskiRouter from './routes/wniosek';
-import wniHistoryRouter from './routes/wniHistory';
+import submitRouter from './routes/submit';
+import submitHistoryRouter from './routes/submitHistory';
+import emailRouter from './routes/verify';
+import resetRouter from './routes/reset';
 import morgan from 'morgan';
 
 
@@ -28,8 +30,10 @@ app.use(morgan('dev'));
   });
 
   app.use('/api/v1/users', userRouter);
-  app.use('/api/v1/wnioski', wnioskiRouter);
-  app.use('/api/v1/wni_history', wniHistoryRouter);
+  app.use('/api/v1/submits', submitRouter);
+  app.use('/api/v1/submit_history', submitHistoryRouter);
+  app.use('/api/v1/email', emailRouter);
+  app.use('/api/v1/password', resetRouter);
   app.use(serverError);
   app.use(notFound);
 

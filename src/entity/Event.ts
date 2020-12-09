@@ -5,9 +5,12 @@ export class Event extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'enum', enum: ['wni', 'user'], nullable: false },)
+  @Column({ type: 'enum', enum: ['submit', 'user'], nullable: false })
   model: string;
 
   @Column()
   description: string;
+
+  @Column({nullable:true, comment:"status tylko dla wnisków"})
+  status: number;
 }

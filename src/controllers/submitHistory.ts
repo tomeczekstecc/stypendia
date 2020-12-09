@@ -1,21 +1,21 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
-import { Wni } from '../entity/Wniosek';
+import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
-import { WniHistory } from '../entity/WniHistory';
+import { SubmitHistory } from '../entity/SubmitHistory';
 
 //
 //
 //add a wnioski
 //
 
-export const addWniHistory = async (req: any, res: Response) => {
+export const addSubmitHistory = async (req: any, res: Response) => {
   try {
     const user = await User.findOne({ id: req.session.userId });
-    const wniosek = await Wni.findOne({ id:req.body.wniId});
+    const submit = await Submit.findOne({ id: req.body.submitId });
 
-    if (!user || !wniosek) {
+    if (!user || !submit) {
       return res.status(400).json({
         status: 'fail',
         msg: 'No such user or wni',
@@ -23,24 +23,24 @@ export const addWniHistory = async (req: any, res: Response) => {
       });
     }
 
-    const wniHistory = WniHistory.create({
+    const submitHistory = SubmitHistory.create({
       ...req.body,
-      wniId: wniosek.id,
+      submitId: submit.id,
       userId: req.session.userId,
-      wniosek,
-      user
+      submit,
+      user,
     });
-    const errors = await validate(wniHistory);
+    const errors = await validate(submitHistory);
     if (errors.length > 0) throw errors;
 
-    await wniHistory.save();
+    await submitHistory.save();
 
     return res.status(201).json({
       stau: 'success',
-      msg: 'WniHistory created',
+      msg: 'SubmitHistory created',
       msgDis: 'Utworzono wpis w historii wniosku',
       count: 1,
-      data: wniHistory,
+      data: SubmitHistory,
     });
   } catch (err) {
     return res.status(500).json({
@@ -55,17 +55,17 @@ export const addWniHistory = async (req: any, res: Response) => {
 //
 //get all post
 //
-export const getAllWniHistory = async (req: Request, res: Response) => {
+export const getAllSubmitsHistory = async (req: Request, res: Response) => {
   try {
     //find posts,  include users data
-    const wnioski_history = await WniHistory.find({ relations: ['wni'] });
+    const submits_history = await SubmitHistory.find({ relations: ['submits'] });
 
     return res.status(201).json({
       stau: 'success',
       msg: 'History fetched',
       msgDis: 'Pobrano wszystkie wpisy',
-      count: wnioski_history.length,
-      data: wnioski_history,
+      count: submits_history.length,
+      data: submits_history,
     });
   } catch (err) {
     return res.status(500).json({

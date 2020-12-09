@@ -10,8 +10,7 @@ import { logIn, logOut } from '../middleware/auth';
 //
 export const addUserHistory = async (req, res: Response) => {
   const { login, email, role, password } = req.body;
-  const {uuid} = req.params
-
+  const { uuid } = req.params;
 
   try {
     const user = await User.find({ uuid });
@@ -33,8 +32,6 @@ export const addUserHistory = async (req, res: Response) => {
 
     await user.save();
 
-
-
     return res.status(201).json({
       status: 'success',
       msg: 'User created',
@@ -44,7 +41,7 @@ export const addUserHistory = async (req, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       status: 'fail',
-       msg: err.message,
+      msg: err.message,
       msgPL: msgDis500,
     });
   }
@@ -134,7 +131,7 @@ export const me = async (req: any, res: Response) => {
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     // get users and include their posts
-    const users = await User.find({ relations: ['posts'] });
+    const users = await User.find({ relations: ['submits'] });
     return res.status(200).json({
       status: 'success',
       msg: 'Successfully fetched all users',
@@ -159,7 +156,7 @@ export const getOneUser = async (req: Request, res: Response) => {
 
   try {
     // get user and include it's posts
-    const user = await User.findOne({ uuid }, { relations: ['posts'] });
+    const user = await User.findOne({ uuid }, { relations: ['submits'] });
 
     if (!user) {
       return res.status(400).json({

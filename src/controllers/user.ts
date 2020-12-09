@@ -9,13 +9,12 @@ import { logIn, logOut } from '../middleware/auth';
 //create a user
 //
 export const register = async (req, res: Response) => {
-  const { login, email, role, password } = req.body;
-
+  const { login, firstName, lastName, email, role, password } = req.body;
 
   try {
     const emailUser = await User.find({ email });
     const loginUser = await User.find({ login });
-    console.log(emailUser, loginUser)
+    console.log(emailUser, loginUser);
     let errors: any = {};
     if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
     if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
@@ -29,7 +28,14 @@ export const register = async (req, res: Response) => {
       });
     }
 
-    const user = await User.create({ login, email, role, password });
+    const user = await User.create({
+      login,
+      firstName,
+      lastName,
+      email,
+      role,
+      password,
+    });
     errors = await validate(user);
 
     await user.save();
@@ -45,7 +51,7 @@ export const register = async (req, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       status: 'fail',
-       msg: err.message,
+      msg: err.message,
       msgPL: msgDis500,
     });
   }
@@ -129,13 +135,17 @@ export const me = async (req: any, res: Response) => {
   }
 };
 
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
 //Get all users
 //
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     // get users and include their posts
-    const users = await User.find({ relations: ['posts'] });
+    const users = await User.find({ relations: ['submits'] });
     return res.status(200).json({
       status: 'success',
       msg: 'Successfully fetched all users',
@@ -160,7 +170,7 @@ export const getOneUser = async (req: Request, res: Response) => {
 
   try {
     // get user and include it's posts
-    const user = await User.findOne({ uuid }, { relations: ['posts'] });
+    const user = await User.findOne({ uuid }, { relations: ['submits'] });
 
     if (!user) {
       return res.status(400).json({

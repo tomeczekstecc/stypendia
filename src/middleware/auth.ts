@@ -1,7 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { SESSION_ABSOLUTE_TIMEOUT, SESSION_NAME } from '../config';
+import { User } from '../entity/User';
 
 export const isLoggedIn = (req: any) => !!req.session?.userId;
+
+export const markAsVerified = async (user: User) => {
+  user.verifiedAt = new Date();
+  await user.save();
+};
+
+export const resetPassword  = async(user: User, password: string)=>{
+  user.password = password,
+  await user.save()
+}
 
 export const logIn = (req: any, userId: any) => {
   req.session!.userId = userId;

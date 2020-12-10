@@ -11,6 +11,6 @@ export class Event extends BaseEntity {
   @Column()
   description: string;
 
-  @Column({nullable:true, comment:"status tylko dla wnisków"})
+  @Column({nullable:true, comment:"status tylko dla wniosków"})
   status: number;
 }

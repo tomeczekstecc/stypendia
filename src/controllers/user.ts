@@ -201,14 +201,13 @@ export const getOneUser = async (req: Request, res: Response) => {
 //
 export const updateUser = async (req: Request, res: Response) => {
   const { uuid } = req.params;
-  const { name, email, role } = req.body;
+  const { firstName, lastName } = req.body;
 
   try {
-    const user = await User.findOneOrFail({ uuid });
+    const user = await User.findOne({ uuid });
 
-    user.login = name || user.login;
-    user.email = email || user.email;
-    user.role = role || user.role;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
 
     await user.save();
 

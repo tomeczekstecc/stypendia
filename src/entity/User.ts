@@ -1,18 +1,13 @@
 import { IsEmail, Length } from 'class-validator';
-import {
-  Entity,
-  Column,
-  OneToMany,
-  BeforeInsert
-} from 'typeorm';
+import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { createHash, createHmac, timingSafeEqual } from 'crypto';
 import bcrypt from 'bcryptjs';
 
-import {EMAIL_VERIFICATION_TIMEOUT} from '../config/auth'
-import {APP_ORIGIN, APP_SECRET} from '../config/app'
+import { EMAIL_VERIFICATION_TIMEOUT } from '../config/auth';
+import { APP_ORIGIN, APP_SECRET } from '../config/app';
 import Model from './Model';
-import { Submit} from './Submit';
+import { Submit } from './Submit';
 import { UserHistory } from './UserHistory';
 
 @Entity('users')
@@ -46,6 +41,9 @@ export class User extends Model {
   })
   role: string;
 
+  @Column({ nullable: true })
+  verifiedAt: Date;
+
   @Column({
     type: 'enum',
     enum: [0, 1],
@@ -63,9 +61,6 @@ export class User extends Model {
     nullable: true,
   })
   isBlocked: boolean;
-
-  @Column({ nullable: true })
-  verifiedAt: Date;
 
   @Column({
     type: 'enum',
@@ -101,8 +96,7 @@ export class User extends Model {
   }
 
   static signVerificationUrl = function (url: string) {
-   return createHmac('sha256', APP_SECRET).update(url).digest('hex');
-
+    return createHmac('sha256', APP_SECRET).update(url).digest('hex');
   };
 
   verificationUrl = function () {
@@ -117,11 +111,11 @@ export class User extends Model {
 
   static hasValidVerificationUrl = (path: string, query: any) => {
     const url = `${APP_ORIGIN}${path}`;
-    console.log(url , 'url')
+    console.log(url, 'url');
     const original = url.slice(0, url.lastIndexOf('&'));
-    console.log(original,'original')
+    console.log(original, 'original');
     const signature: any = User.signVerificationUrl(original);
-    console.log(signature, 'signature')
+    console.log(signature, 'signature');
 
     return (
       timingSafeEqual(Buffer.from(signature), Buffer.from(query.signature)) &&

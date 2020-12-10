@@ -26,7 +26,7 @@ return res.status(200).json({
 })
 };
 
-export const guest = (req: Request, res: Response, next: NextFunction) => {
+export const guest = (req: any, res: Response, next: NextFunction) => {
   try {
     if (isLoggedIn(req)) {
       //TODO: logger
@@ -61,12 +61,15 @@ export const active = async (req: any, res: Response, next: NextFunction) => {
   }
   next();
 };
-export const auth = (req: Request, res: Response, next: NextFunction) => {
-  if (!isLoggedIn(req)) {
+export const auth = async (req: any, res: Response, next: NextFunction) => {
+
+const user = await User.findOne({id: req.session.userId})
+
+  if (!isLoggedIn(req) || !user.verifiedAt) {
     //TODO: logger
     return res.status(401).json({
       status: 'warning',
-      msgPL: 'Musisz być zalogowany by wykonać tę operację',
+      msgPL: 'Musisz być zalogowany i konto musi być potwierdzone by wykonać tę operację',
       msg: 'You must be logged in',
     });
   }

@@ -7,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
@@ -34,10 +35,6 @@ export class PasswordReset extends BaseEntity {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @ManyToMany(() => User)
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  user: User;
 
   @BeforeInsert()
   async hashToken() {

@@ -49,6 +49,55 @@ export const addSubmit = async (req: any, res: Response) => {
   }
 };
 
+
+//
+//
+//add a wnioski
+//
+
+export const editSubmit = async (req: any, res: Response) => {
+  const {id} =req.params
+   try {
+    const user = await User.findOne({ id: req.session.userId });
+
+    if (!user) {
+      return res.status(400).json({
+        status: 'fail',
+        msg: 'No such user',
+        msgDis: 'Nie znaleziono uzytkownika',
+      });
+    }
+
+
+const newSubmit = req.body
+const errors = await validate(newSubmit);
+if (errors.length > 0) throw errors;
+
+
+const submit = Submit.update(id, {
+  ...newSubmit
+
+});
+
+    return res.status(201).json({
+      stau: 'success',
+      msg: 'Wniosek updated',
+      msgDis: 'Zaktualizowano wniosek',
+      count: 1,
+      data: submit,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'fail',
+      err,
+      msg: err.message,
+      msgDis: msgDis500,
+    });
+  }
+};
+
+
+
 //
 //get all post
 //

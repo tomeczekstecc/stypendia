@@ -1,21 +1,29 @@
 import { Response } from 'express';
+import { isEmpty} from 'class-validator';
+
 import { resetPassword } from '../middleware/auth';
 import { User } from '../entity/User';
 import { PasswordReset } from '../entity/PasswordReset';
 import { sendMail } from '../mail';
 import { msgDis500 } from '../constantas';
 
+
 export const sendResetMail = async (req: any, res: Response) => {
   const { email } = req.body;
-
   try {
-    const user = await User.findOne({ email });
+  let errors: any ={};
+
+  if (isEmpty(email)) errors.email = 'Musisz podać poprawny email';
+
+  if (Object.keys(errors).length > 0) return res.json(errors);
+
+  const user = await User.findOne({ email });
 
     if (user) {
       const token = await PasswordReset.plaintextToken();
 
       const reset = await PasswordReset.create({ userId: user.id, token });
-      console.log(reset);
+
       await reset.save();
 
       await sendMail({
@@ -26,7 +34,7 @@ export const sendResetMail = async (req: any, res: Response) => {
     }
     return res.status(201).json({
       status: 'success',
-      msgPL: `Wysłano mail do odzyskania hasła na adres: ${email}`,
+      msgPL: `Wysłano mail z linkiem do odzyskania hasła na adres: ${email}`,
       msg: 'Reset mail send',
     });
   } catch (err) {

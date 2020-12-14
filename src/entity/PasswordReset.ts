@@ -1,3 +1,4 @@
+import { IsDate, IsString, Length } from 'class-validator';
 import { createHmac, randomBytes, timingSafeEqual } from 'crypto';
 import {
   BaseEntity,
@@ -5,9 +6,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
@@ -24,22 +22,30 @@ export class PasswordReset extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Length(1, 254, {
+    message: 'UserId musi zostać dostarczony dla moedelu PasswordReset',
+  })
+  @Column({ comment: 'ID powiązanego użytkownika' })
   userId: number;
 
-  @Column()
+  @Length(1, 254, {
+    message: 'Token musi zostać dostarczony dla moedelu PasswordReset',
+  })
+  @Column({ comment: 'Token dla żądania resetu hasła' })
   token: string;
 
-  @Column({ nullable: true })
+  @IsDate({
+    message: 'ExpiredAt musi zostać dostarczony dla moedelu PasswordReset w formacue daty',
+  })
+  @Column({ nullable: true, comment: 'Data ważności tokena' })
   expiredAt: Date;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ comment: 'Data utworzenia tokena' })
   createdAt: Date;
 
   @BeforeInsert()
   async hashToken() {
     const found = await PasswordReset.findOne({ userId: this.userId });
-
 
     if (!found || found.token !== this.token) {
       this.token = PasswordReset.hashedToken(this.token);
@@ -54,14 +60,13 @@ export class PasswordReset extends BaseEntity {
   };
 
   isValid = function (plaintextToken: string) {
-    const hash = PasswordReset.hashedToken(plaintextToken)
+    const hash = PasswordReset.hashedToken(plaintextToken);
 
-  return (
-    timingSafeEqual(Buffer.from(hash), Buffer.from(this.token)) &&
-    this.expiredAt > new Date()
-  );
-}
-
+    return (
+      timingSafeEqual(Buffer.from(hash), Buffer.from(this.token)) &&
+      this.expiredAt > new Date()
+    );
+  };
 
   static plaintextToken = () => {
     return randomBytes(PASSWORD_RESET_BYTES).toString('hex');

@@ -4,39 +4,38 @@ import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcryptjs';
 import { logIn, logOut } from '../middleware/auth';
+import { mapErrors } from '../utils/mapErrors';
+import { UNBLOCK_TIMEOUT } from '../config';
 
 //
 //create a user
 //
 export const register = async (req, res: Response) => {
-  const { login, firstName, lastName, email, role, password } = req.body;
+  const { login, firstName, lastName, email, password } = req.body;
 
   try {
     const emailUser = await User.find({ email });
     const loginUser = await User.find({ login });
-    console.log(emailUser, loginUser);
+
     let errors: any = {};
     if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
     if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
 
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json({
-        status: 'fail',
-        msgPL: 'Niepoprawne dane rejestracji',
-        msg: 'Incorrect credentials',
-        errors,
-      });
-    }
+    if (Object.keys(errors).length > 0) return res.json(errors);
 
     const user = await User.create({
       login,
       firstName,
       lastName,
       email,
-      role,
       password,
     });
+
     errors = await validate(user);
+
+    if (errors.length > 0) {
+      return res.status(400).json(mapErrors(errors));
+    }
 
     await user.save();
 
@@ -61,7 +60,7 @@ export const register = async (req, res: Response) => {
 //login
 //
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: any, res: Response) => {
   const { login, password } = req.body;
 
   try {
@@ -69,7 +68,11 @@ export const login = async (req: Request, res: Response) => {
     if (isEmpty(login)) errors.login = 'Login nie może być pusty';
     if (isEmpty(password)) errors.password = 'Hasło nie może być puste';
 
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0) return res.json(errors);
+
+    const user = await User.findOne({ login });
+
+    if (!user) {
       return res.status(400).json({
         status: 'fail',
         msgPL: 'Wprowadzono niepoprawne dane',
@@ -77,10 +80,38 @@ export const login = async (req: Request, res: Response) => {
         errors,
       });
     }
-    const user = await User.findOne({ login });
+
+    if (
+      user.isBlocked &&
+      UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()
+    ) {
+      console.log(UNBLOCK_TIMEOUT + +user.blockedAt, Date.now());
+      return res.status(403).json({
+        status: 'fail',
+        msgPL: 'Użytkownik jest zablokowany - spróbuj po za 20 minut',
+        msg: 'User is blocked',
+        errors,
+      });
+    } else if (
+      user.isBlocked &&
+      UNBLOCK_TIMEOUT + +user.blockedAt < Date.now()
+    ) {
+      user.failedLogins = 0;
+      user.isBlocked = 0;
+      user.blockedAt = null;
+      await user.save();
+    }
 
     const passwordMathes = await bcrypt.compare(password, user.password);
+
     if (!passwordMathes) {
+      user.failedLogins += 1;
+      if (user.failedLogins >= 3) {
+        user.isBlocked = 1;
+        user.blockedAt = new Date();
+      }
+
+      await user.save();
       return res.status(400).json({
         status: 'fail',
         msgPL: 'Wprowadzono niepoprawne dane',
@@ -90,6 +121,9 @@ export const login = async (req: Request, res: Response) => {
     }
 
     logIn(req, user.id);
+
+    user.failedLogins = 0;
+    await user.save()
 
     return res.status(200).json({
       status: 'success',

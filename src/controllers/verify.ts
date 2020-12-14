@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { isEmpty, isEmail, IsEmpty } from 'class-validator';
 
 import { sendMail } from '../mail';
 import { User } from '../entity/User';
@@ -15,7 +16,6 @@ export const verify = async (req: any, res: Response) => {
     user.verifiedAt ||
     !User.hasValidVerificationUrl(req.originalUrl, req.query)
   ) {
-
     return res.status(401).json({
       status: 'fail',
       msgPL: 'Niepoprawny token',
@@ -33,7 +33,15 @@ export const verify = async (req: any, res: Response) => {
 };
 
 export const resend = async (req: any, res: Response) => {
+  let errors: any = {};
+
   const { email } = req.body;
+
+
+  if (!isEmail(email))
+    errors.email = 'Pole email musi posiadać właściwy format email i nie może być puste';
+
+  if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
   const user = await User.findOne({ email });
 

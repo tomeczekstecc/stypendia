@@ -1,8 +1,9 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
-import { Submit} from '../entity/Submit';
+import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
+import { mapErrors } from '../utils/mapErrors';
 
 //
 //
@@ -27,8 +28,12 @@ export const addSubmit = async (req: any, res: Response) => {
       userUuid: user.uuid,
       user,
     });
+
     const errors = await validate(submit);
-    if (errors.length > 0) throw errors;
+
+    if (errors.length > 0) {
+      return res.status(400).json(mapErrors(errors));
+    }
 
     await submit.save();
 
@@ -49,15 +54,14 @@ export const addSubmit = async (req: any, res: Response) => {
   }
 };
 
-
 //
 //
 //add a wnioski
 //
 
 export const editSubmit = async (req: any, res: Response) => {
-  const {id} =req.params
-   try {
+  const { id } = req.params;
+  try {
     const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
@@ -67,18 +71,16 @@ export const editSubmit = async (req: any, res: Response) => {
         msgDis: 'Nie znaleziono uzytkownika',
       });
     }
+    const tempSubmit = await Submit.create({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
+    const errors = await validate(tempSubmit);
+    console.log(errors);
 
-
-const newSubmit = req.body
-const errors = await validate(newSubmit);
-if (errors.length > 0) throw errors;
-
-
-const submit = Submit.update(id, {
-  ...newSubmit
-
-});
-
+    if (errors.length > 0) {
+      return res.status(400).json(mapErrors(errors));
+    }
+    const submit = await Submit.update(id, {
+      ...req.body,
+    });
     return res.status(201).json({
       stau: 'success',
       msg: 'Wniosek updated',
@@ -95,8 +97,6 @@ const submit = Submit.update(id, {
     });
   }
 };
-
-
 
 //
 //get all post

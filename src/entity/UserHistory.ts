@@ -1,70 +1,64 @@
+import { IsDate, IsInt, Length } from 'class-validator';
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
 
+
 @Entity('user_history')
 export class UserHistory extends Model {
-  // @Index()
-
-  @Column()
+  @Column({ comment: 'ID użytkownika' })
   userId: string;
 
-  // @Index()
-  @Column()
+  @Column({ comment: 'UuidV4 użytkownika' })
   userUuuid: string;
 
-  @Column()
-  email: string;
-
-  @Column({
-    type: 'enum',
-    enum: ['wnioskodawca', 'admin', 'ocen', 'god'],
-    default: 'wnioskodawca',
+  @Column({ comment: 'Imię użytkownika' })
+  @Length(1, 254, {
+    message: 'Nazwa użytkownika nie może być dłuższa niż 254 znaków',
   })
-  role: string;
+  firstName: string;
+
+  @Column({ comment: 'Nazwisko użytkownika' })
+  @Length(1, 254, {
+    message: 'Nazwa użytkownika nie może być dłuższa niż 254 znaków',
+  })
+  lastName: string;
 
   @Column({
     type: 'enum',
     enum: [0, 1],
-    default: 0,
+    comment: 'Czy zabroniony',
+
   })
   isBanned: boolean;
 
   @Column({
     type: 'enum',
     enum: [0, 1],
-    default: 0,
+    comment: 'Czy zablokowany',
+
   })
   isBlocked: boolean;
 
   @Column({
     type: 'enum',
     enum: [0, 1],
-    default: 0,
-  })
-  isConfirmed: boolean;
+    comment: 'Czy usunięty',
 
-  @Column({
-    type: 'enum',
-    enum: [0, 1],
-    default: 0,
   })
   isRemoved: boolean;
 
-  @Column()
+  @IsInt({ message: 'Niepoprawny intiger' })
+  @Column({comment: 'Liczba nieudanych logowań' })
   failedLogins: number;
 
-  @Column()
-  blockTime: Date;
+  @IsDate({ message: 'Data blokady musi mieć format daty' })
+  @Column({ nullable: true, comment: 'Data blokady' })
+  blockedAt: Date;
 
-  @Column()
-  ckeckedRodoTime: Date;
-
-  @Column()
-  ckeckedRegulationsTime: Date;
-
-  @Column()
+  @Length(3, 500, { message: 'Opis zdarzenia musi mieć od 1 do 500 znaków ' })
+  @Column({ type:'text' ,comment: 'Opis zdarzenia' })
   description: string;
 
   @ManyToOne(() => User, (user) => user.user_history, { nullable: false })

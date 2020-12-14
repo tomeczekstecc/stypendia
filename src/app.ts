@@ -4,6 +4,7 @@ import session, { Store } from 'express-session';
 import { SESSION_OPTIONS } from './config';
 import { active, notFound, serverError } from './middleware';
 import userRouter from './routes/user';
+import userHistoryRouter from './routes/userHistory';
 import submitRouter from './routes/submit';
 import submitHistoryRouter from './routes/submitHistory';
 import emailRouter from './routes/verify';
@@ -30,6 +31,7 @@ app.use(morgan('dev'));
   });
 
   app.use('/api/v1/users', userRouter);
+  app.use('/api/v1/user_history', userHistoryRouter);
   app.use('/api/v1/submits', submitRouter);
   app.use('/api/v1/submit_history', submitHistoryRouter);
   app.use('/api/v1/email', emailRouter);

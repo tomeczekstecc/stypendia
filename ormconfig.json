@@ -6,7 +6,7 @@
    "password": "secret",
    "database": "stypendia_dev",
    "synchronize":true,
-   "logging": true,
+   "logging": false,
    "entities": [
       "src/entity/**/*.ts", "./entity/**/*.js"
    ],

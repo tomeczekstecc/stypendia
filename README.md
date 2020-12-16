@@ -72,3 +72,9 @@ npm run typeorm migrations:revert
 ```sql
 CREATE DATABASE typeorm_trutorial;
 ```
+
+
+## Logging
+https://bmshamsnahid.medium.com/log-activity-in-node-application-44f9bc2ac46b
+
+https://www.datadoghq.com/blog/node-logging-best-practices/

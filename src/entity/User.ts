@@ -1,9 +1,5 @@
 import {
-  IsBoolean,
-  IsDate,
   IsEmail,
-  IsEnum,
-  IsInt,
   Length,
   Matches,
 } from 'class-validator';

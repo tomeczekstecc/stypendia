@@ -4,7 +4,7 @@ const {
   MONGO_PASSWORD = 'secret',
   MONGO_HOST = 'localhost',
   MONGO_PORT = 27017,
-  MONGO_DATABASE= 'auth'
+  MONGO_DATABASE= 'logs'
 } = process.env;
 
 export const MONGO_URI =

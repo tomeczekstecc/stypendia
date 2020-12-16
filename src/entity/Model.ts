@@ -1,3 +1,4 @@
+import { classToPlain } from 'class-transformer';
 import {
   BaseEntity,
   BeforeInsert,
@@ -32,10 +33,12 @@ export default abstract class Model extends BaseEntity {
 
   //hide some columns
   toJSON() {
+    // return classToPlain(this);
     return {
       ...this,
       id: undefined,
       password: undefined,
+
     };
   }
 }

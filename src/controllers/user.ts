@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+
+import * as ip from 'ip'
+import browser from 'browser-detect'
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
@@ -6,6 +9,10 @@ import bcrypt from 'bcryptjs';
 import { logIn, logOut } from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
 import { UNBLOCK_TIMEOUT } from '../config';
+import { userLogger } from '../../logger';
+
+
+
 
 //
 //create a user
@@ -20,6 +27,7 @@ export const register = async (req, res: Response) => {
     let errors: any = {};
     if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
     if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
+     userLogger.error(`Unable to find user: ${errors.email}`);
 
     if (Object.keys(errors).length > 0) return res.json(errors);
 
@@ -38,6 +46,7 @@ export const register = async (req, res: Response) => {
     }
 
     await user.save();
+    userLogger.info('New user created',{userId:user.id,login:user.login, ip: ip.address(),browser: browser()})
 
     logIn(req, user.id);
 
@@ -62,6 +71,8 @@ export const register = async (req, res: Response) => {
 
 export const login = async (req: any, res: Response) => {
   const { login, password } = req.body;
+console.log(ip.address())
+console.log(browser())
 
   try {
     let errors: any = {};
@@ -81,10 +92,7 @@ export const login = async (req: any, res: Response) => {
       });
     }
 
-    if (
-      user.isBlocked &&
-      UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()
-    ) {
+    if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
       console.log(UNBLOCK_TIMEOUT + +user.blockedAt, Date.now());
       return res.status(403).json({
         status: 'fail',
@@ -123,7 +131,7 @@ export const login = async (req: any, res: Response) => {
     logIn(req, user.id);
 
     user.failedLogins = 0;
-    await user.save()
+    await user.save();
 
     return res.status(200).json({
       status: 'success',

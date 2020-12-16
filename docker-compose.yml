@@ -31,7 +31,7 @@ services:
     image: mongo
     container_name: db_logs
     ports:
-      - '27017:27017'
+      - 27019:27017
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -48,7 +48,7 @@ services:
     restart: always
     environment:
       ME_CONFIG_MONGODB_SERVER: db_logs
-      # ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_PORT: 27019
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: secret
       ME_CONFIG_BASICAUTH_USERNAME: admin

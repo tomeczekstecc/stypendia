@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  db_typeorm_stypendia:
+  db_main:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -15,13 +15,13 @@ services:
     volumes:
       - ./data:/data/db_typeorm
 
-  adminer_typeorm_stypendia:
+  sql:
     image: adminer
     restart: always
     ports:
       - 8083:8080
 
-  cache_stypendia:
+  cache:
     image: redis:alpine
     restart: always
     ports:
@@ -29,7 +29,6 @@ services:
 
   db_logs:
     image: mongo
-    container_name: db_logs
     ports:
       - 27019:27017
     restart: always
@@ -43,12 +42,12 @@ services:
       - ./data:/data/db
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
 
-  mongoex:
+  mongoweb:
     image: mongo-express
     restart: always
     environment:
       ME_CONFIG_MONGODB_SERVER: db_logs
-      ME_CONFIG_MONGODB_PORT: 27019
+      # ME_CONFIG_MONGODB_PORT: 27019
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: secret
       ME_CONFIG_BASICAUTH_USERNAME: admin

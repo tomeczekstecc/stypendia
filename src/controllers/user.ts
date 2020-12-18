@@ -69,6 +69,7 @@ export const register = async (req, res: Response) => {
       data: user,
     });
   } catch (err) {
+    // rollbar
     return res.status(500).json({
       status: 'fail',
       msg: err.message,
@@ -82,6 +83,11 @@ export const register = async (req, res: Response) => {
 //
 
 export const login = async (req: any, res: Response) => {
+  const CONTROLLER = 'login';
+  let ACTION = 'logowanie';
+  let INFO = 'Email lub hasło nie mogą być puste';
+  let STATUS = 'error';
+
   const { login, password } = req.body;
 
   try {
@@ -89,23 +95,32 @@ export const login = async (req: any, res: Response) => {
     if (isEmpty(login)) errors.login = 'Login nie może być pusty';
     if (isEmpty(password)) errors.password = 'Hasło nie może być puste';
 
-    if (Object.keys(errors).length > 0) return res.json(errors);
+    if (Object.keys(errors).length > 0) {
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      return res.json(errors);
+    }
 
     const user = await User.findOne({ login });
 
+    INFO = 'Wprowadzono niepoprawne dane';
+
     if (!user) {
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json({
-        status: 'fail',
-        msgPL: 'Wprowadzono niepoprawne dane',
+        status: STATUS,
+        msgPL: INFO,
         msg: 'Wrong credentials',
         errors,
       });
     }
 
+    INFO = 'Użytkownik nadal zablokowany';
+
     if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
-      console.log(UNBLOCK_TIMEOUT + +user.blockedAt, Date.now());
+      makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(403).json({
-        status: 'fail',
+        status: STATUS,
         msgPL: 'Użytkownik jest zablokowany - spróbuj po za 20 minut',
         msg: 'User is blocked',
         errors,
@@ -122,14 +137,21 @@ export const login = async (req: any, res: Response) => {
 
     const passwordMathes = await bcrypt.compare(password, user.password);
 
+    INFO = 'Wprowadzono niepoprawne dane - nieprawidłowe hasło';
+
     if (!passwordMathes) {
       user.failedLogins += 1;
       if (user.failedLogins >= 3) {
         user.isBlocked = 1;
         user.blockedAt = new Date();
+        INFO =
+          'Zablokowano użytkownika - wprowadzono niepoprawne dane - nieprawidłowe hasło';
       }
 
       await user.save();
+
+      makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(400).json({
         status: 'fail',
         msgPL: 'Wprowadzono niepoprawne dane',
@@ -141,6 +163,7 @@ export const login = async (req: any, res: Response) => {
     logIn(req, user.id);
 
     user.failedLogins = 0;
+
     await user.save();
 
     return res.status(200).json({

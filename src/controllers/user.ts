@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 
-import * as ip from 'ip'
-import browser from 'browser-detect'
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
@@ -9,16 +7,19 @@ import bcrypt from 'bcryptjs';
 import { logIn, logOut } from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
 import { UNBLOCK_TIMEOUT } from '../config';
-import { userLogger } from '../../logger';
 import { makeLog } from '../services/makeLog';
 
-
-
+const OBJECT = 'User';
 
 //
 //create a user
 //
 export const register = async (req, res: Response) => {
+  const CONTROLLER = 'register';
+  let ACTION = 'utworzenie';
+  let INFO = 'Email lub login już zajęte';
+  let STATUS = 'error';
+
   const { login, firstName, lastName, email, password } = req.body;
 
   try {
@@ -28,9 +29,12 @@ export const register = async (req, res: Response) => {
     let errors: any = {};
     if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
     if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
-     userLogger.error(`Unable to find user: ${errors.email}`);
 
-    if (Object.keys(errors).length > 0) return res.json(errors);
+    if (Object.keys(errors).length > 0) {
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
+      return res.json(errors);
+    }
 
     const user = await User.create({
       login,
@@ -42,13 +46,19 @@ export const register = async (req, res: Response) => {
 
     errors = await validate(user);
 
+    INFO = 'Wprowadzone dane nie spełniają warunków walidacji';
+
     if (errors.length > 0) {
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json(mapErrors(errors));
     }
 
     await user.save();
-    userLogger.info('New user created',{userId:user.id,login:user.login, ip: ip.address(),browser: browser()});
-    makeLog()
+
+    INFO = 'Utworzno użytkownika';
+    STATUS = 'success';
+
+    makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
     logIn(req, user.id);
 
@@ -73,8 +83,6 @@ export const register = async (req, res: Response) => {
 
 export const login = async (req: any, res: Response) => {
   const { login, password } = req.body;
-console.log(ip.address())
-console.log(browser())
 
   try {
     let errors: any = {};

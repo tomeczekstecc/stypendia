@@ -7,14 +7,18 @@ const LogSchema = mongoose.Schema(
   {
     userId: {
       type: String,
-      required: [true, 'LOG MODEL: pole userId jest wymagane'],
+      default: 'undefined',
     },
 
     login: {
       type: String,
-      required: [true, 'LOG MODEL: pole login jest wymagane'],
+      default: 'undefined',
     },
 
+    object: {
+      type: String,
+      defaul: '',
+    },
     objectId: {
       type: String,
       defaul: '',

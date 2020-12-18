@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { isEmpty, isEmail, IsEmpty } from 'class-validator';
 
-import { sendMail } from '../mail';
+import { sendMail } from '../services/mail';
 import { User } from '../entity/User';
 import { markAsVerified } from '../middleware/auth';
 import { msgDis500 } from '../constantas';

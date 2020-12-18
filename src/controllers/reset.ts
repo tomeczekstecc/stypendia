@@ -4,7 +4,7 @@ import { isEmpty} from 'class-validator';
 import { resetPassword } from '../middleware/auth';
 import { User } from '../entity/User';
 import { PasswordReset } from '../entity/PasswordReset';
-import { sendMail } from '../mail';
+import { sendMail } from '../services/mail';
 import { msgDis500 } from '../constantas';
 
 

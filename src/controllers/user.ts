@@ -10,6 +10,7 @@ import { logIn, logOut } from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
 import { UNBLOCK_TIMEOUT } from '../config';
 import { userLogger } from '../../logger';
+import { makeLog } from '../services/makeLog';
 
 
 
@@ -46,7 +47,8 @@ export const register = async (req, res: Response) => {
     }
 
     await user.save();
-    userLogger.info('New user created',{userId:user.id,login:user.login, ip: ip.address(),browser: browser()})
+    userLogger.info('New user created',{userId:user.id,login:user.login, ip: ip.address(),browser: browser()});
+    makeLog()
 
     logIn(req, user.id);
 

@@ -42,3 +42,5 @@ export const allTotalAvgEnums = [
   '5,85-6,00',
 ];
 export const rolesEnum = ['wnioskodawca', 'admin', 'ocen', 'god'];
+
+export const resultEnum= ['info' , 'error', 'warning', 'success']

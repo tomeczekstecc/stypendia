@@ -39,7 +39,7 @@ export class User extends Model {
 
   // @Index()
   @Column({ unique: true, comment: 'Email użytkownika' })
-  @IsEmail(undefined, { message: 'Email musi być w odpowiednim formacie' })
+  @IsEmail(undefined, { message: props =>`${props.value} nie jest poprawnym adresem email` })
   email: string;
 
   @Exclude()

@@ -78,3 +78,6 @@ CREATE DATABASE typeorm_trutorial;
 https://bmshamsnahid.medium.com/log-activity-in-node-application-44f9bc2ac46b
 
 https://www.datadoghq.com/blog/node-logging-best-practices/
+
+## mongo odm tut
+https://www.youtube.com/watch?v=qXZ6LcC_qb8&t=245s

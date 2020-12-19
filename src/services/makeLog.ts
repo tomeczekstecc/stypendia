@@ -2,6 +2,8 @@ import * as ip from 'ip';
 import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
 
+// TODO: userLogger
+
 export const makeLog = async (
   user,
   object = undefined,
@@ -18,14 +20,15 @@ export const makeLog = async (
       object,
       objectId,
       ip: ip.address(),
-      browser: browser().name + ' '+ browser().version,
+      browser: browser().name + ' ' + browser().version,
       action,
       controller,
       result: status,
-      info
+      info,
     });
     await log.save();
   } catch (err) {
+    // rollbar
     console.log(err);
   }
 };

@@ -17,10 +17,13 @@ export const markAsVerified = async (user: User) => {
   user.verifiedAt = new Date();
   await user.save();
 
-  makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+  makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 };
 
 export const resetPassword = async (user: User, password: string) => {
+  ACTION = 'reset';
+  INFO = 'pomyślnie zresetowano';
+ makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
   (user.password = password), await user.save();
 };
 
@@ -33,9 +36,7 @@ export const logIn = async (req: any, userId: any) => {
   req.session!.userId = userId;
   req.session!.createdAt = Date.now();
 
-  const user = await User.findOne(userId);
-console.log(user)
-  makeLog(user, OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS);
+  makeLog(userId, OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS);
 };
 export const logOut = async (req: any, res: any) => {
   ACTION = 'wylogowanie';
@@ -44,7 +45,15 @@ export const logOut = async (req: any, res: any) => {
 
   const user = await User.findOne(req.session.userId);
 
-  makeLog(user, OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS);
+  makeLog(
+    req.session.userId,
+    OBJECT,
+    req.session.userId,
+    ACTION,
+    CONTROLLER,
+    INFO,
+    STATUS
+  );
 
   req.session.destroy();
   res.clearCookie(SESSION_NAME);

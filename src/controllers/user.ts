@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import axios from 'axios';
 
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
@@ -6,7 +7,7 @@ import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcryptjs';
 import { logIn, logOut } from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
-import { UNBLOCK_TIMEOUT } from '../config';
+import { APP_ORIGIN, UNBLOCK_TIMEOUT } from '../config';
 import { makeLog } from '../services/makeLog';
 
 const OBJECT = 'User';
@@ -58,7 +59,18 @@ export const register = async (req, res: Response) => {
     INFO = 'Utworzno użytkownika';
     STATUS = 'success';
 
-    makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    };
+    const body = {
+      email: user.email,
+    };
+    console.log(`${APP_ORIGIN}/api/v1/email/resend`);
+    await axios.post(`${APP_ORIGIN}/api/v1/email/resend`, body, config);
 
     logIn(req, user.id);
 
@@ -85,9 +97,8 @@ export const register = async (req, res: Response) => {
 export const login = async (req: any, res: Response) => {
   const CONTROLLER = 'login';
   let ACTION = 'logowanie';
-  let INFO = 'Email lub hasło nie mogą być puste';
   let STATUS = 'error';
-
+  let INFO;
   const { login, password } = req.body;
 
   try {
@@ -96,15 +107,15 @@ export const login = async (req: any, res: Response) => {
     if (isEmpty(password)) errors.password = 'Hasło nie może być puste';
 
     if (Object.keys(errors).length > 0) {
+      INFO = 'Email lub hasło nie mogą być puste';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.json(errors);
     }
 
     const user = await User.findOne({ login });
 
-    INFO = 'Wprowadzono niepoprawne dane';
-
     if (!user) {
+      INFO = 'Wprowadzono niepoprawne dane';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json({
         status: STATUS,
@@ -114,10 +125,9 @@ export const login = async (req: any, res: Response) => {
       });
     }
 
-    INFO = 'Użytkownik nadal zablokowany';
-
     if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
-      makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+      INFO = 'Użytkownik nadal zablokowany';
+      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(403).json({
         status: STATUS,
@@ -137,20 +147,27 @@ export const login = async (req: any, res: Response) => {
 
     const passwordMathes = await bcrypt.compare(password, user.password);
 
-    INFO = 'Wprowadzono niepoprawne dane - nieprawidłowe hasło';
-
     if (!passwordMathes) {
+      console.log(user);
       user.failedLogins += 1;
+      INFO = `Liczba niepoprawnych logowań: ${user.failedLogins} - wprowadzono niepoprawne dane - nieprawidłowe hasło`;
+      await user.save();
+      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+
       if (user.failedLogins >= 3) {
         user.isBlocked = 1;
         user.blockedAt = new Date();
         INFO =
           'Zablokowano użytkownika - wprowadzono niepoprawne dane - nieprawidłowe hasło';
+        await user.save();
+        makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+        return res.status(400).json({
+          status: 'fail',
+          msgPL: 'Wprowadzono niepoprawne dane',
+          msg: 'Wrong credentials',
+          errors,
+        });
       }
-
-      await user.save();
-
-      makeLog(user, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(400).json({
         status: 'fail',
@@ -163,7 +180,6 @@ export const login = async (req: any, res: Response) => {
     logIn(req, user.id);
 
     user.failedLogins = 0;
-
     await user.save();
 
     return res.status(200).json({

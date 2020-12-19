@@ -3,7 +3,11 @@ import { Request, Response } from 'express';
 import { msgDis500 } from '../constantas';
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
+import { makeLog } from '../services/makeLog';
 import { mapErrors } from '../utils/mapErrors';
+
+const OBJECT = 'Submit';
+let ACTION, INFO, STATUS, CONTROLLER;
 
 //
 //
@@ -11,14 +15,20 @@ import { mapErrors } from '../utils/mapErrors';
 //
 
 export const addSubmit = async (req: any, res: Response) => {
+  CONTROLLER = 'addSubmit';
+  ACTION = 'dodawanie';
   try {
     const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
+      INFO = 'Nie znaleziono użytkownika';
+      STATUS = 'error';
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(400).json({
-        status: 'fail',
+        status: STATUS,
         msg: 'No such user',
-        msgDis: 'Nie znaleziono uzytkownika',
+        msgPL: INFO,
       });
     }
 
@@ -32,19 +42,27 @@ export const addSubmit = async (req: any, res: Response) => {
     const errors = await validate(submit);
 
     if (errors.length > 0) {
+      INFO = 'Wprowadzone dane nie spełniły warunków walidacji';
+      STATUS = 'error';
+      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(400).json(mapErrors(errors));
     }
 
     await submit.save();
 
+    INFO = 'Pomyślnie utworzono wniosek';
+    STATUS = 'success';
+    makeLog(user.id, OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS);
+
     return res.status(201).json({
       stau: 'success',
-      msg: 'Wniosek created',
-      msgDis: 'Utworzono wniosek',
-      count: 1,
+      msg: 'Submit created',
+      msgPL: INFO,
       data: submit,
     });
   } catch (err) {
+    // rollbar
     return res.status(500).json({
       status: 'fail',
       err,
@@ -56,44 +74,59 @@ export const addSubmit = async (req: any, res: Response) => {
 
 //
 //
-//add a wnioski
+//edit a wnioski
 //
 
 export const editSubmit = async (req: any, res: Response) => {
+  CONTROLLER = 'editSubmit';
+  ACTION = 'edytowanie';
+
   const { id } = req.params;
   try {
     const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
+      INFO = 'Nie znaleziono uzytkownika';
+      STATUS = 'error';
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(400).json({
-        status: 'fail',
+        status: STATUS,
         msg: 'No such user',
-        msgDis: 'Nie znaleziono uzytkownika',
+        msgPL: INFO,
       });
     }
     const tempSubmit = await Submit.create({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
     const errors = await validate(tempSubmit);
-    console.log(errors);
 
     if (errors.length > 0) {
+      INFO = 'Wprowadzone dane nie spełniły warunków walidacji';
+      STATUS = 'error';
+      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(400).json(mapErrors(errors));
     }
     const submit = await Submit.update(id, {
       ...req.body,
     });
+
+    INFO = 'Zaktualizowano wniosek';
+    STATUS = 'success';
+    makeLog(user.id, OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS);
+
     return res.status(201).json({
-      stau: 'success',
-      msg: 'Wniosek updated',
-      msgDis: 'Zaktualizowano wniosek',
-      count: 1,
+      staus: STATUS,
+      msg: INFO,
+      msgDis: 'Submit updated',
       data: submit,
     });
   } catch (err) {
+    // rollbar
     return res.status(500).json({
       status: 'fail',
       err,
       msg: err.message,
-      msgDis: msgDis500,
+      msgPL: msgDis500,
     });
   }
 };

@@ -1,11 +1,12 @@
 import * as ip from 'ip';
 import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
+import { User } from '../entity/User';
 
 // TODO: userLogger
 
 export const makeLog = async (
-  user,
+  userId,
   object = undefined,
   objectId = undefined,
   action,
@@ -13,6 +14,9 @@ export const makeLog = async (
   info,
   status
 ) => {
+
+const user = await User.findOne(userId)
+
   try {
     const log = await Log.create({
       userId: user?.id || undefined,

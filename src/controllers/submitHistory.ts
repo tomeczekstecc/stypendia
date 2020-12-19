@@ -5,12 +5,16 @@ import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
 import { SubmitHistory } from '../entity/SubmitHistory';
 
+
+const OBJECT = 'SubmitHistory';
+let ACTION, INFO, STATUS, CONTROLLER;
 //
 //
 //add a wnioski
 //
 
 export const addSubmitHistory = async (req: any, res: Response) => {
+  
   try {
     const user = await User.findOne({ id: req.session.userId });
     const submit = await Submit.findOne({ id: req.body.submitId });

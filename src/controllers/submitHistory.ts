@@ -4,7 +4,7 @@ import { msgDis500 } from '../constantas';
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
 import { SubmitHistory } from '../entity/SubmitHistory';
-
+import { makeLog } from '../services/makeLog';
 
 const OBJECT = 'SubmitHistory';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -14,16 +14,29 @@ let ACTION, INFO, STATUS, CONTROLLER;
 //
 
 export const addSubmitHistory = async (req: any, res: Response) => {
-  
+      CONTROLLER = 'addSubmitHistory';
+      ACTION = 'dodawanie';
   try {
     const user = await User.findOne({ id: req.session.userId });
     const submit = await Submit.findOne({ id: req.body.submitId });
 
     if (!user || !submit) {
+      INFO = 'Nie znaleziono uzytkownika lub wniosku';
+      STATUS = 'error';
+
+      makeLog(
+        req.body.submitId,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
       return res.status(400).json({
-        status: 'fail',
+        status: STATUS,
         msg: 'No such user or wni',
-        msgDis: 'Nie znaleziono uzytkownika lub wniosku',
+        msgPL: INFO,
       });
     }
 
@@ -35,7 +48,20 @@ export const addSubmitHistory = async (req: any, res: Response) => {
       user,
     });
     const errors = await validate(submitHistory);
-    if (errors.length > 0) throw errors;
+    if (errors.length > 0) {
+      INFO = 'Nie znaleziono uzytkownika lub wniosku';
+      STATUS = 'error';
+
+      makeLog(
+        req.body.submitId,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
+      throw errors};
 
     await submitHistory.save();
 
@@ -62,7 +88,9 @@ export const addSubmitHistory = async (req: any, res: Response) => {
 export const getAllSubmitsHistory = async (req: Request, res: Response) => {
   try {
     //find posts,  include users data
-    const submits_history = await SubmitHistory.find({ relations: ['submits'] });
+    const submits_history = await SubmitHistory.find({
+      relations: ['submits'],
+    });
 
     return res.status(201).json({
       stau: 'success',

@@ -1,9 +1,13 @@
+import Layout from './components/commonLayout/Layout'
+import 'semantic-ui-css/semantic.min.css';
+import Login from './pages/login';
+import Register from './pages/register';
 
 function App() {
   return (
-    <div>
-     <h1>Hello world!</h1>
-    </div>
+    <Layout>
+     <Register/>
+    </Layout>
   );
 }
 

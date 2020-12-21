@@ -21,9 +21,11 @@ export const sendResetMail = async (req: any, res: Response) => {
 
     if (isEmpty(email)) errors.email = 'Musisz podać poprawny email';
 
+    // ****************************** LOG *********************************//
     INFO = 'Podany email nie jest w poprawnym formacie';
     STATUS = 'error';
     makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+    // ********************************************************************//
 
     if (Object.keys(errors).length > 0) return res.json(errors);
 
@@ -41,10 +43,11 @@ export const sendResetMail = async (req: any, res: Response) => {
         subject: 'Reset your password',
         text: reset.url(token),
       });
-
+      // ****************************** LOG *********************************//
       INFO = `Wysłano mail z linkiem do odzyskania hasła na adres: ${email}`;
       STATUS = 'success';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      // ********************************************************************//
     }
     return res.status(201).json({
       status: STATUS,
@@ -78,6 +81,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       !reset.isValid(token) ||
       !(user = await User.findOne(reset.userId))
     ) {
+      // ****************************** LOG *********************************//
       INFO = 'użyto niepoprawny token';
       STATUS = 'error';
       makeLog(
@@ -89,7 +93,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
         INFO,
         STATUS
       );
-
+      // ********************************************************************//
       return res.status(403).json({
         status: 'fail',
         msgPL: 'Niepoprawny token',
@@ -101,7 +105,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       resetPassword(user, password),
       PasswordReset.delete({ userId: reset.userId }),
     ]);
-
+    // ****************************** LOG *********************************//
     INFO = 'zmieniono hasło';
     STATUS = 'success';
     makeLog(
@@ -113,7 +117,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       INFO,
       STATUS
     );
-
+    // ********************************************************************//
     return res.status(201).json({
       status: 'success',
       msgPL: `Zmieniono hasło`,

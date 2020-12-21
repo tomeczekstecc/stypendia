@@ -42,18 +42,20 @@ export const addSubmit = async (req: any, res: Response) => {
     const errors = await validate(submit);
 
     if (errors.length > 0) {
+      // ****************************** LOG *********************************//
       INFO = 'Wprowadzone dane nie spełniły warunków walidacji';
       STATUS = 'error';
       makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
-
+      // ********************************************************************//
       return res.status(400).json(mapErrors(errors));
     }
 
     await submit.save();
-
+    // ****************************** LOG *********************************//
     INFO = 'Pomyślnie utworzono wniosek';
     STATUS = 'success';
     makeLog(user.id, OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS);
+    // ********************************************************************//
 
     return res.status(201).json({
       stau: 'success',
@@ -86,9 +88,11 @@ export const editSubmit = async (req: any, res: Response) => {
     const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
+      // ****************************** LOG *********************************//
       INFO = 'Nie znaleziono uzytkownika';
       STATUS = 'error';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      // ********************************************************************//
 
       return res.status(400).json({
         status: STATUS,
@@ -100,19 +104,22 @@ export const editSubmit = async (req: any, res: Response) => {
     const errors = await validate(tempSubmit);
 
     if (errors.length > 0) {
+      // ****************************** LOG *********************************//
       INFO = 'Wprowadzone dane nie spełniły warunków walidacji';
       STATUS = 'error';
       makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      // ********************************************************************//
 
       return res.status(400).json(mapErrors(errors));
     }
     const submit = await Submit.update(id, {
       ...req.body,
     });
-
+    // ****************************** LOG *********************************//
     INFO = 'Zaktualizowano wniosek';
     STATUS = 'success';
     makeLog(user.id, OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS);
+    // ********************************************************************//
 
     return res.status(201).json({
       staus: STATUS,

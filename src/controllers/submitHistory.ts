@@ -20,7 +20,9 @@ export const addSubmitHistory = async (req: any, res: Response) => {
     const user = await User.findOne({ id: req.session.userId });
     const submit = await Submit.findOne({ id: req.body.submitId });
 
+
     if (!user || !submit) {
+    // ****************************** LOG *********************************//
       INFO = 'Nie znaleziono uzytkownika lub wniosku';
       STATUS = 'error';
 
@@ -33,6 +35,8 @@ export const addSubmitHistory = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
+      // ********************************************************************//
+
       return res.status(400).json({
         status: STATUS,
         msg: 'No such user or wni',
@@ -49,6 +53,7 @@ export const addSubmitHistory = async (req: any, res: Response) => {
     });
     const errors = await validate(submitHistory);
     if (errors.length > 0) {
+      // ****************************** LOG *********************************//
       INFO = 'Nie znaleziono uzytkownika lub wniosku';
       STATUS = 'error';
 
@@ -61,7 +66,9 @@ export const addSubmitHistory = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
-      throw errors};
+      // ********************************************************************//
+      throw errors;
+    }
 
     await submitHistory.save();
 

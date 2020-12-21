@@ -26,7 +26,7 @@ export const menuItems = [
   },
   {
     id: 4,
-    icon: 'user circle',
+    icon: 'id card',
     name: 'me',
     title: 'Twoje dane',
     url: '/me',

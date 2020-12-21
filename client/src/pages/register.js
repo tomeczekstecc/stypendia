@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button,
+  Container,
   Divider,
   Form,
   Grid,
@@ -12,54 +13,57 @@ const Register = () => {
   return (
     <Segment placeholder style={styles.main} size='large'>
       <Grid columns={2} relaxed='very' stackable>
-        <Grid.Column columns='8'>
-          <Header>Utwórz nowego użytkownika</Header>
-          <Form>
-            <Form.Input
-              icon='user'
-              iconPosition='left'
-              label='Nazwa uzytkownika'
-              placeholder='Podaj nazwę użytkownika'
-            />
-            <Form.Input
-              icon='user'
-              iconPosition='left'
-              label='Imię'
-              placeholder='Podaj swoje imię'
-            />
-            <Form.Input
-              icon='user'
-              iconPosition='left'
-              label='Nazwisko'
-              placeholder='Podaj swoje nazwisko'
-            />
-            <Form.Input
-              icon='mail'
-              iconPosition='left'
-              label='Email'
-              placeholder='Podaj swój email'
-            />
-            <Form.Input
-              icon='lock'
-              iconPosition='left'
-              label='Hasło'
-              type='password'
-              placeholder='Powtórz hasło'
-            />
-            <Form.Input
-              icon='lock'
-              iconPosition='left'
-              label='Powtórz hasło'
-              placeholder='Powtórz hasło'
-              type='password'
-            />
+        <Grid.Column style={styles.column}>
+          <Container>
+            <Header>Utwórz nowego użytkownika</Header>
+            <Form>
+              <Form.Input
+                style={styles.input}
+                icon='user'
+                iconPosition='left'
+                label='Nazwa uzytkownika'
+                placeholder='Podaj nazwę użytkownika'
+              />
+              <Form.Input
+                icon='user'
+                iconPosition='left'
+                label='Imię'
+                placeholder='Podaj swoje imię'
+              />
+              <Form.Input
+                icon='user'
+                iconPosition='left'
+                label='Nazwisko'
+                placeholder='Podaj swoje nazwisko'
+              />
+              <Form.Input
+                icon='mail'
+                iconPosition='left'
+                label='Email'
+                placeholder='Podaj swój email'
+              />
+              <Form.Input
+                icon='lock'
+                iconPosition='left'
+                label='Hasło'
+                type='password'
+                placeholder='Powtórz hasło'
+              />
+              <Form.Input
+                icon='lock'
+                iconPosition='left'
+                label='Powtórz hasło'
+                placeholder='Powtórz hasło'
+                type='password'
+              />
 
-            <Button content='Zarejestruj się' primary size='large' />
-          </Form>
+              <Button content='Zarejestruj się' primary size='large' />
+            </Form>
+          </Container>
         </Grid.Column>
 
-        <Grid.Column columns='4'>
-          <Button content='Zarejestruj się' icon='signup' size='big' />
+        <Grid.Column verticalAlign='middle'>
+          <Button content='Zaloguj się' icon='user' size='big' />
         </Grid.Column>
       </Grid>
 
@@ -70,9 +74,13 @@ const Register = () => {
 
 const styles = {
   main: {
-    width: '80%',
+    width: '90%',
     marginTop: '50px',
   },
+  column:{
+
+  },
+
 };
 
 export default Register;

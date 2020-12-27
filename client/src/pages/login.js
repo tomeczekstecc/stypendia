@@ -19,7 +19,6 @@ const Login = ({ history }) => {
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
-  isLoggedIn && history.push('/');
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
@@ -27,7 +26,8 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     checkIsAuthenticated();
-  }, []);
+    isLoggedIn && history.push('/');
+  }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
     e.preventDefault();

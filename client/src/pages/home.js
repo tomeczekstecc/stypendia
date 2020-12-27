@@ -5,10 +5,10 @@ import Title from '../components/Title';
 const Home = ({ history }) => {
   const authContext = useContext(AuthContext);
   const { checkIsAuthenticated, isLoggedIn } = authContext;
-  !isLoggedIn && history.push('/login');
   useEffect(() => {
     checkIsAuthenticated();
-  }, []);
+    !isLoggedIn && history.push('/login');
+  }, [isLoggedIn]);
 
   return <Title content='Strona statowa' />;
 };

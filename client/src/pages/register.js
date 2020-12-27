@@ -15,10 +15,11 @@ import {
 import Rodo from '../components/Rodo';
 import Title from '../components/Title';
 import { registerInputs } from '../components/inputs';
-import { AlertContext } from '../context/alert/alertContext';
+import AlertContext from '../context/alert/alertContext';
 
 const Register = (props) => {
-  const { state, dispatch } = useContext(AlertContext);
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
@@ -48,29 +49,13 @@ const Register = (props) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           setIsLoading(false);
           setTimeout(() => props.history.push('/login'), 1500);
-          dispatch({
-            type: 'ADD_NOTIFICATION',
-            payload: {
-              id: uuid4(),
-              type: data.data.resStatus,
-              title: data.data.alertTitle,
-              message: data.data.msgPL,
-            },
-          });
+          addAlert(data.data);
         }
       })
       .catch((err) => {
         setIsLoading(false);
         setErrors(err.response.data);
-        dispatch({
-          type: 'ADD_NOTIFICATION',
-          payload: {
-            id: uuid4(),
-            type:err.response.data.resStatus,
-            title:err.response.data.alertTitle,
-            message:err.response.data.msgPL,
-          },
-        });
+        addAlert(err.response.data);
       });
   };
 

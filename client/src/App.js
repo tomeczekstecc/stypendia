@@ -5,7 +5,7 @@ import Register from './pages/register';
 import Home from './pages/home';
 import Login from './pages/login';
 import AuthState from './context/auth/AuthState';
-import { AlertContextProvider } from './context/alert/alertContext';
+import AlertState from './context/alert/AlertState';
 import axios from 'axios';
 import Alert from './components/alert/Alert';
 import Verify from './pages/verify';
@@ -16,7 +16,7 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <Router>
-      <AlertContextProvider>
+      <AlertState>
         <AuthState>
           <Layout>
             <Switch>
@@ -28,7 +28,7 @@ function App() {
           </Layout>
         </AuthState>
       <Alert position={'bottom-right'} autoDeleteInterval={7000} />
-      </AlertContextProvider>
+      </AlertState>
     </Router>
   );
 }

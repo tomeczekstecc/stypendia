@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { AlertContext } from '../context/alert/alertContext';
+import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 import { v4 as uuid4 } from 'uuid';
 
 const Verify = ({ location: { search }, history }) => {
-  const { dispatch } = useContext(AlertContext);
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
 
   const authContext = useContext(AuthContext);
   const { checkIsAuthenticated, isLoggedIn } = authContext;
@@ -20,29 +21,13 @@ const Verify = ({ location: { search }, history }) => {
       .post(`/api/v1/email/verify${query}`)
       .then((data) => {
         console.log(data);
-        dispatch({
-          type: 'ADD_NOTIFICATION',
-          payload: {
-            id: uuid4(),
-            type: data.data.resStatus,
-            title: data.data.alertTitle,
-            message: data.data.msgPL,
-          },
-        });
+        addAlert(data.data);
       })
       .catch((err) => {
         console.log(err);
-        dispatch({
-          type: 'ADD_NOTIFICATION',
-          payload: {
-            id: uuid4(),
-            type: err.response.data.resStatus,
-            title: err.response.data.alertTitle,
-            message: err.response.data.msgPL,
-          },
-        });
+        addAlert(err.response.data);
       });
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div>

@@ -10,12 +10,13 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import Title from '../components/Title';
+import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 import { loginInputs } from '../components/inputs';
-import { AlertContext } from '../context/alert/alertContext';
 
 const Login = ({ history }) => {
-  const { state, dispatch } = useContext(AlertContext);
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
@@ -40,15 +41,7 @@ const Login = ({ history }) => {
       .post(`/api/v1/users/login`, body, headers)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
-          dispatch({
-            type: 'ADD_NOTIFICATION',
-            payload: {
-              id: uuid4(),
-              type: data.data.resStatus,
-              title: data.data.alertTitle,
-              message: data.data.msgPL,
-            },
-          });
+          addAlert(data.data);
           setUser(data.data.user);
           await setIsLoading(false);
           history.push('/');
@@ -58,15 +51,7 @@ const Login = ({ history }) => {
         console.log(err.response.data);
         if (err.response.data.alertTitle) {
           setIsLoading(false);
-          dispatch({
-            type: 'ADD_NOTIFICATION',
-            payload: {
-              id: uuid4(),
-              type: err.response.data.resStatus,
-              title: err.response.data.alertTitle,
-              message: err.response.data.msgPL,
-            },
-          });
+          addAlert(err.response.data);
         }
 
         setErrors(err.response.data);

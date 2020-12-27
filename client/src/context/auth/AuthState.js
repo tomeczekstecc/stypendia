@@ -20,7 +20,6 @@ const AuthState = (props) => {
         },
       })
     ).json();
-    console.log(result);
     result.resStatus === 'success' ? setIsLoggedIn(true) : setIsLoggedIn(false);
     setUser(result.user);
   };

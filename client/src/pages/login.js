@@ -49,7 +49,7 @@ const Login = ({ history }) => {
         }
       })
       .catch((err) => {
-        console.log(err.response.data);
+
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);

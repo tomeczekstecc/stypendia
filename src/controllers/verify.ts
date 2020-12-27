@@ -24,20 +24,10 @@ export const verify = async (req: any, res: Response) => {
     }
 
 
-
-  if (user.verifiedAt) {
-    // makeLog
-    return res.status(401).json({
-      resStatus: 'info',
-      msgPL: 'Użytkownik był już potwierdzony',
-      msg: 'User already confirmed',
-      alertTitle: 'Informacja',
-    });
-  }
-
     if (!User.hasValidVerificationUrl(req.originalUrl, req.query)) {
+      console.log('bład sygnatury')
       // makeLog
-      return res.status(401).json({
+      return res.status(400).json({
         resStatus: 'warning',
         msgPL:
           'Nie możemy już potwierdzić konta - ponownie wyślij emaila weryfikującego konto',
@@ -45,6 +35,17 @@ export const verify = async (req: any, res: Response) => {
         alertTitle: 'Ostrzeżenie',
       });
     }
+
+  if (user.verifiedAt) {
+    // makeLog
+    return res.status(400).json({
+      resStatus: 'info',
+      msgPL: 'Użytkownik był już potwierdzony',
+      msg: 'User already confirmed',
+      alertTitle: 'Informacja',
+    });
+  }
+
 
     await markAsVerified(user);
 
@@ -72,13 +73,27 @@ export const resend = async (req: any, res: Response) => {
 
   if (!isEmail(email))
     errors.email =
-      'Pole email musi posiadać właściwy format email i nie może być pusty';
+      'Pole email musi posiadać właściwy format email i nie może być puste';
 
   if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
   const user = await User.findOne({ email });
 
-  if (user.verifiedAt) {
+
+
+
+
+
+  if (!user ) {
+    // makeLog
+    return res.status(401).json({
+      resStatus: 'error',
+      msgPL: 'Nie udało się wysłać linka',
+      msg: 'Couldnt send',
+      alertTitle: 'Błąd',
+    });
+  }
+  if (user && user.verifiedAt) {
     // makeLog
     return res.status(401).json({
       resStatus: 'info',
@@ -102,7 +117,7 @@ export const resend = async (req: any, res: Response) => {
       // makelog
       return res.status(200).json({
         resStatus: 'info',
-        msgPL: `Na adres ${email} wysłaliśmy link do potwierdzenia konta. Sprawdź pocztę i zweryfikuj konto.`,
+        msgPL: `Na adres ${email} wysłaliśmy link do potwierdzenia konta. Link jest ważny 60 minut`,
         msg: 'Mail send',
         alertTitle: 'Email wysłany!!!',
       });

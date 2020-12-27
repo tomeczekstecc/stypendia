@@ -10,7 +10,7 @@ const AlertState = (props) => {
   const [state, dispatch] = useReducer(alertReducer, initialState);
 
   const addAlert = (data) => {
-    console.log('addAlert-STATE');
+
     const id = uuid4();
     dispatch({
       type: ADD_NOTIFICATION,

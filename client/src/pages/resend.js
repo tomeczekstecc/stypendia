@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   Button,
   Container,
-
   Form,
   Grid,
   Label,
@@ -14,7 +13,6 @@ import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 
-
 const Resend = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -22,7 +20,7 @@ const Resend = ({ history }) => {
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
 
-  const [body, setBody] = useState({});
+  const [email, setEmail] = useState({});
   const [errors, setErrors] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +37,7 @@ const Resend = ({ history }) => {
     };
 
     axios
-      .post(`/api/v1/users/login`, body, headers)
+      .post(`/api/v1/email/resend`, { email }, headers)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -60,11 +58,6 @@ const Resend = ({ history }) => {
       });
   };
 
-  const handleOnChange = (e) => {
-    e.preventDefault();
-    setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
-  };
-
   return (
     <Container>
       <Title content='Potwierdzanie konta' />
@@ -74,15 +67,18 @@ const Resend = ({ history }) => {
             Ponowne wysłanie linka do potwierdzenia konta
           </Message.Header>
           <p>
-            Strona służy do ponownego wysłania linka potwierdzającego konto, jeżeli konto już założyłaś/eś, ale nie skorzystałaś/eś z niego w odpowiednim czasie.
-            Link zostanie przesłany na podany adres email i będzie ważny przez 'XXX' minut. Jeżeli nie otrzymasz linka sprawdź folder  <strong> spam</strong> w Twojej poczcie.
+            Strona służy do ponownego wysłania linka potwierdzającego konto,
+            jeżeli konto już założyłaś/eś, ale nie skorzystałaś/eś z niego w
+            odpowiednim czasie. Link zostanie przesłany na podany adres email i
+            będzie ważny przez <strong>60 minut</strong> . Jeżeli nie znajdziesz linka sprawdź
+            folder <strong> spam</strong> w Twojej poczcie.
           </p>
         </Message>
         <Grid columns={1} relaxed='very' stackable>
           <Grid.Column>
             <Form>
               <Form.Input
-                onChange={(e) => handleOnChange(e)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 style={styles.input}
                 icon='mail'
@@ -93,7 +89,7 @@ const Resend = ({ history }) => {
                 name='email'
               />
 
-              {errors && (
+              {errors && errors.email && (
                 <Label basic color='red' pointing='above' style={styles.small}>
                   {errors.email}
                 </Label>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../context/auth/authContext';
-import { v4 as uuid4 } from 'uuid';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   Button,
@@ -146,6 +146,8 @@ const Register = (props) => {
                   }
                 />
               </Form>
+<Link to='/login'>
+
               <div style={styles.buttonWrapper}>
                 <div style={styles.span}>Masz już konto?</div>
                 <Button
@@ -153,7 +155,7 @@ const Register = (props) => {
                   icon='user'
                   size='mini'
                 />
-              </div>
+              </div></Link>
             </Container>
           </Grid.Column>
         </Grid>

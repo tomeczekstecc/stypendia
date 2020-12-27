@@ -1,4 +1,4 @@
-import React, { useContext, u, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AuthContext from '../context/auth/authContext';
 import Title from '../components/Title';
 

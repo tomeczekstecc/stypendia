@@ -10,6 +10,7 @@ import {
   Form,
   Grid,
   Header,
+  Label,
   Segment,
 } from 'semantic-ui-react';
 import Rodo from '../components/Rodo';
@@ -119,9 +120,17 @@ const Register = (props) => {
                         type={input.type}
                         name={input.name}
                       />
-                      <div key={input.id} style={styles.small}>
-                        {errors && errors[input.name]}
-                      </div>
+                      {errors && errors[input.name] && (
+                        <Label
+                          basic
+                          color='red'
+                          pointing='above'
+                          key={input.id}
+                          style={styles.small}
+                        >
+                          {errors[input.name]}
+                        </Label>
+                      )}
                     </div>
                   );
                 })}
@@ -136,11 +145,15 @@ const Register = (props) => {
                     !isRegulationsChecked || !isRodoChecked ? true : false
                   }
                 />
-                <div style={styles.buttonWrapper}>
-                  <span>Masz już konto?</span>
-                  <Button content='Zaloguj się' icon='user' size='mini' />
-                </div>
               </Form>
+              <div style={styles.buttonWrapper}>
+                <div style={styles.span}>Masz już konto?</div>
+                <Button
+                   content='Zaloguj się'
+                  icon='user'
+                  size='mini'
+                />
+              </div>
             </Container>
           </Grid.Column>
         </Grid>
@@ -157,9 +170,12 @@ const styles = {
     width: '95%',
     marginBottom: '5rem',
   },
-  column: {},
+
   buttonWrapper: {
-    marginTop: '10px',
+    marginTop: '20px',
+  },
+  span: {
+     fontSize: '1rem',
   },
   ol: {
     fontSize: '.85rem',
@@ -171,17 +187,16 @@ const styles = {
     marginTop: '2rem',
     color: '#666',
   },
+
   input: {
-    // color: errors ? 'red' :'#666',
     width: '290px',
     marginLeft: '-35px',
+    marginBottom: '20px',
   },
   small: {
-    marginBottom: '30px',
-    fontSize: '.85rem',
+    fontSize: '.9rem',
     textAlign: 'center',
-
-    marginTop: '-.9rem',
+    transform: 'translateY(-35px)',
     color: 'red',
   },
 };

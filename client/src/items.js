@@ -60,7 +60,7 @@ export const rightMenuItems = [
     isLoggedInDisplay: false,
   },
   {
-    id:uuidv4(),
+    id: uuidv4(),
     icon: 'id card',
     name: 'me',
     title: 'Twoje dane',
@@ -90,5 +90,36 @@ export const rightMenuItems = [
     title: 'Wyloguj się',
     url: '/logout',
     isLoggedInDisplay: true,
+  },
+];
+
+export const verItems = [
+  {
+    id: uuidv4(),
+    icon: 'user',
+    to: '/login',
+    button: 'Logowanie',
+    name: 'Przejdź do logowania',
+  },
+  {
+    id: uuidv4(),
+    icon: 'settings',
+    to: '/settings',
+    button: 'Ustawienia',
+    name: 'Przejdź do ustawień',
+  },
+  {
+    id: uuidv4(),
+    icon: 'phone volume',
+    to: '/contact',
+    button: 'Kontakt',
+    name: 'Skontaktuj się z nami',
+  },
+  {
+    id: uuidv4(),
+    icon: 'help circle',
+    to: '/register',
+    button: 'Pomoc',
+    name: 'Przeszukaj pomoc',
   },
 ];

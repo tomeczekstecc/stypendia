@@ -1,21 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   Button,
   Container,
-  Divider,
+
   Form,
   Grid,
   Label,
+  Message,
   Segment,
 } from 'semantic-ui-react';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
-import { loginInputs } from '../components/inputs';
 
-const Login = ({ history }) => {
+
+const Resend = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -67,67 +67,53 @@ const Login = ({ history }) => {
 
   return (
     <Container>
-      <Title content='Logowanie' />
+      <Title content='Potwierdzanie konta' />
       <Segment placeholder style={styles.main} size='large'>
-        <Grid columns={2} relaxed='very' stackable>
+        <Message style={styles.msg} info size='small' floating>
+          <Message.Header>
+            Ponowne wysłanie linka do potwierdzenia konta
+          </Message.Header>
+          <p>
+            Strona służy do ponownego wysłania linka potwierdzającego konto, jeżeli konto już założyłaś/eś, ale nie skorzystałaś/eś z niego w odpowiednim czasie.
+            Link zostanie przesłany na podany adres email i będzie ważny przez 'XXX' minut. Jeżeli nie otrzymasz linka sprawdź folder  <strong> spam</strong> w Twojej poczcie.
+          </p>
+        </Message>
+        <Grid columns={1} relaxed='very' stackable>
           <Grid.Column>
             <Form>
-              {loginInputs.map((input) => {
-                return (
-                  <div key={input.id}>
-                    <Form.Input
-                      onChange={(e) => handleOnChange(e)}
-                      required
-                      style={styles.input}
-                      icon={input.icon}
-                      iconPosition='left'
-                      label={input.label}
-                      placeholder={input.placeholder}
-                      type={input.type}
-                      name={input.name}
-                    />
+              <Form.Input
+                onChange={(e) => handleOnChange(e)}
+                required
+                style={styles.input}
+                icon='mail'
+                iconPosition='left'
+                label='Email'
+                placeholder='Podaj email'
+                type='email'
+                name='email'
+              />
 
-                    {errors && errors[input.name] && (
-                      <Label
-                        basic
-                        color='red'
-                        pointing='above'
-                        key={input.id}
-                        style={styles.small}
-                      >
-                        {errors[input.name]}
-                      </Label>
-                    )}
-                  </div>
-                );
-              })}
-              <span>{}</span>
+              {errors && (
+                <Label basic color='red' pointing='above' style={styles.small}>
+                  {errors.email}
+                </Label>
+              )}
+
               <Button
                 loading={isLoading}
                 type='submit'
-                content='Zaloguj się'
+                content='Wyślij link'
                 primary
                 size='large'
                 onClick={handleOnClick}
               />
             </Form>
-
-
-          </Grid.Column>
-
-          <Grid.Column verticalAlign='middle'>
-            <Link to='register'>
-              <Button content='Zarejestruj się' icon='user plus' size='big' />
-            </Link>
           </Grid.Column>
         </Grid>
-
-        <Divider vertical>lub</Divider>
       </Segment>
     </Container>
   );
 };
-
 const styles = {
   main: {
     marginTop: '7rem',
@@ -159,6 +145,10 @@ const styles = {
     transform: 'translateY(-35px)',
     color: 'red',
   },
+  msg: {
+    textAlign: 'left',
+    marginBottom: '30px',
+  },
 };
 
-export default Login;
+export default Resend;

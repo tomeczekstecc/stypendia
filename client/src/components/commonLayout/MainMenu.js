@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider, Menu } from 'semantic-ui-react';
-import { leftMenuItems, rightMenuItems } from './items';
+import { leftMenuItems, rightMenuItems } from '../../items';
 import AuthContext from '../../context/auth/authContext';
 
 const MainMenu = () => {

@@ -77,7 +77,7 @@ export const register = async (req, res: Response) => {
     const body = {
       email: user.email,
     };
-    console.log(`${APP_ORIGIN}/api/v1/email/resend`);
+
     await axios.post(`${APP_ORIGIN}/api/v1/email/resend`, body, config);
 
     // logIn(req, user.id);

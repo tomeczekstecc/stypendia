@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { isEmail} from 'class-validator';
+import { isEmail } from 'class-validator';
 
 import { sendMail } from '../services/mail';
 import { User } from '../entity/User';
@@ -8,28 +8,61 @@ import { msgDis500 } from '../constantas';
 
 export const verify = async (req: any, res: Response) => {
   const { id } = req.query;
+
   const user = await User.findOne(id);
   // console.log(user)
 
-  if (
-    !user ||
-    user.verifiedAt ||
-    !User.hasValidVerificationUrl(req.originalUrl, req.query)
-  ) {
+  try {
+    if (!user) {
+      // makeLog
+      return res.status(401).json({
+        resStatus: 'error',
+        msgPL: 'Nie znaleziono użytkownika',
+        msg: 'No user',
+        alertTitle: 'Błąd',
+      });
+    }
+
+
+
+  if (user.verifiedAt) {
+    // makeLog
     return res.status(401).json({
-      status: 'fail',
-      msgPL: 'Niepoprawny token',
-      msg: 'Invalid token',
+      resStatus: 'info',
+      msgPL: 'Użytkownik był już potwierdzony',
+      msg: 'User already confirmed',
+      alertTitle: 'Informacja',
     });
   }
 
-  await markAsVerified(user);
+    if (!User.hasValidVerificationUrl(req.originalUrl, req.query)) {
+      // makeLog
+      return res.status(401).json({
+        resStatus: 'warning',
+        msgPL:
+          'Nie możemy już potwierdzić konta - ponownie wyślij emaila weryfikującego konto',
+        msg: 'Invalid token',
+        alertTitle: 'Ostrzeżenie',
+      });
+    }
 
-  return res.status(200).json({
-    status: 'success',
-    msgPL: 'Potwierdzono konto',
-    msg: 'Account verified',
-  });
+    await markAsVerified(user);
+
+    // make log
+    return res.status(200).json({
+      resStatus: 'success',
+      msgPL: 'Potwierdzono konto',
+      msg: 'Account verified',
+      alertTitle: 'Sukces',
+    });
+  } catch (err) {
+    return res.status(500).json({
+      resStatus: 'error',
+      msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
+  }
 };
 
 export const resend = async (req: any, res: Response) => {
@@ -37,15 +70,25 @@ export const resend = async (req: any, res: Response) => {
 
   const { email } = req.body;
 
-
   if (!isEmail(email))
-    errors.email = 'Pole email musi posiadać właściwy format email i nie może być puste';
+    errors.email =
+      'Pole email musi posiadać właściwy format email i nie może być pusty';
 
   if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
   const user = await User.findOne({ email });
 
-  if (!user || !user.verifiedAt) {
+  if (user.verifiedAt) {
+    // makeLog
+    return res.status(401).json({
+      resStatus: 'info',
+      msgPL: 'Użytkownik był już potwierdzony',
+      msg: 'User already confirmed',
+      alertTitle: 'Informacja',
+    });
+  }
+
+  if (user && !user.verifiedAt) {
     const link = user.verificationUrl();
 
     try {
@@ -54,14 +97,18 @@ export const resend = async (req: any, res: Response) => {
         subject: 'Zweryfikuj swój adres email',
         text: link,
       });
+      user.lastSendEmailAt = new Date();
+      await user.save;
+      // makelog
       return res.status(200).json({
-        status: 'info',
-        msgPL: 'Mail wysłany - sprawdź pocztę',
+        resStatus: 'info',
+        msgPL: `Na adres ${email} wysłaliśmy link do potwierdzenia konta. Sprawdź pocztę i zweryfikuj konto.`,
         msg: 'Mail send',
+        alertTitle: 'Email wysłany!!!',
       });
     } catch (err) {
       return res.status(500).json({
-        status: 'fail',
+        resStatus: 'fail',
         msgPL: msgDis500,
         msg: 'Server error',
       });

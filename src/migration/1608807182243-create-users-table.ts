@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class create1608117620285 implements MigrationInterface {
-    name = 'create1608117620285'
+export class createUsersTable1608807182243 implements MigrationInterface {
+    name = 'createUsersTable1608807182243'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("CREATE TABLE `dict_history_events` (`id` int NOT NULL AUTO_INCREMENT, `model` enum ('submit', 'user') NOT NULL COMMENT 'Modele: \"submit\"-wniosek i \"user\"-użytkownik', `description` varchar(255) NOT NULL COMMENT 'Opis zdarzenia - od 3 do 254 znaków', `status` int NULL COMMENT 'Status: tylko dla wniosków - od 1 do 9', PRIMARY KEY (`id`)) ENGINE=InnoDB");

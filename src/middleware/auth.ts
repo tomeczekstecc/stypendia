@@ -67,8 +67,8 @@ export const guest = (req: any, res: Response, next: NextFunction) => {
   try {
     if (isLoggedIn(req)) {
       //TODO: logger
-      return res.status(400).json({
-        status: 'fail',
+      return res.json({
+        status: 'error',
         msgPL: 'Jesteś już zalogowany',
         msg: 'You are already logged in',
       });

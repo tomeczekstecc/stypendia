@@ -1,41 +1,94 @@
-import { Icon } from 'semantic-ui-react';
-const MENU_ICON_SIZE = 'tiny'
-
-
-export const menuItems = [
+import { v4 as uuidv4 } from 'uuid';
+export const leftMenuItems = [
   {
-    id: 1,
+    id: uuidv4(),
     icon: 'home',
     name: 'start',
     title: 'Start',
     url: '/',
+    hasOwnSubDisplay: true,
+    noOwnSubDisplay: true,
+    isLoggedInDisplay: true,
   },
   {
-    id: 2,
+    id: uuidv4(),
+    icon: 'home',
+    name: 'start',
+    title: 'Start',
+    url: '/',
+    hasOwnSubDisplay: true,
+    noOwnSubDisplay: true,
+    isLoggedInDisplay: false,
+  },
+  {
+    id: uuidv4(),
     icon: 'write square',
     name: 'yourSub',
     title: 'Twój wniosek',
     url: '/sub',
+    hasOwnSubDisplay: true,
+    noOwnSubDisplay: false,
+    isLoggedInDisplay: true,
   },
   {
-    id: 3,
+    id: uuidv4(),
     icon: 'write',
     name: 'makeSub',
     title: 'Złóż wniosek',
     url: '/makesub',
+    hasOwnSubDisplay: false,
+    noOwnSubDisplay: true,
+    isLoggedInDisplay: true,
+  },
+];
+
+export const rightMenuItems = [
+  {
+    id: uuidv4(),
+    icon: 'user',
+    name: 'login',
+    title: 'Zaloguj się',
+    url: '/login',
+    isLoggedInDisplay: false,
   },
   {
-    id: 4,
+    id: uuidv4(),
+    icon: 'user plus',
+    name: 'register',
+    title: 'Zarejestruj się',
+    url: '/register',
+    isLoggedInDisplay: false,
+  },
+  {
+    id:uuidv4(),
     icon: 'id card',
     name: 'me',
     title: 'Twoje dane',
     url: '/me',
+    isLoggedInDisplay: true,
   },
   {
-    id: 5,
+    id: uuidv4(),
     icon: 'settings',
     name: 'settings',
     title: 'Ustawienia',
     url: '/settings',
+    isLoggedInDisplay: true,
+  },
+  {
+    id: uuidv4(),
+    icon: 'settings',
+    name: 'settings',
+    title: 'Ustawienia',
+    url: '/settings',
+    isLoggedInDisplay: false,
+  },
+  {
+    id: uuidv4(),
+    icon: 'user cancel',
+    name: 'logout',
+    title: 'Wyloguj się',
+    url: '/logout',
+    isLoggedInDisplay: true,
   },
 ];

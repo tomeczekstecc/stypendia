@@ -1,13 +1,13 @@
 import React from 'react';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import MainMenu from './MainMenu';
 
 const Layout = ({ children }) => {
   return (
     <>
       <MainMenu />
-      <Grid container  centered style = {styles.grid} verticalAlign='middle'>
-      {children}
+      <Grid centered style={styles.grid} verticalAlign='middle'>
+        {children}
       </Grid>
     </>
   );
@@ -16,7 +16,9 @@ const Layout = ({ children }) => {
 export default Layout;
 
 const styles = {
-  grid:{
-    width: '85%'
-  }
-}
+  grid: {
+    width: '90%',
+    overflow: 'hidden',
+    margin: 'auto'
+  },
+};

@@ -21,20 +21,28 @@ export const register = async (req, res: Response) => {
   let INFO = 'Email lub login już zajęte';
   let STATUS = 'error';
 
-  const { login, firstName, lastName, email, password } = req.body;
+  const {
+    login,
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConfirm,
+  } = req.body;
 
   try {
     const emailUser = await User.find({ email });
     const loginUser = await User.find({ login });
 
     let errors: any = {};
-    if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty.';
-    if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty.';
-
+    if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty';
+    if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty';
+    if (passwordConfirm !== password)
+      errors.passwordConfirm = 'Hasła muszą być zgodne';
     if (Object.keys(errors).length > 0) {
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 
-      return res.json(errors);
+      return res.status(400).json(errors);
     }
 
     const user = await User.create({
@@ -72,18 +80,19 @@ export const register = async (req, res: Response) => {
     console.log(`${APP_ORIGIN}/api/v1/email/resend`);
     await axios.post(`${APP_ORIGIN}/api/v1/email/resend`, body, config);
 
-    logIn(req, user.id);
+    // logIn(req, user.id);
 
     return res.status(201).json({
-      status: 'success',
+      resStatus: 'success',
       msg: 'User created',
       msgPL: 'Pomyślnie utworzono użytkownika',
+      alertTitle:'Brawo! Użytkownik utworzony!',
       data: user,
     });
   } catch (err) {
     // rollbar
     return res.status(500).json({
-      status: 'fail',
+      resStatus: 'fail',
       msg: err.message,
       msgPL: msgDis500,
     });
@@ -95,6 +104,7 @@ export const register = async (req, res: Response) => {
 //
 
 export const login = async (req: any, res: Response) => {
+  console.log(req.body);
   const CONTROLLER = 'login';
   let ACTION = 'logowanie';
   let STATUS = 'error';
@@ -109,7 +119,7 @@ export const login = async (req: any, res: Response) => {
     if (Object.keys(errors).length > 0) {
       INFO = 'Email lub hasło nie mogą być puste';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
-      return res.json(errors);
+      return res.status(400).json(errors);
     }
 
     const user = await User.findOne({ login });
@@ -118,10 +128,10 @@ export const login = async (req: any, res: Response) => {
       INFO = 'Wprowadzono niepoprawne dane';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json({
-        status: STATUS,
+        resStatus: STATUS,
         msgPL: INFO,
         msg: 'Wrong credentials',
-        errors,
+        alertTitle: 'Błąd',
       });
     }
 
@@ -129,11 +139,11 @@ export const login = async (req: any, res: Response) => {
       INFO = 'Użytkownik nadal zablokowany';
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
-      return res.status(403).json({
-        status: STATUS,
+      return res.status(401).json({
+        resStatus: STATUS,
         msgPL: 'Użytkownik jest zablokowany - spróbuj po za 20 minut',
         msg: 'User is blocked',
-        errors,
+        alertTitle: 'Błąd',
       });
     } else if (
       user.isBlocked &&
@@ -157,23 +167,22 @@ export const login = async (req: any, res: Response) => {
       if (user.failedLogins >= 3) {
         user.isBlocked = 1;
         user.blockedAt = new Date();
-        INFO =
-          'Zablokowano użytkownika - wprowadzono niepoprawne dane - nieprawidłowe hasło';
+        INFO = 'Zablokowano użytkownika';
         await user.save();
         makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
-        return res.status(400).json({
-          status: 'fail',
-          msgPL: 'Wprowadzono niepoprawne dane',
-          msg: 'Wrong credentials',
-          errors,
+        return res.status(403).json({
+          resStatus: 'error',
+          msgPL: INFO,
+          msg: 'User blocked',
+          alertTitle: 'Błąd',
         });
       }
 
       return res.status(400).json({
-        status: 'fail',
+        resStatus: 'error',
         msgPL: 'Wprowadzono niepoprawne dane',
         msg: 'Wrong credentials',
-        errors,
+        alertTitle: 'Błąd',
       });
     }
 
@@ -183,10 +192,11 @@ export const login = async (req: any, res: Response) => {
     await user.save();
 
     return res.status(200).json({
-      status: 'success',
+      resStatus: 'success',
       msgPL: 'Pomyślnie zalogowano.',
       msg: 'Successfully logged in',
-      user,
+      userId: req.session.userId,
+      alertTitle: 'Sukces',
     });
   } catch (err) {
     return res.status(500).json({
@@ -213,12 +223,14 @@ export const me = async (req: any, res: Response) => {
   try {
     const user = await User.findOne({ id: req.session.userId });
     if (!user) throw new Error('Brak dostępu');
-    return res.json({
+    return res.status(200).json({
+      resStatus: 'success',
+      msgPL: 'jest zalogowana/y',
       user,
     });
   } catch (err) {
-    return res.status(401).json({
-      status: 'fail',
+    return res.json({
+      resStatus: 'error',
       msgPL: 'Brak dostępu',
       msg: 'Unauthenticated',
       error: err.message,

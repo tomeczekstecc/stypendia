@@ -1,15 +1,11 @@
-import {
-  IsEmail,
-  Length,
-  Matches,
-} from 'class-validator';
+import { Equals, IsEmail, Length, Matches } from 'class-validator';
 import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { createHash, createHmac, timingSafeEqual } from 'crypto';
 import bcrypt from 'bcryptjs';
 
 import { EMAIL_VERIFICATION_TIMEOUT } from '../config/auth';
-import { APP_ORIGIN, APP_SECRET } from '../config/app';
+import { APP_ORIGIN, APP_SECRET, CLIENT_URI } from '../config/app';
 import Model from './Model';
 import { Submit } from './Submit';
 import { UserHistory } from './UserHistory';
@@ -39,7 +35,9 @@ export class User extends Model {
 
   // @Index()
   @Column({ unique: true, comment: 'Email użytkownika' })
-  @IsEmail(undefined, { message: props =>`${props.value} nie jest poprawnym adresem email` })
+  @IsEmail(undefined, {
+    message: (props) => `${props.value} nie jest poprawnym adresem email`,
+  })
   email: string;
 
   @Exclude()
@@ -98,6 +96,12 @@ export class User extends Model {
   @Column({ nullable: true, comment: 'Data potwierdzenia Regulaminu' })
   ckeckedRegulationsAt: Date;
 
+  @Column({
+    nullable: true,
+    comment: 'Data ostatniej wysyłki weryfikacji emaila',
+  })
+  lastSendEmailAt: Date;
+
   @OneToMany(() => Submit, (submit) => submit.user)
   submits: Submit[];
 
@@ -105,6 +109,11 @@ export class User extends Model {
   user_history: UserHistory[];
   static id: any;
 
+  @BeforeInsert()
+  async checks() {
+    this.ckeckedRegulationsAt = await new Date();
+    this.ckeckedRodoAt = await new Date();
+  }
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);
@@ -118,20 +127,18 @@ export class User extends Model {
     const token = createHash('sha1').update(this.email).digest('hex');
     const expires = Date.now() + EMAIL_VERIFICATION_TIMEOUT;
 
-    const url = `${APP_ORIGIN}/api/v1/email/verify?id=${this.id}&token=${token}&expires=${expires}`;
-    const signature = User.signVerificationUrl(url);
+    const url = `${CLIENT_URI}/verify?id=${this.id}&token=${token}&expires=${expires}`;
+    const baseUrl = `/verify?id=${this.id}&token=${token}&expires=${expires}`;
+    console.log(baseUrl, 'make')
+    const signature = User.signVerificationUrl(baseUrl);
 
     return `${url}&signature=${signature}`;
   };
 
   static hasValidVerificationUrl = (path: string, query: any) => {
-    const url = `${APP_ORIGIN}${path}`;
-    console.log(url, 'url');
-    const original = url.slice(0, url.lastIndexOf('&'));
-    console.log(original, 'original');
+    const baseUrl = path.split('/api/v1/email')[1];
+    const original = baseUrl.slice(0, baseUrl.lastIndexOf('&'));
     const signature: any = User.signVerificationUrl(original);
-    console.log(signature, 'signature');
-
     return (
       timingSafeEqual(Buffer.from(signature), Buffer.from(query.signature)) &&
       +query.expires > Date.now()

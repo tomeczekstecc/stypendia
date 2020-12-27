@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import dotenv from 'dotenv'
 import { createConnection } from 'typeorm';
 import session from 'express-session';
 import colors from 'colors';
@@ -8,8 +9,11 @@ import { createApp } from './app';
 import { APP_PORT, MONGO_OPTIONS, MONGO_URI, REDIS_OPTIONS } from './config';
 import mongoose from 'mongoose';
 
+dotenv.config()
+
 colors.enable();
 mongoose.connect(MONGO_URI, MONGO_OPTIONS);
+console.log(MONGO_URI)
 
 const RedisStore = connectRedis(session);
 const client = new Redis(REDIS_OPTIONS);

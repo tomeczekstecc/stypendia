@@ -69,3 +69,42 @@ export const loginInputs = [
     type: 'password',
     name: 'password'
   }]
+
+export const resetReqInputs = [
+  {
+    id: uuidv4(),
+    icon: 'user',
+    label: 'Nazwa użytkownika',
+    placeholder: 'Podaj nazwę użytkownika',
+    type: 'text',
+    name: 'login'
+  },
+  {
+    id: uuidv4(),
+    icon: 'mail',
+    label: 'Email',
+    placeholder: 'Podaj email',
+    type: 'email',
+    name: 'email'
+  }]
+
+
+export const resetInputs = [
+
+  {
+    id: uuidv4(),
+    icon: 'lock',
+    label: 'Hasło',
+    placeholder: 'Podaj hasło',
+    type: 'password',
+    name: 'password'
+  },
+  {
+    id: uuidv4(),
+    icon: 'lock',
+    label: 'Powtórz Hasło',
+    placeholder: 'Powtórz hasło',
+    type: 'password',
+    name: 'passwordConfirm',
+  },
+];

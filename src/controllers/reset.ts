@@ -1,6 +1,5 @@
 import { Response } from 'express';
-import { isEmpty } from 'class-validator';
-
+import { isEmail, isEmpty } from 'class-validator';
 import { resetPassword } from '../middleware/auth';
 import { User } from '../entity/User';
 import { PasswordReset } from '../entity/PasswordReset';
@@ -15,11 +14,17 @@ export const sendResetMail = async (req: any, res: Response) => {
   const CONTROLLER = 'sendResetMail';
   ACTION = 'generowanie maila resetu hasła';
 
-  const { email } = req.body;
+  const { email, login } = req.body;
+  console.log(req.body);
+
   try {
     let errors: any = {};
 
-    if (isEmpty(email)) errors.email = 'Musisz podać poprawny email';
+    if (isEmpty(email) || !email)
+      errors.email = 'Musisz podać poprawny adres email';
+    if (isEmpty(login) || !login)
+      errors.login = 'Musisz podać poprawną nazwę użytkownika';
+    if (!isEmail(email)) errors.email = 'Musisz podać poprawny adres email';
 
     // ****************************** LOG *********************************//
     INFO = 'Podany email nie jest w poprawnym formacie';
@@ -27,9 +32,19 @@ export const sendResetMail = async (req: any, res: Response) => {
     makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
 
-    if (Object.keys(errors).length > 0) return res.json(errors);
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, login });
+
+    if (!user) {
+      // makeLog
+      return res.status(401).json({
+        resStatus: 'error',
+        msgPL: 'Nie udało się wysłać linka',
+        msg: 'Couldnt send',
+        alertTitle: 'Błąd',
+      });
+    }
 
     if (user) {
       const token = await PasswordReset.plaintextToken();
@@ -40,24 +55,30 @@ export const sendResetMail = async (req: any, res: Response) => {
 
       await sendMail({
         to: email,
-        subject: 'Reset your password',
+        subject: 'Zresetuj hasło',
         text: reset.url(token),
       });
       // ****************************** LOG *********************************//
+
       INFO = `Wysłano mail z linkiem do odzyskania hasła na adres: ${email}`;
       STATUS = 'success';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
     }
+
+    user.lastResetEmailAt = new Date();
+    await user.save();
+
     return res.status(201).json({
-      status: STATUS,
+      resStatus: STATUS,
       msgPL: INFO,
       msg: 'Reset mail send',
+      alertTitle: 'Wysłano link',
     });
   } catch (err) {
     // rollbar
     return res.status(500).json({
-      status: 'fail',
+      resStatus: 'error',
       msgPL: msgDis500,
       msg: err,
     });
@@ -69,18 +90,50 @@ export const passwordReset = async ({ query, body }, res: Response) => {
   ACTION = 'resetowanie hasła';
 
   const { id, token } = query;
-  const { password } = body;
+  const { password, passwordConfirm } = body;
 
+  let errors: any = {};
+
+  if (password === '' || password === undefined)
+    errors.password = 'Hasło nie może być puste';
+  if (passwordConfirm !== password)
+    errors.passwordConfirm = 'Hasła muszą być zgodne';
+  if (Object.keys(errors).length > 0) {
+    makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
+    return res.status(400).json(errors);
+  }
+  console.log(id, token, password, 'items');
   try {
     const reset = await PasswordReset.findOne(id);
 
-    let user;
+    if (!reset) {
+      console.log("No reset")
+      // ****************************** LOG *********************************//
+      INFO = 'Użyto niepoprawny token';
+      STATUS = 'error';
+      makeLog(
+        undefined,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
+      // ********************************************************************//
+      return res.status(400).json({
+        resStatus: 'error',
+        msgPL: INFO,
+        msg: 'Invalid token',
+        alertTitle:'Błąd'
+      });
+    }
 
-    if (
-      !reset ||
-      !reset.isValid(token) ||
-      !(user = await User.findOne(reset.userId))
-    ) {
+    const user = await User.findOne(reset.userId);
+
+
+    if (!user || !reset.isValid(token)) {
       // ****************************** LOG *********************************//
       INFO = 'użyto niepoprawny token';
       STATUS = 'error';
@@ -94,15 +147,16 @@ export const passwordReset = async ({ query, body }, res: Response) => {
         STATUS
       );
       // ********************************************************************//
-      return res.status(403).json({
-        status: 'fail',
-        msgPL: 'Niepoprawny token',
-        ms: 'Invalid token',
+      return res.status(400).json({
+        resStatus: 'error',
+        msgPL: 'Być może link był już przestarzały. Ponownie resetuj hasło. Odpowiedni link znajdziesz na stronie logowania',
+        msg: 'Invalid token',
+        alertTitle: 'Nieudana zmiana hasła'
       });
     }
-
+    console.log(password, 'PASSWORD');
     await Promise.all([
-      resetPassword(user, password),
+      resetPassword(user.id, password),
       PasswordReset.delete({ userId: reset.userId }),
     ]);
     // ****************************** LOG *********************************//
@@ -119,16 +173,18 @@ export const passwordReset = async ({ query, body }, res: Response) => {
     );
     // ********************************************************************//
     return res.status(201).json({
-      status: 'success',
+      resStatus: 'success',
       msgPL: `Zmieniono hasło`,
       msg: 'Password has been changed',
+      alertTitle: 'Udana zmiana hasła',
     });
   } catch (err) {
     // rollbar
     return res.status(500).json({
-      status: 'fail',
+      resStatus: 'error',
       msgPL: msgDis500,
-      msg: err,
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 };

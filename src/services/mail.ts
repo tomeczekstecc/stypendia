@@ -5,6 +5,8 @@ import { SMTP_OPTIONS, MAIL_FROM } from '../config/mail';
 const transporter = nodemailer.createTransport(SMTP_OPTIONS);
 
 export const sendMail = (options: SendMailOptions) => {
+
+  console.log(SMTP_OPTIONS)
   try {
     transporter.sendMail({
       ...options,

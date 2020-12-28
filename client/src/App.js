@@ -10,6 +10,8 @@ import axios from 'axios';
 import Alert from './components/alert/Alert';
 import Verify from './pages/verify';
 import Resend from './pages/resend';
+import ResetSend from './pages/resetSend';
+import Reset from './pages/reset';
 
 axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
@@ -23,6 +25,8 @@ function App() {
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/verify' component={Verify} />
+              <Route exact path='/reset' component={Reset} />
+              <Route exact path='/resetsend' component={ResetSend} />
               <Route exact path='/resend' component={Resend} />
               <Route exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />

@@ -1,17 +1,41 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Divider, Menu } from 'semantic-ui-react';
+import axios from 'axios';
+import { Menu } from 'semantic-ui-react';
 import { leftMenuItems, rightMenuItems } from '../../items';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const MainMenu = () => {
+const MainMenu = ({ history }) => {
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
+
   const [activeItem, setActiveItem] = useState('home');
   const [hasOwnSub, setHasOwnSub] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { isLoggedIn, setUser } = authContext;
+  const { isLoggedIn, logOut } = authContext;
 
+  const logOutCallback = () => {
+    axios
+      .get('/api/v1/users/logout')
+      .then((data) => {
+        if (data.data.resStatus || data.data.resStatus === 'success') {
+          addAlert(data.data);
+          history.push('/login');
+          logOut();
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.log(err.message)
+      //   if (err.response.data.alertTitle) {
+      //     console.log(err.response.data);
+      //     setIsLoading(false);
+      //     addAlert(err.response.data);
+      //   }
+      // });
+      )}
 
   return (
     <Menu icon='labeled' style={styles.main}>
@@ -46,7 +70,7 @@ const MainMenu = () => {
                 content={item.title}
                 name={item.name}
                 active={activeItem === item.name}
-                onClick={() => setActiveItem(item.name)}
+                onClick={() => {item.name === 'logout' ? logOutCallback() : setActiveItem(item.name);}}
               />
             </Link>
           ))}

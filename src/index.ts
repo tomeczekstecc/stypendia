@@ -1,5 +1,6 @@
+require('dotenv').config();
 import 'reflect-metadata';
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import session from 'express-session';
 import colors from 'colors';
@@ -9,11 +10,10 @@ import { createApp } from './app';
 import { APP_PORT, MONGO_OPTIONS, MONGO_URI, REDIS_OPTIONS } from './config';
 import mongoose from 'mongoose';
 
-dotenv.config()
+// dotenv.config();
 
 colors.enable();
 mongoose.connect(MONGO_URI, MONGO_OPTIONS);
-console.log(MONGO_URI)
 
 const RedisStore = connectRedis(session);
 const client = new Redis(REDIS_OPTIONS);
@@ -22,7 +22,6 @@ const store = new RedisStore({ client });
 const app = createApp(store);
 
 app.listen(APP_PORT, async () => {
-
   console.log(`Server startet on ${APP_PORT}`.green.bold);
   try {
     await createConnection();

@@ -7,7 +7,7 @@ import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcryptjs';
 import { logIn, logOut } from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
-import { APP_ORIGIN, UNBLOCK_TIMEOUT } from '../config';
+import { APP_ORIGIN, FAILED_LOGINS_MAX, UNBLOCK_TIMEOUT } from '../config';
 import { makeLog } from '../services/makeLog';
 
 const OBJECT = 'User';
@@ -86,7 +86,7 @@ export const register = async (req, res: Response) => {
       resStatus: 'success',
       msg: 'User created',
       msgPL: 'Pomyślnie utworzono użytkownika',
-      alertTitle:'Brawo! Użytkownik utworzony!',
+      alertTitle: 'Brawo! Użytkownik utworzony!',
       data: user,
     });
   } catch (err) {
@@ -113,7 +113,7 @@ export const login = async (req: any, res: Response) => {
 
   try {
     let errors: any = {};
-    if (isEmpty(login)) errors.login = 'Login nie może być pusty';
+    if (isEmpty(login)) errors.login = 'Nazwa użytkownika nie może być pusta';
     if (isEmpty(password)) errors.password = 'Hasło nie może być puste';
 
     if (Object.keys(errors).length > 0) {
@@ -131,7 +131,7 @@ export const login = async (req: any, res: Response) => {
         resStatus: STATUS,
         msgPL: INFO,
         msg: 'Wrong credentials',
-        alertTitle: 'Błąd',
+        alertTitle: 'Blokada konta',
       });
     }
 
@@ -141,9 +141,9 @@ export const login = async (req: any, res: Response) => {
 
       return res.status(401).json({
         resStatus: STATUS,
-        msgPL: 'Użytkownik jest zablokowany - spróbuj po za 20 minut',
+        msgPL: 'Użytkownik jest zablokowany - spróbuj po za 20 minut. Jeżeli nie odzyskasz prawidłowego hasła - spróbuj je zresetować',
         msg: 'User is blocked',
-        alertTitle: 'Błąd',
+        alertTitle: 'Blokada konta',
       });
     } else if (
       user.isBlocked &&
@@ -164,7 +164,22 @@ export const login = async (req: any, res: Response) => {
       await user.save();
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
-      if (user.failedLogins >= 3) {
+      if (user.failedLogins === +FAILED_LOGINS_MAX - 1) {
+        user.failedLogins += 1;
+
+        INFO =
+          'Kolejna nieudana próba zablokuje użytkownika i uniemożliwi dalsze logowania na 20 minut';
+        await user.save();
+        makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+        return res.status(403).json({
+          resStatus: 'error',
+          msgPL: INFO,
+          msg: 'User blocked',
+          alertTitle: 'Niepoprawne logowanie',
+        });
+      }
+
+      if (user.failedLogins >= +FAILED_LOGINS_MAX) {
         user.isBlocked = 1;
         user.blockedAt = new Date();
         INFO = 'Zablokowano użytkownika';
@@ -180,9 +195,9 @@ export const login = async (req: any, res: Response) => {
 
       return res.status(400).json({
         resStatus: 'error',
-        msgPL: 'Wprowadzono niepoprawne dane',
+        msgPL: 'Wprowadzono niepoprawne dane logowania - sprawdź nazwę użytkownika lub hasło',
         msg: 'Wrong credentials',
-        alertTitle: 'Błąd',
+        alertTitle: 'Niepoprawne logowanie',
       });
     }
 

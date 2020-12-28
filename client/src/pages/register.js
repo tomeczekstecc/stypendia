@@ -15,7 +15,7 @@ import {
 } from 'semantic-ui-react';
 import Rodo from '../components/Rodo';
 import Title from '../components/Title';
-import { registerInputs } from '../components/inputs';
+import { registerInputs } from '../inputs';
 import AlertContext from '../context/alert/alertContext';
 
 const Register = (props) => {
@@ -146,16 +146,12 @@ const Register = (props) => {
                   }
                 />
               </Form>
-<Link to='/login'>
-
-              <div style={styles.buttonWrapper}>
-                <div style={styles.span}>Masz już konto?</div>
-                <Button
-                   content='Zaloguj się'
-                  icon='user'
-                  size='mini'
-                />
-              </div></Link>
+              <Link to='/login'>
+                <div style={styles.buttonWrapper}>
+                  <div style={styles.span}>Masz już konto?</div>
+                  <Button content='Zaloguj się' icon='user' size='mini' />
+                </div>
+              </Link>
             </Container>
           </Grid.Column>
         </Grid>
@@ -177,7 +173,7 @@ const styles = {
     marginTop: '20px',
   },
   span: {
-     fontSize: '1rem',
+    fontSize: '1rem',
   },
   ol: {
     fontSize: '.85rem',

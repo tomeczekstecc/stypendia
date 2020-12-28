@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import authReducer from './authReducer';
 import AuthContext from './authContext';
 
-import { SET_USER, CHECK_IS_LOGGED_IN } from '../types';
+import { SET_USER, CHECK_IS_LOGGED_IN, LOGOUT_USER } from '../types';
 
 const AuthState = (props) => {
   const initialState = {
@@ -44,15 +44,21 @@ const AuthState = (props) => {
     });
   };
 
+  const logOut = () => {
+    dispatch({
+      type: LOGOUT_USER
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
         setUser,
+        logOut,
         checkIsAuthenticated,
         isLoggedIn: state.isLoggedIn,
-        // logOutCallback
-      }}
+            }}
     >
       {props.children}
     </AuthContext.Provider>

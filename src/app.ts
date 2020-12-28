@@ -1,5 +1,6 @@
 import express from 'express';
 import session, { Store } from 'express-session';
+import dotenv from 'dotenv';
 import cors from 'cors'
 import { SESSION_OPTIONS } from './config';
 import { active, notFound, serverError } from './middleware';
@@ -11,6 +12,7 @@ import emailRouter from './routes/verify';
 import resetRouter from './routes/reset';
 import morgan from 'morgan';
 
+dotenv.config();
 
 export const createApp = (store: Store) => {
   const app = express();

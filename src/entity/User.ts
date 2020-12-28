@@ -1,5 +1,5 @@
 import { Equals, IsEmail, Length, Matches } from 'class-validator';
-import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm';
+import { Entity, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { createHash, createHmac, timingSafeEqual } from 'crypto';
 import bcrypt from 'bcryptjs';
@@ -57,7 +57,7 @@ export class User extends Model {
   })
   role: string;
 
-  @Column({ nullable: true, comment: 'Data blokady' })
+  @Column({ nullable: true, comment: 'Data weryfikacji emaila' })
   verifiedAt: Date;
 
   @Column({
@@ -102,6 +102,12 @@ export class User extends Model {
   })
   lastSendEmailAt: Date;
 
+  @Column({
+    nullable: true,
+    comment: 'Data ostatniej wysyłki maila do resetu hasła',
+  })
+  lastResetEmailAt: Date;
+
   @OneToMany(() => Submit, (submit) => submit.user)
   submits: Submit[];
 
@@ -114,6 +120,12 @@ export class User extends Model {
     this.ckeckedRegulationsAt = await new Date();
     this.ckeckedRodoAt = await new Date();
   }
+
+  @BeforeUpdate()
+  async newhashPassword() {
+    this.password = await bcrypt.hash(this.password, 12);
+  }
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 12);
@@ -129,7 +141,7 @@ export class User extends Model {
 
     const url = `${CLIENT_URI}/verify?id=${this.id}&token=${token}&expires=${expires}`;
     const baseUrl = `/verify?id=${this.id}&token=${token}&expires=${expires}`;
-    console.log(baseUrl, 'make')
+    console.log(baseUrl, 'make');
     const signature = User.signVerificationUrl(baseUrl);
 
     return `${url}&signature=${signature}`;

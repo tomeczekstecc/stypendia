@@ -25,8 +25,7 @@ export const verify = async (req: any, res: Response) => {
 
 
     if (!User.hasValidVerificationUrl(req.originalUrl, req.query)) {
-      console.log('bład sygnatury')
-      // makeLog
+        // makeLog
       return res.status(400).json({
         resStatus: 'warning',
         msgPL:
@@ -112,14 +111,14 @@ export const resend = async (req: any, res: Response) => {
         subject: 'Zweryfikuj swój adres email',
         text: link,
       });
-      user.lastSendEmailAt = new Date();
-      await user.save;
+     user.lastSendEmailAt = new Date();
+      await user.save();
       // makelog
       return res.status(200).json({
         resStatus: 'info',
-        msgPL: `Na adres ${email} wysłaliśmy link do potwierdzenia konta. Link jest ważny 60 minut`,
+        msgPL: `Na adres ${email} wysłaliśmy link do potwierdzenia konta. Link jest ważny 12 godzin`,
         msg: 'Mail send',
-        alertTitle: 'Email wysłany!!!',
+        alertTitle: 'Email wysłany.',
       });
     } catch (err) {
       return res.status(500).json({

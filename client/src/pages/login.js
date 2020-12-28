@@ -13,7 +13,7 @@ import {
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
-import { loginInputs } from '../components/inputs';
+import { loginInputs } from '../inputs';
 
 const Login = ({ history }) => {
   const alertContext = useContext(AlertContext);
@@ -49,7 +49,6 @@ const Login = ({ history }) => {
         }
       })
       .catch((err) => {
-
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);
@@ -111,12 +110,16 @@ const Login = ({ history }) => {
                 onClick={handleOnClick}
               />
             </Form>
-
-
+            <Link to='/resetsend' style={styles.link}>
+              <div style={styles.buttonWrapper}>
+                <div style={styles.span}>Zapomniałeś hasła?</div>
+                <Button content='Resetuj hasło' icon='recycle' size='mini' />
+              </div>
+            </Link>
           </Grid.Column>
 
           <Grid.Column verticalAlign='middle'>
-            <Link to='register'>
+            <Link to='/register'>
               <Button content='Zarejestruj się' icon='user plus' size='big' />
             </Link>
           </Grid.Column>
@@ -159,6 +162,11 @@ const styles = {
     transform: 'translateY(-35px)',
     color: 'red',
   },
+
+  span: {
+    fontSize: '1rem',
+  },
+  link: {},
 };
 
 export default Login;

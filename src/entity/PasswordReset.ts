@@ -11,6 +11,7 @@ import {
 import {
   APP_ORIGIN,
   APP_SECRET,
+  CLIENT_URI,
   PASSWORD_RESET_BYTES,
   PASSWORD_RESET_TIMEOUT,
 } from '../config';
@@ -56,7 +57,7 @@ export class PasswordReset extends BaseEntity {
   }
 
   url = function (plaintextToken: string) {
-    return `${APP_ORIGIN}/api/v1/password/reset?id=${this.id}&token=${plaintextToken}`;
+    return `${CLIENT_URI}/reset?id=${this.id}&token=${plaintextToken}`;
   };
 
   isValid = function (plaintextToken: string) {

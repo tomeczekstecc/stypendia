@@ -12,15 +12,16 @@ import {
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
+import { resetReqInputs } from '../inputs';
 
-const Resend = ({ history }) => {
+const ResetSend = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
 
-  const [email, setEmail] = useState({});
+  const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,13 +38,13 @@ const Resend = ({ history }) => {
     };
 
     axios
-      .post(`/api/v1/email/resend`, { email }, headers)
+      .post(`/api/v1/password/email`, {...body}, headers)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setUser(data.data.user);
           await setIsLoading(false);
-          history.push('/');
+          history.push('/login');
         }
       })
       .catch((err) => {
@@ -57,44 +58,57 @@ const Resend = ({ history }) => {
         setIsLoading(false);
       });
   };
+    const handleOnChange = (e) => {
+      e.preventDefault();
+      setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
+    };
+
 
   return (
     <Container>
-      <Title content='Potwierdzanie konta' />
+      <Title content='Resetowanie hasła' />
       <Segment placeholder style={styles.main} size='large'>
         <Message style={styles.msg} info size='small' floating>
-          <Message.Header>
-            Ponowne wysłanie linka do potwierdzenia konta
-          </Message.Header>
+          <Message.Header>Resetowanie hasła</Message.Header>
           <p>
-            Strona służy do ponownego wysłania linka potwierdzającego konto,
-            jeżeli konto już założyłaś/eś, ale nie skorzystałaś/eś z niego w
-            odpowiednim czasie. Link zostanie przesłany na podany adres email i
-            będzie ważny przez <strong>12 godzin</strong> . Jeżeli nie znajdziesz linka sprawdź
-            folder <strong> spam</strong> w Twojej poczcie.
+            Strona służy do resetowania hasła do konta. Zostanie wygenerowany
+            specjalny link oraz przesłany na podany adres email i będzie
+            ważny przez <strong>12 godzin</strong>. Jeżeli nie znajdziesz linka
+            sprawdź folder <strong> spam</strong> w Twojej poczcie. W formularzu poniżej podaj nazwę użytkownika oraz email, które podałaś/eś w trakcie rejestracji.
           </p>
         </Message>
         <Grid columns={1} relaxed='very' stackable>
           <Grid.Column>
             <Form>
-              <Form.Input
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                style={styles.input}
-                icon='mail'
-                iconPosition='left'
-                label='Email'
-                placeholder='Podaj email'
-                type='email'
-                name='email'
-              />
+              {resetReqInputs.map((input) => {
+                return (
+                  <div key={input.id}>
+                    <Form.Input
+                      onChange={(e) => handleOnChange(e)}
+                      required
+                      style={styles.input}
+                      icon={input.icon}
+                      iconPosition='left'
+                      label={input.label}
+                      placeholder={input.placeholder}
+                      type={input.type}
+                      name={input.name}
+                    />
 
-              {errors && errors.email && (
-                <Label basic color='red' pointing='above' style={styles.small}>
-                  {errors.email}
-                </Label>
-              )}
-
+                    {errors && errors[input.name] && (
+                      <Label
+                        basic
+                        color='red'
+                        pointing='above'
+                        key={input.id}
+                        style={styles.small}
+                      >
+                        {errors[input.name]}
+                      </Label>
+                    )}
+                  </div>
+                );
+              })}
               <Button
                 loading={isLoading}
                 type='submit'
@@ -147,4 +161,4 @@ const styles = {
   },
 };
 
-export default Resend;
+export default ResetSend;

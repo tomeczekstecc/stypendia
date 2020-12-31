@@ -1,5 +1,5 @@
 import { SessionOptions } from 'express-session';
-import { IN_PROD } from './app';
+import { APP_ORIGIN, IN_PROD } from './app';
 
 const ONE_HOUR = 1000 * 60 * 60;
 
@@ -11,6 +11,7 @@ export const {
   SESSION_SECRET,
   SESSION_NAME = 'sid',
   SESSION_IDLE_TIMEOUT = THIRTY_MINUTES,
+  SESSION_PATH = '/'
 } = process.env;
 
 export const SESSION_ABSOLUTE_TIMEOUT = +(
@@ -24,6 +25,7 @@ export const SESSION_OPTIONS: SessionOptions = {
     maxAge: +SESSION_IDLE_TIMEOUT,
     secure: IN_PROD,
     sameSite: false,
+    path: SESSION_PATH
   },
   rolling: true,
   resave: false,

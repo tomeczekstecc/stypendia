@@ -1,10 +1,19 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import authReducer from './authReducer';
 import AuthContext from './authContext';
+import axios from 'axios';
+import AlertContext from '../../context/alert/alertContext';
 
 import { SET_USER, CHECK_IS_LOGGED_IN, LOGOUT_USER } from '../types';
 
 const AuthState = (props) => {
+
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
+
+
+
+
   const initialState = {
     user: null,
     isLoggedIn: false,
@@ -45,6 +54,25 @@ const AuthState = (props) => {
   };
 
   const logOut = () => {
+
+    axios
+      .get('/api/v1/users/logout')
+      .then(async (data) => {
+        if (data.data.resStatus || data.data.resStatus === 'success') {
+          addAlert(data.data);
+           await props.history.push('/login');
+        }
+      })
+      .catch(
+        (err) => console.log(err.message)
+        //   if (err.response.data.alertTitle) {
+        //     console.log(err.response.data);
+
+        //     addAlert(err.response.data);
+        //   }
+        // });
+      );
+
     dispatch({
       type: LOGOUT_USER
     });

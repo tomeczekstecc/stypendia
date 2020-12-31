@@ -58,6 +58,6 @@
     "down": "docker-compose down",
     "client": "npm start --prefix client",
     "clientinstall": "npm install -prefix client",
-    "dev": "concurrently \"npm run devStart\" \"npm run client\""
+    "dev": "concurrently \"npm run devStart\" \"npm run client\" -n server,client"
   }
 }

@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.route('/').post(guest, register); // create user
 router.route('/login').post(guest, login); // login
-router.route('/logout').get(auth, logout); // login
+router.route('/logout').get(logout); // login
 router.route('/me').get(me); // login
 router.route('/').get(getAllUsers); // get all user
 router.route('/:uuid').get(getOneUser); // get a user

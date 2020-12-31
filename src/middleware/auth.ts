@@ -46,50 +46,7 @@ export const logIn = async (req: any, userId: any) => {
   req.session!.userId = userId;
   req.session!.createdAt = Date.now();
 
-  makeLog(userId, OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS,req);
-};
-export const logOut = async (req: any, res: any) => {
-  ACTION = 'wylogowanie';
-  INFO = 'pomyślnie wylogowano';
-  STATUS = 'success';
-
-  try {
-      const user = await User.findOne(req.session.userId);
-
-  makeLog(
-    req.session.userId,
-    OBJECT,
-    req.session.userId,
-    ACTION,
-    CONTROLLER,
-    INFO,
-    STATUS
-  );
-
-  req.session.destroy();
-  res.clearCookie(SESSION_NAME);
-
-  return res.status(200).json({
-    resStatus: STATUS,
-    msgPL: 'Pomyślnie wylogowano użytkownika',
-    msg:'Successfully logout',
-    alertTitle:'Wylogowano'
-  });
-
-
-  } catch (err) {
-  return res.status(500).json({
-    resStatus: 'error',
-    msgPL: 'Pomyślnie wylogowano użytkownika',
-    msg: err.message,
-    alertTitle: 'Błąd',
-  });
-  }
-
-
-
-
-
+  makeLog(userId, OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS, req);
 };
 
 export const guest = (req: any, res: Response, next: NextFunction) => {
@@ -120,7 +77,9 @@ export const active = async (req: any, res: Response, next: NextFunction) => {
     const { createdAt } = req.session;
 
     if (now > createdAt + SESSION_ABSOLUTE_TIMEOUT) {
-      await logOut(req, res);
+
+      // Axios to logout
+      // await logOut(req, res);
     }
   }
   next();
@@ -135,6 +94,7 @@ export const auth = async (req: any, res: Response, next: NextFunction) => {
       msgPL:
         'Musisz być zalogowany i konto musi być potwierdzone by wykonać tę operację',
       msg: 'You must be logged in',
+      alertTitle: 'Brak uprawnień'
     });
   }
   next();

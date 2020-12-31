@@ -5,9 +5,14 @@ import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcryptjs';
-import { logIn, logOut } from '../middleware/auth';
+import { logIn} from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
-import { APP_ORIGIN, FAILED_LOGINS_MAX, UNBLOCK_TIMEOUT } from '../config';
+import {
+  APP_ORIGIN,
+  FAILED_LOGINS_MAX,
+  SESSION_NAME,
+  UNBLOCK_TIMEOUT,
+} from '../config';
 import { makeLog } from '../services/makeLog';
 
 const OBJECT = 'User';
@@ -141,7 +146,8 @@ export const login = async (req: any, res: Response) => {
 
       return res.status(401).json({
         resStatus: STATUS,
-        msgPL: 'Użytkownik jest zablokowany - spróbuj po za 20 minut. Jeżeli nie odzyskasz prawidłowego hasła - spróbuj je zresetować',
+        msgPL:
+          'Użytkownik jest zablokowany - spróbuj po za 20 minut. Jeżeli nie odzyskasz prawidłowego hasła - spróbuj je zresetować',
         msg: 'User is blocked',
         alertTitle: 'Blokada konta',
       });
@@ -195,7 +201,8 @@ export const login = async (req: any, res: Response) => {
 
       return res.status(400).json({
         resStatus: 'error',
-        msgPL: 'Wprowadzono niepoprawne dane logowania - sprawdź nazwę użytkownika lub hasło',
+        msgPL:
+          'Wprowadzono niepoprawne dane logowania - sprawdź nazwę użytkownika lub hasło',
         msg: 'Wrong credentials',
         alertTitle: 'Niepoprawne logowanie',
       });
@@ -226,9 +233,49 @@ export const login = async (req: any, res: Response) => {
 //
 //Logout
 //
-export const logout = async (req: Request, res: Response) => {
-  await logOut(req, res);
-  // return res.json({ msg: 'Pomyślnie wylogowano' });
+export const logout = async (req: any, res: Response) => {
+  console.log('LOGOUT');
+  const CONTROLLER = 'logout';
+  let ACTION = 'wylogowanie';
+  let INFO = 'Pomyślnie wylogowano użytkownika';
+  let STATUS = 'success';
+
+  try {
+
+
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      req.session.userId,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
+  new Promise<void>((resolve, reject) => {
+    req.session!.destroy((err: Error) => {
+      if (err) reject(err)
+
+      res.clearCookie(SESSION_NAME)
+
+      resolve()
+       res.status(200).json({
+        resStatus: STATUS,
+        msgPL: 'Pomyślnie wylogowano użytkownika',
+        msg: 'Successfully logout',
+        alertTitle: 'Wylogowano',
+      });
+    })
+  })
+
+  } catch (err) {
+    return res.status(500).json({
+      resStatus: 'error',
+      msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
+  }
 };
 
 //

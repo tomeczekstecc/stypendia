@@ -105,11 +105,13 @@ export const resend = async (req: any, res: Response) => {
   if (user && !user.verifiedAt) {
     const link = user.verificationUrl();
 
+    const templ = `<button>${link}</button>`
+
     try {
       await sendMail({
         to: email,
         subject: 'Zweryfikuj swój adres email',
-        text: link,
+        text: templ,
       });
      user.lastSendEmailAt = new Date();
       await user.save();

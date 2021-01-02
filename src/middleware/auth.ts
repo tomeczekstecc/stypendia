@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import { SESSION_ABSOLUTE_TIMEOUT, SESSION_NAME } from '../config';
+import { Response, NextFunction } from 'express';
+import bcrypt from 'bcryptjs';
+
+import { SESSION_ABSOLUTE_TIMEOUT} from '../config';
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { makeLog } from '../services/makeLog';
@@ -22,7 +24,7 @@ export const markAsVerified = async (user: User) => {
 };
 
 export const resetPassword = async (userId: number, password: string) => {
-  console.log(password, 'reset password');
+
   ACTION = 'reset';
   INFO = 'pomyślnie zresetowano';
 
@@ -30,10 +32,12 @@ export const resetPassword = async (userId: number, password: string) => {
 
   makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
-  user.password = password;
+  user.password = await bcrypt.hash(password, 12);
   user.blockedAt = null;
   user.isBlocked = 0;
   user.failedLogins = 0;
+  user.lastPassChangeAt = await new Date();
+
 
   await user.save();
 };

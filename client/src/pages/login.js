@@ -44,11 +44,24 @@ const Login = ({ history }) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setUser(data.data.user);
-          await setIsLoading(false);
+          setIsLoading(false);
           history.push('/');
         }
+
       })
       .catch((err) => {
+
+        if (err.response.data.forcePassChange) {
+
+          addAlert(err.response.data);
+          setIsLoading(false);
+          history.push(
+            `/expired?id=${err.response.data.resetId}&token=${err.response.data.token}`
+          );
+          return
+        }
+
+
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);

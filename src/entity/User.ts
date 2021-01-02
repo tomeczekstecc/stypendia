@@ -1,11 +1,11 @@
-import { Equals, IsEmail, Length, Matches } from 'class-validator';
+import { IsEmail, Length, Matches } from 'class-validator';
 import { Entity, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { createHash, createHmac, timingSafeEqual } from 'crypto';
 import bcrypt from 'bcryptjs';
 
 import { EMAIL_VERIFICATION_TIMEOUT } from '../config/auth';
-import { APP_ORIGIN, APP_SECRET, CLIENT_URI } from '../config/app';
+import { APP_SECRET, CLIENT_URI } from '../config/app';
 import Model from './Model';
 import { Submit } from './Submit';
 import { UserHistory } from './UserHistory';
@@ -108,6 +108,12 @@ export class User extends Model {
   })
   lastResetEmailAt: Date;
 
+  @Column({
+    nullable: true,
+    comment: 'Data ostatniej zmiany hasła',
+  })
+  lastPassChangeAt: Date;
+
   @OneToMany(() => Submit, (submit) => submit.user)
   submits: Submit[];
 
@@ -119,11 +125,7 @@ export class User extends Model {
   async checks() {
     this.ckeckedRegulationsAt = await new Date();
     this.ckeckedRodoAt = await new Date();
-  }
-
-  @BeforeUpdate()
-  async newhashPassword() {
-    this.password = await bcrypt.hash(this.password, 12);
+    this.lastPassChangeAt = await new Date();
   }
 
   @BeforeInsert()

@@ -1,19 +1,21 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
-
+import dayjs from 'dayjs';
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcryptjs';
-import { logIn} from '../middleware/auth';
+import { logIn } from '../middleware/auth';
 import { mapErrors } from '../utils/mapErrors';
 import {
   APP_ORIGIN,
   FAILED_LOGINS_MAX,
+  PASS_DAYS_VALID,
   SESSION_NAME,
   UNBLOCK_TIMEOUT,
 } from '../config';
 import { makeLog } from '../services/makeLog';
+import { PasswordReset } from '../entity/PasswordReset';
 
 const OBJECT = 'User';
 
@@ -66,8 +68,8 @@ export const register = async (req, res: Response) => {
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json(mapErrors(errors));
     }
-
     await user.save();
+    console.log(user);
 
     INFO = 'Utworzno użytkownika';
     STATUS = 'success';
@@ -90,7 +92,7 @@ export const register = async (req, res: Response) => {
     return res.status(201).json({
       resStatus: 'success',
       msg: 'User created',
-      msgPL: 'Pomyślnie utworzono użytkownika',
+      msgPL: `Pomyślnie utworzono użytkownika - wysłaliśmy specjalny link aktywacyjny na email ${user.email}`,
       alertTitle: 'Brawo! Użytkownik utworzony!',
       data: user,
     });
@@ -129,14 +131,15 @@ export const login = async (req: any, res: Response) => {
 
     const user = await User.findOne({ login });
 
-    if (!user) {
-      INFO = 'Wprowadzono niepoprawne dane';
+    if (!user || !user.verifiedAt) {
+      INFO =
+        'Wprowadzono niepoprawne dane lub użytkownik nie potwierdził konta';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
         msg: 'Wrong credentials',
-        alertTitle: 'Blokada konta',
+        alertTitle: 'Błąd logowania',
       });
     }
 
@@ -208,16 +211,40 @@ export const login = async (req: any, res: Response) => {
       });
     }
 
+    if (
+      dayjs(Date.now()).diff(dayjs(user.lastPassChangeAt)) > PASS_DAYS_VALID
+    ) {
+      INFO = 'Od ostatniej zmiany hasła minęło 90 dni. Należy je zmienić';
+      STATUS = 'warning';
+
+          await user.save();
+      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+
+      const token = await PasswordReset.plaintextToken();
+
+      const reset = await PasswordReset.create({ userId: user.id, token });
+
+      await reset.save();
+
+      return res.status(403).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        msg: INFO,
+        alertTitle: 'Konieczna zmiana hasła',
+        forcePassChange: true,
+        token,
+        resetId: reset.id
+      });
+    }
+
     logIn(req, user.id);
 
-    user.failedLogins = 0;
     await user.save();
 
     return res.status(200).json({
       resStatus: 'success',
       msgPL: 'Pomyślnie zalogowano.',
       msg: 'Successfully logged in',
-      userId: req.session.userId,
       alertTitle: 'Sukces',
     });
   } catch (err) {
@@ -241,8 +268,6 @@ export const logout = async (req: any, res: Response) => {
   let STATUS = 'success';
 
   try {
-
-
     makeLog(
       req.session.userId,
       OBJECT,
@@ -252,22 +277,21 @@ export const logout = async (req: any, res: Response) => {
       INFO,
       STATUS
     );
-  new Promise<void>((resolve, reject) => {
-    req.session!.destroy((err: Error) => {
-      if (err) reject(err)
+    new Promise<void>((resolve, reject) => {
+      req.session!.destroy((err: Error) => {
+        if (err) reject(err);
 
-      res.clearCookie(SESSION_NAME)
+        res.clearCookie(SESSION_NAME);
 
-      resolve()
-       res.status(200).json({
-        resStatus: STATUS,
-        msgPL: 'Pomyślnie wylogowano użytkownika',
-        msg: 'Successfully logout',
-        alertTitle: 'Wylogowano',
+        resolve();
+        res.status(200).json({
+          resStatus: STATUS,
+          msgPL: 'Pomyślnie wylogowano użytkownika',
+          msg: 'Successfully logout',
+          alertTitle: 'Wylogowano',
+        });
       });
-    })
-  })
-
+    });
   } catch (err) {
     return res.status(500).json({
       resStatus: 'error',

@@ -67,6 +67,7 @@ export const sendResetMail = async (req: any, res: Response) => {
     }
 
     user.lastResetEmailAt = new Date();
+
     await user.save();
 
     return res.status(201).json({
@@ -103,7 +104,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
 
     return res.status(400).json(errors);
   }
-  console.log(id, token, password, 'items');
+
   try {
     const reset = await PasswordReset.findOne(id);
 
@@ -154,7 +155,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
         alertTitle: 'Nieudana zmiana hasła'
       });
     }
-    console.log(password, 'PASSWORD');
+
     await Promise.all([
       resetPassword(user.id, password),
       PasswordReset.delete({ userId: reset.userId }),

@@ -91,6 +91,14 @@ export const rightMenuItems = [
     url: '/logout',
     isLoggedInDisplay: true,
   },
+  {
+    id: uuidv4(),
+    icon: 'exchange',
+    name: 'changepass',
+    title: 'Zmień hasło',
+    url: '/changepass',
+    isLoggedInDisplay: true,
+  },
 ];
 
 export const verItems = [

@@ -1,36 +1,35 @@
 import React, { useContext, useEffect, useState } from 'react';
-
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   Button,
   Container,
-  Divider,
   Form,
   Grid,
   Label,
+  Message,
   Segment,
 } from 'semantic-ui-react';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
-import { loginInputs } from '../inputs';
+import { changePassInputs } from '../inputs';
 
-const Login = ({ history }) => {
+const ChangePass = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
   const authContext = useContext(AuthContext);
-  const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
+  const {checkIsAuthenticated, isLoggedIn } = authContext;
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+
   useEffect(() => {
     checkIsAuthenticated();
-    isLoggedIn && history.push('/');
-  }, [isLoggedIn]);
+     !isLoggedIn && history.push('/login');
+  }, []);
 
   const handleOnClick = async (e) => {
     e.preventDefault();
@@ -40,29 +39,16 @@ const Login = ({ history }) => {
     };
 
     axios
-      .post(`/api/v1/users/login`, body, headers)
+      .post(`/api/v1/changepass`, body, headers)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
-          setUser(data.data.user);
-          setIsLoading(false);
+          await setIsLoading(false);
           history.push('/');
         }
-
       })
       .catch((err) => {
-
-        if (err.response.data.forcePassChange) {
-
-          addAlert(err.response.data);
-          setIsLoading(false);
-          history.push(
-            `/reset?id=${err.response.data.resetId}&token=${err.response.data.token}`
-          );
-          return
-        }
-
-
+        console.log(err.response.data);
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);
@@ -72,7 +58,6 @@ const Login = ({ history }) => {
         setIsLoading(false);
       });
   };
-
   const handleOnChange = (e) => {
     e.preventDefault();
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
@@ -80,12 +65,20 @@ const Login = ({ history }) => {
 
   return (
     <Container>
-      <Title content='Logowanie' />
+      <Title content='Zmiana hasła' />
       <Segment placeholder style={styles.main} size='large'>
-        <Grid columns={2} relaxed='very' stackable>
+        <Message style={styles.msg} info size='small' floating>
+          <Message.Header>Zmiana hasła</Message.Header>
+          <p>
+            Strona służy do zmiany hasła. Podaj obowiązujące i nowe hasło i
+            zapisz zmiany. Pamiętaj, aby nowe hasło posiadało co najmniej 1
+            wielką literę, 1 małą oraz 1 cyfrę.
+          </p>
+        </Message>
+        <Grid columns={1} relaxed='very' stackable>
           <Grid.Column>
             <Form>
-              {loginInputs.map((input) => {
+              {changePassInputs.map((input) => {
                 return (
                   <div key={input.id}>
                     <Form.Input
@@ -114,37 +107,21 @@ const Login = ({ history }) => {
                   </div>
                 );
               })}
-              <span>{}</span>
               <Button
                 loading={isLoading}
                 type='submit'
-                content='Zaloguj się'
+                content='Zmień hasło'
                 primary
                 size='large'
                 onClick={handleOnClick}
               />
             </Form>
-            <Link to='/resetsend' style={styles.link}>
-              <div style={styles.buttonWrapper}>
-                <div style={styles.span}>Zapomniałeś hasła?</div>
-                <Button content='Resetuj hasło' icon='recycle' size='mini' />
-              </div>
-            </Link>
-          </Grid.Column>
-
-          <Grid.Column verticalAlign='middle'>
-            <Link to='/register'>
-              <Button content='Zarejestruj się' icon='user plus' size='big' />
-            </Link>
           </Grid.Column>
         </Grid>
-
-        <Divider vertical>lub</Divider>
       </Segment>
     </Container>
   );
 };
-
 const styles = {
   main: {
     marginTop: '7rem',
@@ -176,11 +153,10 @@ const styles = {
     transform: 'translateY(-35px)',
     color: 'red',
   },
-
-  span: {
-    fontSize: '1rem',
+  msg: {
+    textAlign: 'left',
+    marginBottom: '30px',
   },
-  link: {},
 };
 
-export default Login;
+export default ChangePass;

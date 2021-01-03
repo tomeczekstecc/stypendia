@@ -1,34 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import {
-  Container,
-  Grid,
+import React, { useContext } from 'react';
+import { Container, Grid, Loader, Segment } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 
-  Loader,
-  Segment,
-} from 'semantic-ui-react';
 import Title from '../components/Title';
-
 import AuthContext from '../context/auth/authContext';
 
-
-const Logout= ({ history }) => {
-
-
-
+const Logout = () => {
   const authContext = useContext(AuthContext);
-  const { checkIsAuthenticated, isLoggedIn } = authContext;
+  const { isLoggedIn } = authContext;
 
 
-
-  useEffect(() => {
-    checkIsAuthenticated();
-    isLoggedIn && history.push('/');
-  }, [isLoggedIn]);
-
-
-  return (
+  return !isLoggedIn ? (
     <Container>
       <Title content='Logowanie' />
       <Segment placeholder style={styles.main} size='large'>
@@ -39,9 +21,14 @@ const Logout= ({ history }) => {
         </Grid>
       </Segment>
     </Container>
+  ) : (
+    <Redirect
+      to={{
+        pathname: '/login',
+      }}
+    />
   );
 };
-
 const styles = {
   main: {
     marginTop: '7rem',
@@ -79,5 +66,4 @@ const styles = {
   },
   link: {},
 };
-
 export default Logout;

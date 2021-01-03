@@ -15,6 +15,7 @@ force change password/ done
 
 # FIXES
 login with no verification/ done
+inne validacje dla hasła na różnych stronach
 divider horizontally
 różnica w czasie w czasie twiorzenia użytkownika
 

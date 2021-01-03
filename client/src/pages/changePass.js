@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext,useState } from 'react';
 import axios from 'axios';
 import {
   Button,
@@ -11,25 +11,16 @@ import {
 } from 'semantic-ui-react';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
-import AuthContext from '../context/auth/authContext';
 import { changePassInputs } from '../inputs';
 
 const ChangePass = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-  const authContext = useContext(AuthContext);
-  const {checkIsAuthenticated, isLoggedIn } = authContext;
-
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-
-  useEffect(() => {
-    checkIsAuthenticated();
-     !isLoggedIn && history.push('/login');
-  }, []);
 
   const handleOnClick = async (e) => {
     e.preventDefault();

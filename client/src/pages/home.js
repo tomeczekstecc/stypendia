@@ -1,15 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import AuthContext from '../context/auth/authContext';
+import React from 'react';
 import Title from '../components/Title';
 
-const Home = ({ history }) => {
-  const authContext = useContext(AuthContext);
-  const { checkIsAuthenticated, isLoggedIn } = authContext;
-  useEffect(() => {
-    checkIsAuthenticated();
-    !isLoggedIn && history.push('/login');
-  }, [isLoggedIn]);
-
+const Home = () => {
   return <Title content='Strona statowa' />;
 };
 

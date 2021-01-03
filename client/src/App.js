@@ -14,6 +14,7 @@ import ResetSend from './pages/resetSend';
 import Reset from './pages/reset';
 import Logout from './pages/logout';
 import ChangePass from './pages/changePass';
+import ProtectedRoute from './pages/protectedRoute'
 
 axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
@@ -30,10 +31,10 @@ function App() {
               <Route exact path='/reset' component={Reset} />
               <Route exact path='/resetsend' component={ResetSend} />
               <Route exact path='/resend' component={Resend} />
-              <Route exact path='/changepass' component={ChangePass} />
-              <Route exact path='/' component={Home} />
+              <ProtectedRoute exact path='/changepass' component={ChangePass} />
+              <ProtectedRoute exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
-              <Route exact path='/logout' component={Logout} />
+              <ProtectedRoute exact path='/logout' component={Logout} />
             </Switch>
           </Layout>
         </AuthState>

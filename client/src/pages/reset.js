@@ -14,9 +14,11 @@ import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 import { resetInputs } from '../inputs';
 
-const ResetSend = ({ location: { search }, history }) => {
+const Reset = ({ location, history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
+
+  console.log(location, 'hostory - reset');
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
@@ -38,7 +40,7 @@ const ResetSend = ({ location: { search }, history }) => {
     };
 
     axios
-      .post(`/api/v1/password/reset${search}`, body, headers)
+      .post(`/api/v1/password/reset${location.search}`, body, headers)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -159,4 +161,4 @@ const styles = {
   },
 };
 
-export default ResetSend;
+export default Reset;

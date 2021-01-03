@@ -26,4 +26,4 @@ export const PASSWORD_RESET_BYTES = 40;
 
 export const PASSWORD_RESET_TIMEOUT = TWELVE_HOURS;
 export const UNBLOCK_TIMEOUT = ONE_HOUR / 3;
-export const PASS_DAYS_VALID = ONE_DAY * 30;
+export const PASS_DAYS_VALID = ONE_DAY * 90;

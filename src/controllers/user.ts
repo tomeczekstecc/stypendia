@@ -233,7 +233,8 @@ export const login = async (req: any, res: Response) => {
         alertTitle: 'Konieczna zmiana hasła',
         forcePassChange: true,
         token,
-        resetId: reset.id
+        resetId: reset.id,
+
       });
     }
 

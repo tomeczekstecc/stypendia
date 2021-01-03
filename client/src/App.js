@@ -35,7 +35,8 @@ function App() {
             </Switch>
           </Layout>
         </AuthState>
-      <Alert position={'bottom-right'} autoDeleteInterval={7000} />
+
+      <Alert position={'bottom-right'} autoDeleteInterval={10000} />
       </AlertState>
     </Router>
   );

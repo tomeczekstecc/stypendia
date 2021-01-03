@@ -90,7 +90,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
   const CONTROLLER = 'passwordReset';
   ACTION = 'resetowanie hasła';
 
-  const { id, token } = query;
+  const { id, token} = query;
   const { password, passwordConfirm } = body;
 
   let errors: any = {};

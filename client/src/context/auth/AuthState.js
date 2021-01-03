@@ -60,7 +60,7 @@ const AuthState = (props) => {
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
-           await props.history.push('/login');
+           await props?.history?.push('/login');
         }
       })
       .catch(

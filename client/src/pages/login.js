@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -56,7 +57,7 @@ const Login = ({ history }) => {
           addAlert(err.response.data);
           setIsLoading(false);
           history.push(
-            `/expired?id=${err.response.data.resetId}&token=${err.response.data.token}`
+            `/reset?id=${err.response.data.resetId}&token=${err.response.data.token}&from=login`
           );
           return
         }

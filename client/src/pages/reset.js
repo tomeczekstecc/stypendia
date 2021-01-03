@@ -18,8 +18,6 @@ const Reset = ({ location, history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-  console.log(location, 'hostory - reset');
-
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
 

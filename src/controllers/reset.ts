@@ -1,11 +1,12 @@
 import { Response } from 'express';
-import { isEmail, isEmpty } from 'class-validator';
+import { isEmail, isEmpty, validate } from 'class-validator';
 import { resetPassword } from '../middleware/auth';
 import { User } from '../entity/User';
 import { PasswordReset } from '../entity/PasswordReset';
 import { sendMail } from '../services/mail';
 import { msgDis500 } from '../constantas';
 import { makeLog } from '../services/makeLog';
+import { mapErrors } from '../utils/mapErrors';
 
 const OBJECT = 'User';
 let ACTION, INFO, STATUS;
@@ -155,6 +156,18 @@ export const passwordReset = async ({ query, body }, res: Response) => {
         alertTitle: 'Nieudana zmiana hasła'
       });
     }
+
+    user.password = password; // temp to validate
+
+    errors = await validate(user);
+
+    if (errors.length > 0) {
+      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+      return res.status(400).json(mapErrors(errors));
+    }
+
+
+
 
     await Promise.all([
       resetPassword(user.id, password),

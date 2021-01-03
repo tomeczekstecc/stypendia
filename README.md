@@ -1,5 +1,5 @@
 # TODO:
-private routes ftontend
+private routes ftontend / done
 swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
 rollbar
 Logger (zainstalowany, skonfigurowany)
@@ -15,7 +15,7 @@ force change password/ done
 
 # FIXES
 login with no verification/ done
-inne validacje dla hasła na różnych stronach
+inne walidacje dla hasła na różnych stronach
 divider horizontally
 różnica w czasie w czasie twiorzenia użytkownika
 

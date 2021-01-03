@@ -125,7 +125,7 @@ export const changePassInputs = [
     label: 'Nowe hasło',
     placeholder: 'Podaj nowe hasło',
     type: 'password',
-    name: 'newPassword'
+    name: 'password'
   },
   {
     id: uuidv4(),
@@ -133,6 +133,6 @@ export const changePassInputs = [
     label: 'Powtórz nowe hasło',
     placeholder: 'Powtórz nowe hasło',
     type: 'password',
-    name: 'newPasswordConfirm',
+    name: 'passwordConfirm',
   },
 ];

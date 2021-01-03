@@ -10,7 +10,10 @@ import submitRouter from './routes/submit';
 import submitHistoryRouter from './routes/submitHistory';
 import emailRouter from './routes/verify';
 import resetRouter from './routes/reset';
+import changePassRouter from './routes/changePass';
 import morgan from 'morgan';
+
+
 
 dotenv.config();
 
@@ -44,6 +47,7 @@ app.use(morgan('dev'));
   app.use('/api/v1/submit_history', submitHistoryRouter);
   app.use('/api/v1/email', emailRouter);
   app.use('/api/v1/password', resetRouter);
+  app.use('/api/v1/changepass', changePassRouter);
   app.use(serverError);
   app.use(notFound);
 

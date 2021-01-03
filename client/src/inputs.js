@@ -108,3 +108,31 @@ export const resetInputs = [
     name: 'passwordConfirm',
   },
 ];
+
+export const changePassInputs = [
+
+  {
+    id: uuidv4(),
+    icon: 'lock',
+    label: 'Obowiązujące hasło',
+    placeholder: 'Podaj obowiązujące hasło',
+    type: 'password',
+    name: 'oldPassword'
+  },
+  {
+    id: uuidv4(),
+    icon: 'lock',
+    label: 'Nowe hasło',
+    placeholder: 'Podaj nowe hasło',
+    type: 'password',
+    name: 'newPassword'
+  },
+  {
+    id: uuidv4(),
+    icon: 'lock',
+    label: 'Powtórz nowe hasło',
+    placeholder: 'Powtórz nowe hasło',
+    type: 'password',
+    name: 'newPasswordConfirm',
+  },
+];

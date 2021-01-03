@@ -1,4 +1,5 @@
 # TODO:
+private routes ftontend
 swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
 rollbar
 Logger (zainstalowany, skonfigurowany)
@@ -8,7 +9,8 @@ load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
 add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 auto logout
 change password
-force change password
+
+force change password/ done
 
 
 # FIXES

@@ -61,12 +61,17 @@ export class Submit extends Model {
   @Column({ default: 1, comment: 'Status wniosku' })
   status: number;
 
-  @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
-  @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
-  isParent: boolean;
+  // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
+  // @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
+  // isParent: boolean;
 
-  @IsBoolean({ message: 'isSelf może przyjąć wartość 0 lub 1' })
-  @Column({ comment: 'Status prawny Wnioskodawcy - Pełnoletni uczeń' })
+  @Column({
+    type: 'enum',
+    comment:
+      '1:Status prawny Wnioskodawcy - Pełnoletni uczeń, 0:Status prawny Wnioskodawcy - Rodzic ucznia',
+    enum: [0, 1],
+    default: 0,
+  })
   isSelf: boolean;
 
   @Column({

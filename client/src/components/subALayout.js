@@ -16,9 +16,7 @@ const SubALayout = ({ children, leadHeader }) => {
         <Title content='Nowy wniosek' />
         <Wrapper>
           <Segment placeholder size='large'>
-            <Label attached='top'>
-              <Header>{leadHeader}</Header>
-            </Label>
+
             <Grid
               className='container'
               centered

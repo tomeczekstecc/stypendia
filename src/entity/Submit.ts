@@ -9,7 +9,6 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import express from 'express'
 import {
   Entity,
   Column,
@@ -17,7 +16,6 @@ import {
   BeforeInsert,
   JoinColumn,
   OneToMany,
-  BeforeUpdate,
 } from 'typeorm';
 
 import Model from './Model';
@@ -29,9 +27,8 @@ import {
   schoolTypeEnums,
   priGradesEnums,
   allTotalAvgEnums,
-  priGradesAvgEnums,
+
 } from './types';
-import { type } from 'os';
 
 @Entity('submits')
 export class Submit extends Model {

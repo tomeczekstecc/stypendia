@@ -33,9 +33,9 @@ export const leftMenuItems = [
   {
     id: uuidv4(),
     icon: 'write',
-    name: 'makeSub',
+    name: 'newSubmit',
     title: 'Złóż wniosek',
-    url: '/makesub',
+    url: '/newsubmit',
     hasOwnSubDisplay: false,
     noOwnSubDisplay: true,
     isLoggedInDisplay: true,

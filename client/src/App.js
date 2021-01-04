@@ -15,6 +15,7 @@ import Reset from './pages/reset';
 import Logout from './pages/logout';
 import ChangePass from './pages/changePass';
 import ProtectedRoute from './pages/protectedRoute'
+import NewSubmit from './pages/newSubmit';
 
 axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
@@ -35,6 +36,7 @@ function App() {
               <ProtectedRoute exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
               <ProtectedRoute exact path='/logout' component={Logout} />
+              <ProtectedRoute exact path='/newsubmit' component={NewSubmit} />
             </Switch>
           </Layout>
         </AuthState>

@@ -1,23 +1,32 @@
 # TODO:
-private routes ftontend / done
-swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
-rollbar
-Logger (zainstalowany, skonfigurowany)
-export messages + concat dev messaGES
-refactor to styled-components
-load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
-add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
-auto logout
-change password
 
-force change password/ done
+
+panel nawigacji
+panel postępu
+spinner zapis
+refactor to styled-components
+export messages + concat dev messaGES
+swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
+load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
+auto logout
+csrf
+dodać pozostałe pola wniosku
+
+
+rollbar?
+Logger (zainstalowany, skonfigurowany)?
+add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
+
 
 
 # FIXES
-login with no verification/ done
-inne walidacje dla hasła na różnych stronach
+undefined nie jest poprawnym adresem email
 divider horizontally
-różnica w czasie w czasie twiorzenia użytkownika
+ip w logach
+
+różnica w czasie w trakcie twiorzenia użytkownika?
+
+
 
 # Awesome Project Build with TypeORM
 

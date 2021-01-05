@@ -32,12 +32,21 @@ export const addSubmit = async (req: any, res: Response) => {
       });
     }
 
-    const submit = Submit.create({
+    const submit = await Submit.create({
       ...req.body,
       userId: req.session.userId,
       userUuid: user.uuid,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      pupilFirstName: req.body.pupilFirstName || user.firstName,
+      pupilLastName: req.body.pupilLastName || user.lastName,
+      pupilEmail: req.body.pupilEmail || user.email,
+
       user,
     });
+
+    console.log(submit)
 
     const errors = await validate(submit);
 

@@ -143,7 +143,6 @@ export class User extends Model {
 
     const url = `${CLIENT_URI}/verify?id=${this.id}&token=${token}&expires=${expires}`;
     const baseUrl = `/verify?id=${this.id}&token=${token}&expires=${expires}`;
-    console.log(baseUrl, 'make');
     const signature = User.signVerificationUrl(baseUrl);
 
     return `${url}&signature=${signature}`;

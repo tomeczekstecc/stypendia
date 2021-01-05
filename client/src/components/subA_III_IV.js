@@ -1,41 +1,53 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SubALayout from './subALayout';
+import SubmitContext from '../context/submit/submitContext';
+import Nav from './nav/Nav';
 
 const options = [
-  { key: 'd', text: 'dolnośląskie', value: 'D' },
-  { key: 'c', text: 'kujawsko-pomorskie', value: 'C' },
-  { key: 'l', text: 'lubelskie', value: 'L' },
-  { key: 'f', text: 'lubuskie', value: 'F' },
-  { key: 'e', text: 'łódzkie', value: 'E' },
-  { key: 'k', text: 'małopolskie', value: 'K' },
-  { key: 'w', text: 'mazowieckie', value: 'W' },
-  { key: 'o', text: 'opolskie', value: 'O' },
-  { key: 'r', text: 'podkarpackie', value: 'R' },
-  { key: 'b', text: 'podlaskie', value: 'B' },
-  { key: 'g', text: 'pomorskie', value: 'G' },
-  { key: 's', text: 'śląskie', value: 'S' },
-  { key: 't', text: 'świętokrzyskie', value: 'T' },
-  { key: 'n', text: 'warmińsko-mazurskie', value: 'N' },
-  { key: 'p', text: 'wielkopolskie', value: 'P' },
-  { key: 'z', text: 'zachodniopomorskie', value: 'Z' },
-  { key: 'B', text: 'podlaskie', value: 'B' },
+  { key: 'a', text: 'Wybierz województwo', value: 'default', disabled: true },
+  { key: 's', text: 'śląskie' },
+  { key: 'd', text: 'dolnośląskie' },
+  { key: 'c', text: 'kujawsko-pomorskie' },
+  { key: 'l', text: 'lubelskie' },
+  { key: 'f', text: 'lubuskie' },
+  { key: 'e', text: 'łódzkie' },
+  { key: 'k', text: 'małopolskie' },
+  { key: 'w', text: 'mazowieckie' },
+  { key: 'o', text: 'opolskie' },
+  { key: 'r', text: 'podkarpackie' },
+  { key: 'b', text: 'podlaskie' },
+  { key: 'g', text: 'pomorskie' },
+  { key: 't', text: 'świętokrzyskie' },
+  { key: 'n', text: 'warmińsko-mazurskie' },
+  { key: 'p', text: 'wielkopolskie' },
+  { key: 'z', text: 'zachodniopomorskie' },
+  { key: 'B', text: 'podlaskie' },
 ];
 const optionsC = [
-  { key: 'n', text: 'Nauczyciel', value: 'nauczyciel' },
-  { key: 'p', text: 'Pedagog szkolny', value: 'pedagog' },
-  { key: 'd', text: 'Doradca zawodowy', value: 'doradca' },
+  { key: 'a', text: 'Wybierz profil', value: 'default' , disabled: true},
+  { key: 'n', text: 'Nauczyciel', value: 'nauczyciel' , disabled: false},
+  { key: 'p', text: 'Pedagog szkolny', value: 'pedagog', disabled: false },
+  { key: 'd', text: 'Doradca zawodowy', value: 'doradca' , disabled: false},
+];
+const optionsT = [
+  { key: 'a', text: 'Wybierz rodzaj szkoły', value: 'default' , disabled: true},
+  { key: 'n', text: 'Liceum', value: 'liceum' , disabled: false},
+  { key: 'p', text: 'Technikum', value: 'technikum', disabled: false },
+
 ];
 
 const SubA_III_IV = () => {
-  const [body, setBody] = useState({});
 
-  const handleOnChange = (e) => {
+  const submitContext = useContext(SubmitContext);
+  const { currentSubmit, updateCurrentSubmit } = submitContext;
+
+  const handleOnChange = async (e) => {
     e.preventDefault();
-    setBody((prevBody) => ({
-      ...prevBody,
+    await updateCurrentSubmit({
+      ...currentSubmit,
       [e.target.name]: e.target.value,
-    }));
+    });
   };
 
   return (
@@ -53,7 +65,27 @@ const SubA_III_IV = () => {
               icon='building outline'
               placeholder='Podaj pełną nazwę szkoły'
               iconPosition='left'
+              onChange={(e) => handleOnChange(e)}
+              value={currentSubmit.schoolName}
             />
+
+            <div className='select-wrapper'>
+              <Header className='select-header' as='h5'>
+                Profil doradcy
+              </Header>
+              <select
+                name='schoolType'
+                onChange={(e) => handleOnChange(e)}
+                value={currentSubmit.schoolType}
+                defaultValue='default'
+              >
+                {optionsT.map((o) => (
+                  <option disabled={o.disabled} key={o.key} value={o.value}>
+                    {o.text}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className='adress-wrapper'>
               <Header as='h4'>Adres szkoły</Header>
@@ -64,6 +96,8 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
+                  value={currentSubmit.schoolStreetName}
+                  onChange={(e) => handleOnChange(e)}
                 />
 
                 <Form.Input
@@ -73,6 +107,8 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
+                  value={currentSubmit.schoolStreetNr}
+                  onChange={(e) => handleOnChange(e)}
                 />
                 <Form.Input
                   className='input'
@@ -81,6 +117,8 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (kod pocztowy)'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
+                  value={currentSubmit.schoolZip}
+                  onChange={(e) => handleOnChange(e)}
                 />
                 <Form.Input
                   className='input'
@@ -89,14 +127,18 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (miejscowość)'
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
+                  value={currentSubmit.schoolTown}
+                  onChange={(e) => handleOnChange(e)}
                 />
                 <div className='select-wrapper'>
                   <select
                     name='schoolVoyev'
                     onChange={(e) => handleOnChange(e)}
+                    value={currentSubmit.schoolVoyev}
+                    defaultValue='default'
                   >
                     {options.map((o) => (
-                      <option key={o.key} v alue={o.value}>
+                      <option disabled={o.disabled} key={o.key} value={o.value}>
                         {o.text}
                       </option>
                     ))}
@@ -120,6 +162,8 @@ const SubA_III_IV = () => {
               label='Imię doradcy'
               name='counselorFirstName'
               placeholder='Podaj imię doradcy'
+              value={currentSubmit.counselorFirstName}
+              onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
               icon='user'
@@ -128,6 +172,8 @@ const SubA_III_IV = () => {
               label='Nazwisko doradcy'
               name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
+              value={currentSubmit.counselorLastName}
+              onChange={(e) => handleOnChange(e)}
             />
 
             <div className='select-wrapper'>
@@ -137,9 +183,13 @@ const SubA_III_IV = () => {
               <select
                 name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
+                placeholder='Wybierz profil doradcy'
+                value={currentSubmit.counselorProfile}
+                onChange={(e) => handleOnChange(e)}
+                defaultValue='default'
               >
                 {optionsC.map((o) => (
-                  <option key={o.key} v alue={o.value}>
+                  <option disabled={o.disabled} key={o.key} value={o.value}>
                     {o.text}
                   </option>
                 ))}
@@ -147,6 +197,7 @@ const SubA_III_IV = () => {
             </div>
           </Form.Group>
         </Form>
+        <Nav />
       </Grid.Column>
     </SubALayout>
   );

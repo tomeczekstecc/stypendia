@@ -3,26 +3,39 @@ import { Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from './subALayout';
 
 import AuthContext from '../context/auth/authContext';
+import SubmitContext from '../context/submit/submitContext';
 
 const options = [
-  { key: 'p', text: 'Rodzic/Opiekun prawny', value: false },
-  { key: 'u', text: 'Pełnoletni uczeń', value: true },
+  {
+    key: 's',
+    text: 'Wybierz status wnioskodawcy',
+    value: 'default',
+    disabled: true,
+  },
+  {
+    key: 'p',
+    text: 'Rodzic/Opiekun prawny',
+    value: 0,
+  },
+  { key: 'u', text: 'Pełnoletni uczeń', value: 1},
 ];
 
 const SubA_I_II = () => {
   const authContext = useContext(AuthContext);
-  const { user, checkIsAuthenticated, isLoggedIn } = authContext;
+  const { user } = authContext;
 
-  const [body, setBody] = useState({});
+  const submitContext = useContext(SubmitContext);
+  const { currentSubmit, updateCurrentSubmit } = submitContext;
 
-  const handleOnChange = (e) => {
-    console.log(e);
+  const handleOnChange = async (e) => {
     e.preventDefault();
-    setBody((prevBody) => ({
-      ...prevBody,
+    await updateCurrentSubmit({
+      ...currentSubmit,
+      // firstName: user.firstName, // chyba lepiej na backendzie + pupif jeśli isSelf
+      // lastName: user.lastName,
+      // email: user.email,
       [e.target.name]: e.target.value,
-    }));
-    console.log(body.isSelf);
+    });
   };
 
   return (
@@ -39,7 +52,7 @@ const SubA_I_II = () => {
               name='firstName'
               icon='user'
               iconPosition='left'
-              value={user.firstName}
+              value={user?.firstName} // usynąć znak zapytania
             />
             <Form.Input
               icon='user'
@@ -47,7 +60,7 @@ const SubA_I_II = () => {
               className='input'
               label='Nazwisko wnioskodawcy'
               name='lastName'
-              value={user.lastName}
+              value={user?.lastName}
             />
 
             <Form.Input
@@ -57,7 +70,7 @@ const SubA_I_II = () => {
               iconPosition='left'
               placeholder='Podaj email wnioskodawcy'
               name='phone'
-              value={user.email}
+              value={user?.email}
             />
             <Form.Input
               className='input'
@@ -65,10 +78,12 @@ const SubA_I_II = () => {
               icon='phone'
               iconPosition='left'
               placeholder='Podaj numer telefonu wnioskodawcy'
-              type='phone'
               name='phone'
+              onChange={(e) => handleOnChange(e)}
+              value={currentSubmit.phone}
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               icon='box'
               iconPosition='left'
@@ -88,9 +103,13 @@ const SubA_I_II = () => {
               <Header className='select-header' as='h5'>
                 Status Wnioskodawcy
               </Header>
-              <select name='isSelf' onChange={(e) => handleOnChange(e)}>
+              <select
+                name='isSelf'
+                defaultValue='default'
+                onChange={(e) => handleOnChange(e)}
+              >
                 {options.map((o) => (
-                  <option key={o.key} value={o.value}>
+                  <option disabled={o.disabled} key={o.key} value={o.value}>
                     {o.text}
                   </option>
                 ))}
@@ -106,31 +125,45 @@ const SubA_I_II = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               placeholder='Podaj PESEL ucznia'
               label='PESEL ucznia'
               name='pupilPesel'
               icon='id card outline'
               iconPosition='left'
+              value={currentSubmit.pupilPesel}
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               icon='user'
               iconPosition='left'
               label='Imię ucznia'
               name='pupilFirstName'
               placeholder='Podaj imię ucznia'
-              value={body.isSelf === 'true'  ? user.firstName : null}
+              value={
+                currentSubmit.isSelf === '1'
+                  ? user.firstName
+                  : currentSubmit.pupilFirstName
+              }
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               icon='user'
               iconPosition='left'
               className='input'
               label='Nazwisko ucznia'
               name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
+              value={
+                currentSubmit.isSelf === '1'
+                  ? user.lastName
+                  : currentSubmit.pupilLastName
+              }
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               icon='at'
               iconPosition='left'
               className='input'
@@ -138,16 +171,23 @@ const SubA_I_II = () => {
               type='email'
               name='pupilEmail'
               placeholder='Podaj adres email ucznia'
+              value={
+                currentSubmit.isSelf === '1'
+                  ? user.email
+                  : currentSubmit.pupilEmail
+              }
             />
 
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               label='Numer telefonu ucznia'
               icon='phone'
               iconPosition='left'
               placeholder='Podaj numer telefonu ucznia'
               type='phone'
-              name='phone'
+              name='pupilPhone'
+              value={currentSubmit.pupilPhone}
             />
           </Form.Group>
         </Form>

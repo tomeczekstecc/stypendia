@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 
-import { SESSION_ABSOLUTE_TIMEOUT} from '../config';
+import { SESSION_ABSOLUTE_TIMEOUT } from '../config';
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { makeLog } from '../services/makeLog';
@@ -24,7 +24,6 @@ export const markAsVerified = async (user: User) => {
 };
 
 export const resetPassword = async (userId: number, password: string) => {
-
   ACTION = 'reset';
   INFO = 'pomyślnie zresetowano';
 
@@ -38,7 +37,6 @@ export const resetPassword = async (userId: number, password: string) => {
   user.failedLogins = 0;
   user.lastPassChangeAt = await new Date();
 
-
   await user.save();
 };
 
@@ -49,6 +47,12 @@ export const logIn = async (req: any, userId: any) => {
 
   req.session!.userId = userId;
   req.session!.createdAt = Date.now();
+
+  const user = await User.findOne(req.session.userId);
+
+  user.failedLogins = 0;
+
+  await user.save();
 
   makeLog(userId, OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS, req);
 };
@@ -81,7 +85,6 @@ export const active = async (req: any, res: Response, next: NextFunction) => {
     const { createdAt } = req.session;
 
     if (now > createdAt + SESSION_ABSOLUTE_TIMEOUT) {
-
       // Axios to logout
       // await logOut(req, res);
     }
@@ -98,7 +101,7 @@ export const auth = async (req: any, res: Response, next: NextFunction) => {
       msgPL:
         'Musisz być zalogowany i konto musi być potwierdzone by wykonać tę operację',
       msg: 'You must be logged in',
-      alertTitle: 'Brak uprawnień'
+      alertTitle: 'Brak uprawnień',
     });
   }
   next();

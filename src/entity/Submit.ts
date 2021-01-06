@@ -36,12 +36,12 @@ export class Submit extends Model {
     super();
     Object.assign(this, submit);
   }
-  //
-  //I. dane osobowe
-  //
 
   @Column({ comment: 'Wersja wniosku' , default: 1})
   ver: number;
+
+  @Column({ comment: 'Numer wniosku' })
+  numer: string;
 
   @Column({
     type: 'enum',
@@ -53,18 +53,21 @@ export class Submit extends Model {
 
   // @IsInt({ message: 'Status musi by intigerem' })
   // @Min(1, {
-  //   message: 'Status nie może być mniejszy niż 1',
-  // })
-  // @Max(9, {
-  //   message: 'Status nie może być większy niż 9',
-  // })
-  @Column({ default: 1, comment: 'Status wniosku' })
-  status: number;
+    //   message: 'Status nie może być mniejszy niż 1',
+    // })
+    // @Max(9, {
+      //   message: 'Status nie może być większy niż 9',
+      // })
+      @Column({ default: 1, comment: 'Status wniosku' })
+      status: number;
 
-  // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
-  // @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
-  // isParent: boolean;
+      // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
+      // @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
+      // isParent: boolean;
 
+      //
+      //I. dane osobowe
+      //
   @Column({
     type: 'enum',
     comment:
@@ -274,6 +277,9 @@ export class Submit extends Model {
   // })
   // isHandicap: boolean;
 
+  @Column({ comment: 'Suma kontrolna powiązanego pliku pdf' , nullable: true})
+  checksum: string;
+
   @Column({ comment: 'UuuidV4 użytkownika' })
   userUuid: string;
 
@@ -287,6 +293,8 @@ export class Submit extends Model {
 
   @OneToMany(() => Submit, (submit) => submit.history)
   history: SubmitHistory;
+
+
 
   // @BeforeInsert()
   // calculatePriAver() {

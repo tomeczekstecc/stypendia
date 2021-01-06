@@ -36,7 +36,7 @@ export default abstract class Model extends BaseEntity {
     // return classToPlain(this);
     return {
       ...this,
-      id: undefined,
+      // id: undefined,
       password: undefined,
 
     };

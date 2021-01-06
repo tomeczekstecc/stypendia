@@ -7,6 +7,7 @@ import { active, notFound, serverError } from './middleware';
 import userRouter from './routes/user';
 import userHistoryRouter from './routes/userHistory';
 import submitRouter from './routes/submit';
+import draftRouter from './routes/draft';
 import submitHistoryRouter from './routes/submitHistory';
 import emailRouter from './routes/verify';
 import resetRouter from './routes/reset';
@@ -48,6 +49,7 @@ export const createApp = (store: Store) => {
   app.use('/api/v1/password', resetRouter);
   app.use('/api/v1/changepass', changePassRouter);
   app.use('/api/v1/submitpdf', submitPdfRouter);
+  app.use('/api/v1/drafts', draftRouter);
   app.use(serverError);
   app.use(notFound);
 

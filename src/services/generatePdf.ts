@@ -24,7 +24,7 @@ export async function generatePdf(data, type) {
 
   const calculateChecksum = async (type) => {
     console.log(fileName)
-    const file = path.join(process.cwd(), 'pdfs', `${fileName}.pdf`);
+    const file = path.join(process.cwd(), 'pdfs', `${type}`,`${fileName}.pdf`);
     const buffer = fs.readFileSync(file);
     const md5h = md5(buffer);
     const crch = crc.crc32(buffer).toString(16);
@@ -43,7 +43,7 @@ export async function generatePdf(data, type) {
   await page.setContent(content);
   await page.emulateMediaType('screen');
   await page.pdf({
-    path: `pdfs/${fileName}.pdf`,
+    path: `pdfs/${type}/${fileName}.pdf`,
     format: 'A4',
     printBackground: true,
     displayHeaderFooter: true,

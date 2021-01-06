@@ -4,7 +4,7 @@ import SubmitContext from './submitContext';
 import axios from 'axios';
 import AlertContext from '../alert/alertContext';
 
-import { UPDATE_CURRENT_SUBMIT } from '../types';
+import { UPDATE_CURRENT_SUBMIT, SET_SUBMIT_ID } from '../types';
 
 const SubmitState = (props) => {
   const alertContext = useContext(AlertContext);
@@ -39,12 +39,20 @@ const SubmitState = (props) => {
     });
   };
 
+  const setSubmitId = (id) => {
+    dispatch({
+      type: SET_SUBMIT_ID,
+      payload: id,
+    });
+  };
   return (
     <SubmitContext.Provider
       value={{
         currentSubmit: state.currentSubmit,
         updateCurrentSubmit,
-        addNewSubmit
+        addNewSubmit,
+        setSubmitId,
+        submitId: state.submitId,
       }}
     >
       {props.children}

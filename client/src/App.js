@@ -38,7 +38,7 @@ function App() {
               <ProtectedRoute exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
               <ProtectedRoute exact path='/logout' component={Logout} />
-              <Route exact path='/newsubmit' component={NewSubmit} />
+              <ProtectedRoute exact path='/newsubmit' component={NewSubmit} />
             </Switch>
           </Layout></SubmitState>
         </AuthState>

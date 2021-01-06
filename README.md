@@ -1,6 +1,6 @@
 # TODO:
 
-
+draft
 panel nawigacji
 panel postępu
 spinner zapis
@@ -11,6 +11,8 @@ load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
 auto logout
 csrf
 dodać pozostałe pola wniosku
+submit template
+
 
 
 rollbar?

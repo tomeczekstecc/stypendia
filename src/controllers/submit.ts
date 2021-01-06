@@ -1,5 +1,6 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
+
 import { msgDis500 } from '../constantas';
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
@@ -15,6 +16,7 @@ let ACTION, INFO, STATUS, CONTROLLER;
 //
 
 export const addSubmit = async (req: any, res: Response) => {
+  let errors:any ={}
   CONTROLLER = 'addSubmit';
   ACTION = 'dodawanie';
   try {
@@ -32,10 +34,28 @@ export const addSubmit = async (req: any, res: Response) => {
       });
     }
 
+const peselExists = await Submit.find({pupilPesel: req.body.pupilPesel})
+console.log(peselExists)
+if (peselExists.length>0){
+  errors.pupilPesel= 'Ten PESEL został już wykorzystany';
+  // ****************************** LOG *********************************//
+  INFO = 'Pod tym numerem pesel jest już utworzony wniosek';
+  STATUS = 'error';
+  makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+  // ********************************************************************//
+
+    if (Object.keys(errors).length > 0) {
+      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
+      return res.status(400).json(errors);
+    }
+}
+
+    const num = (await (await Submit.find()).length) + 10000;
+
     const submit = await Submit.create({
       ...req.body,
-      userId: req.session.userId,
-      userUuid: user.uuid,
+      numer: `WN-${num}-v1-20`,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -46,9 +66,7 @@ export const addSubmit = async (req: any, res: Response) => {
       user,
     });
 
-    console.log(submit)
-
-    const errors = await validate(submit);
+   errors = await validate(submit);
 
     if (errors.length > 0) {
       // ****************************** LOG *********************************//
@@ -67,7 +85,7 @@ export const addSubmit = async (req: any, res: Response) => {
     // ********************************************************************//
 
     return res.status(201).json({
-      stau: 'success',
+      resStaus: 'success',
       msg: 'Submit created',
       msgPL: INFO,
       data: submit,

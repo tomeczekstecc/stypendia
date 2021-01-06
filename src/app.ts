@@ -1,7 +1,7 @@
 import express from 'express';
 import session, { Store } from 'express-session';
 import dotenv from 'dotenv';
-import cors from 'cors'
+import cors from 'cors';
 import { SESSION_OPTIONS } from './config';
 import { active, notFound, serverError } from './middleware';
 import userRouter from './routes/user';
@@ -11,23 +11,22 @@ import submitHistoryRouter from './routes/submitHistory';
 import emailRouter from './routes/verify';
 import resetRouter from './routes/reset';
 import changePassRouter from './routes/changePass';
+import submitPdfRouter from './routes/submitPdf';
 import morgan from 'morgan';
-
-
 
 dotenv.config();
 
 export const createApp = (store: Store) => {
   const app = express();
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200,
-  })
-);
+  app.use(
+    cors({
+      credentials: true,
+      origin: 'http://localhost:3000',
+      optionsSuccessStatus: 200,
+    })
+  );
   app.use(express.json());
-app.use(morgan('dev'));
+  app.use(morgan('dev'));
   app.use(
     session({
       ...SESSION_OPTIONS,
@@ -48,6 +47,7 @@ app.use(morgan('dev'));
   app.use('/api/v1/email', emailRouter);
   app.use('/api/v1/password', resetRouter);
   app.use('/api/v1/changepass', changePassRouter);
+  app.use('/api/v1/submitpdf', submitPdfRouter);
   app.use(serverError);
   app.use(notFound);
 

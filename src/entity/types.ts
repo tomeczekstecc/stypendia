@@ -10,29 +10,27 @@ export const statusEnums = [
   'bez_rozp',
 ];
 export const voyevEnums = [
-  'dolnośląskie',
-  'kujawsko-pomorskie',
-  'lubelskie',
-  'lubuskie',
-  'łódzkie',
-  'małopolskie',
-  'mazowieckie',
-  'opolskie',
-  'podkarpackie',
-  'podlaskie',
-  'pomorskie',
+  // 'dolnośląskie',
+  // 'kujawsko-pomorskie',
+  // 'lubelskie',
+  // 'lubuskie',
+  // 'łódzkie',
+  // 'małopolskie',
+  // 'mazowieckie',
+  // 'opolskie',
+  // 'podkarpackie',
+  // 'podlaskie',
+  // 'pomorskie',
   'śląskie',
-  'świętokrzyskie',
-  'warmińsko-mazurskie',
-  'wielkopolskie',
-  'zachodniopomorskie',
+  // 'świętokrzyskie',
+  // 'warmińsko-mazurskie',
+  // 'wielkopolskie',
+  // 'zachodniopomorskie',
 ];
-export const schoolTypeEnums = [
-  'liceum', 'technikum'
-];
+export const schoolTypeEnums = ['liceum', 'technikum'];
 export const counselorProfileTypeEnums = ['nauczyciel', 'pedagog', 'doradca'];
-export const priGradesEnums = [5,6];
-export const priGradesAvgEnums = [5.33,5.67,6];
+export const priGradesEnums = [5, 6];
+export const priGradesAvgEnums = [5.33, 5.67, 6];
 export const allTotalAvgEnums = [
   '5,00-5,17',
   '5,18-5,33',
@@ -43,4 +41,4 @@ export const allTotalAvgEnums = [
 ];
 export const rolesEnum = ['wnioskodawca', 'admin', 'ocen', 'god'];
 
-export const resultEnum= ['info' , 'error', 'warning', 'success']
+export const resultEnum = ['info', 'error', 'warning', 'success'];

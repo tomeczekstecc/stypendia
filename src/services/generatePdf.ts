@@ -5,37 +5,41 @@ import path from 'path';
 import crc from 'crc';
 import md5 from 'md5';
 import dayjs from 'dayjs';
+import { createHmac, randomBytes } from 'crypto';
 import { Submit } from '../entity/Submit';
+import { APP_SECRET } from '../config';
 
-export async function generatePdf(data, type) {
+const hashedToken = (plaintextToken: string) => {
+  return createHmac('md5', APP_SECRET).update(plaintextToken).digest('hex');
+};
 
-  const fileName = data.submit.numer;
 
 
-  const compile = async function (templateName, data) {
-    const filePath = path.join(
-      process.cwd(),
-      'src/templates/pdf/',
-      `${templateName}.hbs`
+
+
+const compile = async function (templateName, data) {
+  const filePath = path.join(
+    process.cwd(),
+    'src/templates/pdf/',
+    `${templateName}.hbs`
     );
     const html = fs.readFileSync(filePath, 'utf-8');
     return hbs.compile(html)(data);
   };
 
+  export async function generatePdf(data, type) {
+  const hash = hashedToken(new Date().getTime().toString());
+  const fileName = data.submit.numer; // inne przypadki też dorobić
+
   const calculateChecksum = async (type) => {
-    console.log(fileName)
-    const file = path.join(process.cwd(), 'pdfs', `${type}`,`${fileName}.pdf`);
+    const file = path.join(process.cwd(), 'pdfs', `${type}`, `${fileName}.pdf`);
     const buffer = fs.readFileSync(file);
     const md5h = md5(buffer);
     const crch = crc.crc32(buffer).toString(16);
     const checksum = crch + md5h;
-
-    if (type === 'submit') {
-      const submit = await Submit.findOne(data.submit.id);
-      submit.checksum = checksum;
-      await submit.save();
-    }
+    return checksum;
   };
+
 
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -50,7 +54,7 @@ export async function generatePdf(data, type) {
     headerTemplate: `
     <div style="font-family: Arial; margin: 0 auto; margin-top: 20px; border-bottom: solid 1px black; width: 85%; font-size: 8px; padding: 5px 5px 0; position: relative;">
         <div style="position: absolute; left: 10px; bottom: 5px;"><span>Numer wniosku: <strong>${data.submit.numer}</strong></span></div>
-
+        <div style="position: absolute; left: 180px; bottom: 5px;"><span>Suma kontrolna: <strong>${hash}</strong></span></div>
         <div style="position: absolute; right: 10px; bottom: 5px;">strona <span class="pageNumber"></span>/<span class="totalPages"></span></div>
     </div>
   `,
@@ -71,7 +75,12 @@ export async function generatePdf(data, type) {
     margin: { bottom: '60px', left: '15px', right: '15px', top: '70px' },
   });
 
-  await calculateChecksum(type);
+  if (type === 'submit') {
+    const submit = await Submit.findOne(data[type].id);
+    submit.checksum = await calculateChecksum(type);
+    submit.hash = hash;
+    await submit.save();
+  }
 
   console.log('Done');
 

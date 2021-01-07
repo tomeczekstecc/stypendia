@@ -277,8 +277,11 @@ export class Submit extends Model {
   // })
   // isHandicap: boolean;
 
-  @Column({ comment: 'Suma kontrolna powiązanego pliku pdf' , nullable: true})
+  @Column({ comment: 'Suma kontrolna powiązanego pliku pdf 1 ' , nullable: true})
   checksum: string;
+
+  @Column({ comment: 'Hash' , nullable: true})
+  hash: string;
 
   @Column({ comment: 'UuuidV4 użytkownika' })
   userUuid: string;

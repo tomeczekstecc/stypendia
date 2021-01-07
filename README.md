@@ -3,13 +3,13 @@
 draft
 panel nawigacji
 panel postępu
-spinner zapis
 refactor to styled-components
 export messages + concat dev messaGES
 swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
 load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
 auto logout
 csrf
+spinner zapis
 dodać pozostałe pola wniosku
 submit template
 
@@ -25,6 +25,7 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 undefined nie jest poprawnym adresem email
 divider horizontally
 ip w logach
+brak pupilPhone daje 500
 
 różnica w czasie w trakcie twiorzenia użytkownika?
 

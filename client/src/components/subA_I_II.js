@@ -25,12 +25,12 @@ const SubA_I_II = () => {
   const { user } = authContext;
 
   const submitContext = useContext(SubmitContext);
-  const { currentSubmit, updateCurrentSubmit } = submitContext;
+  const { newSubmit, updateNewSubmit } = submitContext;
 
   const handleOnChange = async (e) => {
     e.preventDefault();
-    await updateCurrentSubmit({
-      ...currentSubmit,
+    await updateNewSubmit({
+      ...newSubmit,
       // firstName: user.firstName, // chyba lepiej na backendzie + pupif jeśli isSelf
       // lastName: user.lastName,
       // email: user.email,
@@ -80,7 +80,7 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu wnioskodawcy'
               name='phone'
               onChange={(e) => handleOnChange(e)}
-              value={currentSubmit.phone}
+              value={newSubmit.phone}
             />
             <Form.Input
               onChange={(e) => handleOnChange(e)}
@@ -132,7 +132,7 @@ const SubA_I_II = () => {
               name='pupilPesel'
               icon='id card outline'
               iconPosition='left'
-              value={currentSubmit.pupilPesel}
+              value={newSubmit.pupilPesel}
             />
             <Form.Input
               onChange={(e) => handleOnChange(e)}
@@ -143,9 +143,9 @@ const SubA_I_II = () => {
               name='pupilFirstName'
               placeholder='Podaj imię ucznia'
               value={
-                currentSubmit.isSelf === '1'
+                newSubmit.isSelf === '1'
                   ? user.firstName
-                  : currentSubmit.pupilFirstName
+                  : newSubmit.pupilFirstName
               }
             />
             <Form.Input
@@ -157,9 +157,9 @@ const SubA_I_II = () => {
               name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
               value={
-                currentSubmit.isSelf === '1'
+                newSubmit.isSelf === '1'
                   ? user.lastName
-                  : currentSubmit.pupilLastName
+                  : newSubmit.pupilLastName
               }
             />
             <Form.Input
@@ -172,9 +172,9 @@ const SubA_I_II = () => {
               name='pupilEmail'
               placeholder='Podaj adres email ucznia'
               value={
-                currentSubmit.isSelf === '1'
+                newSubmit.isSelf === '1'
                   ? user.email
-                  : currentSubmit.pupilEmail
+                  : newSubmit.pupilEmail
               }
             />
 
@@ -187,7 +187,7 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu ucznia'
               type='phone'
               name='pupilPhone'
-              value={currentSubmit.pupilPhone}
+              value={newSubmit.pupilPhone}
             />
           </Form.Group>
         </Form>

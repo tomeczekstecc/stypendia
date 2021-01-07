@@ -3,15 +3,19 @@ import submitReducer from './submitReducer';
 import SubmitContext from './submitContext';
 import axios from 'axios';
 import AlertContext from '../alert/alertContext';
+// import AuthContext from '../auth/authContext';
 
-import { UPDATE_CURRENT_SUBMIT, SET_SUBMIT_ID } from '../types';
+import { UPDATE_NEW_SUBMIT, SET_SUBMIT_ID } from '../types';
 
 const SubmitState = (props) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
+  // const authContext = useContext(AuthContext);
+  // const { user } = authContext;
+
   const initialState = {
-    currentSubmit: {},
+    newSubmit: {},
   };
 
   const addNewSubmit = (submit) => {
@@ -23,7 +27,8 @@ const SubmitState = (props) => {
       .post('/api/v1/submits', submit, headers)
       .then((data) => addAlert(data.data))
       .catch((err) => {
-        if (err.response.data.forcePassChange) {
+        if (err.response) {
+          console.log(err.response.data);
           addAlert(err.response.data);
           return;
         }
@@ -32,10 +37,10 @@ const SubmitState = (props) => {
 
   const [state, dispatch] = useReducer(submitReducer, initialState);
 
-  const updateCurrentSubmit = (currentSubmit) => {
+  const updateNewSubmit = (newSubmit) => {
     dispatch({
-      type: UPDATE_CURRENT_SUBMIT,
-      payload: currentSubmit,
+      type: UPDATE_NEW_SUBMIT,
+      payload: newSubmit,
     });
   };
 
@@ -45,11 +50,14 @@ const SubmitState = (props) => {
       payload: id,
     });
   };
+
+
+
   return (
     <SubmitContext.Provider
       value={{
-        currentSubmit: state.currentSubmit,
-        updateCurrentSubmit,
+        newSubmit: state.newSubmit,
+    updateNewSubmit,
         addNewSubmit,
         setSubmitId,
         submitId: state.submitId,

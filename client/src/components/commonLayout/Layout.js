@@ -18,6 +18,7 @@ export default Layout;
 const styles = {
   grid: {
     width: '90%',
+    position: 'relative',
     overflow: 'hidden',
     margin: 'auto'
   },

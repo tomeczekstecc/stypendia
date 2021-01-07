@@ -51,10 +51,13 @@ export const Wrapper = styled.div`
   }
 
   option {
-font-size: 1.1rem;
+    font-size: 1.1rem;
   }
 
-  .adress-wrapper{
+  .adress-wrapper {
     max-width: 25rem;
+    margin-top: 27px;
   }
+
+
 `;

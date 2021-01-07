@@ -167,7 +167,7 @@ export const editSubmit = async (req: any, res: Response) => {
 //
 //get all post
 //
-export const getAllSubmits = async (req: Request, res: Response) => {
+export const getAllSubmits = async (req: any, res: Response) => {
   try {
     //find posts,  include users data
     const submits = await Submit.find({ relations: ['user'] });
@@ -182,6 +182,31 @@ export const getAllSubmits = async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       status: 'fail',
+      msg: err.message,
+      msgDis: msgDis500,
+    });
+  }
+};
+
+
+
+export const getAllUsersSubmits = async (req: any, res: Response) => {
+
+  console.log(req.session.userId);
+  try {
+    const submits = await Submit.find({where: {userId: req.session.userId}});
+    console.log(submits)
+
+    return res.status(201).json({
+      Status: 'success',
+      msgPL: 'Pobrano wszystkie wnioski użytkownika',
+      msg: 'Fetchd all submits',
+      count: submits.length,
+      submits,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
       msg: err.message,
       msgDis: msgDis500,
     });

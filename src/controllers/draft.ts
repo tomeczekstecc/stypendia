@@ -150,3 +150,24 @@ export const getAllDrafts = async (req: Request, res: Response) => {
     });
   }
 };
+export const getAllUsersDrafts = async (req:any, res: Response) => {
+  try {
+    //find posts,  include users data
+    const drafts = await Draft.find({where: {userId: req.session.userId}})
+    console.log(drafts)
+
+    return res.status(201).json({
+      resStatus: 'success',
+      msgPl: 'Pobrano dane o draftach',
+      msg: 'Pobrano wszystkie drafty',
+      count: drafts.length,
+       drafts,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      msg: err.message,
+      msgDis: msgDis500,
+    });
+  }
+};

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SubALayout from './subALayout';
 import SubmitContext from '../context/submit/submitContext';
-import Nav from './nav/Nav';
+import Nav from './Nav';
 
 const options = [
   { key: 'a', text: 'Wybierz województwo', value: 'default', disabled: true },
@@ -40,12 +40,12 @@ const optionsT = [
 const SubA_III_IV = () => {
 
   const submitContext = useContext(SubmitContext);
-  const { currentSubmit, updateCurrentSubmit } = submitContext;
+  const {newSubmit, updateNewSubmit } = submitContext;
 
   const handleOnChange = async (e) => {
     e.preventDefault();
-    await updateCurrentSubmit({
-      ...currentSubmit,
+    await updateNewSubmit({
+      ...newSubmit,
       [e.target.name]: e.target.value,
     });
   };
@@ -66,7 +66,7 @@ const SubA_III_IV = () => {
               placeholder='Podaj pełną nazwę szkoły'
               iconPosition='left'
               onChange={(e) => handleOnChange(e)}
-              value={currentSubmit.schoolName}
+              value={newSubmit.schoolName}
             />
 
             <div className='select-wrapper'>
@@ -76,7 +76,7 @@ const SubA_III_IV = () => {
               <select
                 name='schoolType'
                 onChange={(e) => handleOnChange(e)}
-                value={currentSubmit.schoolType}
+                value={newSubmit.schoolType}
                 defaultValue='default'
               >
                 {optionsT.map((o) => (
@@ -96,7 +96,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
-                  value={currentSubmit.schoolStreetName}
+                  value={newSubmit.schoolStreetName}
                   onChange={(e) => handleOnChange(e)}
                 />
 
@@ -107,7 +107,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
-                  value={currentSubmit.schoolStreetNr}
+                  value={newSubmit.schoolStreetNr}
                   onChange={(e) => handleOnChange(e)}
                 />
                 <Form.Input
@@ -117,7 +117,7 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (kod pocztowy)'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
-                  value={currentSubmit.schoolZip}
+                  value={newSubmit.schoolZip}
                   onChange={(e) => handleOnChange(e)}
                 />
                 <Form.Input
@@ -127,14 +127,14 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (miejscowość)'
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
-                  value={currentSubmit.schoolTown}
+                  value={newSubmit.schoolTown}
                   onChange={(e) => handleOnChange(e)}
                 />
                 <div className='select-wrapper'>
                   <select
                     name='schoolVoyev'
                     onChange={(e) => handleOnChange(e)}
-                    value={currentSubmit.schoolVoyev}
+                    value={newSubmit.schoolVoyev}
                     defaultValue='default'
                   >
                     {options.map((o) => (
@@ -162,7 +162,7 @@ const SubA_III_IV = () => {
               label='Imię doradcy'
               name='counselorFirstName'
               placeholder='Podaj imię doradcy'
-              value={currentSubmit.counselorFirstName}
+              value={newSubmit.counselorFirstName}
               onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
@@ -172,7 +172,7 @@ const SubA_III_IV = () => {
               label='Nazwisko doradcy'
               name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
-              value={currentSubmit.counselorLastName}
+              value={newSubmit.counselorLastName}
               onChange={(e) => handleOnChange(e)}
             />
 
@@ -184,8 +184,7 @@ const SubA_III_IV = () => {
                 name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
                 placeholder='Wybierz profil doradcy'
-                value={currentSubmit.counselorProfile}
-                onChange={(e) => handleOnChange(e)}
+                value={newSubmit.counselorProfile}
                 defaultValue='default'
               >
                 {optionsC.map((o) => (
@@ -197,7 +196,7 @@ const SubA_III_IV = () => {
             </div>
           </Form.Group>
         </Form>
-        <Nav />
+
       </Grid.Column>
     </SubALayout>
   );

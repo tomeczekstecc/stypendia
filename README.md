@@ -26,6 +26,7 @@ undefined nie jest poprawnym adresem email
 divider horizontally
 ip w logach
 brak pupilPhone daje 500
+różnivca w margin left pomiędzy "Wnioski" a "Wersjka robocza"
 
 różnica w czasie w trakcie twiorzenia użytkownika?
 

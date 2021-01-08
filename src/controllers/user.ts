@@ -70,8 +70,7 @@ export const register = async (req, res: Response) => {
       return res.status(400).json(mapErrors(errors));
     }
     await user.save();
-    console.log(user);
-
+ 
     INFO = 'Utworzno użytkownika';
     STATUS = 'success';
 
@@ -112,7 +111,7 @@ export const register = async (req, res: Response) => {
 //
 
 export const login = async (req: any, res: Response) => {
-  console.log(req.body);
+
   const CONTROLLER = 'login';
   let ACTION = 'logowanie';
   let STATUS = 'error';
@@ -168,7 +167,7 @@ export const login = async (req: any, res: Response) => {
     const passwordMathes = await bcrypt.compare(password, user.password);
 
     if (!passwordMathes) {
-      console.log(user);
+
       user.failedLogins += 1;
       INFO = `Liczba niepoprawnych logowań: ${user.failedLogins} - wprowadzono niepoprawne dane - nieprawidłowe hasło`;
       await user.save();
@@ -263,7 +262,7 @@ export const login = async (req: any, res: Response) => {
 //Logout
 //
 export const logout = async (req: any, res: Response) => {
-  console.log('LOGOUT');
+
   const CONTROLLER = 'logout';
   let ACTION = 'wylogowanie';
   let INFO = 'Pomyślnie wylogowano użytkownika';

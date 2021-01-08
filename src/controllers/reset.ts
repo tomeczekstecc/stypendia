@@ -16,7 +16,6 @@ export const sendResetMail = async (req: any, res: Response) => {
   ACTION = 'generowanie maila resetu hasła';
 
   const { email, login } = req.body;
-  console.log(req.body);
 
   try {
     let errors: any = {};
@@ -110,7 +109,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
     const reset = await PasswordReset.findOne(id);
 
     if (!reset) {
-      console.log("No reset")
+
       // ****************************** LOG *********************************//
       INFO = 'Użyto niepoprawny token';
       STATUS = 'error';

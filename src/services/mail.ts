@@ -6,7 +6,6 @@ const transporter = nodemailer.createTransport(SMTP_OPTIONS);
 
 export const sendMail = (options: SendMailOptions) => {
 
-  console.log(SMTP_OPTIONS)
   try {
     transporter.sendMail({
       ...options,
@@ -17,3 +16,4 @@ export const sendMail = (options: SendMailOptions) => {
     console.log(err.message);
   }
 };
+

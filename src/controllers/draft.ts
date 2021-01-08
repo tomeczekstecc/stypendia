@@ -154,7 +154,7 @@ export const getAllUsersDrafts = async (req:any, res: Response) => {
   try {
     //find posts,  include users data
     const drafts = await Draft.find({where: {userId: req.session.userId}})
-    console.log(drafts)
+
 
     return res.status(201).json({
       resStatus: 'success',

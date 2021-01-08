@@ -4,6 +4,7 @@ import Title from '../components/Title';
 import { Wrapper } from './styles/home.styles';
 import AllUsersSubmits from '../components/AllUsersSubmits';
 import AllUsersDrafts from '../components/AllUsersDrafts';
+import NewCallToAction from '../components/NewCallToAction';
 
 const Home = () => {
   const [activeItem, setActiveItem] = useState('wnioski');
@@ -16,7 +17,7 @@ const renderActive  = () =>{
     case 'robocza':
     return <AllUsersDrafts />;
     case 'new':
-    return <AllUsersDrafts />;
+    return <NewCallToAction />;
 
     default:
 return <AllUsersSubmits />;

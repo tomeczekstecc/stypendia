@@ -32,7 +32,7 @@ export const leftMenuItems = [
   },
   {
     id: uuidv4(),
-    icon: 'write',
+    icon: 'pencil',
     name: 'newSubmit',
     title: 'Złóż wniosek',
     url: '/newsubmit',

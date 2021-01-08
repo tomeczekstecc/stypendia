@@ -10,9 +10,7 @@ export const verify = async (req: any, res: Response) => {
   const { id } = req.query;
 
   const user = await User.findOne(id);
-  // console.log(user)
-
-  try {
+   try {
     if (!user) {
       // makeLog
       return res.status(401).json({

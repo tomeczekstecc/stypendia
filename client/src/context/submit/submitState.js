@@ -28,8 +28,7 @@ const SubmitState = (props) => {
       .then((data) => addAlert(data.data))
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
-          addAlert(err.response.data);
+               addAlert(err.response.data);
           return;
         }
       });

@@ -35,7 +35,7 @@ export const addSubmit = async (req: any, res: Response) => {
     }
 
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
-    console.log(peselExists);
+
     if (peselExists.length > 0) {
       errors.pupilPesel = 'Ten PESEL został już wykorzystany';
       // ****************************** LOG *********************************//
@@ -195,7 +195,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
   console.log(req.session.userId);
   try {
     const submits = await Submit.find({where: {userId: req.session.userId}});
-    console.log(submits)
+
 
     return res.status(201).json({
       Status: 'success',

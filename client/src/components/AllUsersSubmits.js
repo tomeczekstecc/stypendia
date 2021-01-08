@@ -61,9 +61,9 @@ const AllUsersSubmits = () => {
                 <Card.Content extra>
                   <div className='ui three buttons'>
                     <Button color='green'>Zobacz</Button>
-                    <Button color='orange'>Edytuj</Button>
+                    <Button primary>Edytuj</Button>
                     <Button basic color='blue'>
-                      Pobierz
+                     <strong> Pobierz</strong>
                     </Button>
                   </div>
                 </Card.Content>

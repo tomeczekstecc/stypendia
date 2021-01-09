@@ -84,10 +84,11 @@ export const addSubmit = async (req: any, res: Response) => {
     // ********************************************************************//
 
     return res.status(201).json({
-      resStaus: 'success',
+      resStatus: 'success',
       msg: 'Submit created',
       msgPL: INFO,
       data: submit,
+      alertTitle: 'Utworzono'
     });
   } catch (err) {
     // rollbar
@@ -109,7 +110,7 @@ export const editSubmit = async (req: any, res: Response) => {
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
 
-  const { id } = req.params;
+  const { uuid } = req.params;
   try {
     const user = await User.findOne({ id: req.session.userId });
 
@@ -138,7 +139,7 @@ export const editSubmit = async (req: any, res: Response) => {
 
       return res.status(400).json(mapErrors(errors));
     }
-    const submit = await Submit.update(id, {
+    const submit = await Submit.update(uuid, {
       ...req.body,
     });
     // ****************************** LOG *********************************//
@@ -192,17 +193,43 @@ export const getAllSubmits = async (req: any, res: Response) => {
 
 export const getAllUsersSubmits = async (req: any, res: Response) => {
 
-  console.log(req.session.userId);
+  console.log('getAllUsersSubmits r');
+
   try {
     const submits = await Submit.find({where: {userId: req.session.userId}});
-
-
+console.log(submits)
     return res.status(201).json({
       Status: 'success',
       msgPL: 'Pobrano wszystkie wnioski użytkownika',
       msg: 'Fetchd all submits',
       count: submits.length,
       submits,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      msg: err.message,
+      msgDis: msgDis500,
+    });
+  }
+};
+
+export const getOneUserSubmit = async (req: any, res: Response) => {
+
+const {uuid} = req.params
+
+
+  try {
+    const submit = await Submit.findOne({where: {uuid}});
+
+
+    return res.status(201).json({
+      resStatus: 'success',
+      msgPL: 'Pobrano wniosek',
+      msg: 'Fetched submit',
+
+
+      submit,
     });
   } catch (err) {
     return res.status(500).json({

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Form, Grid, Header, Label } from 'semantic-ui-react';
-import SubALayout from './subALayout';
+import SubALayout from '../subALayout';
 
-import AuthContext from '../context/auth/authContext';
-import SubmitContext from '../context/submit/submitContext';
+import AuthContext from '../../context/auth/authContext';
+import SubmitContext from '../../context/submit/submitContext';
 
 const options = [
   {
@@ -17,7 +17,7 @@ const options = [
     text: 'Rodzic/Opiekun prawny',
     value: 0,
   },
-  { key: 'u', text: 'Pełnoletni uczeń', value: 1},
+  { key: 'u', text: 'Pełnoletni uczeń', value: 1 },
 ];
 
 const SubA_I_II = () => {
@@ -25,17 +25,31 @@ const SubA_I_II = () => {
   const { user } = authContext;
 
   const submitContext = useContext(SubmitContext);
-  const { newSubmit, updateNewSubmit } = submitContext;
+  const {
+    newSubmit,
+    updateNewSubmit,
+    submitMode,
+    curSubmit,
+    updateCurSubmit,
+    submitToWatch,
+  } = submitContext;
 
   const handleOnChange = async (e) => {
     e.preventDefault();
-    await updateNewSubmit({
-      ...newSubmit,
-      // firstName: user.firstName, // chyba lepiej na backendzie + pupif jeśli isSelf
-      // lastName: user.lastName,
-      // email: user.email,
-      [e.target.name]: e.target.value,
-    });
+
+    if (submitMode === 'edit') {
+      console.log('edit');
+      await updateCurSubmit({
+        ...curSubmit,
+        [e.target.name]: e.target.value,
+      });
+    } else if (submitMode === 'new') {
+      console.log('new');
+      await updateNewSubmit({
+        ...newSubmit,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   return (
@@ -80,7 +94,13 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu wnioskodawcy'
               name='phone'
               onChange={(e) => handleOnChange(e)}
-              value={newSubmit.phone}
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.phone
+                  : submitMode === 'new'
+                  ? newSubmit?.phone
+                  : submitToWatch?.phone
+              }
             />
             <Form.Input
               onChange={(e) => handleOnChange(e)}
@@ -90,15 +110,15 @@ const SubA_I_II = () => {
               label='Adres skrzynki ePuap (opcjonalnie)'
               placeholder='Podaj adres ePuap (opcjonalnie)'
               name='epuapAdr'
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.epuapAdr
+                  : submitMode === 'new'
+                  ? newSubmit?.epuapAdr
+                  : submitToWatch?.epuapAdr
+              }
             />
-            {/* <Form.Select
-              className='input'
-              label='Status wnioskodawcy'
-              options={options}
-              placeholder='Wybierz status'
-              name='status'
-              onChange={(e) => handleOnChange(e)}
-            /> */}
+
             <div className='select-wrapper'>
               <Header className='select-header' as='h5'>
                 Status Wnioskodawcy
@@ -132,7 +152,13 @@ const SubA_I_II = () => {
               name='pupilPesel'
               icon='id card outline'
               iconPosition='left'
-              value={newSubmit.pupilPesel}
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.pupilPesel
+                  : submitMode === 'new'
+                  ? newSubmit?.pupilPesel
+                  : submitToWatch?.pupilPesel
+              }
             />
             <Form.Input
               onChange={(e) => handleOnChange(e)}
@@ -145,7 +171,11 @@ const SubA_I_II = () => {
               value={
                 newSubmit.isSelf === '1'
                   ? user.firstName
-                  : newSubmit.pupilFirstName
+                  : submitMode === 'edit'
+                  ? curSubmit?.pupilFirstName
+                  : submitMode === 'new'
+                  ? newSubmit?.pupilFirstName
+                  : submitToWatch?.pupilFirstName
               }
             />
             <Form.Input
@@ -159,7 +189,11 @@ const SubA_I_II = () => {
               value={
                 newSubmit.isSelf === '1'
                   ? user.lastName
-                  : newSubmit.pupilLastName
+                  : submitMode === 'edit'
+                  ? curSubmit?.pupilLastName
+                  : submitMode === 'new'
+                  ? newSubmit?.pupilLastName
+                  : submitToWatch?.pupilLastName
               }
             />
             <Form.Input
@@ -174,7 +208,11 @@ const SubA_I_II = () => {
               value={
                 newSubmit.isSelf === '1'
                   ? user.email
-                  : newSubmit.pupilEmail
+                  : submitMode === 'edit'
+                  ? curSubmit?.pupilEmail
+                  : submitMode === 'new'
+                  ? newSubmit?.pupilEmail
+                  : submitToWatch?.pupilEmail
               }
             />
 
@@ -187,7 +225,13 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu ucznia'
               type='phone'
               name='pupilPhone'
-              value={newSubmit.pupilPhone}
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.pupilPhone
+                  : submitMode === 'new'
+                  ? newSubmit?.pupilPhone
+                  : submitToWatch?.pupilPhone
+              }
             />
           </Form.Group>
         </Form>

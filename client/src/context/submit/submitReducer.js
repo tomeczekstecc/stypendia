@@ -1,14 +1,29 @@
-import { UPDATE_NEW_SUBMIT, SET_SUBMIT_ID } from '../types';
+import {
+  UPDATE_NEW_SUBMIT,
+  SET_SUBMIT_ID,
+  SET_SUBMIT_MODE,
+  UPDATE_CUR_SUBMIT,
+  SET_SUBMIT_TO_WATCH,
+  SET_CUR_SUBMIT,
+} from '../types';
 
- const reducer = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case UPDATE_NEW_SUBMIT:
-      return { newSubmit: action.payload };
+      return { ...state, newSubmit: action.payload };
     case SET_SUBMIT_ID:
-      return { submitId: action.payload };
+      return { ...state, submitUuid: action.payload };
+    case SET_SUBMIT_MODE:
+      return { ...state, submitMode: action.payload };
+    case UPDATE_CUR_SUBMIT:
+      return { ...state, curSubmit: action.payload };
+      case SET_CUR_SUBMIT:
+        return { ...state, curSubmit: action.payload };
+    case SET_SUBMIT_TO_WATCH:
+      return { ...state, submitToWatch: action.payload };
 
     default:
       return state;
   }
 };
-export default reducer
+export default reducer;

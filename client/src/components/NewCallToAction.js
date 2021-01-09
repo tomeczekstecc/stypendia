@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
+import SubmitContext from '../context/submit/submitContext';
 
 import AlertContext from '../context/alert/alertContext';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
@@ -9,7 +10,17 @@ const NewCallToAction = () => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
+    const submitContext = useContext(SubmitContext);
+    const {setSubmitUuid, setSubmitMode } = submitContext;
+
   const [drafts, setDrafts] = useState([]);
+
+
+  const handleOnClick = (mode) => {
+    setSubmitMode(mode);
+    setSubmitUuid(null)
+
+  };
 
   const setAllUsersDrafts = () => {
     const headers = {
@@ -38,8 +49,13 @@ const NewCallToAction = () => {
 
   return (
     <>
-      <Link to='/newsubmit'>
-        <Card.Group itemsPerRow={5} stackable className='cards'>
+      <Link to='/submit'>
+        <Card.Group
+          itemsPerRow={5}
+          stackable
+          className='cards'
+          onClick={() => handleOnClick('new')}
+        >
           {drafts.length > 0 ? (
             drafts.map((s) => (
               <div key={s.id}>

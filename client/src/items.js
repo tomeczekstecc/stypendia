@@ -33,14 +33,16 @@ export const leftMenuItems = [
   {
     id: uuidv4(),
     icon: 'pencil',
-    name: 'newSubmit',
+    name: 'submit',
     title: 'Złóż wniosek',
-    url: '/newsubmit',
+    url: '/submit',
     hasOwnSubDisplay: false,
     noOwnSubDisplay: true,
     isLoggedInDisplay: true,
   },
 ];
+
+
 
 export const rightMenuItems = [
   {

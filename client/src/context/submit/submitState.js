@@ -1,21 +1,28 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext,  useReducer } from 'react';
 import submitReducer from './submitReducer';
 import SubmitContext from './submitContext';
 import axios from 'axios';
 import AlertContext from '../alert/alertContext';
-// import AuthContext from '../auth/authContext';
 
-import { UPDATE_NEW_SUBMIT, SET_SUBMIT_ID } from '../types';
+import {
+  UPDATE_NEW_SUBMIT,
+  SET_SUBMIT_ID,
+  SET_SUBMIT_MODE,
+  UPDATE_CUR_SUBMIT,
+  SET_SUBMIT_TO_WATCH,
+  SET_CUR_SUBMIT,
+} from '../types';
 
 const SubmitState = (props) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-  // const authContext = useContext(AuthContext);
-  // const { user } = authContext;
-
   const initialState = {
     newSubmit: {},
+    submitUuid: null,
+    submitMode: '',
+    submitToWatch: {},
+    curSubmit: {}, //submit being edited
   };
 
   const addNewSubmit = (submit) => {
@@ -25,10 +32,33 @@ const SubmitState = (props) => {
 
     axios
       .post('/api/v1/submits', submit, headers)
+      .then((data) => {
+        if (data.data.resStatus || data.data.resStatus === 'success') {
+          addAlert(data.data);
+
+          props.history.push('/');
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data);
+          addAlert(err.response.data);
+          return;
+        }
+      });
+  };
+
+  const updateSubmit = (submit) => {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    axios
+      .put('/api/v1/submits', submit, headers)
       .then((data) => addAlert(data.data))
       .catch((err) => {
         if (err.response) {
-               addAlert(err.response.data);
+          addAlert(err.response.data);
           return;
         }
       });
@@ -43,11 +73,75 @@ const SubmitState = (props) => {
     });
   };
 
-  const setSubmitId = (id) => {
+  const updateCurSubmit = (curSubmit) => {
     dispatch({
+      type: UPDATE_CUR_SUBMIT,
+      payload: curSubmit,
+    });
+  };
+
+  const setSubmitMode = (mode) => {
+    dispatch({
+      type: SET_SUBMIT_MODE,
+      payload: mode,
+    });
+  };
+
+  const setSubmitUuid = async (id) => {
+    await dispatch({
       type: SET_SUBMIT_ID,
       payload: id,
     });
+  };
+
+  const setSubmitToWatch = (uuid) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      axios
+        .get(`/api/v1/submits/usersubmits/${uuid}`, headers)
+        .then((data) => {
+          dispatch({
+            type: SET_SUBMIT_TO_WATCH,
+            payload: data.data.submit,
+          });
+        })
+        .catch((err) => {
+          if (err.response) {
+            addAlert(err.response.data);
+            return;
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const setCurSubmit = (uuid) => {
+
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      axios
+        .get(`/api/v1/submits/usersubmits/${uuid}`, headers)
+        .then((data) => {
+          dispatch({
+            type: SET_CUR_SUBMIT,
+            payload: data.data.submit,
+          });
+        })
+        .catch((err) => {
+          if (err.response) {
+            addAlert(err.response.data);
+            return;
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
 
@@ -56,10 +150,18 @@ const SubmitState = (props) => {
     <SubmitContext.Provider
       value={{
         newSubmit: state.newSubmit,
-    updateNewSubmit,
+        updateNewSubmit,
         addNewSubmit,
-        setSubmitId,
-        submitId: state.submitId,
+        setSubmitUuid,
+        submitUuid: state.submitUuid,
+        updateSubmit,
+        setSubmitMode,
+        curSubmit: state.curSubmit,
+        updateCurSubmit,
+        setCurSubmit,
+        submitMode: state.submitMode,
+        submitToWatch: state.submitToWatch,
+        setSubmitToWatch,
       }}
     >
       {props.children}

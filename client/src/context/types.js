@@ -10,3 +10,7 @@ export const GET_SUBMIT = 'GET_SUBMIT';
 export const UPDATE_NEW_SUBMIT = 'UPDATE_NEW_SUBMIT';
 
 export const SET_SUBMIT_ID = 'SET_SUBMIT_ID';
+export const SET_SUBMIT_MODE = 'SET_SUBMIT_MODE';
+export const SET_CUR_SUBMIT = 'SET_CUR_SUBMIT';
+export const UPDATE_CUR_SUBMIT = 'UPDATE_CUR_SUBMIT';
+export const SET_SUBMIT_TO_WATCH = 'SET_SUBMIT_TO_WATCH';

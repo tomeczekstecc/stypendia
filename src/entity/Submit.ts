@@ -108,7 +108,7 @@ export class Submit extends Model {
   @Column({ comment: 'PESEL ucznia' })
   pupilPesel: string;
 
-  @Column({ comment: 'Telefon ucznia' })
+  @Column({ comment: 'Telefon ucznia', nullable: true })
   pupilPhone: string;
 
   @IsEmail(undefined, { message: 'Email musi mieć poprawny format' })

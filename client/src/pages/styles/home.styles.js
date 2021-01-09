@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   .card {
 margin: 40px 20px !important;
 
+  width: 297px;
 
   }
 
@@ -18,7 +19,7 @@ margin: 40px 20px !important;
   }
 
 .cards{
-  transform: scale(.85)
+  transform: scale(.85);
 }
 
 .label{

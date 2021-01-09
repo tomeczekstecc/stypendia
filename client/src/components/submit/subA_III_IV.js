@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Form, Grid, Header, Segment } from 'semantic-ui-react';
-import SubALayout from './subALayout';
-import SubmitContext from '../context/submit/submitContext';
-import Nav from './Nav';
+import SubALayout from '../subALayout';
+import SubmitContext from '../../context/submit/submitContext';
+import Nav from '../Nav';
 
 const options = [
   { key: 'a', text: 'Wybierz województwo', value: 'default', disabled: true },
@@ -40,16 +40,32 @@ const optionsT = [
 const SubA_III_IV = () => {
 
   const submitContext = useContext(SubmitContext);
-  const {newSubmit, updateNewSubmit } = submitContext;
+  const {
+    newSubmit,
+    updateNewSubmit,
+    submitMode,
+    curSubmit,
+    updateCurSubmit,
+    submitToWatch,
+  } = submitContext;
 
   const handleOnChange = async (e) => {
     e.preventDefault();
-    await updateNewSubmit({
-      ...newSubmit,
-      [e.target.name]: e.target.value,
-    });
-  };
 
+    if (submitMode === 'edit') {
+      console.log('edit');
+      await updateCurSubmit({
+        ...curSubmit,
+        [e.target.name]: e.target.value,
+      });
+    } else if (submitMode === 'new') {
+      console.log('new');
+      await updateNewSubmit({
+        ...newSubmit,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
       <Grid.Column className='column'>
@@ -66,7 +82,13 @@ const SubA_III_IV = () => {
               placeholder='Podaj pełną nazwę szkoły'
               iconPosition='left'
               onChange={(e) => handleOnChange(e)}
-              value={newSubmit.schoolName}
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.schoolName
+                  : submitMode === 'new'
+                  ? newSubmit?.schoolName
+                  : submitToWatch?.schoolName
+              }
             />
 
             <div className='select-wrapper'>
@@ -76,7 +98,13 @@ const SubA_III_IV = () => {
               <select
                 name='schoolType'
                 onChange={(e) => handleOnChange(e)}
-                value={newSubmit.schoolType}
+                value={
+                  submitMode === 'edit'
+                    ? curSubmit?.schoolType
+                    : submitMode === 'new'
+                    ? newSubmit?.schoolType
+                    : submitToWatch?.schoolType
+                }
                 defaultValue='default'
               >
                 {optionsT.map((o) => (
@@ -96,7 +124,13 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
-                  value={newSubmit.schoolStreetName}
+                  value={
+                    submitMode === 'edit'
+                      ? curSubmit?.schoolStreetName
+                      : submitMode === 'new'
+                      ? newSubmit?.schoolStreetName
+                      : submitToWatch?.schoolStreetName
+                  }
                   onChange={(e) => handleOnChange(e)}
                 />
 
@@ -107,7 +141,13 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
-                  value={newSubmit.schoolStreetNr}
+                  value={
+                    submitMode === 'edit'
+                      ? curSubmit?.schoolStreetNr
+                      : submitMode === 'new'
+                      ? newSubmit?.schoolStreetNr
+                      : submitToWatch?.schoolStreetNr
+                  }
                   onChange={(e) => handleOnChange(e)}
                 />
                 <Form.Input
@@ -117,7 +157,13 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (kod pocztowy)'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
-                  value={newSubmit.schoolZip}
+                  value={
+                    submitMode === 'edit'
+                      ? curSubmit?.schoolZip
+                      : submitMode === 'new'
+                      ? newSubmit?.schoolZip
+                      : submitToWatch?.schoolZip
+                  }
                   onChange={(e) => handleOnChange(e)}
                 />
                 <Form.Input
@@ -127,14 +173,26 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (miejscowość)'
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
-                  value={newSubmit.schoolTown}
+                  value={
+                    submitMode === 'edit'
+                      ? curSubmit?.schoolTown
+                      : submitMode === 'new'
+                      ? newSubmit?.schoolTown
+                      : submitToWatch?.schoolTown
+                  }
                   onChange={(e) => handleOnChange(e)}
                 />
                 <div className='select-wrapper'>
                   <select
                     name='schoolVoyev'
                     onChange={(e) => handleOnChange(e)}
-                    value={newSubmit.schoolVoyev}
+                    value={
+                      submitMode === 'edit'
+                        ? curSubmit?.schooVoyev
+                        : submitMode === 'new'
+                        ? newSubmit?.schooVoyev
+                        : submitToWatch?.schooVoyev
+                    }
                     defaultValue='default'
                   >
                     {options.map((o) => (
@@ -162,7 +220,13 @@ const SubA_III_IV = () => {
               label='Imię doradcy'
               name='counselorFirstName'
               placeholder='Podaj imię doradcy'
-              value={newSubmit.counselorFirstName}
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.counselorFirstName
+                  : submitMode === 'new'
+                  ? newSubmit?.counselorFirstName
+                  : submitToWatch?.counselorFirstName
+              }
               onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
@@ -172,7 +236,13 @@ const SubA_III_IV = () => {
               label='Nazwisko doradcy'
               name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
-              value={newSubmit.counselorLastName}
+              value={
+                submitMode === 'edit'
+                  ? curSubmit?.counselorLastName
+                  : submitMode === 'new'
+                  ? newSubmit?.counselorLastName
+                  : submitToWatch?.counselorLastName
+              }
               onChange={(e) => handleOnChange(e)}
             />
 
@@ -184,7 +254,13 @@ const SubA_III_IV = () => {
                 name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
                 placeholder='Wybierz profil doradcy'
-                value={newSubmit.counselorProfile}
+                value={
+                  submitMode === 'edit'
+                    ? curSubmit?.counselorProfile
+                    : submitMode === 'new'
+                    ? newSubmit?.counselorProfile
+                    : submitToWatch?.counselorProfile
+                }
                 defaultValue='default'
               >
                 {optionsC.map((o) => (
@@ -196,7 +272,6 @@ const SubA_III_IV = () => {
             </div>
           </Form.Group>
         </Form>
-
       </Grid.Column>
     </SubALayout>
   );

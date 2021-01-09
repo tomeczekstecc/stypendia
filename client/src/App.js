@@ -15,7 +15,7 @@ import Reset from './pages/reset';
 import Logout from './pages/logout';
 import ChangePass from './pages/changePass';
 import ProtectedRoute from './pages/protectedRoute'
-import NewSubmit from './pages/newSubmit';
+import Submit from './pages/submit';
 import SubmitState from './context/submit/submitState';
 
 axios.defaults.baseURL = 'http://localhost:5003';
@@ -23,8 +23,8 @@ axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    <Router>
       <AlertState>
+    <Router>
         <AuthState>
           <SubmitState>
           <Layout>
@@ -38,14 +38,14 @@ function App() {
               <ProtectedRoute exact path='/' component={Home} />
               <Route exact path='/login' component={Login} />
               <ProtectedRoute exact path='/logout' component={Logout} />
-              <ProtectedRoute exact path='/newsubmit' component={NewSubmit} />
+              <ProtectedRoute exact path='/submit' component={Submit} />
             </Switch>
           </Layout></SubmitState>
         </AuthState>
 
         <Alert position={'bottom-right'} autoDeleteInterval={10000} />
-      </AlertState>
     </Router>
+      </AlertState>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import SubmitContext from '../context/submit/submitContext';
 import AlertContext from '../context/alert/alertContext';
+import fileDownload from 'js-file-download';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 
@@ -38,7 +39,6 @@ const AllUsersSubmits = () => {
 
     axios
       .get('/api/v1/submits/usersubmits', headers)
-      // .then((data) => setSubmits(data.data.submits))
       .then((data) => setSubmits(data.data.submits))
       .catch((err) => {
         console.log(err.response);
@@ -47,6 +47,24 @@ const AllUsersSubmits = () => {
           return;
         }
       });
+  };
+
+  const callFetch = (numer) => {
+    axios
+      .get(`/api/v1/pdf/submit/${numer}`, {
+        responseType: 'blob',
+      })
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${numer}.pdf`); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+      })
+      // .then((res) => {
+      //   fileDownload(res.data, 'test.pdf'); // z bibliteki 'js-file-download'
+      // });
   };
 
   useEffect(() => {
@@ -93,16 +111,15 @@ const AllUsersSubmits = () => {
                       >
                         Popraw
                       </Button>
-                      <Button
-                        basic
-                        color='blue'
-                        onClick={() => handleOnClick(s.uuid, 'getPdf')}
-
-                      >
-                      <Icon name='download'/>
-                        <strong> PDF</strong>
-                      </Button>
                     </Link>
+                    <Button
+                      basic
+                      color='blue'
+                      onClick={() => callFetch(s.numer)}
+                    >
+                      <Icon name='download' />
+                      <strong> PDF</strong>
+                    </Button>
                   </div>
                 </Card.Content>
               </Card>

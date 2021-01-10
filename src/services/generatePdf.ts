@@ -18,6 +18,7 @@ const hashedToken = (plaintextToken: string) => {
 
 
 const compile = async function (templateName, data) {
+
   const filePath = path.join(
     process.cwd(),
     'src/templates/pdf/',
@@ -27,9 +28,10 @@ const compile = async function (templateName, data) {
     return hbs.compile(html)(data);
   };
 
-  export async function generatePdf(data, type) {
+  export async function generatePdf(data, type) {  console.log(data, 'dasda')
   const hash = hashedToken(new Date().getTime().toString());
-  const fileName = data.submit.numer; // inne przypadki też dorobić
+  const fileName = data.tempSubmit.numer; // inne przypadki też dorobić
+  console.log(fileName)
 
   const calculateChecksum = async (type) => {
     const file = path.join(process.cwd(), 'pdfs', `${type}`, `${fileName}.pdf`);
@@ -53,7 +55,7 @@ const compile = async function (templateName, data) {
     displayHeaderFooter: true,
     headerTemplate: `
     <div style="font-family: Arial; margin: 0 auto; margin-top: 20px; border-bottom: solid 1px black; width: 85%; font-size: 8px; padding: 5px 5px 0; position: relative;">
-        <div style="position: absolute; left: 10px; bottom: 5px;"><span>Numer wniosku: <strong>${data.submit.numer}</strong></span></div>
+        <div style="position: absolute; left: 10px; bottom: 5px;"><span>Numer wniosku: <strong>${data.tempSubmit.numer}</strong></span></div>
         <div style="position: absolute; left: 180px; bottom: 5px;"><span>Suma kontrolna: <strong>${hash}</strong></span></div>
         <div style="position: absolute; right: 10px; bottom: 5px;">strona <span class="pageNumber"></span>/<span class="totalPages"></span></div>
     </div>
@@ -76,7 +78,7 @@ const compile = async function (templateName, data) {
   });
 
   if (type === 'submit') {
-    const submit = await Submit.findOne(data[type].id);
+    const submit = await Submit.findOne(data.tempSubmit.id);
     submit.checksum = await calculateChecksum(type);
     submit.hash = hash;
     await submit.save();

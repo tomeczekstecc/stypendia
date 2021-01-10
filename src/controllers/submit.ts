@@ -1,9 +1,11 @@
+import axios from 'axios';
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 
 import { msgDis500 } from '../constantas';
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
+import { generatePdf } from '../services/generatePdf';
 import { makeLog } from '../services/makeLog';
 import { mapErrors } from '../utils/mapErrors';
 
@@ -83,12 +85,17 @@ export const addSubmit = async (req: any, res: Response) => {
     makeLog(user.id, OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
 
+    const data = {
+      submit,
+    };
+    await generatePdf(data, 'submit');
+
     return res.status(201).json({
       resStatus: 'success',
       msg: 'Submit created',
       msgPL: INFO,
       data: submit,
-      alertTitle: 'Utworzono'
+      alertTitle: 'Utworzono',
     });
   } catch (err) {
     // rollbar
@@ -110,7 +117,6 @@ export const editSubmit = async (req: any, res: Response) => {
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
 
-  const { uuid } = req.params;
   try {
     const user = await User.findOne({ id: req.session.userId });
 
@@ -139,20 +145,30 @@ export const editSubmit = async (req: any, res: Response) => {
 
       return res.status(400).json(mapErrors(errors));
     }
-    const submit = await Submit.update(uuid, {
-      ...req.body,
-    });
+    const submit = await Submit.update(
+      { uuid: req.body.uuid },
+      {
+        ...req.body,
+      }
+    );
+//
+    // const updatedSubmit = await
+
     // ****************************** LOG *********************************//
     INFO = 'Zaktualizowano wniosek';
     STATUS = 'success';
     makeLog(user.id, OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
-
+    const data = {
+      tempSubmit,
+    };
+    await generatePdf(data, 'submit');
     return res.status(201).json({
-      staus: STATUS,
-      msg: INFO,
+      resStatus: STATUS,
+      msgPL: INFO,
       msgDis: 'Submit updated',
       data: submit,
+      alertTitle: 'Zaktualizowano',
     });
   } catch (err) {
     // rollbar
@@ -189,15 +205,14 @@ export const getAllSubmits = async (req: any, res: Response) => {
   }
 };
 
-
-
 export const getAllUsersSubmits = async (req: any, res: Response) => {
 
-  console.log('getAllUsersSubmits r');
 
   try {
-    const submits = await Submit.find({where: {userId: req.session.userId}});
-console.log(submits)
+    const submits = await Submit.find({
+      where: { userId: req.session.userId },
+    });
+
     return res.status(201).json({
       Status: 'success',
       msgPL: 'Pobrano wszystkie wnioski użytkownika',
@@ -215,19 +230,15 @@ console.log(submits)
 };
 
 export const getOneUserSubmit = async (req: any, res: Response) => {
-
-const {uuid} = req.params
-
+  const { uuid } = req.params;
 
   try {
-    const submit = await Submit.findOne({where: {uuid}});
-
+    const submit = await Submit.findOne({ where: { uuid } });
 
     return res.status(201).json({
       resStatus: 'success',
       msgPL: 'Pobrano wniosek',
       msg: 'Fetched submit',
-
 
       submit,
     });

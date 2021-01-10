@@ -1,4 +1,4 @@
-import React, { useContext,  useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 import submitReducer from './submitReducer';
 import SubmitContext from './submitContext';
 import axios from 'axios';
@@ -35,8 +35,6 @@ const SubmitState = (props) => {
       .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
-
-          props.history.push('/');
         }
       })
       .catch((err) => {
@@ -55,7 +53,11 @@ const SubmitState = (props) => {
 
     axios
       .put('/api/v1/submits', submit, headers)
-      .then((data) => addAlert(data.data))
+      .then((data) => {console.log(data.data);
+        if (data.data.resStatus || data.data.resStatus === 'success') {
+          addAlert(data.data);
+        }
+      })
       .catch((err) => {
         if (err.response) {
           addAlert(err.response.data);
@@ -120,7 +122,6 @@ const SubmitState = (props) => {
   };
 
   const setCurSubmit = (uuid) => {
-
     try {
       const headers = {
         'Content-Type': 'application/json',
@@ -143,8 +144,6 @@ const SubmitState = (props) => {
       console.log(err);
     }
   };
-
-
 
   return (
     <SubmitContext.Provider

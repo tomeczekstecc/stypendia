@@ -9,6 +9,7 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
+import { Wrapper } from './styles/resend.styles';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
@@ -18,16 +19,14 @@ const Resend = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-    const appContext = useContext(AppContext);
-    const { setIsLoading, isLoading } = appContext;
-
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
 
   const [email, setEmail] = useState({});
   const [errors, setErrors] = useState('');
-
 
   useEffect(() => {
     checkIsAuthenticated();
@@ -52,7 +51,6 @@ const Resend = ({ history }) => {
         }
       })
       .catch((err) => {
-  
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);
@@ -64,92 +62,59 @@ const Resend = ({ history }) => {
   };
 
   return (
-    <Container>
-      <Title content='Potwierdzanie konta' />
-      <Segment placeholder style={styles.main} size='large'>
-        <Message style={styles.msg} info size='small' floating>
-          <Message.Header>
-            Ponowne wysłanie linka do potwierdzenia konta
-          </Message.Header>
-          <p>
-            Strona służy do ponownego wysłania linka potwierdzającego konto,
-            jeżeli konto już założyłaś/eś, ale nie skorzystałaś/eś z niego w
-            odpowiednim czasie. Link zostanie przesłany na podany adres email i
-            będzie ważny przez <strong>12 godzin</strong> . Jeżeli nie znajdziesz linka sprawdź
-            folder <strong> spam</strong> w Twojej poczcie.
-          </p>
-        </Message>
-        <Grid columns={1} relaxed='very' stackable>
-          <Grid.Column>
-            <Form>
-              <Form.Input
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                style={styles.input}
-                icon='mail'
-                iconPosition='left'
-                label='Email'
-                placeholder='Podaj email'
-                type='email'
-                name='email'
-              />
+    <Wrapper>
+      <Container>
+        <Title content='Potwierdzanie konta' />
+        <Segment placeholder className='main' size='large'>
+          <Message className='msg' info size='small' floating>
+            <Message.Header>
+              Ponowne wysłanie linka do potwierdzenia konta
+            </Message.Header>
+            <p>
+              Strona służy do ponownego wysłania linka potwierdzającego konto,
+              jeżeli konto już założyłaś/eś, ale nie skorzystałaś/eś z niego w
+              odpowiednim czasie. Link zostanie przesłany na podany adres email
+              i będzie ważny przez <strong>12 godzin</strong> . Jeżeli nie
+              znajdziesz linka sprawdź folder <strong> spam</strong> w Twojej
+              poczcie.
+            </p>
+          </Message>
+          <Grid columns={1} relaxed='very' stackable>
+            <Grid.Column>
+              <Form>
+                <Form.Input
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className='input'
+                  icon='mail'
+                  iconPosition='left'
+                  label='Email'
+                  placeholder='Podaj email'
+                  type='email'
+                  name='email'
+                />
 
-              {errors && errors.email && (
-                <Label basic color='red' pointing='above' style={styles.small}>
-                  {errors.email}
-                </Label>
-              )}
+                {errors && errors.email && (
+                  <Label basic color='red' pointing='above' className='small'>
+                    {errors.email}
+                  </Label>
+                )}
 
-              <Button
-                loading={isLoading}
-                type='submit'
-                content='Wyślij link'
-                primary
-                size='large'
-                onClick={handleOnClick}
-              />
-            </Form>
-          </Grid.Column>
-        </Grid>
-      </Segment>
-    </Container>
+                <Button
+                  loading={isLoading}
+                  type='submit'
+                  content='Wyślij link'
+                  primary
+                  size='large'
+                  onClick={handleOnClick}
+                />
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+      </Container>
+    </Wrapper>
   );
-};
-const styles = {
-  main: {
-    marginTop: '7rem',
-    width: '95%',
-    marginBottom: '5rem',
-  },
-  column: {},
-  buttonWrapper: {
-    marginTop: '10px',
-  },
-  ol: {
-    fontSize: '.85rem',
-    color: '#666',
-  },
-  intro: {
-    fontSize: '.85rem',
-    marginLeft: '1.8rem',
-    marginTop: '2rem',
-    color: '#666',
-  },
-  input: {
-    width: '290px',
-    marginLeft: '-35px',
-    marginBottom: '20px',
-  },
-  small: {
-    fontSize: '.9rem',
-    textAlign: 'center',
-    transform: 'translateY(-35px)',
-    color: 'red',
-  },
-  msg: {
-    textAlign: 'left',
-    marginBottom: '30px',
-  },
 };
 
 export default Resend;

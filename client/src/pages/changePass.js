@@ -9,6 +9,7 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
+import {Wrapper} from  './styles/changePass.styles'
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
@@ -61,98 +62,64 @@ const ChangePass = ({ history }) => {
 
   return (
     <Container>
-      <Title content='Zmiana hasła' />
-      <Segment placeholder style={styles.main} size='large'>
-        <Message style={styles.msg} info size='small' floating>
-          <Message.Header>Zmiana hasła</Message.Header>
-          <p>
-            Strona służy do zmiany hasła. Podaj obowiązujące i nowe hasło i
-            zapisz zmiany. Pamiętaj, aby nowe hasło posiadało co najmniej 1
-            wielką literę, 1 małą oraz 1 cyfrę.
-          </p>
-        </Message>
-        <Grid columns={1} relaxed='very' stackable>
-          <Grid.Column>
-            <Form>
-              {changePassInputs.map((input) => {
-                return (
-                  <div key={input.id}>
-                    <Form.Input
-                      onChange={(e) => handleOnChange(e)}
-                      required
-                      style={styles.input}
-                      icon={input.icon}
-                      iconPosition='left'
-                      label={input.label}
-                      placeholder={input.placeholder}
-                      type={input.type}
-                      name={input.name}
-                    />
+        <Wrapper>
+        <Title content='Zmiana hasła' />
+        <Segment placeholder className='main' size='large'>
+          <Message className='msg' info size='small' floating>
+            <Message.Header>Zmiana hasła</Message.Header>
+            <p>
+              Strona służy do zmiany hasła. Podaj obowiązujące i nowe hasło i
+              zapisz zmiany. Pamiętaj, aby nowe hasło posiadało co najmniej 1
+              wielką literę, 1 małą oraz 1 cyfrę.
+            </p>
+          </Message>
+          <Grid columns={1} relaxed='very' stackable>
+            <Grid.Column>
+              <Form>
+                {changePassInputs.map((input) => {
+                  return (
+                    <div key={input.id}>
+                      <Form.Input
+                        onChange={(e) => handleOnChange(e)}
+                        required
+                        className='input'
+                        icon={input.icon}
+                        iconPosition='left'
+                        label={input.label}
+                        placeholder={input.placeholder}
+                        type={input.type}
+                        name={input.name}
+                      />
 
-                    {errors && errors[input.name] && (
-                      <Label
-                        basic
-                        color='red'
-                        pointing='above'
-                        key={input.id}
-                        style={styles.small}
-                      >
-                        {errors[input.name]}
-                      </Label>
-                    )}
-                  </div>
-                );
-              })}
-              <Button
-                loading={isLoading}
-                type='submit'
-                content='Zmień hasło'
-                primary
-                size='large'
-                onClick={handleOnClick}
-              />
-            </Form>
-          </Grid.Column>
-        </Grid>
-      </Segment>
-    </Container>
+                      {errors && errors[input.name] && (
+                        <Label
+                          basic
+                          color='red'
+                          pointing='above'
+                          key={input.id}
+                          className='small'
+                        >
+                          {errors[input.name]}
+                        </Label>
+                      )}
+                    </div>
+                  );
+                })}
+                <Button
+                  loading={isLoading}
+                  type='submit'
+                  content='Zmień hasło'
+                  primary
+                  size='large'
+                  onClick={handleOnClick}
+                />
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+    </Wrapper>
+      </Container>
   );
-};
-const styles = {
-  main: {
-    marginTop: '7rem',
-    width: '95%',
-    marginBottom: '5rem',
-  },
-  column: {},
-  buttonWrapper: {
-    marginTop: '10px',
-  },
-  ol: {
-    fontSize: '.85rem',
-    color: '#666',
-  },
-  intro: {
-    fontSize: '.85rem',
-    marginLeft: '1.8rem',
-    marginTop: '2rem',
-    color: '#666',
-  },
-  input: {
-    width: '290px',
-    marginLeft: '-35px',
-    marginBottom: '20px',
-  },
-  small: {
-    fontSize: '.9rem',
-    textAlign: 'center',
-    transform: 'translateY(-35px)',
-    color: 'red',
-  },
-  msg: {
-    textAlign: 'left',
-    marginBottom: '30px',
-  },
 };
 
 export default ChangePass;

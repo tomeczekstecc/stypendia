@@ -1,8 +1,8 @@
 # TODO:
 
+refactor to styled-components
 loading and redirecting in submit
 panel postępu
-refactor to styled-components
 export messages + concat dev messaGES
 swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
 load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)

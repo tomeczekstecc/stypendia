@@ -1,25 +1,17 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import MainMenu from './MainMenu';
+import { Wrapper } from '../styles/layout.styles';
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <Wrapper>
       <MainMenu />
-      <Grid centered style={styles.grid} verticalAlign='middle'>
+      <Grid centered className='grid' verticalAlign='middle'>
         {children}
       </Grid>
-    </>
+    </Wrapper>
   );
 };
 
 export default Layout;
-
-const styles = {
-  grid: {
-    width: '90%',
-    position: 'relative',
-    overflow: 'hidden',
-    margin: 'auto'
-  },
-};

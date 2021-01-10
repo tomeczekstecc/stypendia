@@ -15,6 +15,8 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
+
+import {Wrapper} from './styles/verify.styles'
 import Title from '../components/Title';
 
 const Verify = ({ location: { search }, history }) => {
@@ -48,14 +50,14 @@ const Verify = ({ location: { search }, history }) => {
   }, [isLoggedIn]);
 
   return (
-    <>
+    <Wrapper>
       <Title content='Weryfikacja konta' />
       <Loader active={isLoading} size='huge'>
         Weryfikujemy
       </Loader>
 
       {!isLoading && !isSuccess && (
-        <Container style={styles.msg}>
+        <Container className='msg'>
           <Message error size='big' floating>
             <Message.Header>Błąd weryfikacji danych</Message.Header>
             <p>
@@ -76,7 +78,7 @@ const Verify = ({ location: { search }, history }) => {
 
       {!isLoading && isSuccess && (
         <>
-          <Segment placeholder style={styles.main} size='large'>
+          <Segment placeholder className='main' size='large'>
             <Message success size='medium' floating>
               <Message.Header>Potwierdzono konto!!!</Message.Header>
               <p>
@@ -108,7 +110,7 @@ const Verify = ({ location: { search }, history }) => {
                       </Button>
                     </List.Content>
                     <List.Content verticalAlign='bottom' floated='left'>
-                      <Header as='h3' style={styles.itemHeader}>
+                      <Header as='h3' className='itemheader'>
                         <Icon size='large' name={item.icon} /> {item.name}
                       </Header>
                     </List.Content>
@@ -119,25 +121,9 @@ const Verify = ({ location: { search }, history }) => {
           </Segment>
         </>
       )}
-    </>
+    </Wrapper>
   );
 };
 
-const styles = {
-  main: {
-    marginTop: '8rem',
-  },
-  leadingHeader: {
-    marginBottom: '5rem',
-    marginTop: '8rem',
-  },
-  itemHeader: {
-    transform: 'translateY(8px)',
-  },
-  msg: {
-    textAlign: 'left',
-    marginTop: '15%',
-  },
-};
 
 export default Verify;

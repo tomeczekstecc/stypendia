@@ -1,15 +1,16 @@
 import React from 'react'
+import {Wrapper} from './styles/rodo.styles'
 
 const Rodo = () => {
   return (
-    <>
-      <p style={styles.intro}>
+    <Wrapper>
+      <p className='intro'>
         Zgodnie z art. 13 ust. 1 i ust. 2 ogólnego rozporządzenia UE o ochronie
         danych osobowych nr 2016/679 z dnia 27 kwietnia 2016 r. (zwanego jako
         „RODO”) informujemy, iż:
       </p>
 
-      <ol style={styles.ol}>
+      <ol>
         <li>
           Administratorem Pani/Pana danych osobowych jest Zarząd Województwa
           Śląskiego z siedzibą przy ul. Ligonia 46, 40-037 Katowice, adres
@@ -82,21 +83,9 @@ const Rodo = () => {
           podejmowania decyzji, ani profilowania, o którym mowa w art. 22 RODO.
         </li>
       </ol>
-    </>
+    </Wrapper>
   );
 }
-const styles = {
 
-  ol: {
-    fontSize: '.85rem',
-    color: '#666',
-  },
-  intro: {
-    fontSize: '.85rem',
-    marginLeft: '1.8rem',
-    marginTop: '2rem',
-    color: '#666',
-  },
-};
 
 export default Rodo

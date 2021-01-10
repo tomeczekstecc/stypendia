@@ -11,6 +11,7 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
+import {Wrapper} from './styles/login.styles'
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
@@ -83,69 +84,71 @@ const Login = ({ history }) => {
   };
 
   return (
-    <Container>
-      <Title content='Logowanie' />
-      <Segment placeholder style={styles.main} size='large'>
-        <Grid columns={2} relaxed='very' stackable>
-          <Grid.Column>
-            <Form>
-              {loginInputs.map((input) => {
-                return (
-                  <div key={input.id}>
-                    <Form.Input
-                      onChange={(e) => handleOnChange(e)}
-                      required
-                      style={styles.input}
-                      icon={input.icon}
-                      iconPosition='left'
-                      label={input.label}
-                      placeholder={input.placeholder}
-                      type={input.type}
-                      name={input.name}
-                    />
+    <Wrapper>
+      <Container>
+        <Title content='Logowanie' />
+        <Segment placeholder className='main' size='large'>
+          <Grid columns={2} relaxed='very' stackable>
+            <Grid.Column>
+              <Form>
+                {loginInputs.map((input) => {
+                  return (
+                    <div key={input.id}>
+                      <Form.Input
+                        onChange={(e) => handleOnChange(e)}
+                        required
+                        className='input'
+                        icon={input.icon}
+                        iconPosition='left'
+                        label={input.label}
+                        placeholder={input.placeholder}
+                        type={input.type}
+                        name={input.name}
+                      />
 
-                    {errors && errors[input.name] && (
-                      <Label
-                        basic
-                        color='red'
-                        pointing='above'
-                        key={input.id}
-                        style={styles.small}
-                      >
-                        {errors[input.name]}
-                      </Label>
-                    )}
-                  </div>
-                );
-              })}
-              <span>{}</span>
-              <Button
-                loading={isLoading}
-                type='submit'
-                content='Zaloguj się'
-                primary
-                size='large'
-                onClick={handleOnClick}
-              />
-            </Form>
-            <Link to='/resetsend' style={styles.link}>
-              <div style={styles.buttonWrapper}>
-                <div style={styles.span}>Zapomniałeś hasła?</div>
-                <Button content='Resetuj hasło' icon='recycle' size='mini' />
-              </div>
-            </Link>
-          </Grid.Column>
+                      {errors && errors[input.name] && (
+                        <Label
+                          basic
+                          color='red'
+                          pointing='above'
+                          key={input.id}
+                         className='small'
+                        >
+                          {errors[input.name]}
+                        </Label>
+                      )}
+                    </div>
+                  );
+                })}
+                <span>{}</span>
+                <Button
+                  loading={isLoading}
+                  type='submit'
+                  content='Zaloguj się'
+                  primary
+                  size='large'
+                  onClick={handleOnClick}
+                />
+              </Form>
+              <Link to='/resetsend' >
+                <div className="buttonWrapper">
+                  <div className="span">Zapomniałeś hasła?</div>
+                  <Button content='Resetuj hasło' icon='recycle' size='mini' />
+                </div>
+              </Link>
+            </Grid.Column>
 
-          <Grid.Column verticalAlign='middle'>
-            <Link to='/register'>
-              <Button content='Zarejestruj się' icon='user plus' size='big' />
-            </Link>
-          </Grid.Column>
-        </Grid>
+            <Grid.Column verticalAlign='middle'>
+              <Link to='/register'>
+                <Button content='Zarejestruj się' icon='user plus' size='big' />
+              </Link>
+            </Grid.Column>
+          </Grid>
 
-        <Divider vertical>lub</Divider>
-      </Segment>
-    </Container>
+          <Divider vertical>lub</Divider>
+        </Segment>
+      </Container>
+    </Wrapper>
   );
 };
 

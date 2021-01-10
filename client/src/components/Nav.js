@@ -57,7 +57,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setIsLoading(false);
-          history.push('/');
+          // history.push('/');
         }
       })
       .catch((err) => {

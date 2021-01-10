@@ -12,17 +12,22 @@ import {
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
+import AppContext from '../context/app/appContext';
 
 const Resend = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
+
+    const appContext = useContext(AppContext);
+    const { setIsLoading, isLoading } = appContext;
+
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
 
   const [email, setEmail] = useState({});
   const [errors, setErrors] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     checkIsAuthenticated();

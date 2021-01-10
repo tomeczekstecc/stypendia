@@ -13,25 +13,21 @@ const hashedToken = (plaintextToken: string) => {
   return createHmac('md5', APP_SECRET).update(plaintextToken).digest('hex');
 };
 
-
-
-
-
 const compile = async function (templateName, data) {
-
   const filePath = path.join(
     process.cwd(),
     'src/templates/pdf/',
     `${templateName}.hbs`
-    );
-    const html = fs.readFileSync(filePath, 'utf-8');
-    return hbs.compile(html)(data);
-  };
+  );
+  const html = fs.readFileSync(filePath, 'utf-8');
+  return hbs.compile(html)(data);
+};
 
-  export async function generatePdf(data, type) {  console.log(data, 'dasda')
+export async function generatePdf(data, type) {
+  console.log(data, 'data.tempSubmit.numer');
   const hash = hashedToken(new Date().getTime().toString());
-  const fileName = data.tempSubmit.numer; // inne przypadki też dorobić
-  console.log(fileName)
+  const fileName = data.submit?.numer || data.tempSubmit?.numer; // inne przypadki też dorobić
+  console.log(fileName);
 
   const calculateChecksum = async (type) => {
     const file = path.join(process.cwd(), 'pdfs', `${type}`, `${fileName}.pdf`);
@@ -41,7 +37,6 @@ const compile = async function (templateName, data) {
     const checksum = crch + md5h;
     return checksum;
   };
-
 
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -55,7 +50,9 @@ const compile = async function (templateName, data) {
     displayHeaderFooter: true,
     headerTemplate: `
     <div style="font-family: Arial; margin: 0 auto; margin-top: 20px; border-bottom: solid 1px black; width: 85%; font-size: 8px; padding: 5px 5px 0; position: relative;">
-        <div style="position: absolute; left: 10px; bottom: 5px;"><span>Numer wniosku: <strong>${data.tempSubmit.numer}</strong></span></div>
+        <div style="position: absolute; left: 10px; bottom: 5px;"><span>Numer wniosku: <strong>${
+          data.submit?.numer || data.tempSubmit?.numer
+        }</strong></span></div>
         <div style="position: absolute; left: 180px; bottom: 5px;"><span>Suma kontrolna: <strong>${hash}</strong></span></div>
         <div style="position: absolute; right: 10px; bottom: 5px;">strona <span class="pageNumber"></span>/<span class="totalPages"></span></div>
     </div>
@@ -78,7 +75,7 @@ const compile = async function (templateName, data) {
   });
 
   if (type === 'submit') {
-    const submit = await Submit.findOne(data.tempSubmit.id);
+    const submit = await Submit.findOne(data.submit?.id || data.tempSubmit?.id);
     submit.checksum = await calculateChecksum(type);
     submit.hash = hash;
     await submit.save();

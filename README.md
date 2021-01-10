@@ -1,7 +1,6 @@
 # TODO:
 
-draft
-panel nawigacji
+loading and redirecting in submit
 panel postępu
 refactor to styled-components
 export messages + concat dev messaGES
@@ -12,6 +11,8 @@ csrf
 spinner zapis
 dodać pozostałe pola wniosku
 submit template
+404 - https://www.youtube.com/watch?v=wLaZ-abyBrI&t=8s
+help modals
 
 
 

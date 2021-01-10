@@ -12,9 +12,15 @@ import {
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
+import AppContext from '../context/app/appContext';
 import { resetReqInputs } from '../inputs';
 
 const ResetSend = ({ history }) => {
+
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
+
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -23,7 +29,6 @@ const ResetSend = ({ history }) => {
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     checkIsAuthenticated();

@@ -9,20 +9,19 @@ import NewCallToAction from '../components/NewCallToAction';
 const Home = () => {
   const [activeItem, setActiveItem] = useState('wnioski');
 
+  const renderActive = () => {
+    switch (activeItem) {
+      case 'wnioski':
+        return <AllUsersSubmits />;
+      case 'robocza':
+        return <AllUsersDrafts />;
+      case 'new':
+        return <NewCallToAction />;
 
-const renderActive  = () =>{
-  switch (activeItem) {
-    case 'wnioski':
-    return <AllUsersSubmits />;
-    case 'robocza':
-    return <AllUsersDrafts />;
-    case 'new':
-    return <NewCallToAction />;
-
-    default:
-return <AllUsersSubmits />;
-  }
-}
+      default:
+        return <AllUsersSubmits />;
+    }
+  };
 
   return (
     <>
@@ -49,9 +48,7 @@ return <AllUsersSubmits />;
 
         <Segment>
           <Grid stackable columns={1}>
-
-       {renderActive()}
-
+            {renderActive()}
           </Grid>
         </Segment>
       </Wrapper>

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
 
     position: fixed;
-    bottom: 40px;
+    bottom: 240px;
     right: 40px;
     opacity: .9;
 

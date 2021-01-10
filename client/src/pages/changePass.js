@@ -11,15 +11,20 @@ import {
 } from 'semantic-ui-react';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
+import AppContext from '../context/app/appContext';
 import { changePassInputs } from '../inputs';
 
 const ChangePass = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
+    const appContext = useContext(AppContext);
+    const { setIsLoading, isLoading } = appContext;
+
+
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
 
 
   const handleOnClick = async (e) => {

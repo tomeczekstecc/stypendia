@@ -2,11 +2,18 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import SubmitContext from '../context/submit/submitContext';
 import AlertContext from '../context/alert/alertContext';
-import fileDownload from 'js-file-download';
+import AppContext from '../context/app/appContext';
+// import fileDownload from 'js-file-download';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 
 const AllUsersSubmits = () => {
+
+
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
+
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -19,7 +26,6 @@ const AllUsersSubmits = () => {
   } = submitContext;
 
   const [submits, setSubmits] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleOnClick = (uuid, mode) => {
     setSubmitMode(mode);

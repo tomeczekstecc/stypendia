@@ -5,6 +5,7 @@ import {
   UPDATE_CUR_SUBMIT,
   SET_SUBMIT_TO_WATCH,
   SET_CUR_SUBMIT,
+
 } from '../types';
 
 const reducer = (state, action) => {
@@ -21,6 +22,7 @@ const reducer = (state, action) => {
         return { ...state, curSubmit: action.payload };
     case SET_SUBMIT_TO_WATCH:
       return { ...state, submitToWatch: action.payload };
+
 
     default:
       return state;

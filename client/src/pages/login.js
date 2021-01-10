@@ -13,6 +13,7 @@ import {
 } from 'semantic-ui-react';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
+import AppContext from '../context/app/appContext';
 import AuthContext from '../context/auth/authContext';
 import { loginInputs } from '../inputs';
 
@@ -20,12 +21,15 @@ const Login = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
+    const appContext = useContext(AppContext);
+    const { setIsLoading, isLoading } = appContext;
+
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     checkIsAuthenticated();

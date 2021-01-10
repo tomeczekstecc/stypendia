@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
+import AppContext from '../context/app/appContext';
 import { Link } from 'react-router-dom';
 import { verItems } from '../items';
 import {
@@ -17,11 +18,13 @@ import {
 import Title from '../components/Title';
 
 const Verify = ({ location: { search }, history }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
+
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const authContext = useContext(AuthContext);
   const { checkIsAuthenticated, isLoggedIn } = authContext;

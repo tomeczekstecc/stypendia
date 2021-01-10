@@ -17,10 +17,14 @@ import Rodo from '../components/Rodo';
 import Title from '../components/Title';
 import { registerInputs } from '../inputs';
 import AlertContext from '../context/alert/alertContext';
+import AppContext from '../context/app/appContext';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
+
+    const appContext = useContext(AppContext);
+    const { setIsLoading, isLoading } = appContext;
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
@@ -30,7 +34,7 @@ const Register = (props) => {
   const [errors, setErrors] = useState('');
   const [isRodoChecked, setIsRodoChecked] = useState(false);
   const [isRegulationsChecked, setIsRegulationsChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     checkIsAuthenticated();

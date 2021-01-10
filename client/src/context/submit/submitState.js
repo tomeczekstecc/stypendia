@@ -1,8 +1,10 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
+
 import submitReducer from './submitReducer';
 import SubmitContext from './submitContext';
 import axios from 'axios';
 import AlertContext from '../alert/alertContext';
+import AppContext from '../app/appContext';
 
 import {
   UPDATE_NEW_SUBMIT,
@@ -17,54 +19,69 @@ const SubmitState = (props) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
+  const appContext = useContext(AppContext);
+  const { setIsLoading } = appContext;
+
   const initialState = {
     newSubmit: {},
     submitUuid: null,
+    isSaving: false,
     submitMode: '',
     submitToWatch: {},
     curSubmit: {}, //submit being edited
   };
 
-  const addNewSubmit = (submit) => {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+  // const addNewSubmit = (submit) => {
+  //   setIsLoading(true);
+  //   const headers = {
+  //     'Content-Type': 'application/json',
+  //   };
 
-    axios
-      .post('/api/v1/submits', submit, headers)
-      .then((data) => {
-        if (data.data.resStatus || data.data.resStatus === 'success') {
-          addAlert(data.data);
-        }
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data);
-          addAlert(err.response.data);
-          return;
-        }
-      });
-  };
+  //   axios
+  //     .post('/api/v1/submits', submit, headers)
+  //     .then((data) => {
+  //       if (data.data.resStatus || data.data.resStatus === 'success') {
+  //         addAlert(data.data);
+  //       }
+  //       setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       if (err.response) {
+  //         console.log(err.response.data);
+  //         addAlert(err.response.data);
+  //         setIsLoading(false);
 
-  const updateSubmit = (submit) => {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+  //         return;
+  //       }
+  //     });
+  // };
 
-    axios
-      .put('/api/v1/submits', submit, headers)
-      .then((data) => {console.log(data.data);
-        if (data.data.resStatus || data.data.resStatus === 'success') {
-          addAlert(data.data);
-        }
-      })
-      .catch((err) => {
-        if (err.response) {
-          addAlert(err.response.data);
-          return;
-        }
-      });
-  };
+  // const updateSubmit = (submit) => {
+  //   setIsLoading(true);
+  //   const headers = {
+  //     'Content-Type': 'application/json',
+  //   };
+
+  //   axios
+  //     .put('/api/v1/submits', submit, headers)
+  //     .then( async(data) => {
+
+  //       if (data.data.resStatus || data.data.resStatus === 'success') {
+
+  //         addAlert(data.data);
+  //         setIsLoading(false);
+  //       }
+  //
+  //     })
+  //     .catch((err) => {
+  //       if (err.response) {
+  //         addAlert(err.response.data);
+  //         setIsLoading(false);
+  //
+  //         return;
+  //       }
+  //     });
+  // };
 
   const [state, dispatch] = useReducer(submitReducer, initialState);
 
@@ -97,6 +114,7 @@ const SubmitState = (props) => {
   };
 
   const setSubmitToWatch = (uuid) => {
+    setIsLoading(true);
     try {
       const headers = {
         'Content-Type': 'application/json',
@@ -109,10 +127,12 @@ const SubmitState = (props) => {
             type: SET_SUBMIT_TO_WATCH,
             payload: data.data.submit,
           });
+          setIsLoading(false);
         })
         .catch((err) => {
           if (err.response) {
             addAlert(err.response.data);
+            setIsLoading(false);
             return;
           }
         });
@@ -122,6 +142,7 @@ const SubmitState = (props) => {
   };
 
   const setCurSubmit = (uuid) => {
+    setIsLoading(true);
     try {
       const headers = {
         'Content-Type': 'application/json',
@@ -133,10 +154,12 @@ const SubmitState = (props) => {
             type: SET_CUR_SUBMIT,
             payload: data.data.submit,
           });
+          setIsLoading(false);
         })
         .catch((err) => {
           if (err.response) {
             addAlert(err.response.data);
+            setIsLoading(false);
             return;
           }
         });
@@ -150,10 +173,8 @@ const SubmitState = (props) => {
       value={{
         newSubmit: state.newSubmit,
         updateNewSubmit,
-        addNewSubmit,
         setSubmitUuid,
         submitUuid: state.submitUuid,
-        updateSubmit,
         setSubmitMode,
         curSubmit: state.curSubmit,
         updateCurSubmit,

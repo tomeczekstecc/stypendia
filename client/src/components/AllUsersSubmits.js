@@ -6,13 +6,12 @@ import AppContext from '../context/app/appContext';
 // import fileDownload from 'js-file-download';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
+import { networkInterfaces } from 'os';
+import NewCallToAction from './NewCallToAction';
 
 const AllUsersSubmits = () => {
-
-
   const appContext = useContext(AppContext);
   const { setIsLoading, isLoading } = appContext;
-
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -67,10 +66,10 @@ const AllUsersSubmits = () => {
         link.setAttribute('download', `${numer}.pdf`); //or any other extension
         document.body.appendChild(link);
         link.click();
-      })
-      // .then((res) => {
-      //   fileDownload(res.data, 'test.pdf'); // z bibliteki 'js-file-download'
-      // });
+      });
+    // .then((res) => {
+    //   fileDownload(res.data, 'test.pdf'); // z bibliteki 'js-file-download'
+    // });
   };
 
   useEffect(() => {
@@ -83,56 +82,56 @@ const AllUsersSubmits = () => {
       <Card.Group itemsPerRow={5} stackable className='cards'>
         {submits.length > 0 ? (
           submits.map((s) => (
-            <div key={s.id}>
-              <Card className='card'>
-                <Card.Content textAlign='left'>
-                  <Label
-                    className='label'
-                    basic
-                    content={'oczekuje na decyzje'}
-                  ></Label>
-                  <Image
-                    floated='right'
-                    size='mini'
-                    src='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
-                  />
-                  <Card.Header>
-                    {s.pupilFirstName} {s.pupilLastName}
-                  </Card.Header>
-                  <Card.Meta>{s.schoolType}</Card.Meta>
-                  <Card.Description>Nuner wniosku: {s.numer}</Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  <div className='ui three buttons'>
-                    <Link to='/submit'>
-                      <Button
-                        color='green'
-                        onClick={() => handleOnClick(s.uuid, 'watch')}
-                      >
-                        Zobacz
-                      </Button>
-                      <Button
-                        primary
-                        onClick={() => handleOnClick(s.uuid, 'edit')}
-                      >
-                        Popraw
-                      </Button>
-                    </Link>
+            <Card key={s.id} className='card' raised>
+              <Card.Content className='relative' textAlign='left'>
+                <Label
+                  className='label'
+                  // basic
+                  size='mini'
+                  color='gray'
+                  content={'oczekuje na decyzje'}
+                ></Label>
+                <Image
+                  floated='left'
+                  size='mini'
+                  src='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+                />
+
+                <Card.Header>
+                  {s.pupilFirstName} {s.pupilLastName}
+                </Card.Header>
+                <Card.Meta>{s.schoolType}</Card.Meta>
+                <Card.Description>Nuner wniosku: {s.numer}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <div className='ui three buttons'>
+                  <Link to='/submit'>
                     <Button
-                      basic
-                      color='blue'
-                      onClick={() => callFetch(s.numer)}
+                      color='green'
+                      onClick={() => handleOnClick(s.uuid, 'watch')}
                     >
-                      <Icon name='download' />
-                      <strong> PDF</strong>
+                      Zobacz
                     </Button>
-                  </div>
-                </Card.Content>
-              </Card>
-            </div>
+                    <Button
+                      primary
+                      onClick={() => handleOnClick(s.uuid, 'edit')}
+                    >
+                      Popraw
+                    </Button>
+                  </Link>
+                  <Button basic color='blue' onClick={() => callFetch(s.numer)}>
+                    <Icon name='download' />
+                    <strong> PDF</strong>
+                  </Button>
+                </div>
+              </Card.Content>
+            </Card>
           ))
         ) : (
-          <h3>Brak wniosków</h3>
+          <>
+
+            <NewCallToAction />
+          </>
         )}
       </Card.Group>
     </>

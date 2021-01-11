@@ -38,8 +38,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         if (err.response) {
           console.log(err.response.data);
           addAlert(err.response.data);
-          setIsLoading(false);
-          history.push('/');
+
           return;
         }
       });
@@ -57,14 +56,14 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setIsLoading(false);
-          // history.push('/');
+          history.push('/');
         }
       })
       .catch((err) => {
         if (err.response) {
           addAlert(err.response.data);
           setIsLoading(false);
-          history.push('/');
+
           return;
         }
       });

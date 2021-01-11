@@ -1,21 +1,24 @@
 # TODO:
 
-refactor to styled-components
-loading and redirecting in submit
-panel postępu
+skeleton
+
+upload
 export messages + concat dev messaGES
-swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)
-load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
+dodać pozostałe pola wniosku
+options + items + inputs
 auto logout
 csrf
 spinner zapis
-dodać pozostałe pola wniosku
 submit template
+mail template
 404 - https://www.youtube.com/watch?v=wLaZ-abyBrI&t=8s
+load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
 help modals
+panel postępu
 
 
 
+swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)?
 rollbar?
 Logger (zainstalowany, skonfigurowany)?
 add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
@@ -26,8 +29,6 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 undefined nie jest poprawnym adresem email
 divider horizontally
 ip w logach
-brak pupilPhone daje 500
-różnivca w margin left pomiędzy "Wnioski" a "Wersjka robocza"
 
 różnica w czasie w trakcie twiorzenia użytkownika?
 

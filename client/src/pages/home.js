@@ -46,7 +46,7 @@ const Home = () => {
           />
         </Menu>
 
-        <Segment>
+        <Segment className='segment'>
           <Grid stackable columns={1}>
             {renderActive()}
           </Grid>

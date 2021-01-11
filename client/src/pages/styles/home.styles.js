@@ -5,26 +5,38 @@ export const Wrapper = styled.div`
 
   position: relative;
   margin-top: 7rem;
-  width: 95%;
+  width: 70%;
 
   .card {
-margin: 40px 20px !important;
+    margin: 20px 25px;
+    min-width: 297px;
+    min-height: 250px;
 
-  width: 297px;
-
+    z-index: 99999999999999999 !important;
   }
 
   .text-left {
     text-align: 'left' !important;
   }
 
-.cards{
-  transform: scale(.85);
-}
+  .cards {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+  }
 
-.label{
-  margin-top: -30px !important;
-  margin-bottom: 7px;
-}
+  .label {
+    position: absolute !important;
+    right: 10px;
+    top: -11px;
+  }
+  .segment {
+    /* padding: 40px 0 !important; */
+    min-height: 220px;
+  }
+
+  .relative{
+    position: relative;
+  }
+
 
 `;

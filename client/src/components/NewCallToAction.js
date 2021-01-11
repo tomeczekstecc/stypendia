@@ -53,28 +53,24 @@ const NewCallToAction = () => {
         <Card.Group
           itemsPerRow={5}
           stackable
+          centered
           className='cards'
           onClick={() => handleOnClick('new')}
         >
-          {drafts.length > 0 ? (
-            drafts.map((s) => (
-              <div key={s.id}>
-                <Card className='card'>
+
+                <Card   lassName='card' raised>
                   <Card.Content textAlign='center'>
                     <Icon name='plus' size='big' color='black' />
+                    <Icon name='pencil' size='huge' color='black' />
                   </Card.Content>
                   <Card.Content extra>
-                    {' '}
-                    <strong>
-                      <a> Złóż nowy wniosek</a>
-                    </strong>
+                    <Button primary size='large' icon labelPosition='right'>
+                      Złóż nowy wniosek
+                      <Icon name='right arrow' />
+                    </Button>
                   </Card.Content>
                 </Card>
-              </div>
-            ))
-          ) : (
-            <h1>Brak wniosków</h1>
-          )}
+
         </Card.Group>
       </Link>
     </>

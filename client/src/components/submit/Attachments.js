@@ -1,10 +1,46 @@
-import React from 'react';
-import { Button, Card, Icon, Image,Message } from 'semantic-ui-react';
-import {Wrapper} from '../styles/attachments.styles';
+import React, { createRef } from 'react';
+import { Button, Card, Icon, Image, Message } from 'semantic-ui-react';
+import { Wrapper } from '../styles/attachments.styles';
+
+import axios from 'axios';
+
 
 const Attachments = () => {
+  const fileInputRef = createRef();
+
+
+  const openFileInput = (type) => {
+    fileInputRef.current.name = type;
+    fileInputRef.current.click();
+  };
+
+  const uploadImage = async (e) => {
+    const file = e.target.files[0];
+    console.log(fileInputRef.current.name);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('type', fileInputRef.current.name);
+    console.log(formData);
+
+    try {
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+      };
+
+      const res = await axios.post('/api/v1/files/upload', formData, headers);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Wrapper>
+      <input
+        type='file'
+        hidden={true}
+        ref={fileInputRef}
+        onChange={uploadImage}
+      />
       <Message info size='medium' floating>
         <Message.Header>Dodawanie załączników</Message.Header>
         <p>
@@ -23,6 +59,7 @@ const Attachments = () => {
       <Card.Group itemsPerRow={4} stackable>
         <Card className='card'>
           <Image
+            className='image'
             src='https://react.semantic-ui.com/images/wireframe/image.png'
             wrapped
             ui={false}
@@ -39,7 +76,13 @@ const Attachments = () => {
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <Button basic negative icon labelPosition='right'>
+            <Button
+              onClick={() => openFileInput('statement')}
+              basic
+              negative
+              icon
+              labelPosition='right'
+            >
               <Icon name='trash alternate outline'></Icon>
               Usuń załącznik
             </Button>
@@ -63,13 +106,20 @@ const Attachments = () => {
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <Button basic negative icon labelPosition='right'>
+            <Button
+              onClick={() => openFileInput('report_card')}
+              basic
+              negative
+              icon
+              labelPosition='right'
+            >
               <Icon name='trash alternate outline'></Icon>
               Usuń załącznik
             </Button>
           </Card.Content>
         </Card>
       </Card.Group>
+
     </Wrapper>
   );
 };

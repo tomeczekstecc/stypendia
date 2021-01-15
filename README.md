@@ -2,7 +2,10 @@
 
 skeleton
 
+
 upload
+submit has a type attachemnt - np Query builder exists
+file entity
 export messages + concat dev messaGES
 dodać pozostałe pola wniosku
 options + items + inputs
@@ -15,6 +18,7 @@ mail template
 load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
 help modals
 panel postępu
+clear fields if parent aftre puplil
 
 
 

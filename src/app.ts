@@ -13,6 +13,7 @@ import emailRouter from './routes/verify';
 import resetRouter from './routes/reset';
 import changePassRouter from './routes/changePass';
 import pdfRouter from './routes/pdf';
+import filesRouter from './routes/files';
 import morgan from 'morgan';
 
 dotenv.config();
@@ -50,6 +51,7 @@ export const createApp = (store: Store) => {
   app.use('/api/v1/changepass', changePassRouter);
   app.use('/api/v1/pdf', pdfRouter);
   app.use('/api/v1/drafts', draftRouter);
+  app.use('/api/v1/files', filesRouter);
   app.use(serverError);
   app.use(notFound);
 

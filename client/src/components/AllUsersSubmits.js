@@ -88,7 +88,7 @@ const AllUsersSubmits = () => {
                   className='label'
                   // basic
                   size='mini'
-                  color='gray'
+                  color='grey'
                   content={'oczekuje na decyzje'}
                 ></Label>
                 <Image

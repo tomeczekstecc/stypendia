@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import xss from 'xss'
 
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
@@ -36,6 +37,7 @@ export const register = async (req, res: Response) => {
     email,
     password,
     passwordConfirm,
+    _csrf
   } = req.body;
 
   try {
@@ -70,7 +72,7 @@ export const register = async (req, res: Response) => {
       return res.status(400).json(mapErrors(errors));
     }
     await user.save();
- 
+
     INFO = 'Utworzno użytkownika';
     STATUS = 'success';
 
@@ -84,6 +86,7 @@ export const register = async (req, res: Response) => {
     const body = {
       email: user.email,
     };
+
 
     await axios.post(`${APP_ORIGIN}/api/v1/email/resend`, body, config);
 
@@ -135,6 +138,7 @@ export const login = async (req: any, res: Response) => {
       INFO =
         'Wprowadzono niepoprawne dane lub użytkownik nie potwierdził konta';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
@@ -167,7 +171,6 @@ export const login = async (req: any, res: Response) => {
     const passwordMathes = await bcrypt.compare(password, user.password);
 
     if (!passwordMathes) {
-
       user.failedLogins += 1;
       INFO = `Liczba niepoprawnych logowań: ${user.failedLogins} - wprowadzono niepoprawne dane - nieprawidłowe hasło`;
       await user.save();
@@ -180,6 +183,7 @@ export const login = async (req: any, res: Response) => {
           'Kolejna nieudana próba zablokuje użytkownika i uniemożliwi dalsze logowania na 20 minut';
         await user.save();
         makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+
         return res.status(403).json({
           resStatus: 'error',
           msgPL: INFO,
@@ -217,7 +221,7 @@ export const login = async (req: any, res: Response) => {
       INFO = 'Od ostatniej zmiany hasła minęło 90 dni. Należy je zmienić';
       STATUS = 'warning';
 
-          await user.save();
+      await user.save();
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
       const token = await PasswordReset.plaintextToken();
@@ -234,19 +238,18 @@ export const login = async (req: any, res: Response) => {
         forcePassChange: true,
         token,
         resetId: reset.id,
-
       });
     }
 
     logIn(req, user.id);
 
     await user.save();
-
     return res.status(200).json({
       resStatus: 'success',
       msgPL: 'Pomyślnie zalogowano.',
       msg: 'Successfully logged in',
       alertTitle: 'Sukces',
+      csrf: req.session.XSRF_Token
     });
   } catch (err) {
     return res.status(500).json({
@@ -262,7 +265,6 @@ export const login = async (req: any, res: Response) => {
 //Logout
 //
 export const logout = async (req: any, res: Response) => {
-
   const CONTROLLER = 'logout';
   let ACTION = 'wylogowanie';
   let INFO = 'Pomyślnie wylogowano użytkownika';

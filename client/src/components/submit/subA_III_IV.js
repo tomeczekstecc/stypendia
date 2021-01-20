@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 import SubmitContext from '../../context/submit/submitContext';
-import Nav from '../Nav';
+import axios from 'axios';
 
 const options = [
   { key: 'a', text: 'Wybierz województwo', value: 'default', disabled: true },
@@ -57,12 +57,14 @@ const SubA_III_IV = () => {
       await updateCurSubmit({
         ...curSubmit,
         [e.target.name]: e.target.value,
+
       });
     } else if (submitMode === 'new') {
       console.log('new');
       await updateNewSubmit({
         ...newSubmit,
         [e.target.name]: e.target.value,
+ 
       });
     }
   };

@@ -27,8 +27,8 @@ import {
   schoolTypeEnums,
   priGradesEnums,
   allTotalAvgEnums,
-
 } from './types';
+import { Exclude } from 'class-transformer';
 
 @Entity('submits')
 export class Submit extends Model {
@@ -37,7 +37,7 @@ export class Submit extends Model {
     Object.assign(this, submit);
   }
 
-  @Column({ comment: 'Wersja wniosku' , default: 1})
+  @Column({ comment: 'Wersja wniosku', default: 1 })
   ver: number;
 
   @Column({ comment: 'Numer wniosku' })
@@ -53,26 +53,26 @@ export class Submit extends Model {
 
   // @IsInt({ message: 'Status musi by intigerem' })
   // @Min(1, {
-    //   message: 'Status nie może być mniejszy niż 1',
-    // })
-    // @Max(9, {
-      //   message: 'Status nie może być większy niż 9',
-      // })
-      @Column({ default: 1, comment: 'Status wniosku' })
-      status: number;
+  //   message: 'Status nie może być mniejszy niż 1',
+  // })
+  // @Max(9, {
+  //   message: 'Status nie może być większy niż 9',
+  // })
+  @Column({ default: 1, comment: 'Status wniosku' })
+  status: number;
 
-      // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
-      // @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
-      // isParent: boolean;
+  // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
+  // @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
+  // isParent: boolean;
 
-      //
-      //I. dane osobowe
-      //
+  //
+  //I. dane osobowe
+  //
   @Column({
     type: 'enum',
     comment:
       '1:Status prawny Wnioskodawcy - Pełnoletni uczeń, 0:Status prawny Wnioskodawcy - Rodzic ucznia',
-    enum: [0, 1]
+    enum: [0, 1],
   })
   isSelf: number;
 
@@ -277,11 +277,37 @@ export class Submit extends Model {
   // })
   // isHandicap: boolean;
 
-  @Column({ comment: 'Suma kontrolna powiązanego pliku pdf 1 ' , nullable: true})
+  @Column({
+    comment: 'Suma kontrolna powiązanego pliku pdf 1 ',
+    nullable: true,
+  })
   checksum: string;
 
-  @Column({ comment: 'Hash' , nullable: true})
+  @Exclude()
+  @Column({ comment: 'Hash', nullable: true })
   hash: string;
+
+  //@TODO virtual
+  @Column({ comment: 'ID załącznika - oświadczenia opiekuna ' })
+  statementId: string;
+  //@TODO virtual
+  @Column({ comment: 'Suma kontrolna - oświadczenia opiekuna ' })
+  statementChecksum: string;
+  //@TODO virtual
+  @Column({ comment: 'Data utworzenia - oświadczenia opiekuna ' })
+  statementCreatedAt: string;
+  //@TODO virtual
+  @Column({ comment: 'ID załącznika - świadectwa' })
+  report_cardId: string;
+  //@TODO virtual
+  @Column({ comment: 'Suma kontrolna - świadectwa' })
+  report_cardChecksum: string;
+  //@TODO virtual
+  @Column({ comment: 'Data utworzenia - świadectwa' })
+  report_cardCreatedAt: string;
+  //@TODO virtual
+  @Column({ comment: 'Csrf' })
+  _csrf: string;
 
   @Column({ comment: 'UuuidV4 użytkownika' })
   userUuid: string;
@@ -294,10 +320,8 @@ export class Submit extends Model {
   @JoinColumn({ name: 'userUuid', referencedColumnName: 'uuid' })
   user: User;
 
-  @OneToMany(() => Submit, (submit) => submit.history)
-  history: SubmitHistory;
-
-
+  @OneToMany(() => SubmitHistory, (submit_history) => submit_history.submit)
+  history: SubmitHistory[];
 
   // @BeforeInsert()
   // calculatePriAver() {

@@ -2,13 +2,15 @@ import express from 'express';
 
 import { addSubmit, editSubmit, getAllSubmits, getAllUsersSubmits, getOneUserSubmit } from '../controllers/submit';
 import { auth } from '../middleware';
+import csrf from 'csurf';
+const csrfProtection = csrf();
 
 const router = express.Router();
 
-router.route('/').post(auth, addSubmit);
-router.route('/').get(auth,getAllSubmits);
-router.route('/usersubmits/:uuid').get(auth,getOneUserSubmit);
-router.route('/').put(auth,editSubmit);
-router.route('/usersubmits').get(auth,getAllUsersSubmits);
+router.route('/').post(csrfProtection,auth, addSubmit);
+router.route('/').get(csrfProtection,auth,getAllSubmits);
+router.route('/usersubmits/:uuid').get(csrfProtection,auth,getOneUserSubmit);
+router.route('/').put(csrfProtection,auth,editSubmit);
+router.route('/usersubmits').get(csrfProtection,auth,getAllUsersSubmits);
 
 export default router;

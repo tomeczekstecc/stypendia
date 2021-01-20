@@ -30,7 +30,7 @@ const NewCallToAction = () => {
     axios
       .get('/api/v1/drafts/oneuser', headers)
       .then((data) => {
-        console.log(data);
+
         setDrafts(data.data.drafts);
       })
       .catch((err) => {
@@ -58,7 +58,7 @@ const NewCallToAction = () => {
           onClick={() => handleOnClick('new')}
         >
 
-                <Card   lassName='card' raised>
+                <Card  className='card' raised>
                   <Card.Content textAlign='center'>
                     <Icon name='plus' size='big' color='black' />
                     <Icon name='pencil' size='huge' color='black' />

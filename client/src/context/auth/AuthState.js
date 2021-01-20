@@ -4,20 +4,17 @@ import AuthContext from './authContext';
 import axios from 'axios';
 import AlertContext from '../../context/alert/alertContext';
 
-import { SET_USER, CHECK_IS_LOGGED_IN, LOGOUT_USER } from '../types';
+import { SET_USER, CHECK_IS_LOGGED_IN, LOGOUT_USER} from '../types';
 
 const AuthState = (props) => {
-
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
-
-
-
 
   const initialState = {
     user: null,
     isLoggedIn: false,
   };
+
 
   const checkIsAuthenticated = async () => {
     const result = await (
@@ -54,14 +51,21 @@ const AuthState = (props) => {
   };
 
   const logOut = () => {
-
     axios
       .get('/api/v1/users/logout')
       .then(async (data) => {
+
+
+
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
-           await props?.history?.push('/login');
+          await props?.history?.push('/login');
         }
+
+
+    dispatch({
+      type: LOGOUT_USER,
+    });
       })
       .catch(
         (err) => console.log(err.message)
@@ -73,20 +77,18 @@ const AuthState = (props) => {
         // });
       );
 
-    dispatch({
-      type: LOGOUT_USER
-    });
+
   };
 
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
-        setUser,
+           setUser,
         logOut,
         checkIsAuthenticated,
         isLoggedIn: state.isLoggedIn,
-            }}
+      }}
     >
       {props.children}
     </AuthContext.Provider>

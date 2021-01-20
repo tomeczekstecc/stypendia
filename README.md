@@ -1,27 +1,25 @@
 # TODO:
 
-skeleton
-
-
-upload
+auto logout
+xss
+sprawdzić dlaczego tworzy sid przy błednych danych logowania
+protecteed firlds - czy ma załącznikli, czy ma wniosek+
+select dla submit i user
 submit has a type attachemnt - np Query builder exists
-file entity
 export messages + concat dev messaGES
 dodać pozostałe pola wniosku
 options + items + inputs
-auto logout
-csrf
 spinner zapis
 submit template
 mail template
 404 - https://www.youtube.com/watch?v=wLaZ-abyBrI&t=8s
-load files(https://www.youtube.com/watch?v=2Oov8miYK-g&t=1s)
 help modals
 panel postępu
 clear fields if parent aftre puplil
 
 
 
+skeleton?
 swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)?
 rollbar?
 Logger (zainstalowany, skonfigurowany)?
@@ -36,6 +34,9 @@ ip w logach
 
 różnica w czasie w trakcie twiorzenia użytkownika?
 
+
+
+security https://dev.to/demetrakopetros/security-in-node-js-and-express-the-bare-minimum-part-3-54f3
 
 
 # Awesome Project Build with TypeORM

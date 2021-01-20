@@ -19,14 +19,12 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-  const addNewSubmit = (submit) => {
+  const addNewSubmit = async (submit) => {
+    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-
+    const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
     axios
-      .post('/api/v1/submits', submit, headers)
+      .post('/api/v1/submits', newSubmit)
       .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -44,15 +42,13 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
       });
   };
 
-  const updateSubmit = (submit) => {
+  const updateSubmit = async (submit) => {
+    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-
+    const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
     axios
-      .put('/api/v1/submits', submit, headers)
-      .then(async (data) => {
+      .put('/api/v1/submits', newSubmit)
+      .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setIsLoading(false);
@@ -68,6 +64,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         }
       });
   };
+
 
   return (
     <Wrapper mode={submitMode}>

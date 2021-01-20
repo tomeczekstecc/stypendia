@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import {
   Button,
   Container,
@@ -11,22 +12,24 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
-import {Wrapper} from './styles/login.styles'
+import { Wrapper } from './styles/login.styles';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
 import AuthContext from '../context/auth/authContext';
 import { loginInputs } from '../inputs';
 
-const Login = ({ history }) => {
+const Login = ({ history, }) => {
+
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-    const appContext = useContext(AppContext);
-    const { setIsLoading, isLoading } = appContext;
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
 
   const authContext = useContext(AuthContext);
-  const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
+  const { checkIsAuthenticated, isLoggedIn} = authContext;
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
@@ -39,48 +42,45 @@ const Login = ({ history }) => {
 
   const handleOnClick = async (e) => {
     e.preventDefault();
+
     setIsLoading(true);
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+    const csrfData = await axios.get('/api/v1/csrf');
+   const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/users/login`, body, headers)
+      .post(`/api/v1/users/login`, newBody)
       .then(async (data) => {
+
         if (data.data.resStatus || data.data.resStatus === 'success') {
+
           addAlert(data.data);
-          setUser(data.data.user);
           setIsLoading(false);
           history.push('/');
         }
-
       })
       .catch((err) => {
-
-        if (err.response.data.forcePassChange) {
-
+        if (err.response?.data?.forcePassChange) {
           addAlert(err.response.data);
           setIsLoading(false);
           history.push(
             `/reset?id=${err.response.data.resetId}&token=${err.response.data.token}`
           );
-          return
+          return;
         }
 
-
-        if (err.response.data.alertTitle) {
+        if (err.response?.data?.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);
         }
 
-        setErrors(err.response.data);
+        setErrors(err.response?.data);
         setIsLoading(false);
       });
   };
 
   const handleOnChange = (e) => {
     e.preventDefault();
-    setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
+    setBody((prevBody) => ({ ...prevBody,[e.target.name]: e.target.value }));
   };
 
   return (
@@ -91,6 +91,7 @@ const Login = ({ history }) => {
           <Grid columns={2} relaxed='very' stackable>
             <Grid.Column>
               <Form>
+                <input type='hidden' name='_csrf' value='_csrf'></input>
                 {loginInputs.map((input) => {
                   return (
                     <div key={input.id}>
@@ -112,7 +113,7 @@ const Login = ({ history }) => {
                           color='red'
                           pointing='above'
                           key={input.id}
-                         className='small'
+                          className='small'
                         >
                           {errors[input.name]}
                         </Label>
@@ -130,9 +131,9 @@ const Login = ({ history }) => {
                   onClick={handleOnClick}
                 />
               </Form>
-              <Link to='/resetsend' >
-                <div className="buttonWrapper">
-                  <div className="span">Zapomniałeś hasła?</div>
+              <Link to='/resetsend'>
+                <div className='buttonWrapper'>
+                  <div className='span'>Zapomniałeś hasła?</div>
                   <Button content='Resetuj hasło' icon='recycle' size='mini' />
                 </div>
               </Link>
@@ -152,42 +153,6 @@ const Login = ({ history }) => {
   );
 };
 
-const styles = {
-  main: {
-    marginTop: '7rem',
-    width: '95%',
-    marginBottom: '5rem',
-  },
-  column: {},
-  buttonWrapper: {
-    marginTop: '10px',
-  },
-  ol: {
-    fontSize: '.85rem',
-    color: '#666',
-  },
-  intro: {
-    fontSize: '.85rem',
-    marginLeft: '1.8rem',
-    marginTop: '2rem',
-    color: '#666',
-  },
-  input: {
-    width: '290px',
-    marginLeft: '-35px',
-    marginBottom: '20px',
-  },
-  small: {
-    fontSize: '.9rem',
-    textAlign: 'center',
-    transform: 'translateY(-35px)',
-    color: 'red',
-  },
 
-  span: {
-    fontSize: '1rem',
-  },
-  link: {},
-};
 
 export default Login;

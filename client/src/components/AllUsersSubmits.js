@@ -46,7 +46,7 @@ const AllUsersSubmits = () => {
       .get('/api/v1/submits/usersubmits', headers)
       .then((data) => setSubmits(data.data.submits))
       .catch((err) => {
-        console.log(err.response);
+     
         if (err.response.data) {
           addAlert(err.response.data);
           return;
@@ -67,9 +67,6 @@ const AllUsersSubmits = () => {
         document.body.appendChild(link);
         link.click();
       });
-    // .then((res) => {
-    //   fileDownload(res.data, 'test.pdf'); // z bibliteki 'js-file-download'
-    // });
   };
 
   useEffect(() => {

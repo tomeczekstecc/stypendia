@@ -2,12 +2,13 @@ import express from 'express';
 
 import { addSubmitHistory,  getAllSubmitsHistory } from '../controllers/submitHistory';
 import { auth } from '../middleware';
-
+import csrf from 'csurf';
+const csrfProtection = csrf();
 const router = express.Router();
 
-router.route('/').post(auth, addSubmitHistory);
+router.route('/').post(csrfProtection,auth, addSubmitHistory);
 // router.route('/:uuid').get(getPost);
-router.route('/').get(getAllSubmitsHistory);
+router.route('/').get(csrfProtection,getAllSubmitsHistory);
 // router.route('/:uuid').delete(deletePost);
 // router.route('/:uuid').put(updatePos
 

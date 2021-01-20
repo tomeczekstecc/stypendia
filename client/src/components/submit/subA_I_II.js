@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { Form, Grid, Header, Label } from 'semantic-ui-react';
+import React, { useContext} from 'react';
+import { Form, Grid, Header } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
 import AuthContext from '../../context/auth/authContext';
 import SubmitContext from '../../context/submit/submitContext';
+
 
 const options = [
   {
@@ -38,19 +39,22 @@ const SubA_I_II = () => {
     e.preventDefault();
 
     if (submitMode === 'edit') {
-      console.log('edit');
       await updateCurSubmit({
         ...curSubmit,
         [e.target.name]: e.target.value,
+
       });
     } else if (submitMode === 'new') {
-      console.log('new');
       await updateNewSubmit({
         ...newSubmit,
         [e.target.name]: e.target.value,
+
+
       });
     }
+
   };
+
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>

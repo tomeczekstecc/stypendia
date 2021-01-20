@@ -37,7 +37,9 @@ export default abstract class Model extends BaseEntity {
     return {
       ...this,
       // id: undefined,
+      // hash: undefined,
       password: undefined,
+      // checksum: undefined,
 
     };
   }

@@ -11,6 +11,7 @@ import { Submit } from './Submit';
 import { UserHistory } from './UserHistory';
 import { rolesEnum } from './types';
 import { Draft } from './Draft';
+import {File} from './File'
 
 @Entity('users')
 export class User extends Model {
@@ -117,6 +118,9 @@ export class User extends Model {
 
   @OneToMany(() => Submit, (submit) => submit.user)
   submits: Submit[];
+
+  @OneToMany(() => File, (file) => file.user)
+  files: File[]
 
   @OneToMany(() => UserHistory, (user_history) => user_history.user)
   user_history: UserHistory[];

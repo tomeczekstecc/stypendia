@@ -1,4 +1,4 @@
-import { SET_USER, LOGOUT_USER, CHECK_IS_LOGGED_IN } from '../types';
+import { SET_USER, LOGOUT_USER, CHECK_IS_LOGGED_IN} from '../types';
 
  const reducer = (state, action) => {
   switch (action.type) {
@@ -8,6 +8,7 @@ import { SET_USER, LOGOUT_USER, CHECK_IS_LOGGED_IN } from '../types';
       return { ...state, user: null };
     case CHECK_IS_LOGGED_IN:
       return { ...state, isLoggedIn: action.payload };
+
 
     default:
       return state;

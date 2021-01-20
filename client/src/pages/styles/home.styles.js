@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
     min-width: 297px;
     min-height: 250px;
 
-    z-index: 99999999999999999 !important;
+
   }
 
   .text-left {

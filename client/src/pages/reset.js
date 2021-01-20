@@ -38,12 +38,11 @@ const Reset = ({ location, history }) => {
   const handleOnClick = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+    const csrfData = await axios.get('/api/v1/csrf');
+    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/password/reset${location.search}`, body, headers)
+      .post(`/api/v1/password/reset${location.search}`, newBody)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -84,6 +83,7 @@ const Reset = ({ location, history }) => {
           <Grid columns={1} relaxed='very' stackable>
             <Grid.Column>
               <Form>
+                <input type='hidden' name='_csrf' value=''></input>
                 {resetInputs.map((input) => {
                   return (
                     <div key={input.id}>

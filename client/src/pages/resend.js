@@ -36,12 +36,10 @@ const Resend = ({ history }) => {
   const handleOnClick = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-
+    const csrfData = await axios.get('/api/v1/csrf');
+    const newBody = { email, _csrf: csrfData.data.csrfToken };
     axios
-      .post(`/api/v1/email/resend`, { email }, headers)
+      .post(`/api/v1/email/resend`, newBody)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -82,6 +80,7 @@ const Resend = ({ history }) => {
           <Grid columns={1} relaxed='very' stackable>
             <Grid.Column>
               <Form>
+                <input type='hidden' name='_csrf' value=''></input>
                 <Form.Input
                   onChange={(e) => setEmail(e.target.value)}
                   required

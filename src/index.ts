@@ -7,7 +7,7 @@ import colors from 'colors';
 import Redis from 'ioredis';
 import connectRedis from 'connect-redis';
 import { createApp } from './app';
-import { APP_PORT, MONGO_OPTIONS, MONGO_URI, REDIS_OPTIONS } from './config';
+import { APP_PORT, MONGO_OPTIONS, MONGO_URI, REDIS_OPTIONS, SESSION_SECRET2 } from './config';
 import mongoose from 'mongoose';
 
 // dotenv.config();

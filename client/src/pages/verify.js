@@ -36,6 +36,7 @@ const Verify = ({ location: { search }, history }) => {
 
   useEffect(() => {
     checkIsAuthenticated();
+    
     axios
       .post(`/api/v1/email/verify${query}`)
       .then((data) => {

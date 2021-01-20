@@ -5,7 +5,7 @@ import path from 'path';
 import crc from 'crc';
 import md5 from 'md5';
 import dayjs from 'dayjs';
-import { createHmac, randomBytes } from 'crypto';
+import { createHmac} from 'crypto';
 import { Submit } from '../entity/Submit';
 import { APP_SECRET } from '../config';
 
@@ -29,7 +29,7 @@ export async function generatePdf(data, type) {
   const fileName = data.submit?.numer || data.tempSubmit?.numer; // inne przypadki też dorobić
   console.log(fileName);
 
-  const calculateChecksum = async (type) => {
+ const calculateChecksum = async (type) => {
     const file = path.join(process.cwd(), 'pdfs', `${type}`, `${fileName}.pdf`);
     const buffer = fs.readFileSync(file);
     const md5h = md5(buffer);

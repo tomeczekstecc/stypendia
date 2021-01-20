@@ -72,9 +72,6 @@ export const Wrapper = styled.div`
     margin-left: 10px;
     text-align: left;
     height: 18px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     margin-bottom: 6px;
   }
   .notification-image {

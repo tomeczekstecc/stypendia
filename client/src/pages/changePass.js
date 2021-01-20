@@ -1,4 +1,4 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import {
   Button,
@@ -9,7 +9,7 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
-import {Wrapper} from  './styles/changePass.styles'
+import { Wrapper } from './styles/changePass.styles';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
@@ -19,24 +19,23 @@ const ChangePass = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-    const appContext = useContext(AppContext);
-    const { setIsLoading, isLoading } = appContext;
-
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
 
-
-
   const handleOnClick = async (e) => {
     e.preventDefault();
+    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
+    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
     const headers = {
       'Content-Type': 'application/json',
     };
 
     axios
-      .post(`/api/v1/changepass`, body, headers)
+      .post(`/api/v1/changepass`, newBody, headers)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -45,7 +44,6 @@ const ChangePass = ({ history }) => {
         }
       })
       .catch((err) => {
-
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);
@@ -62,7 +60,7 @@ const ChangePass = ({ history }) => {
 
   return (
     <Container>
-        <Wrapper>
+      <Wrapper>
         <Title content='Zmiana hasła' />
         <Segment placeholder className='main' size='large'>
           <Message className='msg' info size='small' floating>
@@ -76,6 +74,7 @@ const ChangePass = ({ history }) => {
           <Grid columns={1} relaxed='very' stackable>
             <Grid.Column>
               <Form>
+                <input type='hidden' name='_csrf' value=''></input>
                 {changePassInputs.map((input) => {
                   return (
                     <div key={input.id}>
@@ -117,8 +116,8 @@ const ChangePass = ({ history }) => {
             </Grid.Column>
           </Grid>
         </Segment>
-    </Wrapper>
-      </Container>
+      </Wrapper>
+    </Container>
   );
 };
 

@@ -43,15 +43,14 @@ const Register = (props) => {
 
   const handleOnClick = async (e) => {
     e.preventDefault();
+        const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+   const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`${process.env.REACT_APP_ORIGIN}/api/v1/users`, body, headers)
+      .post(`${process.env.REACT_APP_ORIGIN}/api/v1/users`, newBody)
       .then((data) => {
+        console.log(data.data);
         if (data.data.resStatus || data.data.resStatus === 'success') {
           setIsLoading(false);
           setTimeout(() => props.history.push('/login'), 1500);
@@ -113,6 +112,7 @@ const Register = (props) => {
               <Container>
                 <Header>... podaj swoje dane</Header>
                 <Form>
+                  <input type='hidden' name='_csrf' value='_csrf'></input>
                   {registerInputs.map((input) => {
                     return (
                       <div key={input.id}>

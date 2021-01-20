@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { Grid, Menu, Segment } from 'semantic-ui-react';
+import React, { useContext, useState } from 'react';
+import { Grid, Menu} from 'semantic-ui-react';
 import SubA_I_II from '../components/submit/subA_I_II';
 import SubA_III_IV from '../components/submit/subA_III_IV';
 import Nav from '../components/Nav';
 import { Wrapper } from './styles/newSubmit.styles';
 import Attachments from '../components/submit/Attachments';
 
-const Submit = ({ mode }) => {
+const Submit = () => {
   const [activeItem, setActiveItem] = useState(1);
+
+
 
   const renderComponent = () => {
     if (activeItem>5) setActiveItem(1)

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Button,
@@ -13,9 +13,13 @@ import { Wrapper } from './styles/changePass.styles';
 import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
+import AuthContext from '../context/auth/authContext';
 import { changePassInputs } from '../inputs';
 
 const ChangePass = ({ history }) => {
+    const authContext = useContext(AuthContext);
+    const { resetTimeLeft } = authContext;
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -57,6 +61,11 @@ const ChangePass = ({ history }) => {
     e.preventDefault();
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
+
+    useEffect(() => {
+      resetTimeLeft();
+    }, []);
+
 
   return (
     <Container>

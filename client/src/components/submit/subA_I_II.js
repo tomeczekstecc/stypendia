@@ -1,10 +1,9 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
 import AuthContext from '../../context/auth/authContext';
 import SubmitContext from '../../context/submit/submitContext';
-
 
 const options = [
   {
@@ -23,7 +22,7 @@ const options = [
 
 const SubA_I_II = () => {
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, resetTimeLeft } = authContext;
 
   const submitContext = useContext(SubmitContext);
   const {
@@ -42,19 +41,17 @@ const SubA_I_II = () => {
       await updateCurSubmit({
         ...curSubmit,
         [e.target.name]: e.target.value,
-
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
         [e.target.name]: e.target.value,
-
-
       });
     }
-
   };
-
+  useEffect(() => {
+    resetTimeLeft();
+  }, []);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>

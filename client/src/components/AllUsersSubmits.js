@@ -2,14 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import SubmitContext from '../context/submit/submitContext';
 import AlertContext from '../context/alert/alertContext';
+import AuthContext from '../context/auth/authContext';
 import AppContext from '../context/app/appContext';
 // import fileDownload from 'js-file-download';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
-import { networkInterfaces } from 'os';
 import NewCallToAction from './NewCallToAction';
 
 const AllUsersSubmits = () => {
+    const authContext = useContext(AuthContext);
+    const { resetTimeLeft } = authContext;
+
   const appContext = useContext(AppContext);
   const { setIsLoading, isLoading } = appContext;
 
@@ -72,6 +75,7 @@ const AllUsersSubmits = () => {
   useEffect(() => {
     setAllUsersSubmits();
     setIsLoading(false);
+    resetTimeLeft()
   }, []);
 
   return !isLoading ? (

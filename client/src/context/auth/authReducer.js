@@ -1,4 +1,4 @@
-import { SET_USER, LOGOUT_USER, CHECK_IS_LOGGED_IN} from '../types';
+import { SET_USER, LOGOUT_USER, CHECK_IS_LOGGED_IN, RESET_TIME_LEFT, SET_TIME} from '../types';
 
  const reducer = (state, action) => {
   switch (action.type) {
@@ -8,7 +8,10 @@ import { SET_USER, LOGOUT_USER, CHECK_IS_LOGGED_IN} from '../types';
       return { ...state, user: null };
     case CHECK_IS_LOGGED_IN:
       return { ...state, isLoggedIn: action.payload };
-
+    case RESET_TIME_LEFT:
+      return { ...state, timeLeft: +process.env.REACT_APP_SESSION_TIMEOUT };
+    case SET_TIME:
+      return { ...state, timeLeft: action.payload };
 
     default:
       return state;

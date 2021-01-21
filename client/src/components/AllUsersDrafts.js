@@ -3,10 +3,14 @@ import axios from 'axios';
 import AlertContext from '../context/alert/alertContext';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
+import AuthContext from '../context/auth/authContext';
 
 const AllUsersDrafts = () => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
+
+      const authContext = useContext(AuthContext);
+      const { resetTimeLeft } = authContext;
 
   const [drafts, setDrafts] = useState([]);
 
@@ -33,6 +37,7 @@ const AllUsersDrafts = () => {
 
   useEffect(() => {
     setAllUsersDrafts();
+    resetTimeLeft()
   }, []);
 
   return (

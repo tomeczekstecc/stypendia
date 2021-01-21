@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 import SubmitContext from '../../context/submit/submitContext';
-import axios from 'axios';
-
+import AuthContext from '../../context/auth/authContext';
 const options = [
   { key: 'a', text: 'Wybierz województwo', value: 'default', disabled: true },
   { key: 's', text: 'śląskie' },
@@ -25,19 +24,20 @@ const options = [
   { key: 'B', text: 'podlaskie' },
 ];
 const optionsC = [
-  { key: 'a', text: 'Wybierz profil', value: 'default' , disabled: true},
-  { key: 'n', text: 'Nauczyciel', value: 'nauczyciel' , disabled: false},
+  { key: 'a', text: 'Wybierz profil', value: 'default', disabled: true },
+  { key: 'n', text: 'Nauczyciel', value: 'nauczyciel', disabled: false },
   { key: 'p', text: 'Pedagog szkolny', value: 'pedagog', disabled: false },
-  { key: 'd', text: 'Doradca zawodowy', value: 'doradca' , disabled: false},
+  { key: 'd', text: 'Doradca zawodowy', value: 'doradca', disabled: false },
 ];
 const optionsT = [
-  { key: 'a', text: 'Wybierz rodzaj szkoły', value: 'default' , disabled: true},
-  { key: 'n', text: 'Liceum', value: 'liceum' , disabled: false},
+  { key: 'a', text: 'Wybierz rodzaj szkoły', value: 'default', disabled: true },
+  { key: 'n', text: 'Liceum', value: 'liceum', disabled: false },
   { key: 'p', text: 'Technikum', value: 'technikum', disabled: false },
-
 ];
 
 const SubA_III_IV = () => {
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft } = authContext;
 
   const submitContext = useContext(SubmitContext);
   const {
@@ -57,17 +57,20 @@ const SubA_III_IV = () => {
       await updateCurSubmit({
         ...curSubmit,
         [e.target.name]: e.target.value,
-
       });
     } else if (submitMode === 'new') {
       console.log('new');
       await updateNewSubmit({
         ...newSubmit,
         [e.target.name]: e.target.value,
- 
       });
     }
   };
+
+  useEffect(() => {
+    resetTimeLeft();
+  }, []);
+
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
       <Grid.Column className='column'>

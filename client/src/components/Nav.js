@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
 import SubmitContext from '../context/submit/submitContext';
 import { useHistory } from 'react-router-dom';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
+import AuthContext from '../context/auth/authContext';
 import { Wrapper } from './styles/nav.styles';
 import axios from 'axios';
 
 const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();
+
+    const authContext = useContext(AuthContext);
+    const {resetTimeLeft} = authContext;
 
   const submitContext = useContext(SubmitContext);
   const { newSubmit, submitMode, curSubmit } = submitContext;
@@ -65,6 +69,10 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
       });
   };
 
+  useEffect(() => {
+
+    resetTimeLeft();
+  }, []);
 
   return (
     <Wrapper mode={submitMode}>

@@ -17,4 +17,7 @@ export const SET_SUBMIT_TO_WATCH = 'SET_SUBMIT_TO_WATCH';
 
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 
+export const RESET_TIME_LEFT = 'RESET_TIME_LEFT';
+export const SET_TIME = 'SET_TIME';
+
 

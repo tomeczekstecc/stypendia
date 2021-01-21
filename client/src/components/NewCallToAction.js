@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import SubmitContext from '../context/submit/submitContext';
-
+import AuthContext from '../context/auth/authContext';
 import AlertContext from '../context/alert/alertContext';
-import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
+import { Button, Card, Icon, } from 'semantic-ui-react';
 
 const NewCallToAction = () => {
+    const authContext = useContext(AuthContext);
+    const { resetTimeLeft } = authContext;
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -45,6 +48,7 @@ const NewCallToAction = () => {
 
   useEffect(() => {
     setAllUsersDrafts();
+    resetTimeLeft()
   }, []);
 
   return (

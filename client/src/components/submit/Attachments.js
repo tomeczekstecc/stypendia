@@ -2,6 +2,7 @@ import React, { createRef, useContext, useEffect, useState } from 'react';
 import { Button, Card, Icon, Image, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import AuthContext from '../../context/auth/authContext';
 import { Wrapper } from '../styles/attachments.styles';
 import SubmitContext from '../../context/submit/submitContext';
 import addedImg from '../../assets/img/wireframe.png';
@@ -9,6 +10,9 @@ import statementImg from '../../assets/img/statement.jpg';
 import reportImg from '../../assets/img/reportCard.jpg';
 
 const Attachments = () => {
+    const authContext = useContext(AuthContext);
+    const { resetTimeLeft } = authContext;
+
   const submitContext = useContext(SubmitContext);
   const {
     newSubmit,
@@ -100,6 +104,7 @@ const Attachments = () => {
   };
 
   useEffect(() => {
+    resetTimeLeft()
     if (submitMode === 'new') {
       setCurDocument(newSubmit);
       } else if (submitMode === 'edit') {

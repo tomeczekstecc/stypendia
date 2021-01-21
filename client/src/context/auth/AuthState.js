@@ -4,7 +4,13 @@ import AuthContext from './authContext';
 import axios from 'axios';
 import AlertContext from '../../context/alert/alertContext';
 
-import { SET_USER, CHECK_IS_LOGGED_IN, LOGOUT_USER} from '../types';
+import {
+  SET_USER,
+  CHECK_IS_LOGGED_IN,
+  LOGOUT_USER,
+  RESET_TIME_LEFT,
+  SET_TIME,
+} from '../types';
 
 const AuthState = (props) => {
   const alertContext = useContext(AlertContext);
@@ -12,9 +18,9 @@ const AuthState = (props) => {
 
   const initialState = {
     user: null,
+    timeLeft: +process.env.REACT_APP_SESSION_TIMEOUT,
     isLoggedIn: false,
   };
-
 
   const checkIsAuthenticated = async () => {
     const result = await (
@@ -29,10 +35,6 @@ const AuthState = (props) => {
     result.resStatus === 'success' ? setIsLoggedIn(true) : setIsLoggedIn(false);
     setUser(result.user);
   };
-
-  useEffect(() => {
-    checkIsAuthenticated();
-  }, []);
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
@@ -50,22 +52,33 @@ const AuthState = (props) => {
     });
   };
 
+  const resetTimeLeft = () => {
+    console.log('reset');
+    dispatch({
+      type: RESET_TIME_LEFT,
+    });
+  };
+
+  const setTimeLeft = (time) => {
+
+    dispatch({
+      type: SET_TIME,
+      payload: time
+    });
+  };
+
   const logOut = () => {
     axios
       .get('/api/v1/users/logout')
       .then(async (data) => {
-
-
-
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           await props?.history?.push('/login');
         }
 
-
-    dispatch({
-      type: LOGOUT_USER,
-    });
+        dispatch({
+          type: LOGOUT_USER,
+        });
       })
       .catch(
         (err) => console.log(err.message)
@@ -76,18 +89,23 @@ const AuthState = (props) => {
         //   }
         // });
       );
-
-
   };
+
+  useEffect(() => {
+    checkIsAuthenticated();
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
-           setUser,
+        setUser,
         logOut,
         checkIsAuthenticated,
         isLoggedIn: state.isLoggedIn,
+        timeLeft: state.timeLeft,
+        resetTimeLeft,
+        setTimeLeft
       }}
     >
       {props.children}

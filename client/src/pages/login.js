@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import {
   Button,
   Container,
@@ -38,7 +37,7 @@ const Login = ({ history, }) => {
   useEffect(() => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
-  }, [isLoggedIn]);
+  }, [isLoggedIn])
 
   const handleOnClick = async (e) => {
     e.preventDefault();

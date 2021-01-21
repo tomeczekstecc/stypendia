@@ -20,8 +20,6 @@ const Attachments = () => {
   } = submitContext;
 
   const [curDocument, setCurDocument] = useState(null);
-  // const [fileStatement, setFileStatement] = useState(null);
-  // const [fileReport, setFileReport] = useState(null);
 
   const fileInputRef = createRef();
   const openFileInput = (type) => {
@@ -54,7 +52,6 @@ const Attachments = () => {
   const callFetch = async (e, id) => {
     e.stopPropagation();
     const res = await axios.get(`/api/v1/files/info/${id}`);
-    console.log(res.data.file);
     axios
       .get(`/api/v1/files/download/${id}`, {
         responseType: 'blob',
@@ -81,9 +78,7 @@ const Attachments = () => {
       };
 
       const res = await axios.post('/api/v1/files/upload', formData, headers);
-      // res.data.file.type === 'statement'
-      //   ? setFileStatement(res.data.file)
-      //   : setFileReport(res.data.file);
+
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
@@ -107,14 +102,11 @@ const Attachments = () => {
   useEffect(() => {
     if (submitMode === 'new') {
       setCurDocument(newSubmit);
-      console.log(curDocument);
-    } else if (submitMode === 'edit') {
+      } else if (submitMode === 'edit') {
       setCurDocument(curSubmit);
-      console.log(curDocument);
-    } else if (submitMode === 'watch') {
+      } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
-      console.log(curDocument);
-    }
+      }
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
   return (

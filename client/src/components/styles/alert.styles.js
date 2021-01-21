@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
 
   .notification-container {
     font-size: 14px;
+
     box-sizing: border-box;
     position: fixed;
     z-index: 99999999;
@@ -43,6 +44,7 @@ export const Wrapper = styled.div`
     overflow: hidden;
     margin: 0 0 6px;
     margin-bottom: 15px;
+
     width: 300px;
     max-height: 100px;
     border-radius: 3px;
@@ -85,6 +87,7 @@ export const Wrapper = styled.div`
     width: 450px;
     color: #fff;
     padding: 20px 15px 10px 10px;
+    margin-top: 5px !important;
   }
 
   @keyframes toast-in-right {

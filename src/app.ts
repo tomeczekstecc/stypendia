@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 
-import { SESSION_OPTIONS } from './config';
+import { CLIENT_URI, SESSION_OPTIONS } from './config';
 import { active, notFound, serverError, limiter } from './middleware';
 import userRouter from './routes/user';
 import userHistoryRouter from './routes/userHistory';
@@ -28,7 +28,7 @@ export const createApp = (store: Store) => {
   app.use(
     cors({
       credentials: true,
-      origin: 'http://localhost:5000',
+      origin: CLIENT_URI,
       optionsSuccessStatus: 200,
     })
   );

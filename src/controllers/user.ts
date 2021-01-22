@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import xss from 'xss'
+// import xss from 'xss'
+var Rollbar = require('rollbar');
+var rollbar = new Rollbar('5058eec96086424b805ef3b96fb46d34');
 
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
@@ -37,7 +39,7 @@ export const register = async (req, res: Response) => {
     email,
     password,
     passwordConfirm,
-    _csrf
+    _csrf,
   } = req.body;
 
   try {
@@ -87,7 +89,6 @@ export const register = async (req, res: Response) => {
       email: user.email,
     };
 
-
     await axios.post(`${APP_ORIGIN}/api/v1/email/resend`, body, config);
 
     // logIn(req, user.id);
@@ -101,6 +102,7 @@ export const register = async (req, res: Response) => {
     });
   } catch (err) {
     // rollbar
+
     return res.status(500).json({
       resStatus: 'fail',
       msg: err.message,
@@ -114,7 +116,6 @@ export const register = async (req, res: Response) => {
 //
 
 export const login = async (req: any, res: Response) => {
-
   const CONTROLLER = 'login';
   let ACTION = 'logowanie';
   let STATUS = 'error';
@@ -205,7 +206,7 @@ export const login = async (req: any, res: Response) => {
           alertTitle: 'Błąd',
         });
       }
-
+      rollbar.error(INFO);
       return res.status(400).json({
         resStatus: 'error',
         msgPL:
@@ -249,7 +250,7 @@ export const login = async (req: any, res: Response) => {
       msgPL: 'Pomyślnie zalogowano.',
       msg: 'Successfully logged in',
       alertTitle: 'Sukces',
-      csrf: req.session.XSRF_Token
+      csrf: req.session.XSRF_Token,
     });
   } catch (err) {
     return res.status(500).json({

@@ -53,7 +53,6 @@ const AuthState = (props) => {
   };
 
   const resetTimeLeft = () => {
-    console.log('reset');
     dispatch({
       type: RESET_TIME_LEFT,
     });

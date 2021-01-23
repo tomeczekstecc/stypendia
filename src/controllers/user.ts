@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import axios from 'axios';
 import dayjs from 'dayjs';
 // import xss from 'xss'
-var Rollbar = require('rollbar');
-var rollbar = new Rollbar('5058eec96086424b805ef3b96fb46d34');
+// var Rollbar = require('rollbar');
+// var rollbar = new Rollbar('5058eec96086424b805ef3b96fb46d34');
 
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
@@ -39,7 +39,7 @@ export const register = async (req, res: Response) => {
     email,
     password,
     passwordConfirm,
-    _csrf,
+
   } = req.body;
 
   try {
@@ -206,7 +206,7 @@ export const login = async (req: any, res: Response) => {
           alertTitle: 'Błąd',
         });
       }
-      rollbar.error(INFO);
+      // rollbar.error(INFO);
       return res.status(400).json({
         resStatus: 'error',
         msgPL:

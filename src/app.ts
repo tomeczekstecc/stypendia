@@ -18,12 +18,11 @@ import resetRouter from './routes/reset';
 import changePassRouter from './routes/changePass';
 import pdfRouter from './routes/pdf';
 import filesRouter from './routes/files';
-var Rollbar = require('rollbar');
-var rollbar = new Rollbar('5058eec96086424b805ef3b96fb46d34');
+
 dotenv.config();
 export const createApp = (store: Store) => {
   const app = express();
-  app.use(rollbar.errorHandler());
+
   app.use(cookieParser());
 
   app.use(

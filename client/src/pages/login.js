@@ -18,46 +18,43 @@ import AppContext from '../context/app/appContext';
 import AuthContext from '../context/auth/authContext';
 import { loginInputs } from '../inputs';
 
-const Login = ({ history, }) => {
-
-
+const Login = ({ history }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
   const appContext = useContext(AppContext);
-  const { setIsLoading, isLoading } = appContext;
+  const { setIsLoading, isLoading, saveRollbar } = appContext;
 
   const authContext = useContext(AuthContext);
-  const { checkIsAuthenticated, isLoggedIn} = authContext;
+  const { checkIsAuthenticated, isLoggedIn } = authContext;
 
   const [body, setBody] = useState({});
   const [errors, setErrors] = useState('');
 
-
   useEffect(() => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
-  }, [isLoggedIn])
+  }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');
-   const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
       .post(`/api/v1/users/login`, newBody)
       .then(async (data) => {
-
         if (data.data.resStatus || data.data.resStatus === 'success') {
-
           addAlert(data.data);
           setIsLoading(false);
+          saveRollbar(data.data);
           history.push('/');
         }
       })
       .catch((err) => {
+        saveRollbar({ err: err.response.data.message, page: 'login' });
         if (err.response?.data?.forcePassChange) {
           addAlert(err.response.data);
           setIsLoading(false);
@@ -79,7 +76,7 @@ const Login = ({ history, }) => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
-    setBody((prevBody) => ({ ...prevBody,[e.target.name]: e.target.value }));
+    setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -151,7 +148,5 @@ const Login = ({ history, }) => {
     </Wrapper>
   );
 };
-
-
 
 export default Login;

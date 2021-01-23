@@ -1,7 +1,6 @@
 # TODO:
 
-auto logout
-xss
+
 sprawdzić dlaczego tworzy sid przy błednych danych logowania
 protecteed firlds - czy ma załącznikli, czy ma wniosek+
 select dla submit i user
@@ -14,14 +13,14 @@ submit template
 mail template
 404 - https://www.youtube.com/watch?v=wLaZ-abyBrI&t=8s
 help modals
-panel postępu
 clear fields if parent aftre puplil
 
 
 
+xss?
+panel postępu?
 skeleton?
 swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)?
-rollbar?
 Logger (zainstalowany, skonfigurowany)?
 add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 

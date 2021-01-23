@@ -13,7 +13,7 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
-import {Wrapper} from './styles/register.styles'
+import { Wrapper } from './styles/register.styles';
 import Rodo from '../components/Rodo';
 import Title from '../components/Title';
 import { registerInputs } from '../inputs';
@@ -24,8 +24,8 @@ const Register = (props) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
-    const appContext = useContext(AppContext);
-    const { setIsLoading, isLoading } = appContext;
+  const appContext = useContext(AppContext);
+  const { setIsLoading, isLoading } = appContext;
 
   const authContext = useContext(AuthContext);
   const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
@@ -36,16 +36,15 @@ const Register = (props) => {
   const [isRodoChecked, setIsRodoChecked] = useState(false);
   const [isRegulationsChecked, setIsRegulationsChecked] = useState(false);
 
-
   useEffect(() => {
     checkIsAuthenticated();
   }, []);
 
   const handleOnClick = async (e) => {
     e.preventDefault();
-        const csrfData = await axios.get('/api/v1/csrf');
+    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-   const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
       .post(`${process.env.REACT_APP_ORIGIN}/api/v1/users`, newBody)
@@ -170,6 +169,5 @@ const Register = (props) => {
     </Wrapper>
   );
 };
-
 
 export default Register;

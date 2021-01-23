@@ -6,13 +6,14 @@ import { msgDis500 } from '../constantas';
 import { makeLog } from '../services/makeLog';
 import { validate } from 'class-validator';
 import { mapErrors } from '../utils/mapErrors';
+import { saveRollbar } from '../services/saveRollbar';
 
 const OBJECT = 'User';
-let ACTION, INFO, STATUS;
+let ACTION, INFO, STATUS, CONTROLLER
 
 export const changePass = async (req: any, res: Response) => {
 
-  const CONTROLLER = 'changePass';
+  CONTROLLER = 'changePass';
   ACTION = 'zmiana hasła';
   INFO = 'Nieudana próba zmiany hasła';
   STATUS = 'error';
@@ -29,6 +30,7 @@ export const changePass = async (req: any, res: Response) => {
     errors.password = 'Obowiązujące i nowe hasło muszą się różnić';
   if (passwordConfirm !== password)
     errors.passwordConfirm = 'Hasła muszą być zgodne';
+
   if (Object.keys(errors).length > 0) {
     makeLog(
       req.session.userId,
@@ -39,7 +41,7 @@ export const changePass = async (req: any, res: Response) => {
       INFO,
       STATUS
     );
-
+saveRollbar(ACTION, CONTROLLER, INFO, STATUS);
     return res.status(400).json(errors);
   }
 

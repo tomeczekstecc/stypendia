@@ -7,12 +7,13 @@ import { sendMail } from '../services/mail';
 import { msgDis500 } from '../constantas';
 import { makeLog } from '../services/makeLog';
 import { mapErrors } from '../utils/mapErrors';
+import { saveRollbar } from '../services/saveRollbar';
 
 const OBJECT = 'User';
-let ACTION, INFO, STATUS;
+let ACTION, INFO, STATUS, CONTROLLER;
 
 export const sendResetMail = async (req: any, res: Response) => {
-  const CONTROLLER = 'sendResetMail';
+  CONTROLLER = 'sendResetMail';
   ACTION = 'generowanie maila resetu hasła';
 
   const { email, login } = req.body;
@@ -37,10 +38,12 @@ export const sendResetMail = async (req: any, res: Response) => {
     const user = await User.findOne({ email, login });
 
     if (!user) {
-      // makeLog
+      STATUS = 'error'
+      INFO ='Nie udało się wysłać linka'
+
       return res.status(401).json({
-        resStatus: 'error',
-        msgPL: 'Nie udało się wysłać linka',
+        resStatus: STATUS,
+        msgPL: INFO,
         msg: 'Couldnt send',
         alertTitle: 'Błąd',
       });
@@ -77,17 +80,19 @@ export const sendResetMail = async (req: any, res: Response) => {
       alertTitle: 'Wysłano link',
     });
   } catch (err) {
-    // rollbar
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      resStatus: 'error',
+      resStatus: STATUS,
       msgPL: msgDis500,
-      msg: err,
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 };
 
 export const passwordReset = async ({ query, body }, res: Response) => {
-  const CONTROLLER = 'passwordReset';
+  CONTROLLER = 'passwordReset';
   ACTION = 'resetowanie hasła';
 
   const { id, token} = query;
@@ -136,7 +141,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
 
     if (!user || !reset.isValid(token)) {
       // ****************************** LOG *********************************//
-      INFO = 'użyto niepoprawny token';
+      INFO = 'Być może link był już przestarzały. Ponownie resetuj hasło. Odpowiedni link znajdziesz na stronie logowania';
       STATUS = 'error';
       makeLog(
         reset.userId,
@@ -149,8 +154,8 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       );
       // ********************************************************************//
       return res.status(400).json({
-        resStatus: 'error',
-        msgPL: 'Być może link był już przestarzały. Ponownie resetuj hasło. Odpowiedni link znajdziesz na stronie logowania',
+        resStatus: STATUS,
+        msgPL: INFO,
         msg: 'Invalid token',
         alertTitle: 'Nieudana zmiana hasła'
       });
@@ -186,15 +191,16 @@ export const passwordReset = async ({ query, body }, res: Response) => {
     );
     // ********************************************************************//
     return res.status(201).json({
-      resStatus: 'success',
-      msgPL: `Zmieniono hasło`,
+      resStatus: STATUS,
+      msgPL: INFO,
       msg: 'Password has been changed',
       alertTitle: 'Udana zmiana hasła',
     });
   } catch (err) {
-    // rollbar
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      resStatus: 'error',
+      resStatus: STATUS,
       msgPL: msgDis500,
       msg: err.message,
       alertTitle: 'Błąd',

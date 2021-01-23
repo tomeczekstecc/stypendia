@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { application } from 'express';
 import session, { Store } from 'express-session';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -18,10 +18,18 @@ import resetRouter from './routes/reset';
 import changePassRouter from './routes/changePass';
 import pdfRouter from './routes/pdf';
 import filesRouter from './routes/files';
+import Rollbar from 'rollbar';
+const rollbar = new Rollbar({
+  accessToken: '8cfa68afd5104efb9192067f3eb1786a',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  environment: process.env.NODE_ENV,
+});
 
 dotenv.config();
 export const createApp = (store: Store) => {
   const app = express();
+  app.use(rollbar.errorHandler())
 
   app.use(cookieParser());
 

@@ -5,6 +5,7 @@ import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
 import { SubmitHistory } from '../entity/SubmitHistory';
 import { makeLog } from '../services/makeLog';
+import { saveRollbar } from '../services/saveRollbar';
 
 const OBJECT = 'SubmitHistory';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -80,11 +81,13 @@ export const addSubmitHistory = async (req: any, res: Response) => {
       data: SubmitHistory,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
-      err,
+      resStatus: STATUS,
+      msgPL: msgDis500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd',
     });
   }
 };
@@ -107,10 +110,13 @@ export const getAllSubmitsHistory = async (req: Request, res: Response) => {
       data: submits_history,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msgDis500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd',
     });
   }
 };

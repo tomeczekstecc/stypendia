@@ -41,7 +41,7 @@ export const changePass = async (req: any, res: Response) => {
       INFO,
       STATUS
     );
-saveRollbar(ACTION, CONTROLLER, INFO, STATUS);
+
     return res.status(400).json(errors);
   }
 
@@ -98,9 +98,10 @@ saveRollbar(ACTION, CONTROLLER, INFO, STATUS);
       alertTitle: 'Udana zmiana hasła',
     });
   } catch (err) {
-    // rollbar
+    STATUS = 'error'
+    saveRollbar(CONTROLLER,err.message,STATUS);
     return res.status(500).json({
-      resStatus: 'error',
+      resStatus: STATUS,
       msgPL: msgDis500,
       msg: err.message,
       alertTitle: 'Błąd',

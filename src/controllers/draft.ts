@@ -5,6 +5,7 @@ import { Draft } from '../entity/Draft';
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
 import { makeLog } from '../services/makeLog';
+import { saveRollbar } from '../services/saveRollbar';
 
 
 const OBJECT = 'Draft';
@@ -63,13 +64,14 @@ export const addDraft = async (req: any, res: Response) => {
       data: draft,
     });
   } catch (err) {
-    // rollbar
-    return res.status(500).json({
-      status: 'fail',
-      err,
-      msg: err.message,
-      msgDis: msgDis500,
-    });
+   STATUS = 'error';
+   saveRollbar(CONTROLLER, err.message, STATUS);
+   return res.status(500).json({
+     resStatus: STATUS,
+     msgPL: msgDis500,
+     msg: err.message,
+     alertTitle: 'Błąd',
+   });
   }
 };
 

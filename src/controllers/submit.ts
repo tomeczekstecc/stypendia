@@ -7,6 +7,7 @@ import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
 import { generatePdf } from '../services/generatePdf';
 import { makeLog } from '../services/makeLog';
+import { saveRollbar } from '../services/saveRollbar';
 import { mapErrors } from '../utils/mapErrors';
 
 const OBJECT = 'Submit';
@@ -98,12 +99,13 @@ export const addSubmit = async (req: any, res: Response) => {
       alertTitle: 'Utworzono',
     });
   } catch (err) {
-    // rollbar
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
-      err,
+      resStatus: STATUS,
+      msgPL: msgDis500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd',
     });
   }
 };
@@ -171,12 +173,13 @@ export const editSubmit = async (req: any, res: Response) => {
       alertTitle: 'Zaktualizowano',
     });
   } catch (err) {
-    // rollbar
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
-      err,
-      msg: err.message,
+      resStatus: STATUS,
       msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 };
@@ -197,10 +200,13 @@ export const getAllSubmits = async (req: any, res: Response) => {
       data: submits,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msgDis500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd',
     });
   }
 };
@@ -221,10 +227,13 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
       submits,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'error',
+      resStatus: STATUS,
+      msgPL: msgDis500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd',
     });
   }
 };
@@ -243,10 +252,13 @@ export const getOneUserSubmit = async (req: any, res: Response) => {
       submit,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'error',
+      resStatus: STATUS,
+      msgPL: msgDis500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd',
     });
   }
 };

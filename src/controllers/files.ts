@@ -9,6 +9,11 @@ import { File } from '../entity/File';
 import { User } from '../entity/User';
 // import { scanFile } from '../services/scanFile';
 import { mapFileBody } from '../utils/mapFileBody';
+import { makeLog } from '../services/makeLog';
+import { saveRollbar } from '../services/saveRollbar';
+
+const OBJECT = 'Files';
+let ACTION, INFO, STATUS, CONTROLLER;
 
 const calculateChecksum = async (fileToShow) => {
   const file = path.join(process.cwd(), `${fileToShow.path}`);
@@ -20,18 +25,31 @@ const calculateChecksum = async (fileToShow) => {
 };
 
 export const uploadFile = async (req: any, res: Response) => {
-  console.log(req.body);
+  CONTROLLER = 'uploadFile';
+  ACTION = 'dodawanie pliku';
   const { type } = req.body;
   const allowedTypes = ['statement', 'report_card'];
 
   try {
     if (!allowedTypes.includes(type)) {
       fs.unlinkSync(req.file.path);
+      STATUS = 'error';
+      INFO = `Nieprawidłowty typ załącznika - dozwolone wartości to: ${allowedTypes.join(
+        ', '
+      )} `;
+
+      makeLog(
+        req.session.userId,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
       return res.status(400).json({
-        resStatus: 'error',
-        msgPL: `Nieprawidłowty typ załącznika - dozwolone wartości to: ${allowedTypes.join(
-          ', '
-        )} `,
+        resStatus: STATUS,
+        msgPL: INFO,
         msg: 'Invalid attachment type',
         alertTitle: 'Błąd załącznika',
       });
@@ -39,9 +57,20 @@ export const uploadFile = async (req: any, res: Response) => {
 
     if (req.file.size > +FILE_MAX_SIZE) {
       fs.unlinkSync(req.file.path);
+      STATUS = 'error';
+      INFO = `Nieprawidłowa wielkość pliku - plik nie może przekroczyć 20MB`;
+      makeLog(
+        req.session.userId,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
       return res.status(400).json({
-        resStatus: 'error',
-        msgPL: `Nieprawidłowa wielkość pliku - plik nie może przekroczyć 20MB`,
+        resStatus: STATUS,
+        msgPL: INFO,
         msg: 'Invalid attachment type',
         alertTitle: 'Błąd załącznika',
       });
@@ -76,30 +105,39 @@ export const uploadFile = async (req: any, res: Response) => {
         'fileName',
       ],
     });
-
+    STATUS = 'success';
+    INFO = 'Utworzono załącznik';
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      fileToShow.id,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
     return res.status(201).json({
-      resStatus: 'success',
-      msgPL: 'Utworzono załącznik',
+      resStatus: STATUS,
+      msgPL: INFO,
       msg: 'Attachment created',
       alertTitle: 'Utworzono załącznik',
       file: fileToShow,
     });
-
-    //zapis do bazy
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      resStatus: 'error',
+      resStatus: STATUS,
       msgPL: msgDis500,
-      err: err.message,
-      msg: 'Something went wrong',
-      alertTitle: 'Błąd załącznika',
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
-
-  return res.json({ success: 'Zapisano plik' });
 };
 
 export const downloadFile = async (req: any, res: Response) => {
+  CONTROLLER = 'downloadFile';
+  ACTION = 'pobieranie pliku';
   const { id } = req.params;
 
   const file = await File.findOneOrFail({
@@ -120,6 +158,25 @@ export const downloadFile = async (req: any, res: Response) => {
 
   try {
     res.sendFile(filePath, (err) => {
+      STATUS = 'success';
+      INFO = 'Udało się pobrać plik';
+
+      makeLog(
+        req.session.userId,
+        OBJECT,
+        file.id,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
+      res.status(201).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        msg: 'File downloaded successfully',
+        alertTitle: 'Udana próba pobrania pliku',
+      });
+
       if (err) {
         res.status(500).send({
           message: 'Could not download the file. ' + err,
@@ -127,11 +184,19 @@ export const downloadFile = async (req: any, res: Response) => {
       }
     });
   } catch (err) {
-    console.log(err.message);
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
   }
 };
 
 export const getFileInfo = async (req: Request, res: Response) => {
+  CONTROLLER = 'getFileInfo';
   const { id } = req.params;
   try {
     const file = await File.findOneOrFail({
@@ -140,19 +205,47 @@ export const getFileInfo = async (req: Request, res: Response) => {
     });
     return res.status(200).json({ file });
   } catch (err) {
-    console.log(err);
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
   }
 };
 
-export const deleteFile = async (req: Request, res: Response) => {
+export const deleteFile = async (req: any, res: Response) => {
+  CONTROLLER = 'deleteFile';
+  ACTION = 'usuwanie pliku';
   const { id } = req.params;
   try {
     const fileToDelete = await File.findOneOrFail(id);
 
     const file = await File.delete(id);
     fs.unlinkSync(fileToDelete.path);
+    STATUS = 'success';
+    INFO = 'pomyślnie usunięto plik';
+
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      fileToDelete.id,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
     return res.status(200).json({ type: fileToDelete.type });
   } catch (err) {
-    console.log(err);
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
   }
 };

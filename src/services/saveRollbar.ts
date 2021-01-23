@@ -6,13 +6,11 @@ const rollbar = new Rollbar({
   environment: process.env.NODE_ENV,
 });
 
-export const saveRollbar = (action, controller, info, status) => {
+export const saveRollbar = (controller, info, status) => {
   const body = {
-    action,
     controller,
     info,
   };
   const string = JSON.stringify(body);
-  console.log(string);
   rollbar[status](string);
 };

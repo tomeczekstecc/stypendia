@@ -3,11 +3,12 @@
 
 sprawdzić dlaczego tworzy sid przy błednych danych logowania
 protecteed firlds - czy ma załącznikli, czy ma wniosek+
-select dla submit i user
+select dla submit i user - ukrycie nadmiarowych pól w responsie
 submit has a type attachemnt - np Query builder exists
 export messages + concat dev messaGES
 dodać pozostałe pola wniosku
 options + items + inputs
+eksporty z index - front i backend
 spinner zapis
 submit template
 mail template

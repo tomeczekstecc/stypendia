@@ -1,13 +1,20 @@
-import {  Response } from 'express';
+import { Response } from 'express';
 import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { validate } from 'class-validator';
 import { UserHistory } from '../entity/UserHistory';
+import { makeLog } from '../services/makeLog';
+import { saveRollbar } from '../services/saveRollbar';
+
+const OBJECT = 'User';
+let ACTION, INFO, STATUS, CONTROLLER;
 
 //
 //create a user
 //
 export const addUserHistory = async (req: any, res: Response) => {
+  CONTROLLER = 'addUserHistory';
+  ACTION = 'dodawanie historii użytkownika';
   let newFailedLogins; // z params albo query
   const { uuid } = req.params;
 
@@ -26,7 +33,7 @@ export const addUserHistory = async (req: any, res: Response) => {
       });
     }
 
-    const user_history = await UserHistory.create({
+    const userHistory = await UserHistory.create({
       failedLogins: newFailedLogins || user[0].failedLogins, // i tat dalej
       firstName: user[0].firstName,
       lastName: user[0].lastName,
@@ -35,19 +42,33 @@ export const addUserHistory = async (req: any, res: Response) => {
     });
     errors = await validate(user);
 
-    await user_history.save();
+    await userHistory.save();
+    
+    STATUS = 'success';
+    INFO = 'Pomyślnie utworzono wpis historii użytkownika';
 
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      userHistory.id,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
     return res.status(201).json({
       status: 'success',
       msg: 'User created',
       msgPL: 'Pomyślnie utworzono wpis historii użytkownika',
-      data: user_history,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
-      msg: err.message,
+      resStatus: STATUS,
       msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 };

@@ -20,6 +20,7 @@ import {
 } from '../config';
 import { makeLog } from '../services/makeLog';
 import { PasswordReset } from '../entity/PasswordReset';
+import { saveRollbar } from '../services/saveRollbar';
 
 const OBJECT = 'User';
 
@@ -101,12 +102,13 @@ export const register = async (req, res: Response) => {
       data: user,
     });
   } catch (err) {
-    // rollbar
-
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      resStatus: 'fail',
-      msg: err.message,
+      resStatus: STATUS,
       msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 };
@@ -253,11 +255,13 @@ export const login = async (req: any, res: Response) => {
       csrf: req.session.XSRF_Token,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
-      msgPL: 'Coś poszło nie tak',
-      msg: 'Error server',
-      error: err.message,
+      resStatus: STATUS,
+      msgPL: msgDis500,
+      msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 };

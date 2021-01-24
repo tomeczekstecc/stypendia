@@ -61,14 +61,13 @@ services:
     depends_on:
       - db_logs
 
-
   av:
     #debian: image: mkodockx/docker-clamav
-    image: mkodockx/docker-clamav:alpine
-    container_name: nextav
-    restart: unless-stopped
-    ports:
-      - 3310:3310
+    # image: mkodockx/docker-clamav:alpine
+    # container_name: nextav
+    # restart: unless-stopped
+    # ports:
+    #   - 3310:3310
 #     volumes:
 #       - clam:/var/lib/clamav
 

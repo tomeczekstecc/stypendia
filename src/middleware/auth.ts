@@ -2,7 +2,7 @@ import { Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 
 import { SESSION_ABSOLUTE_TIMEOUT } from '../config';
-import { User } from '../entity/User';
+import { User } from '../entity';
 import { makeLog } from '../services/makeLog';
 import { msg } from '../parts/messages';
 import { saveRollbar } from '../services/saveRollbar';

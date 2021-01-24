@@ -1,10 +1,8 @@
 import { Response } from 'express';
 import path from 'path';
-import { Submit } from '../entity/Submit';
+import { Submit } from '../entity';
 import { msg } from '../parts/messages';
-import { generatePdf } from '../services/generatePdf';
-import { makeLog } from '../services/makeLog';
-import { saveRollbar } from '../services/saveRollbar';
+import { generatePdf, makeLog, saveRollbar } from '../services';
 
 const OBJECT = 'Submit';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -69,7 +67,13 @@ export const fetchPdf = async (req: any, res: Response) => {
   const filePath = path.join(process.cwd(), 'pdfs', `${type}/`);
 
   try {
-    res.sendFile(filePath + fileName, fileName, (err) => {
+    return res.sendFile(filePath + fileName, fileName, (err) => {
+      if (err) {
+        return res.status(500).send({
+          message: 'Could not download the file. ' + err,
+        });
+      }
+
       STATUS = 'success';
       INFO = msg.client.ok.pdfFetched;
 
@@ -82,17 +86,6 @@ export const fetchPdf = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
-      res.status(201).json({
-        resStatus: STATUS,
-        msgPL: INFO,
-        alertTitle: 'Pobrano!',
-      });
-
-      if (err) {
-        res.status(500).send({
-          message: 'Could not download the file. ' + err,
-        });
-      }
     });
   } catch (err) {
     STATUS = 'error';

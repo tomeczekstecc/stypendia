@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import AuthContext from '../context/auth/authContext';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -14,11 +13,9 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/register.styles';
-import Rodo from '../components/Rodo';
-import Title from '../components/Title';
+import {Rodo,Title}  from '../components';
 import { registerInputs } from '../parts/inputs';
-import AlertContext from '../context/alert/alertContext';
-import AppContext from '../context/app/appContext';
+import {AlertContext, AppContext,AuthContext } from '../context';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -28,7 +25,7 @@ const Register = (props) => {
   const { setIsLoading, isLoading } = appContext;
 
   const authContext = useContext(AuthContext);
-  const { setUser, checkIsAuthenticated, isLoggedIn } = authContext;
+  const { checkIsAuthenticated, isLoggedIn } = authContext;
   isLoggedIn && props.history.push('/');
 
   const [body, setBody] = useState({});

@@ -16,8 +16,6 @@ import {
   PASSWORD_RESET_TIMEOUT,
 } from '../config';
 
-import { User } from './User';
-
 @Entity('password_reset')
 export class PasswordReset extends BaseEntity {
   @PrimaryGeneratedColumn()

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Menu, Segment } from 'semantic-ui-react';
-import Title from '../components/Title';
+import {Title,AllUsersSubmits,AllUsersDrafts,NewCallToAction} from '../components';
 import { Wrapper } from './styles/home.styles';
-import AllUsersSubmits from '../components/AllUsersSubmits';
-import AllUsersDrafts from '../components/AllUsersDrafts';
-import NewCallToAction from '../components/NewCallToAction';
 
 const Home = () => {
   const [activeItem, setActiveItem] = useState('wnioski');

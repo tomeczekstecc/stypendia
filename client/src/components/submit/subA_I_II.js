@@ -2,9 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
-import AuthContext from '../../context/auth/authContext';
-import SubmitContext from '../../context/submit/submitContext';
-import { optionsAttachment } from '../../parts/options';
+import{ AuthContext, SubmitContext }from '../../context';
+import { optionsAttachment } from '../../parts';
 
 
 

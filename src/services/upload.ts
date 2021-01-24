@@ -2,7 +2,7 @@ import multer, { FileFilterCallback } from 'multer';
 
 import path from 'path';
 import fs from 'fs';
-import { makeId } from '../utils/makeId';
+import { makeId } from '../utils';
 
 export const upload = multer({
   storage: multer.diskStorage({

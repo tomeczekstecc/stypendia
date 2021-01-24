@@ -2,7 +2,7 @@
 import * as ip from 'ip';
 import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
-import { User } from '../entity/User';
+import { User } from '../entity';
 import { saveRollbar } from './saveRollbar';
 
 export const makeLog = async (

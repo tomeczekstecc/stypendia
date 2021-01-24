@@ -8,7 +8,7 @@ import {
   // getAllUsers,
   getOneUser,
   updateUser,
-} from '../controllers/user';
+} from '../controllers';
 import { guest, auth } from '../middleware';
 import csrf from 'csurf';
 const csrfProtection = csrf();

@@ -1,4 +1,4 @@
-import express, { application } from 'express';
+import express from 'express';
 import session, { Store } from 'express-session';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -8,16 +8,9 @@ import cookieParser from 'cookie-parser';
 
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
 import { active, notFound, serverError, limiter } from './middleware';
-import userRouter from './routes/user';
-import userHistoryRouter from './routes/userHistory';
-import submitRouter from './routes/submit';
-import draftRouter from './routes/draft';
-import submitHistoryRouter from './routes/submitHistory';
-import emailRouter from './routes/verify';
-import resetRouter from './routes/reset';
-import changePassRouter from './routes/changePass';
-import pdfRouter from './routes/pdf';
-import filesRouter from './routes/files';
+import {changePassRouter,userRouter,userHistoryRouter,submitRouter,draftRouter,submitHistoryRouter,emailRouter,resetRouter,pdfRouter, filesRouter } from './routes';
+
+
 import Rollbar from 'rollbar';
 const rollbar = new Rollbar({
   accessToken: '8cfa68afd5104efb9192067f3eb1786a',

@@ -2,11 +2,10 @@ import { Response } from 'express';
 import { isEmail, isEmpty, validate } from 'class-validator';
 
 import { resetPassword } from '../middleware/auth';
-import { User } from '../entity/User';
-import { PasswordReset } from '../entity/PasswordReset';
+import { User, PasswordReset } from '../entity';
 import { sendMail } from '../services/mail';
 import { makeLog } from '../services/makeLog';
-import { mapErrors } from '../utils/mapErrors';
+import { mapErrors } from '../utils';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
 

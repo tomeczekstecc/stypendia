@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import SubmitContext from '../context/submit/submitContext';
-import AlertContext from '../context/alert/alertContext';
-import AuthContext from '../context/auth/authContext';
-import AppContext from '../context/app/appContext';
-// import fileDownload from 'js-file-download';
+import {SubmitContext, AlertContext ,AuthContext ,AppContext} from '../context';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';

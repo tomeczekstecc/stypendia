@@ -1,11 +1,9 @@
 import { Response } from 'express';
-import { User } from '../entity/User';
+import { User,UserHistory  } from '../entity';
 import { validate } from 'class-validator';
-import { UserHistory } from '../entity/UserHistory';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
-import { Stats } from 'fs';
 
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;

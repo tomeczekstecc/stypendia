@@ -1,22 +1,18 @@
-import { Request, Response } from 'express';
+import {  Response } from 'express';
 
-import { Draft } from '../entity/Draft';
-import { Submit } from '../entity/Submit';
-import { User } from '../entity/User';
+import { Draft, Submit, User}  from '../entity';
 import { msg } from '../parts/messages';
-import { makeLog } from '../services/makeLog';
-import { saveRollbar } from '../services/saveRollbar';
+import { makeLog, saveRollbar  } from '../services';
 
 const OBJECT = 'Draft';
 let ACTION, INFO, STATUS, CONTROLLER;
 
 //
-//
 //add a wnioski
 //
 
 export const addDraft = async (req: any, res: Response) => {
-  let errors: any = {};
+
   CONTROLLER = 'addDraft';
   ACTION = 'dodawanie';
   try {
@@ -25,7 +21,7 @@ export const addDraft = async (req: any, res: Response) => {
     if (!user) {
       INFO = msg.client.fail.noUser;
       STATUS = 'error';
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(req.session.userId, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(400).json({
         status: STATUS,
@@ -172,7 +168,7 @@ export const getAllUsersDrafts = async (req: any, res: Response) => {
       STATUS
     );
     //
-    return res.status(201).json({
+    return res.status(200).json({
       resStatus: 'success',
       msgPL: INFO,
       count: drafts.length,

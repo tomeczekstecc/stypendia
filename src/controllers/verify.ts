@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { isEmail } from 'class-validator';
 
 import { sendMail } from '../services/mail';
-import { User } from '../entity/User';
+import { User } from '../entity';
 import { markAsVerified } from '../middleware/auth';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';

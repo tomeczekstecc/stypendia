@@ -5,7 +5,7 @@ import {
   editDraft,
   getAllDrafts,
   getAllUsersDrafts,
-} from '../controllers/draft';
+} from '../controllers';
 import { auth } from '../middleware';
 
 import csrf from 'csurf';

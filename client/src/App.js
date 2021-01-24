@@ -1,24 +1,24 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from 'axios';
+
 import Layout from './components/commonLayout/Layout';
 import 'semantic-ui-css/semantic.min.css';
-import Register from './pages/register';
-import Home from './pages/home';
-import Login from './pages/login';
-import AuthState from './context/auth/AuthState';
-import AlertState from './context/alert/AlertState';
-import axios from 'axios';
-import Alert from './components/alert/Alert';
-import Verify from './pages/verify';
-import Resend from './pages/resend';
-import ResetSend from './pages/resetSend';
-import Reset from './pages/reset';
-import Logout from './pages/logout';
-import ChangePass from './pages/changePass';
-import ProtectedRoute from './pages/protectedRoute';
-import Submit from './pages/submit';
-import SubmitState from './context/submit/submitState';
-import AppState from './context/app/appState';
-import Page404 from './pages/404';
+import {
+  Register,
+  Home,
+  Login,
+  Verify,
+  Resend,
+  ResetSend,
+  Reset,
+  Logout,
+  ChangePass,
+  ProtectedRoute,
+  Submit,
+  Page404,
+} from './pages';
+import { AuthState, AlertState, AppState, SubmitState } from './context';
+import { Alert } from './components';
 
 axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
@@ -46,7 +46,7 @@ function App() {
                   <Route exact path='/login' component={Login} />
                   <ProtectedRoute exact path='/logout' component={Logout} />
                   <ProtectedRoute exact path='/submit' component={Submit} />
-                  <Route path = '*' component={Page404}/>
+                  <Route path='*' component={Page404} />
                 </Switch>
               </Layout>
             </SubmitState>

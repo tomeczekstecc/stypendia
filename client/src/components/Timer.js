@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Icon, Label } from 'semantic-ui-react';
+import { Label } from 'semantic-ui-react';
 import { Wrapper } from './styles/timer.styles';
-import AuthContext from '../context/auth/authContext';
+import {AuthContext} from '../context';
 
 
 

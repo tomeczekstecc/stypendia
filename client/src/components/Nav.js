@@ -1,12 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
-import SubmitContext from '../context/submit/submitContext';
-import { useHistory } from 'react-router-dom';
-import AlertContext from '../context/alert/alertContext';
-import AppContext from '../context/app/appContext';
-import AuthContext from '../context/auth/authContext';
-import { Wrapper } from './styles/nav.styles';
 import axios from 'axios';
+
+import { useHistory } from 'react-router-dom';
+import {AlertContext, AppContext, AuthContext,SubmitContext} from '../context';
+import { Wrapper } from './styles/nav.styles';
 
 const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();

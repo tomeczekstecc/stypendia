@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import AlertContext from '../context/alert/alertContext';
 import { Button, Card,Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
-import AuthContext from '../context/auth/authContext';
+import {AuthContext,AlertContext }from '../context';
 
 const AllUsersDrafts = () => {
   const alertContext = useContext(AlertContext);
@@ -22,7 +21,6 @@ const AllUsersDrafts = () => {
     axios
       .get('/api/v1/drafts/oneuser', headers)
       .then((data) => {
-        console.log(data);
         setDrafts(data.data.drafts);
       })
       .catch((err) => {

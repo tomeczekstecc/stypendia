@@ -156,6 +156,8 @@ export const getAllDrafts = async (req: any, res: Response) => {
   }
 };
 export const getAllUsersDrafts = async (req: any, res: Response) => {
+  CONTROLLER = 'getAllUsersDrafts';
+  ACTION = 'pobieranie danych draftów'
   try {
     const drafts = await Draft.find({ where: { userId: req.session.userId } });
     INFO = msg.client.ok.draftsFetched;

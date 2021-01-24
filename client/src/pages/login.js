@@ -49,12 +49,12 @@ const Login = ({ history }) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setIsLoading(false);
-          saveRollbar(data.data);
+          // saveRollbar(data.data);
           history.push('/');
         }
       })
       .catch((err) => {
-        saveRollbar({ err: err.response.data.message, page: 'login' });
+        // saveRollbar({ err: err.response.data.message, page: 'login' });
         if (err.response?.data?.forcePassChange) {
           addAlert(err.response.data);
           setIsLoading(false);

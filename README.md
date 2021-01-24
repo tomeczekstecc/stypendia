@@ -4,9 +4,9 @@
 sprawdzić dlaczego tworzy sid przy błednych danych logowania
 select dla submit i user - ukrycie nadmiarowych pól w responsie
 
-export messages + concat dev messaGES
 dodać pozostałe pola wniosku
 eksporty z index - front i backend
+
 spinner zapis
 zamienić na useHistory
 submit template

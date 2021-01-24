@@ -3,12 +3,7 @@ import * as ip from 'ip';
 import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
 import { User } from '../entity/User';
-
-// TODO: userLogger
-
-
-
-
+import { saveRollbar } from './saveRollbar';
 
 export const makeLog = async (
   userId = undefined,
@@ -20,6 +15,8 @@ export const makeLog = async (
   status,
   req = null
 ) => {
+
+  console.log(userId, object, objectId, action, controller, info, status, 'MakeLoGG')
 
 const user = await User.findOne(userId)
 
@@ -39,7 +36,8 @@ const user = await User.findOne(userId)
     });
     await log.save();
   } catch (err) {
-    // rollbar
-    console.log(err);
+    console.log(err.message)
+    saveRollbar('makeLog',err.message, 'error')
+
   }
 };

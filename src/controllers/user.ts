@@ -18,7 +18,6 @@ import { makeLog } from '../services/makeLog';
 import { PasswordReset } from '../entity/PasswordReset';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
-import { Stats } from 'fs';
 
 const OBJECT = 'User';
 let CONTROLLER, ACTION, INFO, STATUS;
@@ -138,7 +137,15 @@ export const login = async (req: any, res: Response) => {
     if (!user || !user.verifiedAt) {
       STATUS = 'error';
       INFO = msg.client.fail.wrongCreds;
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO + msg.dev.unoUserOrUserNotVer, STATUS);
+      makeLog(
+        undefined,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO + msg.dev.unoUserOrUserNotVer,
+        STATUS
+      );
 
       return res.status(400).json({
         resStatus: STATUS,
@@ -265,6 +272,8 @@ export const login = async (req: any, res: Response) => {
 export const logout = async (req: any, res: Response) => {
   CONTROLLER = 'logout';
   ACTION = 'wylogowanie';
+  STATUS= 'success'
+  INFO = msg.client.ok.loggedOut
 
   try {
     makeLog(
@@ -294,11 +303,13 @@ export const logout = async (req: any, res: Response) => {
       });
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      resStatus: 'error',
+      resStatus: STATUS,
       msgPL: msg._500,
       msg: err.message,
-      alertTitle: 'Błąd',
+      alertTitle: 'Błąd!',
     });
   }
 };
@@ -311,7 +322,15 @@ export const me = async (req: any, res: Response) => {
   ACTION = 'pobieranie danych o użytkowniku';
   try {
     const user = await User.findOne({ id: req.session.userId });
-    if (!user) throw new Error('Brak dostępu');
+    if (!user) {
+      STATUS = 'error';
+      INFO = msg.client.fail.noUser;
+      return res.status(400).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd',
+      });
+    }
     return res.status(200).json({
       resStatus: 'success',
       msgPL: 'jest zalogowana/y',

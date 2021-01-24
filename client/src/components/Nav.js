@@ -38,15 +38,15 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         if (err.response) {
           console.log(err.response.data);
           addAlert(err.response.data);
-
+setIsLoading(false);
           return;
         }
       });
   };
 
   const updateSubmit = async (submit) => {
-    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
+    const csrfData = await axios.get('/api/v1/csrf');
     const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
     axios
       .put('/api/v1/submits', newSubmit)

@@ -26,7 +26,7 @@ const Timer = () => {
 
   return isLoggedIn ? (
     <Wrapper>
-      <Label cllassName='timer' as='div' color={color} size={size} image>
+      <Label className='timer' as='div' color={color} size={size} image>
         <img
           className='img'
           src='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'

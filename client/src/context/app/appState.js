@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import appReducer from './appReducer';
 import AppContext from './appContext';
-import {saveRollbar} from '../../services/saveRollbar'
+// import {saveRollbar} from '../../services/saveRollbar'
 
 import { SET_IS_LOADING } from '../types';
 
@@ -22,7 +22,7 @@ const AppState = (props) => {
   return (
     <AppContext.Provider
       value={{
-        saveRollbar,
+        // saveRollbar,
         setIsLoading,
         isLoading: state.isLoading,
       }}

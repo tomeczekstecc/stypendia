@@ -5,8 +5,7 @@ sprawdzić dlaczego tworzy sid przy błednych danych logowania
 select dla submit i user - ukrycie nadmiarowych pól w responsie
 
 dodać pozostałe pola wniosku
-eksporty z index - front i backend
-
+podsumowanie błędów
 spinner zapis
 zamienić na useHistory
 submit template
@@ -15,7 +14,7 @@ mail template
 help modals
 
 
-
+disabled in wathmode
 useRollbar na frontendzie - może jak tylko 500?
 protecteed firlds - czy ma załączniki, czy ma wniosek+?
 xss?
@@ -28,6 +27,7 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
 
 # FIXES
+timer - reset styles aftet reactivation
 clear fields if parent aftre puplil
 undefined nie jest poprawnym adresem email
 divider horizontally

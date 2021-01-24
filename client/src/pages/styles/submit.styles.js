@@ -58,6 +58,8 @@ export const Wrapper = styled.div`
     max-width: 25rem;
     margin-top: 27px;
   }
+  input, select {
 
-
+    cursor: ${(props) => (props.submitMode === 'watch' ? 'not-allowed': '')} !important;
+  }
 `;

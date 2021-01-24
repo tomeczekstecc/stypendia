@@ -37,6 +37,7 @@ export const msg = {
       confirmToolate:
         'Nie możemy już potwierdzić konta - ponownie wyślij emaila weryfikującego konto',
       alreadyConfirmed: 'Użytkownik był już potwierdzony',
+      noFile: 'Niestety nie udało się znalźć pliku'
 
     },
     ok: {

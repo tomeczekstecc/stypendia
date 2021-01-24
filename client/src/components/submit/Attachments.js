@@ -8,6 +8,7 @@ import { Wrapper } from '../styles/attachments.styles';
 import addedImg from '../../assets/img/wireframe.png';
 import statementImg from '../../assets/img/statement.jpg';
 import reportImg from '../../assets/img/reportCard.jpg';
+import SubALayout from '../subALayout';
 
 const Attachments = () => {
     const authContext = useContext(AuthContext);
@@ -116,177 +117,180 @@ const Attachments = () => {
 
   return (
     <Wrapper submitMode={submitMode}>
-      <input
-        type='file'
-        hidden={true}
-        ref={fileInputRef}
-        onChange={uploadImage}
-      />
+      <SubALayout leadHeader='CZĘŚĆ A – ZAŁĄCZNIKI'>
+        <input
+          type='file'
+          hidden={true}
+          ref={fileInputRef}
+          onChange={uploadImage}
+        />
 
-      <Message info size='medium' floating>
-        <Message.Header>Dodawanie załączników</Message.Header>
-        <p>
-          W tej części wniosku należy dodać 2 różne typy załączników:{' '}
-          <strong>Oświadczenie opiekuna dydaktycznego</strong> oraz{' '}
-          <strong>Świadectwo szkolne za ostatni rok szkolny</strong>
-          Pamiętaj, iż dopuszczalna wielkość każdego z plików (załączników) to
-          20MB. Dopuszatne formaty plików to: <strong>
-            {' '}
-            .pdf, .jpg.{' '}
-          </strong>oraz <strong>.png.</strong> Kliknij w odpowiednie pole, aby
-          dodać dokument właściwego typu. Jeśli chcesz zamienić plik, klikniej
-          ponownie we włąściwą część.
-        </p>
-      </Message>
+        <Message info size='medium' floating>
+          <Message.Header>Dodawanie załączników</Message.Header>
+          <p>
+            W tej części wniosku należy dodać 2 różne typy załączników:{' '}
+            <strong>Oświadczenie opiekuna dydaktycznego</strong> oraz{' '}
+            <strong>Świadectwo szkolne za ostatni rok szkolny</strong>
+            Pamiętaj, iż dopuszczalna wielkość każdego z plików (załączników) to
+            20MB. Dopuszatne formaty plików to: <strong> .pdf, .jpg. </strong>
+            oraz <strong>.png.</strong> Kliknij w odpowiednie pole, aby dodać
+            dokument właściwego typu. Jeśli chcesz zamienić plik, klikniej
+            ponownie we włąściwą część.
+          </p>
+        </Message>
 
-      <Card.Group itemsPerRow={4} stackable>
-        <Card className='card' onClick={() => openFileInput('statement')}>
-          {curDocument &&
-            (curDocument.statementId ? (
-              <div className='placeholder-image'>
-                <div className='img-button'>
-                  <Button
-                    onClick={(e) => callFetch(e, curDocument.statementId)}
-                    primary
-                    icon
-                    size='tiny'
-                  >
-                    <Icon name='download' />
-                  </Button>
-                  <Button
-                    onClick={(e) => deleteFile(e, curDocument.statementId)}
-                    className='trash-btn'
-                    color='red'
-                    icon
-                    size='tiny'
-                  >
-                    <Icon name='trash' />
-                  </Button>
+        <Card.Group itemsPerRow={4} stackable>
+          <Card className='card' onClick={() => openFileInput('statement')}>
+            {curDocument &&
+              (curDocument.statementId ? (
+                <div className='placeholder-image'>
+                  <div className='img-button'>
+                    <Button
+                      onClick={(e) => callFetch(e, curDocument.statementId)}
+                      primary
+                      icon
+                      size='tiny'
+                      className='download-btn btn'
+                    >
+                      <Icon name='download' />
+                    </Button>
+                    <Button
+                      onClick={(e) => deleteFile(e, curDocument.statementId)}
+                      className='trash-btn btn'
+                      color='red'
+                      icon
+                      size='tiny'
+                    >
+                      <Icon name='trash' />
+                    </Button>
+                  </div>
+                  <Image
+                    fluid
+                    label={{
+                      as: 'a',
+                      color: 'green',
+                      content: 'Plik dodany',
+                      icon: 'thumbs up',
+                      ribbon: true,
+                    }}
+                    src={statementImg}
+                  />
                 </div>
+              ) : (
                 <Image
                   fluid
                   label={{
                     as: 'a',
-                    color: 'green',
-                    content: 'Plik dodany',
-                    icon: 'thumbs up',
+                    color: 'red',
+                    content: 'Kliknij i dodaj plik',
+                    icon: 'upload',
                     ribbon: true,
                   }}
-                  src={statementImg}
+                  src={addedImg}
                 />
-              </div>
-            ) : (
-              <Image
-                fluid
-                label={{
-                  as: 'a',
-                  color: 'red',
-                  content: 'Kliknij i dodaj plik',
-                  icon: 'upload',
-                  ribbon: true,
-                }}
-                src={addedImg}
-              />
-            ))}
-          <Card.Content>
-            <Card.Header textAlign='left'>
-              Oświadczenie opiekuna dydaktycznego
-            </Card.Header>
-            <Card.Meta textAlign='left'>
-              {curDocument && curDocument.statementCreatedAt && (
-                <span className='date'>
-                  Dodano:{' '}
-                  {dayjs(curDocument?.statementCreatedAt).format(
-                    'YYYY-MM-DD HH:mm:ss'
-                  )}{' '}
-                </span>
-              )}
-            </Card.Meta>
-            <Card.Meta textAlign='left'>
-              {curDocument && curDocument.statementChecksum && (
-                <div className='date' style={{ wordWrap: 'break-word' }}>
-                  Suma kontrolna pliku:{' '}
-                  <strong> {curDocument.statementChecksum}</strong>
-                </div>
-              )}
-            </Card.Meta>
-          </Card.Content>
-        </Card>
+              ))}
+            <Card.Content>
+              <Card.Header textAlign='left'>
+                Oświadczenie opiekuna dydaktycznego
+              </Card.Header>
+              <Card.Meta textAlign='left'>
+                {curDocument && curDocument.statementCreatedAt && (
+                  <span className='date'>
+                    Dodano:{' '}
+                    {dayjs(curDocument?.statementCreatedAt).format(
+                      'YYYY-MM-DD HH:mm:ss'
+                    )}{' '}
+                  </span>
+                )}
+              </Card.Meta>
+              <Card.Meta textAlign='left'>
+                {curDocument && curDocument.statementChecksum && (
+                  <div className='date' style={{ wordWrap: 'break-word' }}>
+                    Suma kontrolna pliku:{' '}
+                    <strong> {curDocument.statementChecksum}</strong>
+                  </div>
+                )}
+              </Card.Meta>
+            </Card.Content>
+          </Card>
 
-        <Card onClick={() => openFileInput('report_card')}>
-          {curDocument &&
-            (curDocument.report_cardId ? (
-              <div className='placeholder-image'>
-                <div className='img-button'>
-                  <Button
-                    onClick={(e) => callFetch(e, curDocument.report_cardId)}
-                    primary
-                    icon
-                    size='tiny'
-                  >
-                    <Icon name='download' />
-                  </Button>
-                  <Button
-                    onClick={(e) => deleteFile(e, curDocument.report_cardId)}
-                    className='trash-btn'
-                    color='red'
-                    icon
-                    size='tiny'
-                  >
-                    <Icon name='trash' />
-                  </Button>
+          <Card onClick={() => openFileInput('report_card')}>
+            {curDocument &&
+              (curDocument.report_cardId ? (
+                <div className='placeholder-image'>
+                  <div className='img-button'>
+                    <Button
+                      onClick={(e) => callFetch(e, curDocument.report_cardId)}
+                      primary
+                      icon
+                      size='tiny'
+                      className='download-btn btn'
+                    >
+                      <Icon name='download' />
+                    </Button>
+                    <Button
+                      onClick={(e) => deleteFile(e, curDocument.report_cardId)}
+                      className='trash-btn btn'
+                      color='red'
+                      icon
+                      size='tiny'
+
+                    >
+                      <Icon name='trash' />
+                    </Button>
+                  </div>
+                  <Image
+                    fluid
+                    label={{
+                      as: 'a',
+                      color: 'green',
+                      content: 'Plik dodany',
+                      icon: 'thumbs up',
+                      ribbon: true,
+                    }}
+                    src={reportImg}
+                  />
                 </div>
+              ) : (
                 <Image
                   fluid
                   label={{
                     as: 'a',
-                    color: 'green',
-                    content: 'Plik dodany',
-                    icon: 'thumbs up',
+                    color: 'red',
+                    content: 'Kliknij i dodaj plik',
+                    icon: 'upload',
                     ribbon: true,
                   }}
-                  src={reportImg}
+                  src={addedImg}
                 />
-              </div>
-            ) : (
-              <Image
-                fluid
-                label={{
-                  as: 'a',
-                  color: 'red',
-                  content: 'Kliknij i dodaj plik',
-                  icon: 'upload',
-                  ribbon: true,
-                }}
-                src={addedImg}
-              />
-            ))}
-          <Card.Content>
-            <Card.Header textAlign='left'>
-              Świadectwo szkolne - ostatni rok szkolny
-            </Card.Header>
-            <Card.Meta textAlign='left'>
-              {curDocument && curDocument.report_cardCreatedAt && (
-                <span className='date'>
-                  Dodano:{' '}
-                  {dayjs(curDocument?.report_cardCreatedAt).format(
-                    'YYYY-MM-DD HH:mm:ss'
-                  )}{' '}
-                </span>
-              )}
-            </Card.Meta>
-            <Card.Meta textAlign='left'>
-              {curDocument && curDocument.report_cardChecksum && (
-                <div className='date' style={{ wordWrap: 'break-word' }}>
-                  Suma kontrolna pliku:{' '}
-                  <strong> {curDocument.report_cardChecksum}</strong>
-                </div>
-              )}
-            </Card.Meta>
-            <Card.Description textAlign='left'></Card.Description>
-          </Card.Content>
-        </Card>
-      </Card.Group>
+              ))}
+            <Card.Content>
+              <Card.Header textAlign='left'>
+                Świadectwo szkolne - ostatni rok szkolny
+              </Card.Header>
+              <Card.Meta textAlign='left'>
+                {curDocument && curDocument.report_cardCreatedAt && (
+                  <span className='date'>
+                    Dodano:{' '}
+                    {dayjs(curDocument?.report_cardCreatedAt).format(
+                      'YYYY-MM-DD HH:mm:ss'
+                    )}{' '}
+                  </span>
+                )}
+              </Card.Meta>
+              <Card.Meta textAlign='left'>
+                {curDocument && curDocument.report_cardChecksum && (
+                  <div className='date' style={{ wordWrap: 'break-word' }}>
+                    Suma kontrolna pliku:{' '}
+                    <strong> {curDocument.report_cardChecksum}</strong>
+                  </div>
+                )}
+              </Card.Meta>
+              <Card.Description textAlign='left'></Card.Description>
+            </Card.Content>
+          </Card>
+        </Card.Group>
+      </SubALayout>{' '}
     </Wrapper>
   );
 };

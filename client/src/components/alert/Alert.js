@@ -68,7 +68,7 @@ const Alert = (props) => {
                       {alert.alertTitle}
                     </Message.Header>
                     <Message.Content className='notification-message'>
-                      <p > {alert.msgPL}</p>
+                      <p> {alert.msgPL}</p>
                     </Message.Content>
                   </Message>
                 </div>

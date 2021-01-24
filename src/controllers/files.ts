@@ -171,9 +171,6 @@ export const downloadFile = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
-
-
-
     });
   } catch (err) {
     STATUS = 'error';
@@ -191,10 +188,21 @@ export const getFileInfo = async (req: Request, res: Response) => {
   CONTROLLER = 'getFileInfo';
   const { id } = req.params;
   try {
-    const file = await File.findOneOrFail({
+    const file = await File.findOne({
       where: { id },
       select: ['fileName'],
     });
+
+    if (!file) {
+      STATUS = 'error';
+      INFO = msg.client.fail.noFile;
+      return res.status(400).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd!',
+      });
+    }
+
     return res.status(200).json({ file });
   } catch (err) {
     STATUS = 'error';

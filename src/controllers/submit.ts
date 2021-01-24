@@ -183,7 +183,7 @@ export const getAllSubmits = async (req: any, res: Response) => {
   try {
     const submits = await Submit.find({ relations: ['user'] });
 
-    return res.status(201).json({
+    return res.status(200).json({
       resStatus: 'success',
       msgPL: msg.client.ok.subsFetched,
       count: submits.length,
@@ -207,7 +207,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
       where: { userId: req.session.userId },
     });
 
-    return res.status(201).json({
+    return res.status(200).json({
       Status: 'success',
       msgPL: msg.client.ok.subsFetched,
       count: submits.length,
@@ -231,7 +231,7 @@ export const getOneUserSubmit = async (req: any, res: Response) => {
   try {
     const submit = await Submit.findOne({ where: { uuid } });
 
-    return res.status(201).json({
+    return res.status(200).json({
       resStatus: 'success',
       msgPL: msg.client.ok.subFetched,
       msg: 'Fetched submit',

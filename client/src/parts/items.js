@@ -30,16 +30,16 @@ export const leftMenuItems = [
     noOwnSubDisplay: false,
     isLoggedInDisplay: true,
   },
-  {
-    id: uuidv4(),
-    icon: 'pencil',
-    name: 'submit',
-    title: 'Złóż wniosek',
-    url: '/submit',
-    hasOwnSubDisplay: false,
-    noOwnSubDisplay: true,
-    isLoggedInDisplay: true,
-  },
+  // {
+  //   id: uuidv4(),
+  //   icon: 'pencil',
+  //   name: 'submit',
+  //   title: 'Złóż wniosek',
+  //   url: '/submit',
+  //   hasOwnSubDisplay: false,
+  //   noOwnSubDisplay: true,
+  //   isLoggedInDisplay: true,
+  // },
 ];
 
 

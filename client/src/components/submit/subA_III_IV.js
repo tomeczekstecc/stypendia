@@ -166,10 +166,10 @@ const SubA_III_IV = () => {
                     onChange={(e) => handleOnChange(e)}
                     value={
                       submitMode === 'edit'
-                        ? curSubmit?.schooVoyev
+                        ? curSubmit?.schoolVoyev
                         : submitMode === 'new'
-                        ? newSubmit?.schooVoyev
-                        : submitToWatch?.schooVoyev
+                        ? newSubmit?.schoolVoyev
+                        : submitToWatch?.schoolVoyev
                     }
                     defaultValue='default'
                   >

@@ -1,9 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Form, Grid, Header } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
-import { AuthContext, SubmitContext } from '../../context';
-import { optionsAttachment } from '../../parts';
+import AuthContext from '../../context/auth/authContext';
+import SubmitContext from '../../context/submit/submitContext';
+import { optionsAttachment } from '../../parts/options';
+
+
 
 const SubA_I_II = () => {
   const authContext = useContext(AuthContext);
@@ -18,8 +21,6 @@ const SubA_I_II = () => {
     updateCurSubmit,
     submitToWatch,
   } = submitContext;
-
-  const [curDocument, setCurDocument] = useState(null);
 
   const handleOnChange = async (e) => {
     e.preventDefault();
@@ -38,13 +39,6 @@ const SubA_I_II = () => {
   };
   useEffect(() => {
     resetTimeLeft();
-    if (submitMode === 'new') {
-      setCurDocument(newSubmit);
-    } else if (submitMode === 'edit') {
-      setCurDocument(curSubmit);
-    } else if (submitMode === 'watch') {
-      setCurDocument(submitToWatch);
-    }
   }, []);
 
   return (
@@ -88,16 +82,17 @@ const SubA_I_II = () => {
               iconPosition='left'
               placeholder='Podaj numer telefonu wnioskodawcy'
               name='phone'
+              onChange={(e) => handleOnChange(e)}
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.phone
                   : submitMode === 'new'
                   ? newSubmit?.phone
-                  : submitToWatch?.phone
+                  : submitToWatch?.phone) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               icon='box'
               iconPosition='left'
@@ -105,13 +100,12 @@ const SubA_I_II = () => {
               placeholder='Podaj adres ePuap (opcjonalnie)'
               name='epuapAdr'
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.epuapAdr
                   : submitMode === 'new'
                   ? newSubmit?.epuapAdr
-                  : submitToWatch?.epuapAdr
+                  : submitToWatch?.epuapAdr) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
 
             <div className='select-wrapper'>
@@ -120,13 +114,12 @@ const SubA_I_II = () => {
               </Header>
               <select
                 name='isSelf'
-                defaultValue='default'
                 value={
-                  submitMode === 'edit'
+                  (submitMode === 'edit'
                     ? curSubmit?.isSelf
                     : submitMode === 'new'
                     ? newSubmit?.isSelf
-                    : submitToWatch?.isSelf
+                    : submitToWatch?.isSelf) || 'default'
                 }
                 onChange={(e) => handleOnChange(e)}
               >
@@ -147,6 +140,7 @@ const SubA_I_II = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               placeholder='Podaj PESEL ucznia'
               label='PESEL ucznia'
@@ -154,15 +148,15 @@ const SubA_I_II = () => {
               icon='id card outline'
               iconPosition='left'
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.pupilPesel
                   : submitMode === 'new'
                   ? newSubmit?.pupilPesel
-                  : submitToWatch?.pupilPesel
+                  : submitToWatch?.pupilPesel) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               icon='user'
               iconPosition='left'
@@ -170,17 +164,17 @@ const SubA_I_II = () => {
               name='pupilFirstName'
               placeholder='Podaj imię ucznia'
               value={
-                newSubmit.isSelf === '1'
+                (newSubmit.isSelf === '1'
                   ? user.firstName
                   : submitMode === 'edit'
                   ? curSubmit?.pupilFirstName
                   : submitMode === 'new'
                   ? newSubmit?.pupilFirstName
-                  : submitToWatch?.pupilFirstName
+                  : submitToWatch?.pupilFirstName) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               icon='user'
               iconPosition='left'
               className='input'
@@ -188,17 +182,17 @@ const SubA_I_II = () => {
               name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
               value={
-                newSubmit.isSelf === '1'
+                (newSubmit.isSelf === '1'
                   ? user.lastName
                   : submitMode === 'edit'
                   ? curSubmit?.pupilLastName
                   : submitMode === 'new'
                   ? newSubmit?.pupilLastName
-                  : submitToWatch?.pupilLastName
+                  : submitToWatch?.pupilLastName) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               icon='at'
               iconPosition='left'
               className='input'
@@ -207,18 +201,18 @@ const SubA_I_II = () => {
               name='pupilEmail'
               placeholder='Podaj adres email ucznia'
               value={
-                newSubmit.isSelf === '1'
+                (newSubmit.isSelf === '1'
                   ? user.email
                   : submitMode === 'edit'
                   ? curSubmit?.pupilEmail
                   : submitMode === 'new'
                   ? newSubmit?.pupilEmail
-                  : submitToWatch?.pupilEmail
+                  : submitToWatch?.pupilEmail) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
 
             <Form.Input
+              onChange={(e) => handleOnChange(e)}
               className='input'
               label='Numer telefonu ucznia'
               icon='phone'
@@ -227,13 +221,12 @@ const SubA_I_II = () => {
               type='phone'
               name='pupilPhone'
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.pupilPhone
                   : submitMode === 'new'
                   ? newSubmit?.pupilPhone
-                  : submitToWatch?.pupilPhone
+                  : submitToWatch?.pupilPhone) || ''
               }
-              onChange={(e) => handleOnChange(e)}
             />
           </Form.Group>
         </Form>

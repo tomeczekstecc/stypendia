@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  /* margin-top: 9rem; */
+display: flex;
+flex-direction: column;
+margin-top: 3rem;
 
   position: relative;
 

@@ -61,11 +61,11 @@ const SubA_III_IV = () => {
               iconPosition='left'
               onChange={(e) => handleOnChange(e)}
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.schoolName
                   : submitMode === 'new'
                   ? newSubmit?.schoolName
-                  : submitToWatch?.schoolName
+                  : submitToWatch?.schoolName) || ''
               }
             />
 
@@ -77,13 +77,14 @@ const SubA_III_IV = () => {
                 name='schoolType'
                 onChange={(e) => handleOnChange(e)}
                 value={
-                  submitMode === 'edit'
+                  (submitMode === 'edit'
                     ? curSubmit?.schoolType
                     : submitMode === 'new'
                     ? newSubmit?.schoolType
-                    : submitToWatch?.schoolType
+                    : submitToWatch?.schoolType) || 'default'
                 }
-                defaultValue='default'
+
+
               >
                 {optionsSchoolType.map((o) => (
                   <option disabled={o.disabled} key={o.key} value={o.value}>
@@ -103,11 +104,11 @@ const SubA_III_IV = () => {
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
                   value={
-                    submitMode === 'edit'
+                    (submitMode === 'edit'
                       ? curSubmit?.schoolStreetName
                       : submitMode === 'new'
                       ? newSubmit?.schoolStreetName
-                      : submitToWatch?.schoolStreetName
+                      : submitToWatch?.schoolStreetName) || ''
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -120,11 +121,11 @@ const SubA_III_IV = () => {
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
                   value={
-                    submitMode === 'edit'
+                    (submitMode === 'edit'
                       ? curSubmit?.schoolStreetNr
                       : submitMode === 'new'
                       ? newSubmit?.schoolStreetNr
-                      : submitToWatch?.schoolStreetNr
+                      : submitToWatch?.schoolStreetNr) || ''
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -136,11 +137,11 @@ const SubA_III_IV = () => {
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
                   value={
-                    submitMode === 'edit'
+                    (submitMode === 'edit'
                       ? curSubmit?.schoolZip
                       : submitMode === 'new'
                       ? newSubmit?.schoolZip
-                      : submitToWatch?.schoolZip
+                      : submitToWatch?.schoolZip) || ''
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -152,11 +153,11 @@ const SubA_III_IV = () => {
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
                   value={
-                    submitMode === 'edit'
+                    (submitMode === 'edit'
                       ? curSubmit?.schoolTown
                       : submitMode === 'new'
                       ? newSubmit?.schoolTown
-                      : submitToWatch?.schoolTown
+                      : submitToWatch?.schoolTown) || ''
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -165,14 +166,13 @@ const SubA_III_IV = () => {
                     name='schoolVoyev'
                     onChange={(e) => handleOnChange(e)}
                     value={
-                      submitMode === 'edit'
+                      (submitMode === 'edit'
                         ? curSubmit?.schoolVoyev
                         : submitMode === 'new'
                         ? newSubmit?.schoolVoyev
-                        : submitToWatch?.schoolVoyev
+                        : submitToWatch?.schoolVoyev) || 'default'
                     }
-                    defaultValue='default'
-                  >
+                         >
                     {optionsVoyev.map((o) => (
                       <option disabled={o.disabled} key={o.key} value={o.value}>
                         {o.text}
@@ -199,11 +199,11 @@ const SubA_III_IV = () => {
               name='counselorFirstName'
               placeholder='Podaj imię doradcy'
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.counselorFirstName
                   : submitMode === 'new'
                   ? newSubmit?.counselorFirstName
-                  : submitToWatch?.counselorFirstName
+                  : submitToWatch?.counselorFirstName) || ''
               }
               onChange={(e) => handleOnChange(e)}
             />
@@ -215,11 +215,11 @@ const SubA_III_IV = () => {
               name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
               value={
-                submitMode === 'edit'
+                (submitMode === 'edit'
                   ? curSubmit?.counselorLastName
                   : submitMode === 'new'
                   ? newSubmit?.counselorLastName
-                  : submitToWatch?.counselorLastName
+                  : submitToWatch?.counselorLastName) || ''
               }
               onChange={(e) => handleOnChange(e)}
             />
@@ -233,13 +233,13 @@ const SubA_III_IV = () => {
                 onChange={(e) => handleOnChange(e)}
                 placeholder='Wybierz profil doradcy'
                 value={
-                  submitMode === 'edit'
+                  (submitMode === 'edit'
                     ? curSubmit?.counselorProfile
                     : submitMode === 'new'
                     ? newSubmit?.counselorProfile
-                    : submitToWatch?.counselorProfile
+                    : submitToWatch?.counselorProfile) || 'default'
                 }
-                defaultValue='default'
+
               >
                 {optionsProfile.map((o) => (
                   <option disabled={o.disabled} key={o.key} value={o.value}>

@@ -125,7 +125,7 @@ const Attachments = () => {
           onChange={uploadImage}
         />
 
-        <Message info size='medium' floating>
+        <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>
             W tej części wniosku należy dodać 2 różne typy załączników:{' '}
@@ -167,7 +167,7 @@ const Attachments = () => {
                   <Image
                     fluid
                     label={{
-                      as: 'a',
+                      as: 'div',
                       color: 'green',
                       content: 'Plik dodany',
                       icon: 'thumbs up',
@@ -180,7 +180,7 @@ const Attachments = () => {
                 <Image
                   fluid
                   label={{
-                    as: 'a',
+                    as: 'div',
                     color: 'red',
                     content: 'Kliknij i dodaj plik',
                     icon: 'upload',
@@ -242,7 +242,7 @@ const Attachments = () => {
                   <Image
                     fluid
                     label={{
-                      as: 'a',
+                      as: 'div',
                       color: 'green',
                       content: 'Plik dodany',
                       icon: 'thumbs up',
@@ -255,7 +255,7 @@ const Attachments = () => {
                 <Image
                   fluid
                   label={{
-                    as: 'a',
+                    as: 'div',
                     color: 'red',
                     content: 'Kliknij i dodaj plik',
                     icon: 'upload',

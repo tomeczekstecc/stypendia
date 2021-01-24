@@ -3,8 +3,8 @@ import { Container, Grid, Loader, Segment } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 import { Wrapper } from './styles/logout.styles';
-import Title from '../components/Title';
-import AuthContext from '../context/auth/authContext';
+import {Title} from '../components';
+import {AuthContext} from '../context';
 
 const Logout = () => {
   const authContext = useContext(AuthContext);

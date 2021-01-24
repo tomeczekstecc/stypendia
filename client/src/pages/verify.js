@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import AlertContext from '../context/alert/alertContext';
-import AuthContext from '../context/auth/authContext';
-import AppContext from '../context/app/appContext';
+import {AlertContext,AuthContext, AppContext} from '../context';
 import { Link } from 'react-router-dom';
 import { verItems } from '../parts/items';
 import {
@@ -36,7 +34,7 @@ const Verify = ({ location: { search }, history }) => {
 
   useEffect(() => {
     checkIsAuthenticated();
-    
+
     axios
       .post(`/api/v1/email/verify${query}`)
       .then((data) => {

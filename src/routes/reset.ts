@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { passwordReset, sendResetMail } from '../controllers/reset'
+import { passwordReset, sendResetMail } from '../controllers'
 import { guest } from '../middleware'
 import csrf from 'csurf';
 const csrfProtection = csrf();

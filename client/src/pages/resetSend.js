@@ -10,10 +10,8 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import {Wrapper} from './styles/resetSend.styles'
-import Title from '../components/Title';
-import AlertContext from '../context/alert/alertContext';
-import AuthContext from '../context/auth/authContext';
-import AppContext from '../context/app/appContext';
+import {Title} from '../components';
+import {AlertContext,AuthContext ,AppContext} from '../context';
 import { resetReqInputs } from '../parts/inputs';
 
 const ResetSend = ({ history }) => {

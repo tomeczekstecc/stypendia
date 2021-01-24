@@ -1,14 +1,10 @@
 import { validate } from 'class-validator';
 import { Response } from 'express';
 
-
-import { Submit } from '../entity/Submit';
-import { User } from '../entity/User';
+import { Submit, User } from '../entity';
 import { msg } from '../parts/messages';
-import { generatePdf } from '../services/generatePdf';
-import { makeLog } from '../services/makeLog';
-import { saveRollbar } from '../services/saveRollbar';
-import { mapErrors } from '../utils/mapErrors';
+import { generatePdf, makeLog, saveRollbar } from '../services';
+import { mapErrors } from '../utils';
 
 const OBJECT = 'Submit';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -150,7 +146,7 @@ export const editSubmit = async (req: any, res: Response) => {
         ...req.body,
       }
     );
-//
+    //
     // const updatedSubmit = await
 
     // ****************************** LOG *********************************//
@@ -185,7 +181,6 @@ export const editSubmit = async (req: any, res: Response) => {
 //
 export const getAllSubmits = async (req: any, res: Response) => {
   try {
-
     const submits = await Submit.find({ relations: ['user'] });
 
     return res.status(201).json({
@@ -207,8 +202,6 @@ export const getAllSubmits = async (req: any, res: Response) => {
 };
 
 export const getAllUsersSubmits = async (req: any, res: Response) => {
-
-
   try {
     const submits = await Submit.find({
       where: { userId: req.session.userId },

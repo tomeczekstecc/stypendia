@@ -11,9 +11,7 @@ import {
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/changePass.styles';
 import Title from '../components/Title';
-import AlertContext from '../context/alert/alertContext';
-import AppContext from '../context/app/appContext';
-import AuthContext from '../context/auth/authContext';
+import {AlertContext,AppContext,AuthContext} from '../context';
 import { changePassInputs } from '../parts/inputs';
 
 const ChangePass = ({ history }) => {

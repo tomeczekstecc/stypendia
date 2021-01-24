@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { addSubmitPdf, fetchPdf } from '../controllers/pdf'
+import { addSubmitPdf, fetchPdf } from '../controllers'
 import csrf from 'csurf';
 const csrfProtection = csrf();
 const router = Router()

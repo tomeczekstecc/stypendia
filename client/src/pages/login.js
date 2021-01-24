@@ -12,10 +12,8 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/login.styles';
-import Title from '../components/Title';
-import AlertContext from '../context/alert/alertContext';
-import AppContext from '../context/app/appContext';
-import AuthContext from '../context/auth/authContext';
+import {Title} from '../components';
+import {AlertContext, AppContext,AuthContext} from '../context';
 import { loginInputs } from '../parts/inputs';
 
 const Login = ({ history }) => {

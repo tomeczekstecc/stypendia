@@ -21,7 +21,7 @@ import {
 
 import Model from './Model';
 import { User } from './User';
-import SubmitHistory from './SubmitHistory';
+
 import {
   counselorProfileTypeEnums,
   voyevEnums,

@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect} from 'react';
 import { Form, Grid, Header, Segment } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
-import SubmitContext from '../../context/submit/submitContext';
-import AuthContext from '../../context/auth/authContext';
+import {SubmitContext,AuthContext } from '../../context';
 import {
   optionsVoyev,
   optionsSchoolType,
   optionsProfile,
-} from '../../parts/options';
+} from '../../parts';
 
 const SubA_III_IV = () => {
   const authContext = useContext(AuthContext);

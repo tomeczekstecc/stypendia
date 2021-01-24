@@ -1,9 +1,7 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 
-import { Submit } from '../entity/Submit';
-import { User } from '../entity/User';
-import { SubmitHistory } from '../entity/SubmitHistory';
+import { Submit,User,SubmitHistory } from '../entity';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
@@ -98,7 +96,7 @@ export const getAllSubmitsHistory = async (req: Request, res: Response) => {
       relations: ['submits'],
     });
 
-    return res.status(201).json({
+    return res.status(200).json({
       stau: 'success',
       msgPL: msg.client.ok.historiesFethed,
       count: submitHistory.length,

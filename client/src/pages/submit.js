@@ -1,10 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Grid, Menu} from 'semantic-ui-react';
-import SubA_I_II from '../components/submit/subA_I_II';
-import SubA_III_IV from '../components/submit/subA_III_IV';
-import Nav from '../components/Nav';
+
+import {SubA_I_II,SubA_III_IV,Attachments,Nav } from '../components';
 import { Wrapper } from './styles/newSubmit.styles';
-import Attachments from '../components/submit/Attachments';
 
 const Submit = () => {
   const [activeItem, setActiveItem] = useState(1);

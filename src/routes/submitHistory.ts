@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { addSubmitHistory,  getAllSubmitsHistory } from '../controllers/submitHistory';
+import { addSubmitHistory,  getAllSubmitsHistory } from '../controllers';
 import { auth } from '../middleware';
 import csrf from 'csurf';
 const csrfProtection = csrf();

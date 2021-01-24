@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import dayjs from 'dayjs';
-
-import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
+
+import { User,PasswordReset } from '../entity';
 import bcrypt from 'bcryptjs';
 import { logIn } from '../middleware/auth';
-import { mapErrors } from '../utils/mapErrors';
+import { mapErrors } from '../utils';
 import {
   APP_ORIGIN,
   FAILED_LOGINS_MAX,
@@ -15,7 +15,6 @@ import {
   UNBLOCK_TIMEOUT,
 } from '../config';
 import { makeLog } from '../services/makeLog';
-import { PasswordReset } from '../entity/PasswordReset';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
 
@@ -323,13 +322,12 @@ export const me = async (req: any, res: Response) => {
   try {
     const user = await User.findOne({ id: req.session.userId });
     if (!user) {
-      STATUS = 'error';
+      STATUS = 'info';
       INFO = msg.client.fail.noUser;
-      return res.status(400).json({
+      return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
-        alertTitle: 'Błąd',
-      });
+       });
     }
     return res.status(200).json({
       resStatus: 'success',

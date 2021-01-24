@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   addUserHistory
-} from '../controllers/userHistory';
+} from '../controllers';
 import {auth } from '../middleware';
 import csrf from 'csurf';
 const csrfProtection = csrf();

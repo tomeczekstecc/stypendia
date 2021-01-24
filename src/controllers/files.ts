@@ -5,12 +5,10 @@ import fs from 'fs';
 import path from 'path';
 
 import { FILE_MAX_SIZE } from '../config';
-import { File } from '../entity/File';
-import { User } from '../entity/User';
+import { File, User } from '../entity';
+import { mapFileBody } from '../utils';
+import { makeLog, saveRollbar } from '../services';
 // import { scanFile } from '../services/scanFile';
-import { mapFileBody } from '../utils/mapFileBody';
-import { makeLog } from '../services/makeLog';
-import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
 
 const OBJECT = 'Files';
@@ -156,10 +154,14 @@ export const downloadFile = async (req: any, res: Response) => {
   };
 
   try {
-    res.sendFile(filePath, (err) => {
+    return res.sendFile(filePath, (err) => {
       STATUS = 'success';
       INFO = msg.client.ok.fileFetched;
-
+      if (err) {
+        return res.status(500).send({
+          message: 'Could not download the file. ' + err,
+        });
+      }
       makeLog(
         req.session.userId,
         OBJECT,
@@ -169,17 +171,9 @@ export const downloadFile = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
-      res.status(201).json({
-        resStatus: STATUS,
-        msgPL: INFO,
-        alertTitle: 'Pobrano!',
-      });
 
-      if (err) {
-        res.status(500).send({
-          message: 'Could not download the file. ' + err,
-        });
-      }
+
+
     });
   } catch (err) {
     STATUS = 'error';

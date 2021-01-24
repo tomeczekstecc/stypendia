@@ -1,11 +1,10 @@
 import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 
-import { User } from '../entity/User';
-import { makeLog } from '../services/makeLog';
+import { User } from '../entity';
+import { makeLog,saveRollbar } from '../services';
 import { validate } from 'class-validator';
-import { mapErrors } from '../utils/mapErrors';
-import { saveRollbar } from '../services/saveRollbar';
+import { mapErrors } from '../utils';
 import { msg } from '../parts/messages';
 
 

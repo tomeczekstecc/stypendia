@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteFile, downloadFile, getFileInfo, uploadFile } from '../controllers/files';
+import { deleteFile, downloadFile, getFileInfo, uploadFile } from '../controllers';
 import { auth } from '../middleware';
 import { upload } from '../services/upload';
 import csrf from 'csurf';

@@ -2,9 +2,9 @@ import React, { createRef, useContext, useEffect, useState } from 'react';
 import { Button, Card, Icon, Image, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import AuthContext from '../../context/auth/authContext';
+import {AuthContext,SubmitContext} from '../../context';
 import { Wrapper } from '../styles/attachments.styles';
-import SubmitContext from '../../context/submit/submitContext';
+
 import addedImg from '../../assets/img/wireframe.png';
 import statementImg from '../../assets/img/statement.jpg';
 import reportImg from '../../assets/img/reportCard.jpg';

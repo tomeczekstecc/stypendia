@@ -59,7 +59,7 @@ export const changePass = async (req: any, res: Response) => {
         req.session.userId,
         ACTION,
         CONTROLLER,
-        INFO,
+        INFO + msg.dev.passNoMatch,
         STATUS
       );
       return res.status(400).json({

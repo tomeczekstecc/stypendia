@@ -2,7 +2,6 @@
 
 
 sprawdzić dlaczego tworzy sid przy błednych danych logowania
-protecteed firlds - czy ma załącznikli, czy ma wniosek+
 select dla submit i user - ukrycie nadmiarowych pól w responsie
 
 export messages + concat dev messaGES
@@ -10,15 +9,15 @@ dodać pozostałe pola wniosku
 eksporty z index - front i backend
 spinner zapis
 zamienić na useHistory
-useRollbar na frontendzie - może jak tylko 500?
 submit template
 mail template
-404 - https://www.youtube.com/watch?v=wLaZ-abyBrI&t=8s
+
 help modals
-clear fields if parent aftre puplil
 
 
 
+useRollbar na frontendzie - może jak tylko 500?
+protecteed firlds - czy ma załączniki, czy ma wniosek+?
 xss?
 panel postępu?
 skeleton?
@@ -29,6 +28,7 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
 
 # FIXES
+clear fields if parent aftre puplil
 undefined nie jest poprawnym adresem email
 divider horizontally
 ip w logach

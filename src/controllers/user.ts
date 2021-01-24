@@ -66,7 +66,7 @@ export const register = async (req, res: Response) => {
 
     errors = await validate(user);
 
-    INFO = 'Wprowadzone dane nie spełniają warunków walidacji';
+    INFO = msg.client.fail.unvalidated;
 
     if (errors.length > 0) {
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
@@ -138,7 +138,7 @@ export const login = async (req: any, res: Response) => {
     if (!user || !user.verifiedAt) {
       STATUS = 'error';
       INFO = msg.client.fail.wrongCreds;
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO + msg.dev.unoUserOrUserNotVer, STATUS);
 
       return res.status(400).json({
         resStatus: STATUS,

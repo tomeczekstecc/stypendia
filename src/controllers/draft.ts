@@ -90,7 +90,7 @@ export const editDraft = async (req: any, res: Response) => {
       // ********************************************************************//
 
       return res.status(400).json({
-        status: STATUS,
+        resStatus: STATUS,
         msgPL: INFO,
       });
     }

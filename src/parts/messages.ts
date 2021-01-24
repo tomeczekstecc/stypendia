@@ -70,5 +70,7 @@ export const msg = {
     userFetched: 'Pomyślnie pobrano dane użytkownika',
     userUpdated: 'Pomyślnie zaktualizowano dane użytkownika',
     userDeleted: 'Pomyślnie usunięto użytkownika',
+    passNoMatch: ' - admin msg: niepasujace hasła.',
+    unoUserOrUserNotVer: ' - admin msg: użytkownik nie istnieje, lub konto niejest potwierdzone.'
   },
 };

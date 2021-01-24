@@ -99,9 +99,9 @@ export const passwordReset = async ({ query, body }, res: Response) => {
   let errors: any = {};
 
   if (password === '' || password === undefined)
-    errors.password = 'Hasło nie może być puste';
+    errors.password = msg.client.fail.passNoDiff;
   if (passwordConfirm !== password)
-    errors.passwordConfirm = 'Hasła muszą być zgodne';
+    errors.passwordConfirm = msg.client.fail.passNoDiff;
   if (Object.keys(errors).length > 0) {
     makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 

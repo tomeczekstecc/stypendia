@@ -35,7 +35,7 @@ const Submit = () => {
     <Wrapper submitMode={submitMode}>
       <Grid>
         <Grid.Column width={4}>
-          <Menu fluid vertical tabular>
+          <Menu fluid vertical tabular className='menu' >
             <Menu.Item
               icon='student'
               name='Dane ucznia'
@@ -75,8 +75,8 @@ const Submit = () => {
 
         <Grid.Column stretched width={12}>
           {renderComponent()}
-        </Grid.Column>
         <Nav activeItem={activeItem} setActiveItem={setActiveItem} />
+        </Grid.Column>
       </Grid>
     </Wrapper>
   );

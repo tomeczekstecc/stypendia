@@ -5,6 +5,7 @@ import SubALayout from '../subALayout';
 import AuthContext from '../../context/auth/authContext';
 import SubmitContext from '../../context/submit/submitContext';
 import { optionsAttachment } from '../../parts/options';
+import Nav from '../Nav';
 
 
 

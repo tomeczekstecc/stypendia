@@ -88,8 +88,9 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
           primary
           loading={isLoading}
           icon='save'
-          content='Zapisz zmiany'
+          content='Zapisz'
         />
+
         <Button
           className='nav-button submit'
           positive

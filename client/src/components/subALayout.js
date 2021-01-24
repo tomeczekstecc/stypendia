@@ -6,7 +6,7 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
-import { Wrapper } from '../pages/styles/submit.styles';
+
 import Title from './Title';
 
 const SubALayout = ({ children, leadHeader }) => {
@@ -14,7 +14,7 @@ const SubALayout = ({ children, leadHeader }) => {
     <>
       <Container>
         <Title content='Nowy wniosek' />
-        <Wrapper>
+
           <Segment placeholder size='large'>
 
             <Grid
@@ -27,7 +27,7 @@ const SubALayout = ({ children, leadHeader }) => {
               {children}
             </Grid>
           </Segment>
-        </Wrapper>
+
       </Container>
     </>
   );

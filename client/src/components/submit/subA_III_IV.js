@@ -26,13 +26,11 @@ const SubA_III_IV = () => {
     e.preventDefault();
 
     if (submitMode === 'edit') {
-      console.log('edit');
       await updateCurSubmit({
         ...curSubmit,
         [e.target.name]: e.target.value,
       });
     } else if (submitMode === 'new') {
-      console.log('new');
       await updateNewSubmit({
         ...newSubmit,
         [e.target.name]: e.target.value,

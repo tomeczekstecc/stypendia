@@ -14,7 +14,6 @@ mail template
 help modals
 
 
-disabled in wathmode
 useRollbar na frontendzie - może jak tylko 500?
 protecteed firlds - czy ma załączniki, czy ma wniosek+?
 xss?

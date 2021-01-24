@@ -2,7 +2,7 @@ import React, { createRef, useContext, useEffect, useState } from 'react';
 import { Button, Card, Icon, Image, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import {AuthContext,SubmitContext} from '../../context';
+import { AuthContext, SubmitContext, AlertContext } from '../../context';
 import { Wrapper } from '../styles/attachments.styles';
 
 import addedImg from '../../assets/img/wireframe.png';
@@ -11,8 +11,10 @@ import reportImg from '../../assets/img/reportCard.jpg';
 import SubALayout from '../subALayout';
 
 const Attachments = () => {
-    const authContext = useContext(AuthContext);
-    const { resetTimeLeft } = authContext;
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft } = authContext;
+  const alertContext = useContext(AlertContext);
+  const { addAlert } = alertContext;
 
   const submitContext = useContext(SubmitContext);
   const {
@@ -36,27 +38,27 @@ const Attachments = () => {
   const deleteFile = async (e, id) => {
     e.stopPropagation();
     const res = await axios.delete(`/api/v1/files/${id}`);
-     if (submitMode === 'edit') {
-       await updateCurSubmit({
-         ...curSubmit,
-         [`${res.data.type}Id`]: null,
-         [`${res.data.type}Checksum`]: null, //virtual
-         [`${res.data.type}CreatedAt`]:null, //virtual
-       });
-     } else if (submitMode === 'new') {
-       await updateNewSubmit({
-         ...newSubmit,
-         [`${res.data.type}Id`]: null,
-         [`${res.data.type}Checksum`]: null, //virtual
-         [`${res.data.type}CreatedAt`]: null, //virtual
-       });
-     }
-
+    if (submitMode === 'edit') {
+      await updateCurSubmit({
+        ...curSubmit,
+        [`${res.data.type}Id`]: null,
+        [`${res.data.type}Checksum`]: null, //virtual
+        [`${res.data.type}CreatedAt`]: null, //virtual
+      });
+    } else if (submitMode === 'new') {
+      await updateNewSubmit({
+        ...newSubmit,
+        [`${res.data.type}Id`]: null,
+        [`${res.data.type}Checksum`]: null, //virtual
+        [`${res.data.type}CreatedAt`]: null, //virtual
+      });
+    }
   };
 
   const callFetch = async (e, id) => {
     e.stopPropagation();
     const res = await axios.get(`/api/v1/files/info/${id}`);
+
     axios
       .get(`/api/v1/files/download/${id}`, {
         responseType: 'blob',
@@ -105,14 +107,14 @@ const Attachments = () => {
   };
 
   useEffect(() => {
-    resetTimeLeft()
+    resetTimeLeft();
     if (submitMode === 'new') {
       setCurDocument(newSubmit);
-      } else if (submitMode === 'edit') {
+    } else if (submitMode === 'edit') {
       setCurDocument(curSubmit);
-      } else if (submitMode === 'watch') {
+    } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
-      }
+    }
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
   return (
@@ -234,7 +236,6 @@ const Attachments = () => {
                       color='red'
                       icon
                       size='tiny'
-
                     >
                       <Icon name='trash' />
                     </Button>

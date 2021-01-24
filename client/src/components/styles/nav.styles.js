@@ -2,21 +2,21 @@ import styled from 'styled-components'
 
 
 export const Wrapper = styled.div`
+  position: absolute;
+  bottom: 110px;
+  right: 40px;
+  opacity: 0.9;
 
-    position: fixed;
-    bottom: 240px;
-    right: 40px;
-    opacity: .9;
+  .submit {
+    display: ${(props) => (props.mode === 'edit' ? 'none' : null)};
+  }
 
-.submit{
-  display: ${props=>props.mode==='edit' ? 'none' : null }
-}
-
-.save{
-  display: ${props=>props.mode==='new' ? 'none' : null }
-}
-.save, .submit{
-  display: ${props=>props.mode==='watch' ? 'none' : null }
-}
+  .save {
+    display: ${(props) => (props.mode === 'new' ? 'none' : null)};
+  }
+  .save,
+  .submit {
+    display: ${(props) => (props.mode === 'watch' ? 'none' : null)};
+  }
 
 `;

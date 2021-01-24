@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 3rem;
-
-  position: relative;
+margin-top:5%;
+.menu{
+  margin-top:6% !important;
+}
 
   .lead-header {
     position: absolute;
@@ -60,8 +59,9 @@ margin-top: 3rem;
     max-width: 25rem;
     margin-top: 27px;
   }
-  input, select {
-
-    cursor: ${(props) => (props.submitMode === 'watch' ? 'not-allowed': '')} !important;
+  input,
+  select {
+    cursor: ${(props) =>
+      props.submitMode === 'watch' ? 'not-allowed' : ''} !important;
   }
 `;

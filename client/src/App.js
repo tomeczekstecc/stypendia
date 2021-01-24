@@ -18,6 +18,7 @@ import ProtectedRoute from './pages/protectedRoute';
 import Submit from './pages/submit';
 import SubmitState from './context/submit/submitState';
 import AppState from './context/app/appState';
+import Page404 from './pages/404';
 
 axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
@@ -45,6 +46,7 @@ function App() {
                   <Route exact path='/login' component={Login} />
                   <ProtectedRoute exact path='/logout' component={Logout} />
                   <ProtectedRoute exact path='/submit' component={Submit} />
+                  <Route path = '*' component={Page404}/>
                 </Switch>
               </Layout>
             </SubmitState>

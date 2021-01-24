@@ -4,21 +4,9 @@ import SubALayout from '../subALayout';
 
 import AuthContext from '../../context/auth/authContext';
 import SubmitContext from '../../context/submit/submitContext';
+import { optionsAttachment } from '../../parts/options';
 
-const options = [
-  {
-    key: 's',
-    text: 'Wybierz status wnioskodawcy',
-    value: 'default',
-    disabled: true,
-  },
-  {
-    key: 'p',
-    text: 'Rodzic/Opiekun prawny',
-    value: 0,
-  },
-  { key: 'u', text: 'Pełnoletni uczeń', value: 1 },
-];
+
 
 const SubA_I_II = () => {
   const authContext = useContext(AuthContext);
@@ -129,7 +117,7 @@ const SubA_I_II = () => {
                 defaultValue='default'
                 onChange={(e) => handleOnChange(e)}
               >
-                {options.map((o) => (
+                {optionsAttachment.map((o) => (
                   <option disabled={o.disabled} key={o.key} value={o.value}>
                     {o.text}
                   </option>

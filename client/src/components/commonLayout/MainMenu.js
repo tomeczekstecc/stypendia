@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import {Wrapper} from '../styles/mainMenu.styles'
-import { leftMenuItems, rightMenuItems } from '../../items';
+import { leftMenuItems, rightMenuItems } from '../../parts/items';
 import AuthContext from '../../context/auth/authContext';
 
 

@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import path from 'path';
-import { msgDis500 } from '../constantas';
 import { Submit } from '../entity/Submit';
+import { msg } from '../parts/messages';
 import { generatePdf } from '../services/generatePdf';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
@@ -23,7 +23,7 @@ export const addSubmitPdf = async (req: any, res: Response) => {
 
     await generatePdf(data, 'submit');
     STATUS = 'success';
-    INFO = 'pomyślnie wygenerowano pdf';
+    INFO = msg.client.ok.pdfCreated;
 
     makeLog(
       req.session.userId,
@@ -37,17 +37,16 @@ export const addSubmitPdf = async (req: any, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msg: 'Pdf generate successfully',
-      alertTitle: 'Udana zmiana hasła',
+      alertTitle: 'Wygenerowano!',
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
-      alertTitle: 'Błąd',
+      alertTitle: 'Błąd!',
     });
   }
 };
@@ -72,7 +71,7 @@ export const fetchPdf = async (req: any, res: Response) => {
   try {
     res.sendFile(filePath + fileName, fileName, (err) => {
       STATUS = 'success';
-      INFO = 'Udało się pobrać pdf';
+      INFO = msg.client.ok.pdfFetched;
 
       makeLog(
         req.session.userId,
@@ -86,8 +85,7 @@ export const fetchPdf = async (req: any, res: Response) => {
       res.status(201).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Pdf downloaded successfully',
-        alertTitle: 'Udana próba pobrania pliku',
+        alertTitle: 'Pobrano!',
       });
 
       if (err) {
@@ -101,7 +99,7 @@ export const fetchPdf = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });

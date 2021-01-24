@@ -2,9 +2,10 @@ import { Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 
 import { SESSION_ABSOLUTE_TIMEOUT } from '../config';
-import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { makeLog } from '../services/makeLog';
+import { msg } from '../parts/messages';
+import { saveRollbar } from '../services/saveRollbar';
 
 const OBJECT = 'User';
 const CONTROLLER = 'auth';
@@ -68,11 +69,13 @@ export const guest = (req: any, res: Response, next: NextFunction) => {
       });
     }
   } catch (err) {
-    //TODO: logger
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      resStatus: 'error',
-      msgPL: msgDis500,
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
+      alertTitle: 'Błąd',
     });
   }
 

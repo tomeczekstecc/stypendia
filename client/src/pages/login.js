@@ -16,7 +16,7 @@ import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
 import AuthContext from '../context/auth/authContext';
-import { loginInputs } from '../inputs';
+import { loginInputs } from '../parts/inputs';
 
 const Login = ({ history }) => {
   const alertContext = useContext(AlertContext);
@@ -61,6 +61,7 @@ const Login = ({ history }) => {
           history.push(
             `/reset?id=${err.response.data.resetId}&token=${err.response.data.token}`
           );
+
           return;
         }
 

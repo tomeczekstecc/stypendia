@@ -1,13 +1,14 @@
 import { Response } from 'express';
 import { isEmail, isEmpty, validate } from 'class-validator';
+
 import { resetPassword } from '../middleware/auth';
 import { User } from '../entity/User';
 import { PasswordReset } from '../entity/PasswordReset';
 import { sendMail } from '../services/mail';
-import { msgDis500 } from '../constantas';
 import { makeLog } from '../services/makeLog';
 import { mapErrors } from '../utils/mapErrors';
 import { saveRollbar } from '../services/saveRollbar';
+import { msg } from '../parts/messages';
 
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -22,13 +23,13 @@ export const sendResetMail = async (req: any, res: Response) => {
     let errors: any = {};
 
     if (isEmpty(email) || !email)
-      errors.email = 'Musisz podać poprawny adres email';
+      errors.email = msg.client.fail.emailErr;
     if (isEmpty(login) || !login)
-      errors.login = 'Musisz podać poprawną nazwę użytkownika';
-    if (!isEmail(email)) errors.email = 'Musisz podać poprawny adres email';
+      errors.login = msg.client.fail.userErr;
+    if (!isEmail(email)) errors.email = msg.client.fail.emailErr;
 
     // ****************************** LOG *********************************//
-    INFO = 'Podany email nie jest w poprawnym formacie';
+    INFO =msg.client.fail.emailErr;
     STATUS = 'error';
     makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
@@ -39,12 +40,11 @@ export const sendResetMail = async (req: any, res: Response) => {
 
     if (!user) {
       STATUS = 'error'
-      INFO ='Nie udało się wysłać linka'
+      INFO = msg.client.fail.linkNoSend
 
       return res.status(401).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Couldnt send',
         alertTitle: 'Błąd',
       });
     }
@@ -58,12 +58,12 @@ export const sendResetMail = async (req: any, res: Response) => {
 
       await sendMail({
         to: email,
-        subject: 'Zresetuj hasło',
+        subject: msg.subjects.resetPass,
         text: reset.url(token),
       });
       // ****************************** LOG *********************************//
 
-      INFO = `Wysłano mail z linkiem do odzyskania hasła na adres: ${email}`;
+      INFO = msg.client.ok.linkSend + email;
       STATUS = 'success';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
@@ -76,16 +76,14 @@ export const sendResetMail = async (req: any, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msg: 'Reset mail send',
-      alertTitle: 'Wysłano link',
+        alertTitle: 'Poszło!',
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
-      msg: err.message,
+      msgPL: msg._500,
       alertTitle: 'Błąd',
     });
   }
@@ -116,7 +114,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
     if (!reset) {
 
       // ****************************** LOG *********************************//
-      INFO = 'Użyto niepoprawny token';
+      INFO = msg.client.fail.invalidToken;
       STATUS = 'error';
       makeLog(
         undefined,
@@ -131,7 +129,6 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       return res.status(400).json({
         resStatus: 'error',
         msgPL: INFO,
-        msg: 'Invalid token',
         alertTitle:'Błąd'
       });
     }
@@ -141,7 +138,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
 
     if (!user || !reset.isValid(token)) {
       // ****************************** LOG *********************************//
-      INFO = 'Być może link był już przestarzały. Ponownie resetuj hasło. Odpowiedni link znajdziesz na stronie logowania';
+      INFO = msg.client.fail.invalidToken;
       STATUS = 'error';
       makeLog(
         reset.userId,
@@ -156,8 +153,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Invalid token',
-        alertTitle: 'Nieudana zmiana hasła'
+        alertTitle: 'Błąd!'
       });
     }
 
@@ -178,7 +174,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       PasswordReset.delete({ userId: reset.userId }),
     ]);
     // ****************************** LOG *********************************//
-    INFO = 'zmieniono hasło';
+    INFO = msg.client.ok.passChange;
     STATUS = 'success';
     makeLog(
       reset.userId,
@@ -193,15 +189,14 @@ export const passwordReset = async ({ query, body }, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msg: 'Password has been changed',
-      alertTitle: 'Udana zmiana hasła',
+      alertTitle: 'Zmieniono!',
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });

@@ -1,10 +1,11 @@
 import { Response } from 'express';
-import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { validate } from 'class-validator';
 import { UserHistory } from '../entity/UserHistory';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
+import { msg } from '../parts/messages';
+import { Stats } from 'fs';
 
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -22,13 +23,15 @@ export const addUserHistory = async (req: any, res: Response) => {
     const user = await User.find({ uuid });
 
     let errors: any = {};
-    if (!user) errors.email = 'Nie znaleziono użytkownika';
+    if (!user) errors.email = msg.client.fail.noUser;
 
     if (Object.keys(errors).length > 0) {
+      STATUS = 'error';
+      INFO = msg.client.fail.unvalidated;
       return res.status(400).json({
-        status: 'fail',
-        msgPL: 'Niepoprawne dane rejestracji',
-        msg: 'Incorrect credentials',
+        resStatus: STATUS,
+        msgPL: INFO,
+
         errors,
       });
     }
@@ -43,9 +46,9 @@ export const addUserHistory = async (req: any, res: Response) => {
     errors = await validate(user);
 
     await userHistory.save();
-    
+
     STATUS = 'success';
-    INFO = 'Pomyślnie utworzono wpis historii użytkownika';
+    INFO = msg.client.ok.historyUserCreated;
 
     makeLog(
       req.session.userId,
@@ -57,16 +60,15 @@ export const addUserHistory = async (req: any, res: Response) => {
       STATUS
     );
     return res.status(201).json({
-      status: 'success',
-      msg: 'User created',
-      msgPL: 'Pomyślnie utworzono wpis historii użytkownika',
+      resStatus: STATUS,
+      msgPL: INFO,
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL:msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });

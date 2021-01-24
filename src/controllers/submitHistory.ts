@@ -1,11 +1,12 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { msgDis500 } from '../constantas';
+
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
 import { SubmitHistory } from '../entity/SubmitHistory';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
+import { msg } from '../parts/messages';
 
 const OBJECT = 'SubmitHistory';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -15,16 +16,15 @@ let ACTION, INFO, STATUS, CONTROLLER;
 //
 
 export const addSubmitHistory = async (req: any, res: Response) => {
-      CONTROLLER = 'addSubmitHistory';
-      ACTION = 'dodawanie';
+  CONTROLLER = 'addSubmitHistory';
+  ACTION = 'dodawanie';
   try {
     const user = await User.findOne({ id: req.session.userId });
     const submit = await Submit.findOne({ id: req.body.submitId });
 
-
     if (!user || !submit) {
-    // ****************************** LOG *********************************//
-      INFO = 'Nie znaleziono uzytkownika lub wniosku';
+      // ****************************** LOG *********************************//
+      INFO = msg.client.fail.noUserNoSubmit;
       STATUS = 'error';
 
       makeLog(
@@ -40,7 +40,6 @@ export const addSubmitHistory = async (req: any, res: Response) => {
 
       return res.status(400).json({
         status: STATUS,
-        msg: 'No such user or wni',
         msgPL: INFO,
       });
     }
@@ -55,7 +54,7 @@ export const addSubmitHistory = async (req: any, res: Response) => {
     const errors = await validate(submitHistory);
     if (errors.length > 0) {
       // ****************************** LOG *********************************//
-      INFO = 'Nie znaleziono uzytkownika lub wniosku';
+      INFO = msg.client.fail.noUserNoSubmit;
       STATUS = 'error';
 
       makeLog(
@@ -75,17 +74,15 @@ export const addSubmitHistory = async (req: any, res: Response) => {
 
     return res.status(201).json({
       stau: 'success',
-      msg: 'SubmitHistory created',
-      msgDis: 'Utworzono wpis w historii wniosku',
-      count: 1,
-      data: SubmitHistory,
+      msgDis: msg.client.ok.historyCreated,
+      data: submitHistory,
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -93,30 +90,28 @@ export const addSubmitHistory = async (req: any, res: Response) => {
 };
 
 //
-//get all post
+//get all submits
 //
 export const getAllSubmitsHistory = async (req: Request, res: Response) => {
   try {
-    //find posts,  include users data
-    const submits_history = await SubmitHistory.find({
+    const submitHistory = await SubmitHistory.find({
       relations: ['submits'],
     });
 
     return res.status(201).json({
       stau: 'success',
-      msg: 'History fetched',
-      msgDis: 'Pobrano wszystkie wpisy',
-      count: submits_history.length,
-      data: submits_history,
+      msgPL: msg.client.ok.historiesFethed,
+      count: submitHistory.length,
+      data: submitHistory,
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
-      alertTitle: 'Błąd',
+      alertTitle: 'Błąd!',
     });
   }
 };

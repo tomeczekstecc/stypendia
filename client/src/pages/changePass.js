@@ -14,7 +14,7 @@ import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
 import AuthContext from '../context/auth/authContext';
-import { changePassInputs } from '../inputs';
+import { changePassInputs } from '../parts/inputs';
 
 const ChangePass = ({ history }) => {
     const authContext = useContext(AuthContext);

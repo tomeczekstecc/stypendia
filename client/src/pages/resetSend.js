@@ -14,7 +14,7 @@ import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 import AppContext from '../context/app/appContext';
-import { resetReqInputs } from '../inputs';
+import { resetReqInputs } from '../parts/inputs';
 
 const ResetSend = ({ history }) => {
 

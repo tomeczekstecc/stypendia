@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import AlertContext from '../context/alert/alertContext';
-import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
+import { Button, Card,Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
 import AuthContext from '../context/auth/authContext';
 
@@ -32,7 +32,6 @@ const AllUsersDrafts = () => {
         }
       });
 
-    // console.log(submits);
   };
 
   useEffect(() => {

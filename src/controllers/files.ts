@@ -3,14 +3,15 @@ import crc from 'crc';
 import md5 from 'md5';
 import fs from 'fs';
 import path from 'path';
+
 import { FILE_MAX_SIZE } from '../config';
-import { msgDis500 } from '../constantas';
 import { File } from '../entity/File';
 import { User } from '../entity/User';
 // import { scanFile } from '../services/scanFile';
 import { mapFileBody } from '../utils/mapFileBody';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
+import { msg } from '../parts/messages';
 
 const OBJECT = 'Files';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -34,9 +35,9 @@ export const uploadFile = async (req: any, res: Response) => {
     if (!allowedTypes.includes(type)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
-      INFO = `Nieprawidłowty typ załącznika - dozwolone wartości to: ${allowedTypes.join(
-        ', '
-      )} `;
+      INFO =
+        msg.client.fail.wrongAttType +
+        ` - dozwolone wartości to: ${allowedTypes.join(', ')} `;
 
       makeLog(
         req.session.userId,
@@ -50,7 +51,7 @@ export const uploadFile = async (req: any, res: Response) => {
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Invalid attachment type',
+
         alertTitle: 'Błąd załącznika',
       });
     }
@@ -58,7 +59,7 @@ export const uploadFile = async (req: any, res: Response) => {
     if (req.file.size > +FILE_MAX_SIZE) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
-      INFO = `Nieprawidłowa wielkość pliku - plik nie może przekroczyć 20MB`;
+      INFO = msg.client.fail.attToBig;
       makeLog(
         req.session.userId,
         OBJECT,
@@ -71,7 +72,6 @@ export const uploadFile = async (req: any, res: Response) => {
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Invalid attachment type',
         alertTitle: 'Błąd załącznika',
       });
     }
@@ -106,7 +106,7 @@ export const uploadFile = async (req: any, res: Response) => {
       ],
     });
     STATUS = 'success';
-    INFO = 'Utworzono załącznik';
+    INFO = msg.client.fail.attCreated;
     makeLog(
       req.session.userId,
       OBJECT,
@@ -119,7 +119,6 @@ export const uploadFile = async (req: any, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msg: 'Attachment created',
       alertTitle: 'Utworzono załącznik',
       file: fileToShow,
     });
@@ -128,7 +127,7 @@ export const uploadFile = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -159,7 +158,7 @@ export const downloadFile = async (req: any, res: Response) => {
   try {
     res.sendFile(filePath, (err) => {
       STATUS = 'success';
-      INFO = 'Udało się pobrać plik';
+      INFO = msg.client.ok.fileFetched;
 
       makeLog(
         req.session.userId,
@@ -173,8 +172,7 @@ export const downloadFile = async (req: any, res: Response) => {
       res.status(201).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'File downloaded successfully',
-        alertTitle: 'Udana próba pobrania pliku',
+        alertTitle: 'Pobrano!',
       });
 
       if (err) {
@@ -188,7 +186,7 @@ export const downloadFile = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -209,7 +207,7 @@ export const getFileInfo = async (req: Request, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -243,7 +241,7 @@ export const deleteFile = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });

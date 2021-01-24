@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 
-import { msgDis500 } from '../constantas';
 import { Draft } from '../entity/Draft';
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
+import { msg } from '../parts/messages';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
-
 
 const OBJECT = 'Draft';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -24,17 +23,15 @@ export const addDraft = async (req: any, res: Response) => {
     const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
-      INFO = 'Nie znaleziono użytkownika';
+      INFO = msg.client.fail.noUser;
       STATUS = 'error';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(400).json({
         status: STATUS,
-        msg: 'No such user',
         msgPL: INFO,
       });
     }
-
 
     const draft = await Draft.create({
       ...req.body,
@@ -48,30 +45,27 @@ export const addDraft = async (req: any, res: Response) => {
       user,
     });
 
-
-
     await draft.save();
     // ****************************** LOG *********************************//
-    INFO = 'Pomyślnie utworzono wniosek roboczy';
+    INFO = msg.client.ok.draftSucceed;
     STATUS = 'success';
     makeLog(user.id, OBJECT, draft.id, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
 
     return res.status(201).json({
       resStaus: 'success',
-      msg: 'Submit created',
       msgPL: INFO,
       data: draft,
     });
   } catch (err) {
-   STATUS = 'error';
-   saveRollbar(CONTROLLER, err.message, STATUS);
-   return res.status(500).json({
-     resStatus: STATUS,
-     msgPL: msgDis500,
-     msg: err.message,
-     alertTitle: 'Błąd',
-   });
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL:msg._500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
   }
 };
 
@@ -90,41 +84,38 @@ export const editDraft = async (req: any, res: Response) => {
 
     if (!user) {
       // ****************************** LOG *********************************//
-      INFO = 'Nie znaleziono uzytkownika';
+      INFO = msg.client.fail.noUser;
       STATUS = 'error';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
 
       return res.status(400).json({
         status: STATUS,
-        msg: 'No such user',
         msgPL: INFO,
       });
     }
-
 
     const draft = await Submit.update(id, {
       ...req.body,
     });
     // ****************************** LOG *********************************//
-    INFO = 'Zaktualizowano wniosek';
+    INFO = msg.client.ok.subUpdated;
     STATUS = 'success';
     makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
 
     return res.status(201).json({
       staus: STATUS,
-      msg: INFO,
-      msgDis: 'Submit updated',
+      msgPL: INFO,
       data: draft,
     });
   } catch (err) {
-    // rollbar
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'error',
-      err,
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgPL: msgDis500,
     });
   }
 };
@@ -132,44 +123,66 @@ export const editDraft = async (req: any, res: Response) => {
 //
 //get all post
 //
-export const getAllDrafts = async (req: Request, res: Response) => {
+export const getAllDrafts = async (req: any, res: Response) => {
   try {
     //find posts,  include users data
     const drafts = await Draft.find({ relations: ['user'] });
-
+    INFO = msg.client.ok.draftsFetched;
+    STATUS = 'success';
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      undefined,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
+    //
     return res.status(201).json({
-      stau: 'success',
-      msg: 'Post fetched',
-      msgDis: 'Pobrano wszystkie wpisy',
+      resStatus: 'success',
+      msgPL: INFO,
       count: drafts.length,
       data: drafts,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgDis: msgDis500,
     });
   }
 };
-export const getAllUsersDrafts = async (req:any, res: Response) => {
+export const getAllUsersDrafts = async (req: any, res: Response) => {
   try {
-    //find posts,  include users data
-    const drafts = await Draft.find({where: {userId: req.session.userId}})
-
-
+    const drafts = await Draft.find({ where: { userId: req.session.userId } });
+    INFO = msg.client.ok.draftsFetched;
+    STATUS = 'success';
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      undefined,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
+    //
     return res.status(201).json({
       resStatus: 'success',
-      msgPl: 'Pobrano dane o draftach',
-      msg: 'Pobrano wszystkie drafty',
+      msgPL: INFO,
       count: drafts.length,
-       drafts,
+      drafts,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'error',
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgDis: msgDis500,
     });
   }
 };

@@ -2,34 +2,34 @@ import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 
 import { User } from '../entity/User';
-import { msgDis500 } from '../constantas';
 import { makeLog } from '../services/makeLog';
 import { validate } from 'class-validator';
 import { mapErrors } from '../utils/mapErrors';
 import { saveRollbar } from '../services/saveRollbar';
+import { msg } from '../parts/messages';
+
 
 const OBJECT = 'User';
-let ACTION, INFO, STATUS, CONTROLLER
+let ACTION, INFO, STATUS, CONTROLLER;
 
 export const changePass = async (req: any, res: Response) => {
-
   CONTROLLER = 'changePass';
   ACTION = 'zmiana hasła';
-  INFO = 'Nieudana próba zmiany hasła';
+  INFO = msg.client.fail.passChange;
   STATUS = 'error';
 
-  const { oldPassword, password,  passwordConfirm } = req.body;
+  const { oldPassword, password, passwordConfirm } = req.body;
 
   let errors: any = {};
 
   if (oldPassword === '' || oldPassword === undefined)
-    errors.oldPassword = 'Hasło nie może być puste';
+    errors.oldPassword = msg.client.fail.empty;
   if (password === '' || password === undefined)
-    errors.password = 'Hasło nie może być puste';
+    errors.password = msg.client.fail.empty;
   if (password === oldPassword)
-    errors.password = 'Obowiązujące i nowe hasło muszą się różnić';
+    errors.password = msg.client.fail.passMustDiff;
   if (passwordConfirm !== password)
-    errors.passwordConfirm = 'Hasła muszą być zgodne';
+    errors.passwordConfirm = msg.client.fail.passNoDiff;
 
   if (Object.keys(errors).length > 0) {
     makeLog(
@@ -51,6 +51,8 @@ export const changePass = async (req: any, res: Response) => {
     const passwordMatches = await bcrypt.compare(oldPassword, user.password);
 
     if (!passwordMatches) {
+      STATUS = 'error'
+      INFO = msg.client.fail.logInFailed
       makeLog(
         req.session.userId,
         OBJECT,
@@ -63,16 +65,11 @@ export const changePass = async (req: any, res: Response) => {
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Wrong credentials',
         alertTitle: 'Błąd',
       });
-
-
-
-
     }
 
-    user.password = password // temp to validate
+    user.password = password; // temp to validate
 
     errors = await validate(user);
 
@@ -81,30 +78,26 @@ export const changePass = async (req: any, res: Response) => {
       return res.status(400).json(mapErrors(errors));
     }
 
-
-
     user.password = await bcrypt.hash(password, 12);
 
     await user.save();
 
     STATUS = 'success';
-    INFO = 'Udało się zmnienić hasło';
+    INFO = msg.client.ok.passChange;
 
     makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msg: 'Pass change successfull',
       alertTitle: 'Udana zmiana hasła',
     });
   } catch (err) {
-    STATUS = 'error'
-    saveRollbar(CONTROLLER,err.message,STATUS);
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
-      msg: err.message,
-      alertTitle: 'Błąd',
+      msgPL: msg._500,
+      msg: err.message
     });
   }
 };

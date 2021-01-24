@@ -1,11 +1,7 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import dayjs from 'dayjs';
-// import xss from 'xss'
-// var Rollbar = require('rollbar');
-// var rollbar = new Rollbar('5058eec96086424b805ef3b96fb46d34');
 
-import { msgDis500 } from '../constantas';
 import { User } from '../entity/User';
 import { isEmpty, validate } from 'class-validator';
 import bcrypt from 'bcryptjs';
@@ -21,17 +17,18 @@ import {
 import { makeLog } from '../services/makeLog';
 import { PasswordReset } from '../entity/PasswordReset';
 import { saveRollbar } from '../services/saveRollbar';
+import { msg } from '../parts/messages';
+import { Stats } from 'fs';
 
 const OBJECT = 'User';
+let CONTROLLER, ACTION, INFO, STATUS;
 
 //
 //create a user
 //
 export const register = async (req, res: Response) => {
-  const CONTROLLER = 'register';
-  let ACTION = 'utworzenie';
-  let INFO = 'Email lub login już zajęte';
-  let STATUS = 'error';
+  CONTROLLER = 'register';
+  ACTION = 'utworzenie użytkownika';
 
   const {
     login,
@@ -40,7 +37,6 @@ export const register = async (req, res: Response) => {
     email,
     password,
     passwordConfirm,
-
   } = req.body;
 
   try {
@@ -48,10 +44,12 @@ export const register = async (req, res: Response) => {
     const loginUser = await User.find({ login });
 
     let errors: any = {};
-    if (emailUser.length > 0) errors.email = 'Ten email jest już zajęty';
-    if (loginUser.length > 0) errors.login = 'Ten login jest już zajęty';
+    if (emailUser.length > 0) errors.email = msg.client.fail.emailTaken;
+    if (loginUser.length > 0) errors.login = msg.client.fail.loginTaken;
     if (passwordConfirm !== password)
-      errors.passwordConfirm = 'Hasła muszą być zgodne';
+      errors.passwordConfirm = msg.client.fail.passNoDiff;
+    INFO = msg.client.fail.loginOrEmailTaken;
+    STATUS = 'error';
     if (Object.keys(errors).length > 0) {
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 
@@ -76,7 +74,7 @@ export const register = async (req, res: Response) => {
     }
     await user.save();
 
-    INFO = 'Utworzno użytkownika';
+    INFO = msg.client.ok.userCreated;
     STATUS = 'success';
 
     makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
@@ -96,8 +94,8 @@ export const register = async (req, res: Response) => {
 
     return res.status(201).json({
       resStatus: 'success',
-      msg: 'User created',
-      msgPL: `Pomyślnie utworzono użytkownika - wysłaliśmy specjalny link aktywacyjny na email ${user.email}`,
+      msgPL:
+        msg.client.ok.userCreated + '. ' + msg.client.ok.linkSend + user.email,
       alertTitle: 'Brawo! Użytkownik utworzony!',
       data: user,
     });
@@ -106,7 +104,7 @@ export const register = async (req, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -118,19 +116,19 @@ export const register = async (req, res: Response) => {
 //
 
 export const login = async (req: any, res: Response) => {
-  const CONTROLLER = 'login';
-  let ACTION = 'logowanie';
-  let STATUS = 'error';
-  let INFO;
+  CONTROLLER = 'login';
+  ACTION = 'logowanie';
+
   const { login, password } = req.body;
 
   try {
     let errors: any = {};
-    if (isEmpty(login)) errors.login = 'Nazwa użytkownika nie może być pusta';
-    if (isEmpty(password)) errors.password = 'Hasło nie może być puste';
+    if (isEmpty(login)) errors.login = msg.client.fail.empty;
+    if (isEmpty(password)) errors.password = msg.client.fail.empty;
 
     if (Object.keys(errors).length > 0) {
-      INFO = 'Email lub hasło nie mogą być puste';
+      STATUS = 'error';
+      INFO = msg.client.fail.empty;
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       return res.status(400).json(errors);
     }
@@ -138,28 +136,26 @@ export const login = async (req: any, res: Response) => {
     const user = await User.findOne({ login });
 
     if (!user || !user.verifiedAt) {
-      INFO =
-        'Wprowadzono niepoprawne dane lub użytkownik nie potwierdził konta';
+      STATUS = 'error';
+      INFO = msg.client.fail.wrongCreds;
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        msg: 'Wrong credentials',
         alertTitle: 'Błąd logowania',
       });
     }
 
     if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
-      INFO = 'Użytkownik nadal zablokowany';
+      STATUS = 'error';
+      INFO = msg.client.fail.stillBlocked;
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(401).json({
         resStatus: STATUS,
-        msgPL:
-          'Użytkownik jest zablokowany - spróbuj po za 20 minut. Jeżeli nie odzyskasz prawidłowego hasła - spróbuj je zresetować',
-        msg: 'User is blocked',
-        alertTitle: 'Blokada konta',
+        msgPL: msg.client.fail.blocked,
+        alertTitle: 'Blokada konta!',
       });
     } else if (
       user.isBlocked &&
@@ -175,53 +171,51 @@ export const login = async (req: any, res: Response) => {
 
     if (!passwordMathes) {
       user.failedLogins += 1;
+      STATUS = 'error';
       INFO = `Liczba niepoprawnych logowań: ${user.failedLogins} - wprowadzono niepoprawne dane - nieprawidłowe hasło`;
       await user.save();
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
       if (user.failedLogins === +FAILED_LOGINS_MAX - 1) {
         user.failedLogins += 1;
-
-        INFO =
-          'Kolejna nieudana próba zablokuje użytkownika i uniemożliwi dalsze logowania na 20 minut';
+        STATUS = 'error';
+        INFO = msg.client.fail.nextBlock;
         await user.save();
         makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
 
         return res.status(403).json({
           resStatus: 'error',
           msgPL: INFO,
-          msg: 'User blocked',
-          alertTitle: 'Niepoprawne logowanie',
+
+          alertTitle: 'Niepoprawne logowanie!',
         });
       }
 
       if (user.failedLogins >= +FAILED_LOGINS_MAX) {
         user.isBlocked = 1;
         user.blockedAt = new Date();
-        INFO = 'Zablokowano użytkownika';
+        STATUS = 'error';
+        INFO = msg.client.fail.blocked;
         await user.save();
         makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
         return res.status(403).json({
           resStatus: 'error',
           msgPL: INFO,
-          msg: 'User blocked',
           alertTitle: 'Błąd',
         });
       }
-      // rollbar.error(INFO);
+
       return res.status(400).json({
         resStatus: 'error',
-        msgPL:
-          'Wprowadzono niepoprawne dane logowania - sprawdź nazwę użytkownika lub hasło',
-        msg: 'Wrong credentials',
-        alertTitle: 'Niepoprawne logowanie',
+        msgPL: msg.client.fail.wrongCreds,
+        alertTitle: 'Niepoprawne logowanie!',
       });
     }
 
     if (
       dayjs(Date.now()).diff(dayjs(user.lastPassChangeAt)) > PASS_DAYS_VALID
     ) {
-      INFO = 'Od ostatniej zmiany hasła minęło 90 dni. Należy je zmienić';
+      INFO = msg.client.fail.forcedChangePass;
       STATUS = 'warning';
 
       await user.save();
@@ -237,7 +231,7 @@ export const login = async (req: any, res: Response) => {
         resStatus: STATUS,
         msgPL: INFO,
         msg: INFO,
-        alertTitle: 'Konieczna zmiana hasła',
+        alertTitle: 'Konieczna zmiana hasła!',
         forcePassChange: true,
         token,
         resetId: reset.id,
@@ -249,9 +243,8 @@ export const login = async (req: any, res: Response) => {
     await user.save();
     return res.status(200).json({
       resStatus: 'success',
-      msgPL: 'Pomyślnie zalogowano.',
-      msg: 'Successfully logged in',
-      alertTitle: 'Sukces',
+      msgPL: msg.client.ok.loggedIn,
+      alertTitle: 'Zalogowano!',
       csrf: req.session.XSRF_Token,
     });
   } catch (err) {
@@ -259,7 +252,7 @@ export const login = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -270,10 +263,8 @@ export const login = async (req: any, res: Response) => {
 //Logout
 //
 export const logout = async (req: any, res: Response) => {
-  const CONTROLLER = 'logout';
-  let ACTION = 'wylogowanie';
-  let INFO = 'Pomyślnie wylogowano użytkownika';
-  let STATUS = 'success';
+  CONTROLLER = 'logout';
+  ACTION = 'wylogowanie';
 
   try {
     makeLog(
@@ -292,10 +283,12 @@ export const logout = async (req: any, res: Response) => {
         res.clearCookie(SESSION_NAME);
 
         resolve();
+        INFO = msg.client.ok.loggedOut;
+        STATUS = 'success';
+
         res.status(200).json({
           resStatus: STATUS,
-          msgPL: 'Pomyślnie wylogowano użytkownika',
-          msg: 'Successfully logout',
+          msgPL: INFO,
           alertTitle: 'Wylogowano',
         });
       });
@@ -303,7 +296,7 @@ export const logout = async (req: any, res: Response) => {
   } catch (err) {
     return res.status(500).json({
       resStatus: 'error',
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -314,6 +307,8 @@ export const logout = async (req: any, res: Response) => {
 //me
 //
 export const me = async (req: any, res: Response) => {
+  CONTROLLER = 'me';
+  ACTION = 'pobieranie danych o użytkowniku';
   try {
     const user = await User.findOne({ id: req.session.userId });
     if (!user) throw new Error('Brak dostępu');
@@ -323,38 +318,41 @@ export const me = async (req: any, res: Response) => {
       user,
     });
   } catch (err) {
-    return res.json({
-      resStatus: 'error',
-      msgPL: 'Brak dostępu',
-      msg: 'Unauthenticated',
-      error: err.message,
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL: msg._500,
+      msg: err.message,
+      alertTitle: 'Błąd!',
     });
   }
 };
 
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
+// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Get all users
 //
 export const getAllUsers = async (req: Request, res: Response) => {
+  CONTROLLER = 'getAllUsers';
+  ACTION = 'pobieranie danych o użytkowniku';
   try {
-    // get users and include their posts
     const users = await User.find({ relations: ['submits'] });
+    INFO = msg.dev.usersFetched;
+    STATUS = 'success';
     return res.status(200).json({
-      status: 'success',
-      msg: 'Successfully fetched all users',
-      msgDis: 'Pomślnie pobrano dane użytkowników',
+      resStatus: 'success',
+      msgPL: INFO,
       count: users.length,
       data: users,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgPD: msgDis500,
+      alertTitle: 'Błąd!',
     });
   }
 };
@@ -363,32 +361,37 @@ export const getAllUsers = async (req: Request, res: Response) => {
 //Get one user
 //
 export const getOneUser = async (req: Request, res: Response) => {
+  CONTROLLER = 'getOneUser';
+  ACTION = 'pobieranie danych użytkownika';
+
   const { uuid } = req.params;
 
   try {
-    // get user and include it's posts
     const user = await User.findOne({ uuid }, { relations: ['submits'] });
 
     if (!user) {
+      STATUS = 'error';
+      INFO = msg.dev.noUser;
       return res.status(400).json({
-        status: 'fail',
-        msg: 'User not exist',
-        msgPL: 'Nie znaleziono użytkownika',
+        resStatus: STATUS,
+        msgPL: INFO,
       });
     }
-
+    STATUS = 'success';
+    INFO = msg.dev.userFetched;
     return res.status(200).json({
-      status: 'success',
-      msg: 'Successfully fetched all users',
-      msgDis: 'Pomślnie pobrano dane użytkowników',
-      count: 1,
+      resStatus: 'success',
+      msgPL: INFO,
       data: user,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd!',
     });
   }
 };
@@ -397,64 +400,85 @@ export const getOneUser = async (req: Request, res: Response) => {
 //update a user
 //
 export const updateUser = async (req: Request, res: Response) => {
+  CONTROLLER = 'updateUser';
+  ACTION = 'aktualizowanie użytkownika';
   const { uuid } = req.params;
   const { firstName, lastName } = req.body;
 
   try {
     const user = await User.findOne({ uuid });
 
+    if (!user) {
+      STATUS = 'error';
+      INFO = msg.dev.noUser;
+
+      return res.status(400).json({
+        resStatus: STATUS,
+        msg: INFO,
+      });
+    }
+
     user.firstName = firstName || user.firstName;
     user.lastName = lastName || user.lastName;
 
     await user.save();
-
+    STATUS = 'success';
+    INFO = msg.dev.userUpdated;
     return res.status(201).json({
-      status: 'success',
-      msg: 'User successfully updated',
-      msgDis: 'Pomyślnie zaktualizowano dane użytkownika',
-      count: 1,
+      resStatus: STATUS,
+      msgPL: INFO,
       data: user,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd!',
     });
   }
 };
 
 //
-//update a user
+//delete a user
 //
 export const deleteUser = async (req: Request, res: Response) => {
+  CONTROLLER = 'deleteUser';
+  ACTION = 'usuwianie użytkownika';
   const { uuid } = req.params;
 
   try {
     const user = await User.findOne({ uuid });
 
     if (!user) {
+      STATUS = 'error';
+      INFO = msg.dev.noUser;
       return res.status(400).json({
-        status: 'fail',
-        msg: 'User not exist',
+        resStatus: STATUS,
+        msg: INFO,
         msgDis: 'Nie znaleziono użytkownika',
       });
     }
 
     await user.remove();
+    STATUS = 'success';
+    INFO = msg.dev.userDeleted;
 
     return res.status(204).json({
-      status: 'success',
-      msg: 'User successfully deleted',
-      msgDis: 'Pomyślnie usunięto dane użytkownika',
-      count: 1,
+      resStatus: STATUS,
+      msg: INFO,
       data: user,
     });
   } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
-      status: 'fail',
+      resStatus: STATUS,
+      msgPL: msg._500,
       msg: err.message,
-      msgDis: msgDis500,
+      alertTitle: 'Błąd!',
     });
   }
 };

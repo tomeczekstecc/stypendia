@@ -16,7 +16,7 @@ import {
 import { Wrapper } from './styles/register.styles';
 import Rodo from '../components/Rodo';
 import Title from '../components/Title';
-import { registerInputs } from '../inputs';
+import { registerInputs } from '../parts/inputs';
 import AlertContext from '../context/alert/alertContext';
 import AppContext from '../context/app/appContext';
 

@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { validate } from 'class-validator';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
-import { msgDis500 } from '../constantas';
+
 import { Submit } from '../entity/Submit';
 import { User } from '../entity/User';
+import { msg } from '../parts/messages';
 import { generatePdf } from '../services/generatePdf';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
@@ -26,13 +26,12 @@ export const addSubmit = async (req: any, res: Response) => {
     const user = await User.findOne({ id: req.session.userId });
 
     if (!user) {
-      INFO = 'Nie znaleziono użytkownika';
+      INFO = msg.client.fail.noUser;
       STATUS = 'error';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
 
       return res.status(400).json({
         status: STATUS,
-        msg: 'No such user',
         msgPL: INFO,
       });
     }
@@ -40,9 +39,9 @@ export const addSubmit = async (req: any, res: Response) => {
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
 
     if (peselExists.length > 0) {
-      errors.pupilPesel = 'Ten PESEL został już wykorzystany';
+      errors.pupilPesel = msg.client.fail.peselExists;
       // ****************************** LOG *********************************//
-      INFO = 'Pod tym numerem pesel jest już utworzony wniosek';
+      INFO = msg.client.fail.peselExists;
       STATUS = 'error';
       makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
@@ -72,7 +71,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     if (errors.length > 0) {
       // ****************************** LOG *********************************//
-      INFO = 'Wprowadzone dane nie spełniły warunków walidacji';
+      INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
       makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
@@ -81,7 +80,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     await submit.save();
     // ****************************** LOG *********************************//
-    INFO = 'Pomyślnie utworzono wniosek';
+    INFO = msg.client.ok.subCreated;
     STATUS = 'success';
     makeLog(user.id, OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
@@ -93,17 +92,16 @@ export const addSubmit = async (req: any, res: Response) => {
 
     return res.status(201).json({
       resStatus: 'success',
-      msg: 'Submit created',
       msgPL: INFO,
       data: submit,
-      alertTitle: 'Utworzono',
+      alertTitle: 'Utworzono!',
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -124,14 +122,13 @@ export const editSubmit = async (req: any, res: Response) => {
 
     if (!user) {
       // ****************************** LOG *********************************//
-      INFO = 'Nie znaleziono uzytkownika';
+      INFO = msg.client.fail.noUser;
       STATUS = 'error';
       makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
 
       return res.status(400).json({
         status: STATUS,
-        msg: 'No such user',
         msgPL: INFO,
       });
     }
@@ -140,7 +137,7 @@ export const editSubmit = async (req: any, res: Response) => {
 
     if (errors.length > 0) {
       // ****************************** LOG *********************************//
-      INFO = 'Wprowadzone dane nie spełniły warunków walidacji';
+      INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
       makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
@@ -157,7 +154,7 @@ export const editSubmit = async (req: any, res: Response) => {
     // const updatedSubmit = await
 
     // ****************************** LOG *********************************//
-    INFO = 'Zaktualizowano wniosek';
+    INFO = msg.client.ok.subUpdated;
     STATUS = 'success';
     makeLog(user.id, OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS);
     // ********************************************************************//
@@ -168,16 +165,15 @@ export const editSubmit = async (req: any, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msgDis: 'Submit updated',
       data: submit,
-      alertTitle: 'Zaktualizowano',
+      alertTitle: 'Zaktualizowano!',
     });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -185,17 +181,16 @@ export const editSubmit = async (req: any, res: Response) => {
 };
 
 //
-//get all post
+//get all submits
 //
 export const getAllSubmits = async (req: any, res: Response) => {
   try {
-    //find posts,  include users data
+
     const submits = await Submit.find({ relations: ['user'] });
 
     return res.status(201).json({
-      stau: 'success',
-      msg: 'Post fetched',
-      msgDis: 'Pobrano wszystkie wpisy',
+      resStatus: 'success',
+      msgPL: msg.client.ok.subsFetched,
       count: submits.length,
       data: submits,
     });
@@ -204,9 +199,9 @@ export const getAllSubmits = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
-      alertTitle: 'Błąd',
+      alertTitle: 'Błąd!',
     });
   }
 };
@@ -221,8 +216,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
 
     return res.status(201).json({
       Status: 'success',
-      msgPL: 'Pobrano wszystkie wnioski użytkownika',
-      msg: 'Fetchd all submits',
+      msgPL: msg.client.ok.subsFetched,
       count: submits.length,
       submits,
     });
@@ -231,7 +225,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -246,7 +240,7 @@ export const getOneUserSubmit = async (req: any, res: Response) => {
 
     return res.status(201).json({
       resStatus: 'success',
-      msgPL: 'Pobrano wniosek',
+      msgPL: msg.client.ok.subFetched,
       msg: 'Fetched submit',
 
       submit,
@@ -256,9 +250,9 @@ export const getOneUserSubmit = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL: msgDis500,
+      msgPL: msg._500,
       msg: err.message,
-      alertTitle: 'Błąd',
+      alertTitle: 'Błąd!',
     });
   }
 };

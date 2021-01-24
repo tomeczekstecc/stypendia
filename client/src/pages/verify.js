@@ -4,7 +4,7 @@ import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 import AppContext from '../context/app/appContext';
 import { Link } from 'react-router-dom';
-import { verItems } from '../items';
+import { verItems } from '../parts/items';
 import {
   Button,
   Container,

@@ -14,7 +14,7 @@ import Title from '../components/Title';
 import AlertContext from '../context/alert/alertContext';
 import AuthContext from '../context/auth/authContext';
 import AppContext from '../context/app/appContext';
-import { resetInputs } from '../inputs';
+import { resetInputs } from '../parts/inputs';
 
 const Reset = ({ location, history }) => {
   const alertContext = useContext(AlertContext);

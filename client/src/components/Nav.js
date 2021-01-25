@@ -1,19 +1,24 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 
 import { useHistory } from 'react-router-dom';
-import {AlertContext, AppContext, AuthContext,SubmitContext} from '../context';
+import {
+  AlertContext,
+  AppContext,
+  AuthContext,
+  SubmitContext,
+} from '../context';
 import { Wrapper } from './styles/nav.styles';
 
 const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();
 
-    const authContext = useContext(AuthContext);
-    const {resetTimeLeft} = authContext;
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft } = authContext;
 
   const submitContext = useContext(SubmitContext);
-  const { newSubmit, submitMode, curSubmit } = submitContext;
+  const { newSubmit, submitMode, curSubmit, setSubmitErrors } = submitContext;
 
   const appContext = useContext(AppContext);
   const { setIsLoading, isLoading } = appContext;
@@ -21,9 +26,12 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
+  // const [errors, setErrors] = useState('');
+
   const addNewSubmit = async (submit) => {
-    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
+     setSubmitErrors('');
+    const csrfData = await axios.get('/api/v1/csrf');
     const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
     axios
       .post('/api/v1/submits', newSubmit)
@@ -37,8 +45,8 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
       .catch((err) => {
         if (err.response) {
           console.log(err.response.data);
-          addAlert(err.response.data);
-setIsLoading(false);
+          setSubmitErrors(err.response?.data);
+          setIsLoading(false);
           return;
         }
       });
@@ -46,6 +54,7 @@ setIsLoading(false);
 
   const updateSubmit = async (submit) => {
     setIsLoading(true);
+    setSubmitErrors('');
     const csrfData = await axios.get('/api/v1/csrf');
     const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
     axios
@@ -59,7 +68,8 @@ setIsLoading(false);
       })
       .catch((err) => {
         if (err.response) {
-          addAlert(err.response.data);
+          console.log(err.response.data);
+          setSubmitErrors(err.response?.data);
           setIsLoading(false);
 
           return;
@@ -68,7 +78,6 @@ setIsLoading(false);
   };
 
   useEffect(() => {
-
     resetTimeLeft();
   }, []);
 

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 
-import { SubA_I_II, SubA_III_IV, Attachments, Nav } from '../components';
+import { SubA_I_II, SubA_III_IV, Attachments, Nav, Errors } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
 
@@ -33,6 +33,7 @@ const Submit = () => {
 
   return (
     <Wrapper submitMode={submitMode}>
+      <Errors/>
       <Grid>
         <Grid.Column width={4}>
           <Menu fluid vertical tabular className='menu' >

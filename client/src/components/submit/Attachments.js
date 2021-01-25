@@ -1,5 +1,5 @@
 import React, { createRef, useContext, useEffect, useState } from 'react';
-import { Button, Card, Icon, Image, Message } from 'semantic-ui-react';
+import { Button, Card, Icon, Image, Label, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
@@ -14,7 +14,7 @@ const Attachments = () => {
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
   const alertContext = useContext(AlertContext);
-  const { addAlert } = alertContext;
+
 
   const submitContext = useContext(SubmitContext);
   const {
@@ -24,6 +24,7 @@ const Attachments = () => {
     curSubmit,
     updateCurSubmit,
     submitToWatch,
+    submitErrors,
   } = submitContext;
 
   const [curDocument, setCurDocument] = useState(null);
@@ -126,7 +127,6 @@ const Attachments = () => {
           ref={fileInputRef}
           onChange={uploadImage}
         />
-
         <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>
@@ -140,7 +140,6 @@ const Attachments = () => {
             ponownie we włąściwą część.
           </p>
         </Message>
-
         <Card.Group itemsPerRow={4} stackable>
           <Card className='card' onClick={() => openFileInput('statement')}>
             {curDocument &&
@@ -191,6 +190,11 @@ const Attachments = () => {
                   src={addedImg}
                 />
               ))}
+            {submitErrors?.statementId && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.statementId}
+              </Label>
+            )}
             <Card.Content>
               <Card.Header textAlign='left'>
                 Oświadczenie opiekuna dydaktycznego
@@ -265,6 +269,11 @@ const Attachments = () => {
                   src={addedImg}
                 />
               ))}
+            {submitErrors?.report_cardId && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.report_cardId}
+              </Label>
+            )}
             <Card.Content>
               <Card.Header textAlign='left'>
                 Świadectwo szkolne - ostatni rok szkolny
@@ -290,8 +299,8 @@ const Attachments = () => {
               <Card.Description textAlign='left'></Card.Description>
             </Card.Content>
           </Card>
-        </Card.Group>
-      </SubALayout>{' '}
+        </Card.Group>{' '}
+      </SubALayout>
     </Wrapper>
   );
 };

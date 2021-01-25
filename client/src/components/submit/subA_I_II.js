@@ -1,13 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import { Form, Grid, Header } from 'semantic-ui-react';
+import { Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
-import AuthContext from '../../context/auth/authContext';
-import SubmitContext from '../../context/submit/submitContext';
+import {AuthContext, SubmitContext }from '../../context';
 import { optionsAttachment } from '../../parts/options';
-import Nav from '../Nav';
-
-
 
 const SubA_I_II = () => {
   const authContext = useContext(AuthContext);
@@ -21,6 +17,7 @@ const SubA_I_II = () => {
     curSubmit,
     updateCurSubmit,
     submitToWatch,
+    submitErrors,
   } = submitContext;
 
   const handleOnChange = async (e) => {
@@ -92,6 +89,12 @@ const SubA_I_II = () => {
                   : submitToWatch?.phone) || ''
               }
             />
+            {submitErrors?.phone && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.phone}
+              </Label>
+            )}
+
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               className='input'
@@ -114,6 +117,7 @@ const SubA_I_II = () => {
                 Status Wnioskodawcy
               </Header>
               <select
+                onChange={(e) => handleOnChange(e)}
                 name='isSelf'
                 value={
                   (submitMode === 'edit'
@@ -122,7 +126,6 @@ const SubA_I_II = () => {
                     ? newSubmit?.isSelf
                     : submitToWatch?.isSelf) || 'default'
                 }
-                onChange={(e) => handleOnChange(e)}
               >
                 {optionsAttachment.map((o) => (
                   <option disabled={o.disabled} key={o.key} value={o.value}>
@@ -130,6 +133,11 @@ const SubA_I_II = () => {
                   </option>
                 ))}
               </select>
+              {submitErrors?.isSelf && (
+                <Label basic color='red' pointing='above' className='select'>
+                  {submitErrors?.isSelf}
+                </Label>
+              )}
             </div>
           </Form.Group>
         </Form>
@@ -156,6 +164,11 @@ const SubA_I_II = () => {
                   : submitToWatch?.pupilPesel) || ''
               }
             />
+            {submitErrors?.pupilPesel && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.pupilPesel}
+              </Label>
+            )}
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               className='input'
@@ -174,6 +187,12 @@ const SubA_I_II = () => {
                   : submitToWatch?.pupilFirstName) || ''
               }
             />
+            {submitErrors?.pupilFirstName && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.pupilFirstName}
+              </Label>
+            )}
+
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               icon='user'
@@ -192,6 +211,11 @@ const SubA_I_II = () => {
                   : submitToWatch?.pupilLastName) || ''
               }
             />
+            {submitErrors?.pupilLastName && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.pupilLastName}
+              </Label>
+            )}
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               icon='at'
@@ -229,6 +253,11 @@ const SubA_I_II = () => {
                   : submitToWatch?.pupilPhone) || ''
               }
             />
+            {submitErrors?.pupilPhone && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.pupilPhone}
+              </Label>
+            )}
           </Form.Group>
         </Form>
       </Grid.Column>

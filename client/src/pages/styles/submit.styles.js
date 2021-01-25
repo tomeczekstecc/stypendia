@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-margin-top:5%;
-.menu{
-  margin-top:6% !important;
-}
+  margin-top: 5%;
+  .menu {
+    margin-top: 6% !important;
+  }
 
   .lead-header {
     position: absolute;
@@ -63,5 +63,19 @@ margin-top:5%;
   select {
     cursor: ${(props) =>
       props.submitMode === 'watch' ? 'not-allowed' : ''} !important;
+  }
+  .small {
+    font-size: 0.9rem;
+    text-align: center;
+    /* margin-left:15% !important; */
+    transform: translateY(-35px);
+    color: red;
+  }
+  .select {
+    font-size: 0.8rem;
+    text-align: center;
+    /* margin-left:15% !important; */
+    transform: translateY(0);
+    color: red;
   }
 `;

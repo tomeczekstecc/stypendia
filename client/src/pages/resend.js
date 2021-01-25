@@ -33,6 +33,7 @@ const Resend = ({ history }) => {
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
+    setErrors('');
     e.preventDefault();
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');

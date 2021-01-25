@@ -1,13 +1,17 @@
 import {
   IsBoolean,
+  IsDefined,
   IsEmail,
   IsEnum,
   IsIn,
   IsInt,
+  IsNumber,
   Length,
   Matches,
   Max,
+  min,
   Min,
+  MinLength,
 } from 'class-validator';
 import {
   Entity,
@@ -68,13 +72,15 @@ export class Submit extends Model {
   //
   //I. dane osobowe
   //
+
+  @IsEnum(['0', '1'], { message: 'Należy wybrać status Wnioskodawcy' })
   @Column({
     type: 'enum',
+    enum: ['0', '1'],
     comment:
       '1:Status prawny Wnioskodawcy - Pełnoletni uczeń, 0:Status prawny Wnioskodawcy - Rodzic ucznia',
-    enum: [0, 1],
   })
-  isSelf: number;
+  isSelf: string;
 
   @Column({
     nullable: true,
@@ -138,7 +144,7 @@ export class Submit extends Model {
   schoolStreetNr: string;
 
   @Length(1, 254, {
-    message: 'Miejsccowość szkoły ucznia musi zawierać od 1 do 254 znaków',
+    message: 'Miejscowość szkoły ucznia musi zawierać od 1 do 254 znaków',
   })
   @Column({ comment: 'Miejscowość szkoły ucznia' })
   schoolTown: string;
@@ -184,7 +190,7 @@ export class Submit extends Model {
 
   @IsEnum(counselorProfileTypeEnums, {
     message:
-      'Prawidłowe profile opiekuna dydaktycznego ucznia: nauczyciel, pedagog, doradca ',
+      'Należy wybrać profil opiekuna dydaktycznego ucznia',
   })
   @Column({
     type: 'enum',
@@ -288,6 +294,7 @@ export class Submit extends Model {
   hash: string;
 
   //@TODO virtual
+  @IsDefined({ message: 'Należy dodać załącznik - oświadczenie' })
   @Column({ comment: 'ID załącznika - oświadczenia opiekuna ' })
   statementId: string;
   //@TODO virtual
@@ -297,6 +304,7 @@ export class Submit extends Model {
   @Column({ comment: 'Data utworzenia - oświadczenia opiekuna ' })
   statementCreatedAt: string;
   //@TODO virtual
+  @IsDefined({ message: 'Należy dodać załącznik - świadectwo' })
   @Column({ comment: 'ID załącznika - świadectwa' })
   report_cardId: string;
   //@TODO virtual

@@ -56,9 +56,12 @@ export const addSubmit = async (req: any, res: Response) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      pupilFirstName: req.body.pupilFirstName || user.firstName,
-      pupilLastName: req.body.pupilLastName || user.lastName,
-      pupilEmail: req.body.pupilEmail || user.email,
+      pupilFirstName:
+        (req.body.isSelf === '1' && user.firstName) || req.body.pupilFirstName,
+      pupilLastName:
+        (req.body.isSelf === '1' && user.lastName) || req.body.pupilLastName,
+      pupilEmail:
+        (req.body.isSelf === '1' && user.email) || req.body.pupilEmail,
 
       user,
     });
@@ -112,7 +115,6 @@ export const addSubmit = async (req: any, res: Response) => {
 export const editSubmit = async (req: any, res: Response) => {
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
-
   try {
     const user = await User.findOne({ id: req.session.userId });
 
@@ -128,7 +130,9 @@ export const editSubmit = async (req: any, res: Response) => {
         msgPL: INFO,
       });
     }
+
     const tempSubmit = await Submit.create({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
+
     const errors = await validate(tempSubmit);
 
     if (errors.length > 0) {
@@ -144,10 +148,15 @@ export const editSubmit = async (req: any, res: Response) => {
       { uuid: req.body.uuid },
       {
         ...req.body,
+        pupilFirstName:
+          (req.body.isSelf === '1' && user.firstName) ||
+          req.body.pupilFirstName,
+        pupilLastName:
+          (req.body.isSelf === '1' && user.lastName) || req.body.pupilLastName,
+        pupilEmail:
+          (req.body.isSelf === '1' && user.email) || req.body.pupilEmail,
       }
     );
-    //
-    // const updatedSubmit = await
 
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subUpdated;

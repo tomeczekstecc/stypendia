@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from 'react';
+import React, { useContext, useReducer} from 'react';
 
 import submitReducer from './submitReducer';
 import SubmitContext from './submitContext';
@@ -13,7 +13,9 @@ import {
   UPDATE_CUR_SUBMIT,
   SET_SUBMIT_TO_WATCH,
   SET_CUR_SUBMIT,
+  SET_SUBMIT_ERRORS,
 } from '../types';
+
 
 const SubmitState = (props) => {
   const alertContext = useContext(AlertContext);
@@ -29,59 +31,10 @@ const SubmitState = (props) => {
     submitMode: '',
     submitToWatch: {},
     curSubmit: {}, //submit being edited
+    submitErrors: null,
   };
 
-  // const addNewSubmit = (submit) => {
-  //   setIsLoading(true);
-  //   const headers = {
-  //     'Content-Type': 'application/json',
-  //   };
 
-  //   axios
-  //     .post('/api/v1/submits', submit, headers)
-  //     .then((data) => {
-  //       if (data.data.resStatus || data.data.resStatus === 'success') {
-  //         addAlert(data.data);
-  //       }
-  //       setIsLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       if (err.response) {
-  //         console.log(err.response.data);
-  //         addAlert(err.response.data);
-  //         setIsLoading(false);
-
-  //         return;
-  //       }
-  //     });
-  // };
-
-  // const updateSubmit = (submit) => {
-  //   setIsLoading(true);
-  //   const headers = {
-  //     'Content-Type': 'application/json',
-  //   };
-
-  //   axios
-  //     .put('/api/v1/submits', submit, headers)
-  //     .then( async(data) => {
-
-  //       if (data.data.resStatus || data.data.resStatus === 'success') {
-
-  //         addAlert(data.data);
-  //         setIsLoading(false);
-  //       }
-  //
-  //     })
-  //     .catch((err) => {
-  //       if (err.response) {
-  //         addAlert(err.response.data);
-  //         setIsLoading(false);
-  //
-  //         return;
-  //       }
-  //     });
-  // };
 
   const [state, dispatch] = useReducer(submitReducer, initialState);
 
@@ -93,6 +46,7 @@ const SubmitState = (props) => {
   };
 
   const updateCurSubmit = (curSubmit) => {
+
     dispatch({
       type: UPDATE_CUR_SUBMIT,
       payload: curSubmit,
@@ -110,6 +64,13 @@ const SubmitState = (props) => {
     await dispatch({
       type: SET_SUBMIT_ID,
       payload: id,
+    });
+  };
+
+  const setSubmitErrors = async (errors) => {
+    await dispatch({
+      type: SET_SUBMIT_ERRORS,
+      payload: errors,
     });
   };
 
@@ -142,6 +103,7 @@ const SubmitState = (props) => {
   };
 
   const setCurSubmit = (uuid) => {
+   
     setIsLoading(true);
     try {
       const headers = {
@@ -182,6 +144,8 @@ const SubmitState = (props) => {
         submitMode: state.submitMode,
         submitToWatch: state.submitToWatch,
         setSubmitToWatch,
+        submitErrors: state.submitErrors,
+        setSubmitErrors,
       }}
     >
       {props.children}

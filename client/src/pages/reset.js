@@ -34,8 +34,9 @@ const Reset = ({ location, history }) => {
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
-    e.preventDefault();
     setIsLoading(true);
+    setErrors('');
+    e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
     const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 

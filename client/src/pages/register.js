@@ -38,6 +38,7 @@ const Register = (props) => {
   }, []);
 
   const handleOnClick = async (e) => {
+    setErrors('');
     e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);

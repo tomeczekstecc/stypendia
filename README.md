@@ -26,6 +26,7 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
 
 # FIXES
+pupilFirstName, LastName - brak błedów w submit
 timer - reset styles aftet reactivation
 clear fields if parent aftre puplil
 undefined nie jest poprawnym adresem email

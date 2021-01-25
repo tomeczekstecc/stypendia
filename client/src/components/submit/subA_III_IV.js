@@ -1,12 +1,8 @@
-import React, { useContext, useEffect} from 'react';
-import { Form, Grid, Header, Segment } from 'semantic-ui-react';
+import React, { useContext, useEffect } from 'react';
+import { Form, Grid, Header, Label, Segment } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
-import {SubmitContext,AuthContext } from '../../context';
-import {
-  optionsVoyev,
-  optionsSchoolType,
-  optionsProfile,
-} from '../../parts';
+import { SubmitContext, AuthContext } from '../../context';
+import { optionsVoyev, optionsSchoolType, optionsProfile } from '../../parts';
 
 const SubA_III_IV = () => {
   const authContext = useContext(AuthContext);
@@ -20,6 +16,7 @@ const SubA_III_IV = () => {
     curSubmit,
     updateCurSubmit,
     submitToWatch,
+    submitErrors,
   } = submitContext;
 
   const handleOnChange = async (e) => {
@@ -67,6 +64,11 @@ const SubA_III_IV = () => {
               }
             />
 
+            {submitErrors?.schoolName && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.schoolName}
+              </Label>
+            )}
             <div className='select-wrapper'>
               <Header className='select-header' as='h5'>
                 Profil doradcy
@@ -81,15 +83,18 @@ const SubA_III_IV = () => {
                     ? newSubmit?.schoolType
                     : submitToWatch?.schoolType) || 'default'
                 }
-
-
               >
                 {optionsSchoolType.map((o) => (
                   <option disabled={o.disabled} key={o.key} value={o.value}>
                     {o.text}
                   </option>
                 ))}
-              </select>
+              </select>{' '}
+              {submitErrors?.schoolType && (
+                <Label basic color='red' pointing='above' className='select'>
+                  {submitErrors?.schoolType}
+                </Label>
+              )}
             </div>
 
             <div className='adress-wrapper'>
@@ -110,7 +115,11 @@ const SubA_III_IV = () => {
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
-
+                {submitErrors?.schoolStreetName && (
+                  <Label basic color='red' pointing='above' className='small'>
+                    {submitErrors?.schoolStreetName}
+                  </Label>
+                )}
                 <Form.Input
                   className='input'
                   // label='Adres szkoły (numer domu)'
@@ -127,11 +136,15 @@ const SubA_III_IV = () => {
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
+                {submitErrors?.schoolStreetNr && (
+                  <Label basic color='red' pointing='above' className='small'>
+                    {submitErrors?.schoolStreetNr}
+                  </Label>
+                )}
                 <Form.Input
                   className='input'
                   icon='zip'
                   iconPosition='left'
-                  // label='Adres szkoły (kod pocztowy)'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
                   value={
@@ -143,6 +156,11 @@ const SubA_III_IV = () => {
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
+                {submitErrors?.schoolZip && (
+                  <Label basic color='red' pointing='above' className='small'>
+                    {submitErrors?.schoolZip}
+                  </Label>
+                )}
                 <Form.Input
                   className='input'
                   icon='zip'
@@ -159,6 +177,11 @@ const SubA_III_IV = () => {
                   }
                   onChange={(e) => handleOnChange(e)}
                 />
+                {submitErrors?.schoolTown && (
+                  <Label basic color='red' pointing='above' className='small'>
+                    {submitErrors?.schoolTown}
+                  </Label>
+                )}
                 <div className='select-wrapper'>
                   <select
                     name='schoolVoyev'
@@ -170,13 +193,23 @@ const SubA_III_IV = () => {
                         ? newSubmit?.schoolVoyev
                         : submitToWatch?.schoolVoyev) || 'default'
                     }
-                         >
+                  >
                     {optionsVoyev.map((o) => (
                       <option disabled={o.disabled} key={o.key} value={o.value}>
                         {o.text}
                       </option>
                     ))}
                   </select>
+                  {submitErrors?.schoolVoyev && (
+                    <Label
+                      basic
+                      color='red'
+                      pointing='above'
+                      className='select'
+                    >
+                      {submitErrors?.schoolVoyev}
+                    </Label>
+                  )}
                 </div>
               </Segment>
             </div>
@@ -205,6 +238,11 @@ const SubA_III_IV = () => {
               }
               onChange={(e) => handleOnChange(e)}
             />
+            {submitErrors?.counselorFirstName && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.counselorFirstName}
+              </Label>
+            )}
             <Form.Input
               icon='user'
               iconPosition='left'
@@ -221,7 +259,11 @@ const SubA_III_IV = () => {
               }
               onChange={(e) => handleOnChange(e)}
             />
-
+            {submitErrors?.counselorLastName && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.counselorLastName}
+              </Label>
+            )}
             <div className='select-wrapper'>
               <Header className='select-header' as='h5'>
                 Profil doradcy
@@ -237,7 +279,6 @@ const SubA_III_IV = () => {
                     ? newSubmit?.counselorProfile
                     : submitToWatch?.counselorProfile) || 'default'
                 }
-
               >
                 {optionsProfile.map((o) => (
                   <option disabled={o.disabled} key={o.key} value={o.value}>
@@ -245,6 +286,11 @@ const SubA_III_IV = () => {
                   </option>
                 ))}
               </select>
+              {submitErrors?.counselorProfile && (
+                <Label basic color='red' pointing='above' className='select'>
+                  {submitErrors?.counselorProfile}
+                </Label>
+              )}
             </div>
           </Form.Group>
         </Form>

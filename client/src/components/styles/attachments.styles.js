@@ -47,4 +47,12 @@ export const Wrapper = styled.div`
     display: ${(props) =>
       props.submitMode !== 'new' ? 'none' : null} !important;
   }
+
+  .small {
+    font-size: 0.9rem;
+    text-align: center;
+    /* margin-left:15% !important; */
+margin-bottom: -40px;
+    color: red;
+  }
 `;

@@ -32,12 +32,10 @@ const ChangePass = ({ history }) => {
     const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
     const newBody = { ...body, _csrf: csrfData.data.csrfToken };
-    const headers = {
-      'Content-Type': 'application/json',
-    };
+
 
     axios
-      .post(`/api/v1/changepass`, newBody, headers)
+      .post(`/api/v1/changepass`, newBody)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

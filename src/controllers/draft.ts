@@ -151,6 +151,7 @@ export const getAllDrafts = async (req: any, res: Response) => {
     });
   }
 };
+
 export const getAllUsersDrafts = async (req: any, res: Response) => {
   CONTROLLER = 'getAllUsersDrafts';
   ACTION = 'pobieranie danych draftów'
@@ -172,7 +173,7 @@ export const getAllUsersDrafts = async (req: any, res: Response) => {
       resStatus: 'success',
       msgPL: INFO,
       count: drafts.length,
-      drafts,
+      data:drafts,
     });
   } catch (err) {
     STATUS = 'error';

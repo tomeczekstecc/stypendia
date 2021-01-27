@@ -28,6 +28,7 @@ export const uploadFile = async (req: any, res: Response) => {
   ACTION = 'dodawanie pliku';
   const { type } = req.body;
   const allowedTypes = ['statement', 'report_card'];
+  const allowedMime = ['image/jpeg', 'image/png', 'application/pdf'];
 
   try {
     if (!allowedTypes.includes(type)) {
@@ -46,15 +47,35 @@ export const uploadFile = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
-      return res.status(400).json({
+      return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
 
         alertTitle: 'Błąd załącznika',
       });
     }
+    if (!allowedMime.includes(req.file.mimetype)) {
+      fs.unlinkSync(req.file.path);
+      STATUS = 'error';
+      INFO = msg.client.fail.mime
 
-    if (req.file.size > +FILE_MAX_SIZE) {
+      makeLog(
+        req.session.userId,
+        OBJECT,
+        undefined,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
+      return res.status(200).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd załącznika',
+      });
+    }
+
+    if (req.file?.size > +FILE_MAX_SIZE) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO = msg.client.fail.attToBig;
@@ -67,7 +88,7 @@ export const uploadFile = async (req: any, res: Response) => {
         INFO,
         STATUS
       );
-      return res.status(400).json({
+      return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
         alertTitle: 'Błąd załącznika',
@@ -101,6 +122,7 @@ export const uploadFile = async (req: any, res: Response) => {
         'checksum',
         'path',
         'fileName',
+        'size'
       ],
     });
     STATUS = 'success';

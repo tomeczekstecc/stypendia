@@ -37,8 +37,8 @@ export const msg = {
       confirmToolate:
         'Nie możemy już potwierdzić konta - ponownie wyślij emaila weryfikującego konto',
       alreadyConfirmed: 'Użytkownik był już potwierdzony',
-      noFile: 'Niestety nie udało się znalźć pliku'
-
+      noFile: 'Niestety nie udało się znalźć pliku',
+      mime: 'Niedozwolony typ pliku. Dozwolone pliki: .JPG, .PNG, .PDF',
     },
     ok: {
       passChange: 'Udało się zmienić hasło',
@@ -59,7 +59,7 @@ export const msg = {
       userCreated: 'Pomyślnie utworzono użytkownika',
       loggedIn: 'Pomyślnie zalogowano użytkownika',
       loggedOut: 'Pomyślnie wylogowano użytkownika',
-      confirmed: 'Udało się potwierdzić konto'
+      confirmed: 'Udało się potwierdzić konto',
     },
   },
   subjects: {
@@ -72,6 +72,7 @@ export const msg = {
     userUpdated: 'Pomyślnie zaktualizowano dane użytkownika',
     userDeleted: 'Pomyślnie usunięto użytkownika',
     passNoMatch: ' - admin msg: niepasujace hasła.',
-    unoUserOrUserNotVer: ' - admin msg: użytkownik nie istnieje, lub konto niejest potwierdzone.'
+    unoUserOrUserNotVer:
+      ' - admin msg: użytkownik nie istnieje, lub konto niejest potwierdzone.',
   },
 };

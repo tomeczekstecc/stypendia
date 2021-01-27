@@ -8,7 +8,7 @@ export const {
   APP_SECRET,
   CLIENT_URI = 'http://localhost:3000',
   FAILED_LOGINS_MAX = 5,
-  FILE_MAX_SIZE = ONE_MB * 20
+  FILE_MAX_SIZE = ONE_MB * 2
 } = process.env;
 
 export const APP_ORIGIN = `${APP_PROTOCOL}://${APP_HOSTNAME}:${APP_PORT}`;

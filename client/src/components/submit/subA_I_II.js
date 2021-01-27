@@ -235,7 +235,11 @@ const SubA_I_II = () => {
                   : submitToWatch?.pupilEmail) || ''
               }
             />
-
+            {submitErrors?.pupilEmail && (
+              <Label basic color='red' pointing='above' className='small'>
+                {submitErrors?.pupilEmail}
+              </Label>
+            )}
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               className='input'

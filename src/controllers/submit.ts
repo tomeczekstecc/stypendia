@@ -220,7 +220,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
       Status: 'success',
       msgPL: msg.client.ok.subsFetched,
       count: submits.length,
-      submits,
+      data:submits,
     });
   } catch (err) {
     STATUS = 'error';

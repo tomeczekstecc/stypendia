@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import {SubmitContext, AlertContext ,AuthContext ,AppContext} from '../context';
+import React, { useContext, useEffect } from 'react';
+import { SubmitContext, AuthContext, AppContext } from '../context';
 import { Link } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
+import useFetch from '../hooks/useFetch';
+import { fetchPdf } from '../services';
 
 const AllUsersSubmits = () => {
-    const authContext = useContext(AuthContext);
-    const { resetTimeLeft } = authContext;
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft } = authContext;
 
   const appContext = useContext(AppContext);
-  const { setIsLoading, isLoading } = appContext;
-
-  const alertContext = useContext(AlertContext);
-  const { addAlert } = alertContext;
+  const { isLoading } = appContext;
 
   const submitContext = useContext(SubmitContext);
   const {
@@ -23,7 +21,7 @@ const AllUsersSubmits = () => {
     setSubmitToWatch,
   } = submitContext;
 
-  const [submits, setSubmits] = useState([]);
+  const { data } = useFetch('submits/usersubmits');
 
   const handleOnClick = (uuid, mode) => {
     setSubmitMode(mode);
@@ -36,49 +34,15 @@ const AllUsersSubmits = () => {
     }
   };
 
-  const setAllUsersSubmits = () => {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-
-    axios
-      .get('/api/v1/submits/usersubmits', headers)
-      .then((data) => setSubmits(data.data.submits))
-      .catch((err) => {
-     
-        if (err.response.data) {
-          addAlert(err.response.data);
-          return;
-        }
-      });
-  };
-
-  const callFetch = (numer) => {
-    axios
-      .get(`/api/v1/pdf/submit/${numer}`, {
-        responseType: 'blob',
-      })
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', `${numer}.pdf`); //or any other extension
-        document.body.appendChild(link);
-        link.click();
-      });
-  };
-
   useEffect(() => {
-    setAllUsersSubmits();
-    setIsLoading(false);
-    resetTimeLeft()
-  }, []);
+    resetTimeLeft();
+  }, [data]);
 
   return !isLoading ? (
     <>
       <Card.Group itemsPerRow={5} stackable className='cards'>
-        {submits.length > 0 ? (
-          submits.map((s) => (
+        {data.length > 0 ? (
+          data.map((s) => (
             <Card key={s.id} className='card' raised>
               <Card.Content className='relative' textAlign='left'>
                 <Label
@@ -116,7 +80,7 @@ const AllUsersSubmits = () => {
                       Popraw
                     </Button>
                   </Link>
-                  <Button basic color='blue' onClick={() => callFetch(s.numer)}>
+                  <Button basic color='blue' onClick={() => fetchPdf(s.numer)}>
                     <Icon name='download' />
                     <strong> PDF</strong>
                   </Button>
@@ -126,14 +90,13 @@ const AllUsersSubmits = () => {
           ))
         ) : (
           <>
-
             <NewCallToAction />
           </>
         )}
       </Card.Group>
     </>
   ) : (
-    <h2>Loading</h2>
+    <h2>Pobieramy dane...</h2>
   );
 };
 

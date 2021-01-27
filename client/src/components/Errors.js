@@ -8,13 +8,15 @@ const Errors = () => {
   const submitContext = useContext(SubmitContext);
   const { submitErrors } = submitContext;
 
-
   const [open, setOpen] = useState(!!submitErrors);
   useEffect(() => {
     setOpen(!!submitErrors);
   }, [submitErrors]);
 
   const mapped = mapErrors(submitErrors);
+  const content =
+    submitErrors &&
+    `W formularzu należy poprawić błędnie wprowadzone dane. Liczba błędów: ${mapped.length}`;
 
   return (
     <Wrapper>
@@ -26,20 +28,17 @@ const Errors = () => {
       >
         <Header icon='exclamation circle' content='Wykryto niepoprawne dane' />
         <Modal.Content>
-          <Header
-            size='small'
-            content='W formularzu należy poprawić błędnie wprowadzone dane:'
-          />
+          <Header size='small' content={content} />
           {/* <strong>Dane ucznia:</strong> */}
           <div>
             {mapped &&
-              mapped.map((e) => (
+              mapped.map((e, i) => (
                 <div
                   className='error'
                   style={{ color: 'red', fontWeight: 'bold' }}
                   key={e}
                 >
-                  {e}
+                  {i + 1 + '. '} {e}
                 </div>
               ))}
           </div>

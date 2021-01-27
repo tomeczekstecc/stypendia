@@ -1,47 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { Button, Card,Image, Label } from 'semantic-ui-react';
+import React, { useContext, useEffect } from 'react';
+
+import { Button, Card, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
-import {AuthContext,AlertContext }from '../context';
+import { AuthContext, AppContext } from '../context';
+import useFetch from '../hooks/useFetch';
 
 const AllUsersDrafts = () => {
-  const alertContext = useContext(AlertContext);
-  const { addAlert } = alertContext;
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft } = authContext;
 
-      const authContext = useContext(AuthContext);
-      const { resetTimeLeft } = authContext;
+  const appContext = useContext(AppContext);
+  const { isLoading } = appContext;
 
-  const [drafts, setDrafts] = useState([]);
-
-  const setAllUsersDrafts = () => {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-
-    axios
-      .get('/api/v1/drafts/oneuser', headers)
-      .then((data) => {
-        setDrafts(data.data.drafts);
-      })
-      .catch((err) => {
-        if (err.response.data) {
-          addAlert(err.response.data);
-          return;
-        }
-      });
-
-  };
+  const { data } = useFetch('drafts/oneuser');
 
   useEffect(() => {
-    setAllUsersDrafts();
-    resetTimeLeft()
+    resetTimeLeft();
   }, []);
 
-  return (
+  return !isLoading ? (
     <>
       <Card.Group itemsPerRow={5} stackable className='cards'>
-        {drafts.length > 0 ? (
-          drafts.map((s) => (
+        {data.length > 0 ? (
+          data.map((s) => (
             <Card key={s.id} className='card' raised>
               <Card.Content textAlign='left'>
                 <Label
@@ -77,6 +58,8 @@ const AllUsersDrafts = () => {
         )}
       </Card.Group>
     </>
+  ) : (
+    <h2>Pobieramy dane...</h2>
   );
 };
 

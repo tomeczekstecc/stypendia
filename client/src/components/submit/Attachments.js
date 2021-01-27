@@ -15,6 +15,7 @@ const Attachments = () => {
   const { resetTimeLeft } = authContext;
   const alertContext = useContext(AlertContext);
 
+  const { addAlert } = alertContext;
 
   const submitContext = useContext(SubmitContext);
   const {
@@ -39,6 +40,7 @@ const Attachments = () => {
   const deleteFile = async (e, id) => {
     e.stopPropagation();
     const res = await axios.delete(`/api/v1/files/${id}`);
+    addAlert(res.data);
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
@@ -65,12 +67,17 @@ const Attachments = () => {
         responseType: 'blob',
       })
       .then((response) => {
+
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
         link.setAttribute('download', res.data.file.fileName); //or any other extension
         document.body.appendChild(link);
         link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+        addAlert(err.response.data);
       });
   };
 
@@ -81,11 +88,9 @@ const Attachments = () => {
     formData.append('type', fileInputRef.current.name);
 
     try {
-      const headers = {
-        'Content-Type': 'multipart/form-data',
-      };
+      const res = await axios.post('/api/v1/files/upload', formData);
 
-      const res = await axios.post('/api/v1/files/upload', formData, headers);
+      res.data.resStatus !== 'success' && addAlert(res.data);
 
       if (submitMode === 'edit') {
         await updateCurSubmit({
@@ -269,13 +274,14 @@ const Attachments = () => {
                   src={addedImg}
                 />
               ))}
-            {submitErrors?.report_cardId && (
-              <Label basic color='red' pointing='above' className='small'>
-                {submitErrors?.report_cardId}
-              </Label>
-            )}
+
             <Card.Content>
               <Card.Header textAlign='left'>
+                {submitErrors?.report_cardId && (
+                  <Label basic color='red' pointing='above' className='small'>
+                    {submitErrors?.report_cardId}
+                  </Label>
+                )}
                 Świadectwo szkolne - ostatni rok szkolny
               </Card.Header>
               <Card.Meta textAlign='left'>

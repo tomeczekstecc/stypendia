@@ -6,7 +6,6 @@ tmp/
 temp/
 /**/*.env
 /data
-/logs
-/pdfs
-/uploads
-/files
+/logs/**
+pdfs/submit/**
+files/**

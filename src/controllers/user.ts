@@ -3,7 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { isEmpty, validate } from 'class-validator';
 
-import { User,PasswordReset } from '../entity';
+import { User, PasswordReset, Submit, File, Draft } from '../entity';
 import bcrypt from 'bcryptjs';
 import { logIn } from '../middleware/auth';
 import { mapErrors } from '../utils';
@@ -17,7 +17,7 @@ import {
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
-
+import { LessThan } from 'typeorm';
 const OBJECT = 'User';
 let CONTROLLER, ACTION, INFO, STATUS;
 
@@ -153,6 +153,26 @@ export const login = async (req: any, res: Response) => {
       });
     }
 
+    if (user.isRemoved === 1 || user.isBlocked === 1 || user.isBanned === 1) {
+      STATUS = 'error';
+      INFO = msg.client.fail.wrongCreds;
+      makeLog(
+        user.id,
+        OBJECT,
+        user.id,
+        ACTION,
+        CONTROLLER,
+        INFO + msg.dev.userRemovedOrBanned,
+        STATUS
+      );
+
+      return res.status(400).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd logowania',
+      });
+    }
+
     if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
       STATUS = 'error';
       INFO = msg.client.fail.stillBlocked;
@@ -251,7 +271,7 @@ export const login = async (req: any, res: Response) => {
       resStatus: 'success',
       msgPL: msg.client.ok.loggedIn,
       alertTitle: 'Zalogowano!',
-      csrf: req.session.XSRF_Token,
+      // csrf: req.session.XSRF_Token,
     });
   } catch (err) {
     STATUS = 'error';
@@ -271,8 +291,8 @@ export const login = async (req: any, res: Response) => {
 export const logout = async (req: any, res: Response) => {
   CONTROLLER = 'logout';
   ACTION = 'wylogowanie';
-  STATUS= 'success'
-  INFO = msg.client.ok.loggedOut
+  STATUS = 'success';
+  INFO = msg.client.ok.loggedOut;
 
   try {
     makeLog(
@@ -320,19 +340,24 @@ export const me = async (req: any, res: Response) => {
   CONTROLLER = 'me';
   ACTION = 'pobieranie danych o użytkowniku';
   try {
-    const user = await User.findOne({ id: req.session.userId });
+    const user = await User.findOne({
+      where: { id: req.session.userId },
+      relations: ['submits'],
+    });
     if (!user) {
       STATUS = 'info';
       INFO = msg.client.fail.noUser;
       return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
-       });
+      });
     }
+
     return res.status(200).json({
       resStatus: 'success',
       msgPL: 'jest zalogowana/y',
       user,
+      submitsCount: user.submitsCount,
     });
   } catch (err) {
     STATUS = 'error';
@@ -461,32 +486,77 @@ export const updateUser = async (req: Request, res: Response) => {
 //
 //delete a user
 //
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: any, res: Response) => {
   CONTROLLER = 'deleteUser';
-  ACTION = 'usuwianie użytkownika';
+  ACTION = 'usuwanie użytkownika';
   const { uuid } = req.params;
 
   try {
-    const user = await User.findOne({ uuid });
+    const user = await User.findOne({
+      where: { uuid },
+      relations: ['submits'],
+    });
 
     if (!user) {
       STATUS = 'error';
       INFO = msg.dev.noUser;
+      makeLog(
+        req.session.userId,
+        OBJECT,
+        req.session.userId,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS
+      );
+
       return res.status(400).json({
         resStatus: STATUS,
         msg: INFO,
-        msgDis: 'Nie znaleziono użytkownika',
       });
     }
 
-    await user.remove();
+    if (user.activeSubmitsCount > 0) {
+      STATUS = 'warning';
+      INFO = msg.client.fail.delUser;
+
+      makeLog(
+        req.session.userId,
+        OBJECT,
+        req.session.userId,
+        ACTION,
+        CONTROLLER,
+        INFO + msg.dev.delUser + user.activeSubmitsCount,
+        STATUS
+      );
+
+      return res.status(400).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Aktywne wnioski!',
+      });
+    }
+
+    await PasswordReset.delete({ userId: user.id });
+    await Draft.delete({ userId: user.id });
+    await Submit.delete({ userId: user.id, status: LessThan(1) });
+
+    user.isRemoved = 1;
+    await user.save();
     STATUS = 'success';
     INFO = msg.dev.userDeleted;
-
-    return res.status(204).json({
+    makeLog(
+      req.session.userId,
+      OBJECT,
+      req.session.userId,
+      ACTION,
+      CONTROLLER,
+      INFO,
+      STATUS
+    );
+    return res.status(201).json({
       resStatus: STATUS,
       msg: INFO,
-      data: user,
     });
   } catch (err) {
     STATUS = 'error';

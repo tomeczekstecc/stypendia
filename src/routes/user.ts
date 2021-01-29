@@ -20,7 +20,7 @@ router.route('/logout').get(auth, logout); // login
 router.route('/me').get(csrfProtection, me); // login
 // router.route('/').get(getAllUsers); // get all user
 router.route('/:uuid').get(csrfProtection, auth, getOneUser); // get a user
-router.route('/:uuid').put(csrfProtection, auth, updateUser); // update a user
-router.route('/:uuid').delete(csrfProtection, auth, deleteUser); // delete a user
+router.route('/:uuid').put(csrfProtection, auth, deleteUser); // update a user
+// router.route('/:uuid').delete(csrfProtection, auth, deleteUser); // delete a user
 
 export default router;

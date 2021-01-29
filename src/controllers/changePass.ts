@@ -2,11 +2,10 @@ import { Response } from 'express';
 import bcrypt from 'bcryptjs';
 
 import { User } from '../entity';
-import { makeLog,saveRollbar } from '../services';
+import { makeLog, saveRollbar } from '../services';
 import { validate } from 'class-validator';
 import { mapErrors } from '../utils';
 import { msg } from '../parts/messages';
-
 
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -25,8 +24,7 @@ export const changePass = async (req: any, res: Response) => {
     errors.oldPassword = msg.client.fail.empty;
   if (password === '' || password === undefined)
     errors.password = msg.client.fail.empty;
-  if (password === oldPassword)
-    errors.password = msg.client.fail.passMustDiff;
+  if (password === oldPassword) errors.password = msg.client.fail.passMustDiff;
   if (passwordConfirm !== password)
     errors.passwordConfirm = msg.client.fail.passNoDiff;
 
@@ -50,8 +48,8 @@ export const changePass = async (req: any, res: Response) => {
     const passwordMatches = await bcrypt.compare(oldPassword, user.password);
 
     if (!passwordMatches) {
-      STATUS = 'error'
-      INFO = msg.client.fail.logInFailed
+      STATUS = 'error';
+      INFO = msg.client.fail.logInFailed;
       makeLog(
         req.session.userId,
         OBJECT,
@@ -78,7 +76,7 @@ export const changePass = async (req: any, res: Response) => {
     }
 
     user.password = await bcrypt.hash(password, 12);
-
+    user.lastPassChangeAt = await new Date();
     await user.save();
 
     STATUS = 'success';
@@ -96,7 +94,7 @@ export const changePass = async (req: any, res: Response) => {
     return res.status(500).json({
       resStatus: STATUS,
       msgPL: msg._500,
-      msg: err.message
+      msg: err.message,
     });
   }
 };

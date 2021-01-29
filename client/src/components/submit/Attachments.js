@@ -1,7 +1,6 @@
 import React, { createRef, useContext, useEffect, useState } from 'react';
 import { Button, Card, Icon, Image, Label, Message } from 'semantic-ui-react';
 import axios from 'axios';
-import dayjs from 'dayjs';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
 import { Wrapper } from '../styles/attachments.styles';
 
@@ -9,6 +8,7 @@ import addedImg from '../../assets/img/wireframe.png';
 import statementImg from '../../assets/img/statement.jpg';
 import reportImg from '../../assets/img/reportCard.jpg';
 import SubALayout from '../subALayout';
+import { toLocaleDate } from '../../utils/toLocaleDate';
 
 const Attachments = () => {
   const authContext = useContext(AuthContext);
@@ -149,7 +149,7 @@ const Attachments = () => {
           <Card className='card' onClick={() => openFileInput('statement')}>
             {curDocument &&
               (curDocument.statementId ? (
-                <div className='placeholder-image'>
+<>
                   <div className='img-button'>
                     <Button
                       onClick={(e) => callFetch(e, curDocument.statementId)}
@@ -181,7 +181,7 @@ const Attachments = () => {
                     }}
                     src={statementImg}
                   />
-                </div>
+</>
               ) : (
                 <Image
                   fluid
@@ -208,9 +208,7 @@ const Attachments = () => {
                 {curDocument && curDocument.statementCreatedAt && (
                   <span className='date'>
                     Dodano:{' '}
-                    {dayjs(curDocument?.statementCreatedAt).format(
-                      'YYYY-MM-DD HH:mm:ss'
-                    )}{' '}
+                    {toLocaleDate(curDocument?.statementCreatedAt)}
                   </span>
                 )}
               </Card.Meta>
@@ -240,6 +238,7 @@ const Attachments = () => {
                       <Icon name='download' />
                     </Button>
                     <Button
+
                       onClick={(e) => deleteFile(e, curDocument.report_cardId)}
                       className='trash-btn btn'
                       color='red'
@@ -288,9 +287,7 @@ const Attachments = () => {
                 {curDocument && curDocument.report_cardCreatedAt && (
                   <span className='date'>
                     Dodano:{' '}
-                    {dayjs(curDocument?.report_cardCreatedAt).format(
-                      'YYYY-MM-DD HH:mm:ss'
-                    )}{' '}
+                    {toLocaleDate(curDocument?.report_cardCreatedAt)}{' '}
                   </span>
                 )}
               </Card.Meta>

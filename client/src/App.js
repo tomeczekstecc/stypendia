@@ -16,14 +16,18 @@ import {
   ProtectedRoute,
   Submit,
   Page404,
+  Profile,
 } from './pages';
 import { AuthState, AlertState, AppState, SubmitState } from './context';
 import { Alert } from './components';
+import { useContext, useEffect } from 'react';
+
 
 axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
 
 function App() {
+
   return (
     <AlertState>
       <AppState>
@@ -46,6 +50,7 @@ function App() {
                   <Route exact path='/login' component={Login} />
                   <ProtectedRoute exact path='/logout' component={Logout} />
                   <ProtectedRoute exact path='/submit' component={Submit} />
+                  <ProtectedRoute exact path='/profile' component={Profile} />
                   <Route path='*' component={Page404} />
                 </Switch>
               </Layout>

@@ -35,6 +35,8 @@ export const Wrapper = styled.div`
   .btn {
     display: inline-block !important;
     margin-left: 3px !important;
+    z-index: -1 !important;
+    opacity: 0.9;
   }
   .img-button {
     position: absolute;
@@ -52,7 +54,7 @@ export const Wrapper = styled.div`
     font-size: 0.9rem;
     text-align: center;
     /* margin-left:15% !important; */
-margin-bottom: -40px;
+    margin-bottom: -40px;
     color: red;
   }
 `;

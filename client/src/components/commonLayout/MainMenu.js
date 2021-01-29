@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import {Wrapper} from '../styles/mainMenu.styles'
+import { Wrapper } from '../styles/mainMenu.styles';
 import { leftMenuItems, rightMenuItems } from '../../parts/items';
-import AuthContext from '../../context/auth/authContext';
+import { AuthContext, SubmitContext } from '../../context';
 
-
-const MainMenu = ({ history }) => {
-
+const MainMenu = () => {
+  const submitContext = useContext(SubmitContext);
+  const { setSubmitMode } = submitContext;
 
   const [activeItem, setActiveItem] = useState('home');
   const [hasOwnSub, setHasOwnSub] = useState(false);
@@ -15,6 +15,11 @@ const MainMenu = ({ history }) => {
   const authContext = useContext(AuthContext);
   const { isLoggedIn, logOut } = authContext;
 
+  const handleClick = (name) => {
+    if (name === 'logout') logOut();
+    else if (name === 'submit') setSubmitMode('new');
+    else setActiveItem(name);
+  };
 
   return (
     <Wrapper>
@@ -34,7 +39,7 @@ const MainMenu = ({ history }) => {
                 content={item.title}
                 name={item.name}
                 active={activeItem === item.name}
-                onClick={() => setActiveItem(item.name)}
+                onClick={() => handleClick(item.name)}
               />
             </Link>
           ))}
@@ -50,11 +55,7 @@ const MainMenu = ({ history }) => {
                   content={item.title}
                   name={item.name}
                   active={activeItem === item.name}
-                  onClick={() => {
-                    item.name === 'logout'
-                      ? logOut()
-                      : setActiveItem(item.name);
-                  }}
+                  onClick={() => handleClick(item.name)}
                 />
               </Link>
             ))}
@@ -63,6 +64,5 @@ const MainMenu = ({ history }) => {
     </Wrapper>
   );
 };
-
 
 export default MainMenu;

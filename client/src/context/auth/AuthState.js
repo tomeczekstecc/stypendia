@@ -33,6 +33,7 @@ const AuthState = (props) => {
       })
     ).json();
     result.resStatus === 'success' ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
     setUser(result.user);
   };
 
@@ -59,10 +60,9 @@ const AuthState = (props) => {
   };
 
   const setTimeLeft = (time) => {
-
     dispatch({
       type: SET_TIME,
-      payload: time
+      payload: time,
     });
   };
 
@@ -92,6 +92,7 @@ const AuthState = (props) => {
 
   useEffect(() => {
     checkIsAuthenticated();
+    
   }, []);
 
   return (
@@ -104,7 +105,7 @@ const AuthState = (props) => {
         isLoggedIn: state.isLoggedIn,
         timeLeft: state.timeLeft,
         resetTimeLeft,
-        setTimeLeft
+        setTimeLeft,
       }}
     >
       {props.children}

@@ -32,6 +32,7 @@ clear fields if parent aftre puplil
 undefined nie jest poprawnym adresem email
 divider horizontally
 ip w logach
+aktuualizacja daty ostatnmiej zmiany hasła
 
 różnica w czasie w trakcie twiorzenia użytkownika?
 

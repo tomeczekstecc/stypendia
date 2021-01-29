@@ -1,6 +1,14 @@
 import { IsEmail, Length, Matches } from 'class-validator';
-import { Entity, Column, OneToMany, BeforeInsert, BeforeUpdate, OneToOne, JoinColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import {
+  Entity,
+  Column,
+  OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Exclude, Expose } from 'class-transformer';
 import { createHash, createHmac, timingSafeEqual } from 'crypto';
 import bcrypt from 'bcryptjs';
 
@@ -11,7 +19,7 @@ import { Submit } from './Submit';
 import { UserHistory } from './UserHistory';
 import { rolesEnum } from './types';
 import { Draft } from './Draft';
-import {File} from './File'
+import { File } from './File';
 
 @Entity('users')
 export class User extends Model {
@@ -116,19 +124,27 @@ export class User extends Model {
   })
   lastPassChangeAt: Date;
 
+  @Exclude()
   @OneToMany(() => Submit, (submit) => submit.user)
   submits: Submit[];
 
   @OneToMany(() => File, (file) => file.user)
-  files: File[]
+  files: File[];
 
   @OneToMany(() => UserHistory, (user_history) => user_history.user)
   user_history: UserHistory[];
   static id: any;
 
-
   @OneToOne(() => Draft)
   draft: Draft;
+
+  @Expose() get submitsCount(): any {
+    return this.submits?.length;
+  }
+
+  @Expose() get activeSubmitsCount(): any {
+    return this.submits.filter((s) => s.status > 1).length;
+  }
 
   @BeforeInsert()
   async checks() {

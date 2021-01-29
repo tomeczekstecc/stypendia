@@ -30,16 +30,16 @@ export const leftMenuItems = [
     noOwnSubDisplay: false,
     isLoggedInDisplay: true,
   },
-  // {
-  //   id: uuidv4(),
-  //   icon: 'pencil',
-  //   name: 'submit',
-  //   title: 'Złóż wniosek',
-  //   url: '/submit',
-  //   hasOwnSubDisplay: false,
-  //   noOwnSubDisplay: true,
-  //   isLoggedInDisplay: true,
-  // },
+  {
+    id: uuidv4(),
+    icon: 'pencil',
+    name: 'submit',
+    title: 'Złóż wniosek',
+    url: '/submit',
+    hasOwnSubDisplay: false,
+    noOwnSubDisplay: true,
+    isLoggedInDisplay: true,
+  },
 ];
 
 
@@ -66,17 +66,17 @@ export const rightMenuItems = [
     icon: 'id card',
     name: 'me',
     title: 'Twoje dane',
-    url: '/me',
+    url: '/profile',
     isLoggedInDisplay: true,
   },
-  {
-    id: uuidv4(),
-    icon: 'settings',
-    name: 'settings',
-    title: 'Ustawienia',
-    url: '/settings',
-    isLoggedInDisplay: true,
-  },
+  // {
+  //   id: uuidv4(),
+  //   icon: 'settings',
+  //   name: 'settings',
+  //   title: 'Ustawienia',
+  //   url: '/settings',
+  //   isLoggedInDisplay: true,
+  // },
   {
     id: uuidv4(),
     icon: 'settings',
@@ -93,14 +93,14 @@ export const rightMenuItems = [
     url: '/logout',
     isLoggedInDisplay: true,
   },
-  {
-    id: uuidv4(),
-    icon: 'exchange',
-    name: 'changepass',
-    title: 'Zmień hasło',
-    url: '/changepass',
-    isLoggedInDisplay: true,
-  },
+  // {
+  //   id: uuidv4(),
+  //   icon: 'exchange',
+  //   name: 'changepass',
+  //   title: 'Zmień hasło',
+  //   url: '/changepass',
+  //   isLoggedInDisplay: true,
+  // },
 ];
 
 export const verItems = [

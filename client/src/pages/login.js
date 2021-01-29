@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
   Button,
@@ -16,7 +16,8 @@ import {Title} from '../components';
 import {AlertContext, AppContext,AuthContext} from '../context';
 import { loginInputs } from '../parts/inputs';
 
-const Login = ({ history }) => {
+const Login = () => {
+  const history = useHistory()
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 

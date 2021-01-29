@@ -24,7 +24,7 @@ export const msg = {
       loginTaken: 'Ten login jest już zajęty',
       loginOrEmailTaken: 'Ten login lub email są już zajęte',
       wrongCreds:
-        'Prowadzono niepoprawne dane lub użytkownik nie potwierdził konta',
+        'Wprowadzono niepoprawne dane lub użytkownik nie potwierdził konta',
 
       stillBlocked:
         'Użytkownik jest zablokowany - spróbuj po za 20 minut. Jeżeli nie odzyskasz prawidłowego hasła - spróbuj je zresetować',
@@ -39,6 +39,7 @@ export const msg = {
       alreadyConfirmed: 'Użytkownik był już potwierdzony',
       noFile: 'Niestety nie udało się znalźć pliku',
       mime: 'Niedozwolony typ pliku. Dozwolone pliki: .JPG, .PNG, .PDF',
+    delUser: 'Nie możemy usunąć Twojego konta jeżeli masz aktywne wnioski'
     },
     ok: {
       passChange: 'Udało się zmienić hasło',
@@ -72,7 +73,11 @@ export const msg = {
     userUpdated: 'Pomyślnie zaktualizowano dane użytkownika',
     userDeleted: 'Pomyślnie usunięto użytkownika',
     passNoMatch: ' - admin msg: niepasujace hasła.',
+    delUser: ' - admin msg: liczba wnisosków o statusie większym niż 1: ',
     unoUserOrUserNotVer:
       ' - admin msg: użytkownik nie istnieje, lub konto niejest potwierdzone.',
+
+    userRemovedOrBanned:
+      ' - admin msg: użytkownik jest usnięty lub zastrzeżony lub zablokowany (isBanned lub isRemoved lub isBlocked)',
   },
 };

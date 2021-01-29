@@ -20,7 +20,6 @@ const useFetch = (url) => {
 
         setData(data.data.data);
         setIsLoading(false);
-        console.log(data.data.data);
       })
       .catch((err) => {
         if (err.response.data) {

@@ -4,8 +4,8 @@ import { Draft, Submit, User } from '../entity';
 import { msg } from '../parts/messages';
 import { makeLog, saveRollbar } from '../services';
 
-const OBJECT = 'Draft';
-let ACTION, INFO, STATUS, CONTROLLER;
+const OBJECT:any = 'Draft';
+let ACTION: any, INFO, STATUS, CONTROLLER:any;
 
 //
 //add a wnioski

@@ -7,8 +7,8 @@ import { msg } from '../parts/messages';
 import { generatePdf, makeLog, saveRollbar } from '../services';
 import { mapErrors } from '../utils';
 
-const OBJECT = 'Submit';
-let ACTION, INFO, STATUS, CONTROLLER;
+const OBJECT: any = 'Submit';
+let ACTION, INFO: string, STATUS: string, CONTROLLER: string;
 
 //
 //
@@ -51,7 +51,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     const num = (await (await Submit.find()).length) + 10000;
 
-    const submit: Submit[] = await Submit.create({
+    const submit = await Submit.create({
       ...req.body,
       numer: `WN-${num}-v1-20`,
       firstName: user.firstName,

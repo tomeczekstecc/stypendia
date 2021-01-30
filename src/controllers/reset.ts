@@ -9,8 +9,8 @@ import { mapErrors } from '../utils';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
 
-const OBJECT = 'User';
-let ACTION, INFO, STATUS, CONTROLLER;
+const OBJECT: any = 'User';
+let ACTION: any, INFO: string, STATUS:string, CONTROLLER:any;
 
 export const sendResetMail = async (req: any, res: Response) => {
   CONTROLLER = 'sendResetMail';
@@ -88,7 +88,7 @@ export const sendResetMail = async (req: any, res: Response) => {
   }
 };
 
-export const passwordReset = async (req, res: Response) => {
+export const passwordReset = async (req:any, res: Response) => {
   CONTROLLER = 'passwordReset';
   ACTION = 'resetowanie hasła';
 
@@ -108,7 +108,7 @@ export const passwordReset = async (req, res: Response) => {
   }
 
   try {
-    const reset = await PasswordReset.findOne(id);
+    const reset: any = await PasswordReset.findOne(id);
 
     if (!reset) {
 
@@ -162,7 +162,7 @@ export const passwordReset = async (req, res: Response) => {
     errors = await validate(user);
 
     if (errors.length > 0) {
-      makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
+      makeLog(OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(mapErrors(errors));
     }
 

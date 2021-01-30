@@ -1,4 +1,3 @@
-
 import * as ip from 'ip';
 // import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
@@ -14,22 +13,27 @@ export const makeLog = async (
   status,
   req
 ) => {
+  console.log(
+    req.session.userId,
+    object,
+    objectId,
+    action,
+    controller,
+    info,
+    status,
+    'MakeLoGG'
+  );
+  const ip =
+    req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    (req.connection.socket ? req.connection.socket.remoteAddress : null);
+  console.log(req.connection.remoteAddress);
 
-  console.log(req.session.userId, object, objectId, action, controller, info, status, 'MakeLoGG')
-    const ip =
-      req.headers['x-forwarded-for'] ||
-      req.connection.remoteAddress ||
-      req.socket.remoteAddress ||
-      (req.connection.socket ? req.connection.socket.remoteAddress : null);
-    console.log(req.connection.remoteAddress);
-
-
-
-const user = await User.findOne(req.session.userId);
-
+  const user = await User.findOne(req.session.userId);
 
   try {
-    const log = await Log.create({
+    const log = new Log({
       userId: req.session.userId || undefined,
       login: user?.login || undefined,
       object,
@@ -43,8 +47,7 @@ const user = await User.findOne(req.session.userId);
     });
     await log.save();
   } catch (err) {
-    console.log(err.message)
-    saveRollbar('makeLog',err.message, 'error')
-
+    console.log(err.message);
+    saveRollbar('makeLog', err.message, 'error');
   }
 };

@@ -1,9 +1,9 @@
 import { resultEnum } from "../entity/types";
 
-const mongoose = require('mongoose');
+import mongoose = require('mongoose');
 
 
-const LogSchema = mongoose.Schema(
+const LogSchema = new mongoose.Schema(
   {
     userId: {
       type: String,

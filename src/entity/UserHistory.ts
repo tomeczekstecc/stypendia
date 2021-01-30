@@ -7,6 +7,11 @@ import { User } from './User';
 
 @Entity('user_history')
 export class UserHistory extends Model {
+  constructor(user_history: Partial<UserHistory>) {
+    super();
+    Object.assign(this, user_history);
+  }
+
   @Column({ comment: 'ID użytkownika' })
   userId: string;
 
@@ -29,7 +34,6 @@ export class UserHistory extends Model {
     type: 'enum',
     enum: [0, 1],
     comment: 'Czy zabroniony',
-
   })
   isBanned: boolean;
 
@@ -37,7 +41,6 @@ export class UserHistory extends Model {
     type: 'enum',
     enum: [0, 1],
     comment: 'Czy zablokowany',
-
   })
   isBlocked: boolean;
 
@@ -45,12 +48,11 @@ export class UserHistory extends Model {
     type: 'enum',
     enum: [0, 1],
     comment: 'Czy usunięty',
-
   })
   isRemoved: boolean;
 
   @IsInt({ message: 'Niepoprawny intiger' })
-  @Column({comment: 'Liczba nieudanych logowań' })
+  @Column({ comment: 'Liczba nieudanych logowań' })
   failedLogins: number;
 
   @IsDate({ message: 'Data blokady musi mieć format daty' })
@@ -58,7 +60,7 @@ export class UserHistory extends Model {
   blockedAt: Date;
 
   @Length(3, 500, { message: 'Opis zdarzenia musi mieć od 1 do 500 znaków ' })
-  @Column({ type:'text' ,comment: 'Opis zdarzenia' })
+  @Column({ type: 'text', comment: 'Opis zdarzenia' })
   description: string;
 
   @ManyToOne(() => User, (user) => user.user_history, { nullable: false })

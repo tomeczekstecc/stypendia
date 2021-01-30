@@ -5,6 +5,11 @@ import {Submit} from './Submit';
 
 @Entity('submit_history')
 export class SubmitHistory extends Model {
+  constructor(submit_history: Partial<SubmitHistory>) {
+    super();
+    Object.assign(this, submit_history);
+  }
+
   @Column({ comment: 'ID wniosku' })
   submitId: number;
 
@@ -17,10 +22,10 @@ export class SubmitHistory extends Model {
   })
   status: number;
 
-  @Column({ type: 'date', nullable: true, comment:"Data faktyczna" })
+  @Column({ type: 'date', nullable: true, comment: 'Data faktyczna' })
   date_official: Date;
 
-  @Column({comment:"Data użytkownika"})
+  @Column({ comment: 'Data użytkownika' })
   userId: number;
 
   @ManyToOne(() => Submit, (submit) => submit.history, { nullable: false })

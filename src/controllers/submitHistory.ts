@@ -33,7 +33,7 @@ export const addSubmitHistory = async (req: any, res: Response) => {
       });
     }
 
-    const submitHistory = SubmitHistory.create({
+    const submitHistory = await new SubmitHistory({
       ...req.body,
       submitId: submit.id,
       userId: req.session.userId,
@@ -46,16 +46,7 @@ export const addSubmitHistory = async (req: any, res: Response) => {
       INFO = msg.client.fail.noUserNoSubmit;
       STATUS = 'error';
 
-      makeLog(
-
-        OBJECT,
-        undefined,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS,
-        req
-      );
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
       throw errors;
     }
@@ -78,7 +69,6 @@ export const addSubmitHistory = async (req: any, res: Response) => {
     });
   }
 };
-
 //
 //get all submits
 //

@@ -54,7 +54,7 @@ export const register = async (req, res: Response) => {
       return res.status(400).json(errors);
     }
 
-    const user = await User.create({
+    const user = await new User({
       login,
       firstName,
       lastName,
@@ -249,7 +249,7 @@ export const login = async (req: any, res: Response) => {
 
       const token = await PasswordReset.plaintextToken();
 
-      const reset = await PasswordReset.create({ userId: user.id, token });
+      const reset = new PasswordReset({ userId: user.id, token });
 
       await reset.save();
 

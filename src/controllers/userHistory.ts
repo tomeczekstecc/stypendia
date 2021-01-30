@@ -34,7 +34,7 @@ export const addUserHistory = async (req: any, res: Response) => {
       });
     }
 
-    const userHistory = await UserHistory.create({
+    const userHistory =new UserHistory({
       failedLogins: newFailedLogins || user[0].failedLogins, // i tat dalej
       firstName: user[0].firstName,
       lastName: user[0].lastName,

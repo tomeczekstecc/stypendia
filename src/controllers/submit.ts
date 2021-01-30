@@ -51,7 +51,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     const num = (await (await Submit.find()).length) + 10000;
 
-    const submit = await Submit.create({
+    const submit = new Submit({
       ...req.body,
       numer: `WN-${num}-v1-20`,
       firstName: user.firstName,
@@ -132,7 +132,7 @@ export const editSubmit = async (req: any, res: Response) => {
       });
     }
 
-    const tempSubmit = await Submit.create({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
+    const tempSubmit = await new Submit({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
 
     const errors = await validate(tempSubmit);
 

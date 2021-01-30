@@ -51,7 +51,7 @@ export const sendResetMail = async (req: any, res: Response) => {
     if (user) {
       const token = await PasswordReset.plaintextToken();
 
-      const reset = await PasswordReset.create({ userId: user.id, token });
+      const reset = await new PasswordReset({ userId: user.id, token });
 
       await reset.save();
 

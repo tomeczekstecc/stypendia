@@ -24,6 +24,10 @@ import { File } from './File';
 @Entity('users')
 export class User extends Model {
   // @Index()
+  constructor(user: Partial<User>) {
+    super();
+    Object.assign(this, user);
+  }
 
   @Column({ unique: true, comment: 'Nazwa użytkownika' })
   @Length(2, 50, {

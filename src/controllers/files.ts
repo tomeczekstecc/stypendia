@@ -81,7 +81,7 @@ export const uploadFile = async (req: any, res: Response) => {
 
     const checksum = await calculateChecksum(req.file);
 
-    const file = await File.create({
+    const file = await new File({
       ...fileBody,
       type,
       checksum,

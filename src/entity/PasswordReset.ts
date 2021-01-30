@@ -18,6 +18,11 @@ import {
 
 @Entity('password_reset')
 export class PasswordReset extends BaseEntity {
+  constructor(reset: Partial<PasswordReset>) {
+    super();
+    Object.assign(this, reset);
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -34,7 +39,8 @@ export class PasswordReset extends BaseEntity {
   token: string;
 
   @IsDate({
-    message: 'ExpiredAt musi zostać dostarczony dla moedelu PasswordReset w formacue daty',
+    message:
+      'ExpiredAt musi zostać dostarczony dla moedelu PasswordReset w formacue daty',
   })
   @Column({ nullable: true, comment: 'Data ważności tokena' })
   expiredAt: Date;

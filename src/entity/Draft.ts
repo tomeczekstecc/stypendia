@@ -68,7 +68,7 @@ export class Draft extends Model {
   //
   //  II. DANE OSOBOWE UCZNIA
   //
-
+id
   @Column({ comment: 'Imię ucznia', nullable: true })
   pupilFirstName: string;
 

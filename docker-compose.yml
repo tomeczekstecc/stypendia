@@ -61,7 +61,7 @@ services:
     depends_on:
       - db_logs
 
-  av:
+  # av:
     #debian: image: mkodockx/docker-clamav
     # image: mkodockx/docker-clamav:alpine
     # container_name: nextav

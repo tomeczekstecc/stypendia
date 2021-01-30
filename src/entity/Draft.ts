@@ -17,11 +17,6 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Index,
-  BaseEntity,
 } from 'typeorm';
 
 import Model from './Model';
@@ -36,29 +31,10 @@ import {
 } from './types';
 
 @Entity('drafs')
-export class Draft extends BaseEntity {
+export class Draft extends Model {
   constructor(draft: Partial<Draft>) {
     super();
     Object.assign(this, draft);
-  }
-
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @CreateDateColumn({ comment: 'Data utworzenia' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ comment: 'Data ostatniej aktualizacji' })
-  updatedAt: Date;
-
-  @Column({ type: 'uuid', comment: 'Unikalny identyfikator uuidV4' })
-  @Index()
-  uuid: string;
-
-  // do before saving
-  @BeforeInsert()
-  createUuid() {
-    this.uuid = uuid();
   }
 
   @Column({ comment: 'Wersja wniosku', default: 1 })

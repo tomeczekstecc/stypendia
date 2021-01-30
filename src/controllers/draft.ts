@@ -41,6 +41,7 @@ export const addDraft = async (req: any, res: Response) => {
     });
 
     await draft.save();
+
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.draftSucceed;
     STATUS = 'success';

@@ -65,7 +65,7 @@ export const createApp = (store: Store) => {
   //   console.log(req.session);
   //   next();
   // });
-console.log(process.env.NODE_ENV, 'node env')
+
   app.use('/api/v1/users', userRouter);
   app.use('/api/v1/user_history', userHistoryRouter);
   app.use('/api/v1/submits', submitRouter);

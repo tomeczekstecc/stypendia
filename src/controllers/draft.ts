@@ -28,7 +28,7 @@ export const addDraft = async (req: any, res: Response) => {
       });
     }
 
-    const draft = await Draft.create({
+    const draft = {
       ...req.body,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -38,7 +38,7 @@ export const addDraft = async (req: any, res: Response) => {
       pupilEmail: req.body.pupilEmail || user.email,
 
       user,
-    });
+    };
 
     await draft.save();
 

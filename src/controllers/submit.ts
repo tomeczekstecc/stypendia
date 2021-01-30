@@ -1,5 +1,6 @@
 import { validate } from 'class-validator';
 import { Response } from 'express';
+import { Any } from 'typeorm';
 
 import { Submit, User } from '../entity';
 import { msg } from '../parts/messages';
@@ -50,7 +51,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     const num = (await (await Submit.find()).length) + 10000;
 
-    const submit = await Submit.create({
+    const submit: Submit[] = await Submit.create({
       ...req.body,
       numer: `WN-${num}-v1-20`,
       firstName: user.firstName,

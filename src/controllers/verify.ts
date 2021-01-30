@@ -23,13 +23,13 @@ export const verify = async (req: any, res: Response) => {
       INFO = msg.client.fail.noUser;
 
       makeLog(
-        req.session.userId,
+
         OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS
+        STATUS, req
       );
       return res.status(401).json({
         resStatus: STATUS,
@@ -41,14 +41,12 @@ export const verify = async (req: any, res: Response) => {
     if (!User.hasValidVerificationUrl(req.originalUrl, req.query)) {
       STATUS = 'warning';
       INFO =msg.client.fail.confirmToolate;
-      makeLog(
-        req.session.userId,
-        OBJECT,
+         makeLog(OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS
+        STATUS, req
       );
 
       return res.status(400).json({
@@ -62,13 +60,12 @@ export const verify = async (req: any, res: Response) => {
       STATUS = 'warning';
       INFO = msg.client.fail.alreadyConfirmed;
       makeLog(
-        req.session.userId,
-        OBJECT,
+             OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS
+        STATUS, req
       );
 
       return res.status(400).json({
@@ -78,17 +75,17 @@ export const verify = async (req: any, res: Response) => {
       });
     }
 
-    await markAsVerified(user);
+    await markAsVerified(user, req);
     STATUS = 'success';
     INFO = msg.client.ok.confirmed;
     makeLog(
-      req.session.userId,
+
       OBJECT,
       req.session.userId,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
 
     return res.status(200).json({
@@ -127,13 +124,13 @@ export const resend = async (req: any, res: Response) => {
     STATUS = 'error';
     INFO = msg.client.fail.linkNoSend;
     makeLog(
-      req.session.userId,
+
       OBJECT,
       undefined,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
 
     return res.status(401).json({
@@ -147,13 +144,13 @@ export const resend = async (req: any, res: Response) => {
     STATUS = 'info';
     INFO = msg.client.fail.alreadyConfirmed;
     makeLog(
-      req.session.userId,
+
       OBJECT,
       user.id,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
 
     return res.status(401).json({

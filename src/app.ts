@@ -5,6 +5,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
+import userAgent from 'express-useragent';
 
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
 import { active, notFound, serverError, limiter } from './middleware';
@@ -25,7 +26,7 @@ export const createApp = (store: Store) => {
   app.use(rollbar.errorHandler())
 
   app.use(cookieParser());
-
+ app.use(userAgent.express());
   app.use(
     cors({
       credentials: true,

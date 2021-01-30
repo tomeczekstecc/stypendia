@@ -26,16 +26,9 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
 
 # FIXES
-pupilFirstName, LastName - brak błedów w submit
-timer - reset styles aftet reactivation
-clear fields if parent aftre puplil
-undefined nie jest poprawnym adresem email
-divider horizontally
-ip w logach
-aktuualizacja daty ostatnmiej zmiany hasła
 
-różnica w czasie w trakcie twiorzenia użytkownika?
-
+ip i przegladarka w logach
+buttons over modal i Attachments
 
 
 security https://dev.to/demetrakopetros/security-in-node-js-and-express-the-bare-minimum-part-3-54f3

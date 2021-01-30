@@ -16,8 +16,8 @@ const MainMenu = () => {
   const { isLoggedIn, logOut } = authContext;
 
   const handleClick = (name) => {
-    if (name === 'logout') logOut();
-    else if (name === 'submit') setSubmitMode('new');
+    if (name === 'logout') {logOut()}
+    else if (name === 'submit') {setSubmitMode('new'); setActiveItem(name)}
     else setActiveItem(name);
   };
 

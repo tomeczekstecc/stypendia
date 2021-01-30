@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Label } from 'semantic-ui-react';
+import { Button, Icon, Label } from 'semantic-ui-react';
 import { Wrapper } from './styles/timer.styles';
-import {AuthContext} from '../context';
-
+import { AuthContext } from '../context';
 
 
 const Timer = () => {
@@ -12,17 +11,22 @@ const Timer = () => {
   const [color, setColor] = useState(null);
   const [size, setSize] = useState('tiny');
 
-
+  const handleOnClick = () => {
+    setColor('');
+    setSize('tiny');
+    setTimeLeft(+process.env.REACT_APP_SESSION_TIMEOUT);
+  };
 
   useEffect(() => {
     timeLeft < +process.env.REACT_APP_SESSION_ALERT && setColor('red');
     timeLeft < +process.env.REACT_APP_SESSION_ALERT && setSize('');
+    timeLeft > +process.env.REACT_APP_SESSION_ALERT && setColor('');
+    timeLeft > +process.env.REACT_APP_SESSION_ALERT && setSize('tiny');
     timeLeft === 0 && logOut();
     const timer =
       timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
     return () => clearInterval(timer);
   }, [timeLeft]);
-
 
   return isLoggedIn ? (
     <Wrapper>
@@ -44,6 +48,11 @@ const Timer = () => {
           :{timeLeft % 60 < 10 ? '0' + (timeLeft % 60) : timeLeft % 60}
         </Label.Detail>
       </Label>
+      {timeLeft < +process.env.REACT_APP_SESSION_ALERT && (
+        <Button icon negative onClick={handleOnClick}>
+          <Icon name='refresh' /> Odśwież
+        </Button>
+      )}
     </Wrapper>
   ) : null;
 };

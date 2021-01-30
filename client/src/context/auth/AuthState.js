@@ -3,6 +3,8 @@ import authReducer from './authReducer';
 import AuthContext from './authContext';
 import axios from 'axios';
 import AlertContext from '../../context/alert/alertContext';
+import {useHistory} from 'react-router-dom'
+
 
 import {
   SET_USER,
@@ -12,7 +14,9 @@ import {
   SET_TIME,
 } from '../types';
 
-const AuthState = (props) => {
+const AuthState = ({children}) => {
+const history = useHistory()
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -72,7 +76,7 @@ const AuthState = (props) => {
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
-          await props?.history?.push('/login');
+         history.push('/login');
         }
 
         dispatch({
@@ -108,7 +112,7 @@ const AuthState = (props) => {
         setTimeLeft,
       }}
     >
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 };

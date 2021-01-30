@@ -1,9 +1,8 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 
-import { Submit,User,SubmitHistory } from '../entity';
-import { makeLog } from '../services/makeLog';
-import { saveRollbar } from '../services/saveRollbar';
+import { Submit, User, SubmitHistory } from '../entity';
+import { makeLog, saveRollbar } from '../services';
 import { msg } from '../parts/messages';
 
 const OBJECT = 'SubmitHistory';
@@ -25,15 +24,7 @@ export const addSubmitHistory = async (req: any, res: Response) => {
       INFO = msg.client.fail.noUserNoSubmit;
       STATUS = 'error';
 
-      makeLog(
-        req.body.submitId,
-        OBJECT,
-        undefined,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS
-      );
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
 
       return res.status(400).json({
@@ -56,13 +47,14 @@ export const addSubmitHistory = async (req: any, res: Response) => {
       STATUS = 'error';
 
       makeLog(
-        req.body.submitId,
+
         OBJECT,
         undefined,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS
+        STATUS,
+        req
       );
       // ********************************************************************//
       throw errors;

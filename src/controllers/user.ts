@@ -49,7 +49,7 @@ export const register = async (req, res: Response) => {
     INFO = msg.client.fail.loginOrEmailTaken;
     STATUS = 'error';
     if (Object.keys(errors).length > 0) {
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
 
       return res.status(400).json(errors);
     }
@@ -67,7 +67,7 @@ export const register = async (req, res: Response) => {
     INFO = msg.client.fail.unvalidated;
 
     if (errors.length > 0) {
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(mapErrors(errors));
     }
     await user.save();
@@ -75,7 +75,7 @@ export const register = async (req, res: Response) => {
     INFO = msg.client.ok.userCreated;
     STATUS = 'success';
 
-    makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 
     const config = {
       headers: {
@@ -127,7 +127,7 @@ export const login = async (req: any, res: Response) => {
     if (Object.keys(errors).length > 0) {
       STATUS = 'error';
       INFO = msg.client.fail.empty;
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS,req);
       return res.status(400).json(errors);
     }
 
@@ -137,13 +137,13 @@ export const login = async (req: any, res: Response) => {
       STATUS = 'error';
       INFO = msg.client.fail.wrongCreds;
       makeLog(
-        undefined,
+
         OBJECT,
         undefined,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.unoUserOrUserNotVer,
-        STATUS
+        STATUS, req
       );
 
       return res.status(400).json({
@@ -157,13 +157,13 @@ export const login = async (req: any, res: Response) => {
       STATUS = 'error';
       INFO = msg.client.fail.wrongCreds;
       makeLog(
-        user.id,
+
         OBJECT,
         user.id,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.userRemovedOrBanned,
-        STATUS
+        STATUS, req
       );
 
       return res.status(400).json({
@@ -200,14 +200,14 @@ export const login = async (req: any, res: Response) => {
       STATUS = 'error';
       INFO = `Liczba niepoprawnych logowań: ${user.failedLogins} - wprowadzono niepoprawne dane - nieprawidłowe hasło`;
       await user.save();
-      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 
       if (user.failedLogins === +FAILED_LOGINS_MAX - 1) {
         user.failedLogins += 1;
         STATUS = 'error';
         INFO = msg.client.fail.nextBlock;
         await user.save();
-        makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+        makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 
         return res.status(403).json({
           resStatus: 'error',
@@ -223,7 +223,7 @@ export const login = async (req: any, res: Response) => {
         STATUS = 'error';
         INFO = msg.client.fail.blocked;
         await user.save();
-        makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+        makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
         return res.status(403).json({
           resStatus: 'error',
           msgPL: INFO,
@@ -245,7 +245,7 @@ export const login = async (req: any, res: Response) => {
       STATUS = 'warning';
 
       await user.save();
-      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 
       const token = await PasswordReset.plaintextToken();
 
@@ -296,13 +296,13 @@ export const logout = async (req: any, res: Response) => {
 
   try {
     makeLog(
-      req.session.userId,
+
       OBJECT,
       req.session.userId,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
     new Promise<void>((resolve, reject) => {
       req.session!.destroy((err: Error) => {
@@ -521,13 +521,13 @@ export const deleteUser = async (req: any, res: Response) => {
       INFO = msg.client.fail.delUser;
 
       makeLog(
-        req.session.userId,
+
         OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.delUser + user.activeSubmitsCount,
-        STATUS
+        STATUS, req
       );
 
       return res.status(400).json({
@@ -546,13 +546,13 @@ export const deleteUser = async (req: any, res: Response) => {
     STATUS = 'success';
     INFO = msg.dev.userDeleted;
     makeLog(
-      req.session.userId,
+
       OBJECT,
       req.session.userId,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
     return res.status(201).json({
       resStatus: STATUS,

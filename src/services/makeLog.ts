@@ -1,34 +1,41 @@
 
 import * as ip from 'ip';
-import browser from 'browser-detect';
+// import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
 import { User } from '../entity';
 import { saveRollbar } from './saveRollbar';
 
 export const makeLog = async (
-  userId = undefined,
   object = undefined,
   objectId = undefined,
   action,
   controller,
   info,
   status,
-  req = null
+  req
 ) => {
 
-  console.log(userId, object, objectId, action, controller, info, status, 'MakeLoGG')
+  console.log(req.session.userId, object, objectId, action, controller, info, status, 'MakeLoGG')
+    const ip =
+      req.headers['x-forwarded-for'] ||
+      req.connection.remoteAddress ||
+      req.socket.remoteAddress ||
+      (req.connection.socket ? req.connection.socket.remoteAddress : null);
+    console.log(req.connection.remoteAddress);
 
-const user = await User.findOne(userId)
+
+
+const user = await User.findOne(req.session.userId);
 
 
   try {
     const log = await Log.create({
-      userId: user?.id || undefined,
+      userId: req.session.userId || undefined,
       login: user?.login || undefined,
       object,
       objectId,
-      ip: ip.address(),
-      browser: browser().name + ' ' + browser().version,
+      ip,
+      browser: req.useragent.browser + ' ' + req.useragent.version,
       action,
       controller,
       result: status,

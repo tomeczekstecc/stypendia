@@ -29,15 +29,7 @@ export const changePass = async (req: any, res: Response) => {
     errors.passwordConfirm = msg.client.fail.passNoDiff;
 
   if (Object.keys(errors).length > 0) {
-    makeLog(
-      req.session.userId,
-      OBJECT,
-      req.session.userId,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS
-    );
+    makeLog(OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS, req);
 
     return res.status(400).json(errors);
   }
@@ -51,13 +43,13 @@ export const changePass = async (req: any, res: Response) => {
       STATUS = 'error';
       INFO = msg.client.fail.logInFailed;
       makeLog(
-        req.session.userId,
         OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.passNoMatch,
-        STATUS
+        STATUS,
+        req
       );
       return res.status(400).json({
         resStatus: STATUS,
@@ -71,7 +63,7 @@ export const changePass = async (req: any, res: Response) => {
     errors = await validate(user);
 
     if (errors.length > 0) {
-      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(mapErrors(errors));
     }
 
@@ -82,7 +74,7 @@ export const changePass = async (req: any, res: Response) => {
     STATUS = 'success';
     INFO = msg.client.ok.passChange;
 
-    makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,

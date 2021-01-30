@@ -24,7 +24,7 @@ export const addSubmit = async (req: any, res: Response) => {
     if (!user) {
       INFO = msg.client.fail.noUser;
       STATUS = 'error';
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
 
       return res.status(400).json({
         status: STATUS,
@@ -39,11 +39,11 @@ export const addSubmit = async (req: any, res: Response) => {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.peselExists;
       STATUS = 'error';
-      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
     }
     if (Object.keys(errors).length > 0) {
-      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
 
       return res.status(400).json(errors);
     }
@@ -72,7 +72,7 @@ export const addSubmit = async (req: any, res: Response) => {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
-      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
       return res.status(400).json(mapErrors(errors));
     }
@@ -81,7 +81,7 @@ export const addSubmit = async (req: any, res: Response) => {
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subCreated;
     STATUS = 'success';
-    makeLog(user.id, OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
 
     const data = {
@@ -122,7 +122,7 @@ export const editSubmit = async (req: any, res: Response) => {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.noUser;
       STATUS = 'error';
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
 
       return res.status(400).json({
@@ -139,7 +139,7 @@ export const editSubmit = async (req: any, res: Response) => {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
-      makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
 
       return res.status(400).json(mapErrors(errors));
@@ -161,7 +161,7 @@ export const editSubmit = async (req: any, res: Response) => {
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subUpdated;
     STATUS = 'success';
-    makeLog(user.id, OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
     const data = {
       tempSubmit,
@@ -211,6 +211,7 @@ export const getAllSubmits = async (req: any, res: Response) => {
 };
 
 export const getAllUsersSubmits = async (req: any, res: Response) => {
+
   try {
     const submits = await Submit.find({
       where: { userId: req.session.userId },

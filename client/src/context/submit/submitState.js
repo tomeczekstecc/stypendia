@@ -1,10 +1,11 @@
-import React, { useContext, useReducer} from 'react';
+import React, { useContext, useReducer } from 'react';
 
 import submitReducer from './submitReducer';
 import SubmitContext from './submitContext';
 import axios from 'axios';
 import AlertContext from '../alert/alertContext';
 import AppContext from '../app/appContext';
+import AuthContext from '../auth/authContext';
 
 import {
   UPDATE_NEW_SUBMIT,
@@ -16,8 +17,10 @@ import {
   SET_SUBMIT_ERRORS,
 } from '../types';
 
-
 const SubmitState = (props) => {
+  const authContext = useContext(AuthContext);
+  const { isLoggedIn } = authContext;
+
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -34,8 +37,6 @@ const SubmitState = (props) => {
     submitErrors: null,
   };
 
-
-
   const [state, dispatch] = useReducer(submitReducer, initialState);
 
   const updateNewSubmit = (newSubmit) => {
@@ -46,7 +47,6 @@ const SubmitState = (props) => {
   };
 
   const updateCurSubmit = (curSubmit) => {
-
     dispatch({
       type: UPDATE_CUR_SUBMIT,
       payload: curSubmit,
@@ -77,54 +77,48 @@ const SubmitState = (props) => {
   const setSubmitToWatch = (uuid) => {
     setIsLoading(true);
     try {
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-
-      axios
-        .get(`/api/v1/submits/usersubmits/${uuid}`, headers)
-        .then((data) => {
-          dispatch({
-            type: SET_SUBMIT_TO_WATCH,
-            payload: data.data.submit,
-          });
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          if (err.response) {
-            addAlert(err.response.data);
+      isLoggedIn &&
+        axios
+          .get(`/api/v1/submits/usersubmits/${uuid}`)
+          .then((data) => {
+            dispatch({
+              type: SET_SUBMIT_TO_WATCH,
+              payload: data.data.submit,
+            });
             setIsLoading(false);
-            return;
-          }
-        });
+          })
+          .catch((err) => {
+            if (err.response) {
+              addAlert(err.response.data);
+              setIsLoading(false);
+              return;
+            }
+          });
     } catch (err) {
       console.log(err);
     }
   };
 
   const setCurSubmit = (uuid) => {
-   
     setIsLoading(true);
     try {
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-      axios
-        .get(`/api/v1/submits/usersubmits/${uuid}`, headers)
-        .then((data) => {
-          dispatch({
-            type: SET_CUR_SUBMIT,
-            payload: data.data.submit,
-          });
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          if (err.response) {
-            addAlert(err.response.data);
+      isLoggedIn &&
+        axios
+          .get(`/api/v1/submits/usersubmits/${uuid}`)
+          .then((data) => {
+            dispatch({
+              type: SET_CUR_SUBMIT,
+              payload: data.data.submit,
+            });
             setIsLoading(false);
-            return;
-          }
-        });
+          })
+          .catch((err) => {
+            if (err.response) {
+              addAlert(err.response.data);
+              setIsLoading(false);
+              return;
+            }
+          });
     } catch (err) {
       console.log(err);
     }

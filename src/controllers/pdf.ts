@@ -24,13 +24,13 @@ export const addSubmitPdf = async (req: any, res: Response) => {
     INFO = msg.client.ok.pdfCreated;
 
     makeLog(
-      req.session.userId,
+
       OBJECT,
       submit.id,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
     return res.status(201).json({
       resStatus: STATUS,
@@ -78,13 +78,13 @@ export const fetchPdf = async (req: any, res: Response) => {
       INFO = msg.client.ok.pdfFetched;
 
       makeLog(
-        req.session.userId,
+
         OBJECT,
         filePath,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS
+        STATUS, req
       );
     });
   } catch (err) {

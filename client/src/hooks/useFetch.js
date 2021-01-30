@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
-import { AlertContext, AppContext } from '../context';
+import { AlertContext, AppContext, AuthContext } from '../context';
 
 const useFetch = (url) => {
   const appContext = useContext(AppContext);
   const { setIsLoading } = appContext;
+
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft, isLoggedIn } = authContext;
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -12,12 +15,11 @@ const useFetch = (url) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-
     setIsLoading(true);
+    isLoggedIn &&
     axios
       .get(`/api/v1/${url}`)
       .then((data) => {
-
         setData(data.data.data);
         setIsLoading(false);
       })
@@ -28,6 +30,7 @@ const useFetch = (url) => {
           return;
         }
       });
+    resetTimeLeft();
   }, []);
 
   return { data };

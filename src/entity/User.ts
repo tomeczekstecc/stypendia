@@ -46,7 +46,7 @@ export class User extends Model {
   // @Index()
   @Column({ unique: true, comment: 'Email użytkownika' })
   @IsEmail(undefined, {
-    message: (props) => `${props.value} nie jest poprawnym adresem email`,
+    message: (props) => `${props.value || 'Ta wartość'} nie jest poprawnym adresem email`,
   })
   email: string;
 

@@ -161,7 +161,7 @@ const Register = (props) => {
             </Grid.Column>
           </Grid>
 
-          <Divider vertical>oraz</Divider>
+          <Divider className='divider' content='Oraz'vertical/>
         </Segment>
       </div>
     </Wrapper>

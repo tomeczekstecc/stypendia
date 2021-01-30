@@ -49,13 +49,13 @@ export const addUserHistory = async (req: any, res: Response) => {
     INFO = msg.client.ok.historyUserCreated;
 
     makeLog(
-      req.session.userId,
+
       OBJECT,
       userHistory.id,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS, req
     );
     return res.status(201).json({
       resStatus: STATUS,

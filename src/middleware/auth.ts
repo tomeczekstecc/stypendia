@@ -1,4 +1,4 @@
-import { Response, NextFunction } from 'express';
+import { Response, NextFunction, Request } from 'express';
 import bcrypt from 'bcryptjs';
 
 import { SESSION_ABSOLUTE_TIMEOUT } from '../config';
@@ -13,7 +13,7 @@ let ACTION, INFO, STATUS;
 
 export const isLoggedIn = (req: any) => !!req.session?.userId;
 
-export const markAsVerified = async (user: User) => {
+export const markAsVerified = async (user: User, req: Request) => {
   ACTION = 'weryfikacja konta';
   INFO = 'pomyślnie zweryfikowano';
   STATUS = 'success';
@@ -21,16 +21,16 @@ export const markAsVerified = async (user: User) => {
   user.verifiedAt = new Date();
   await user.save();
 
-  makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+  makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 };
 
-export const resetPassword = async (userId: number, password: string) => {
+export const resetPassword = async (userId: number, password: string, req: Request) => {
   ACTION = 'reset';
   INFO = 'pomyślnie zresetowano';
 
   const user = await User.findOne(userId);
 
-  makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+  makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 
   user.password = await bcrypt.hash(password, 12);
   user.blockedAt = null;
@@ -55,7 +55,7 @@ export const logIn = async (req: any, userId: any) => {
 
   await user.save();
 
-  makeLog(userId, OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS, req);
+  makeLog(OBJECT, userId, ACTION, CONTROLLER, INFO, STATUS, req);
 };
 
 export const guest = (req: any, res: Response, next: NextFunction) => {
@@ -103,7 +103,6 @@ export const auth = async (req: any, res: Response, next: NextFunction) => {
       resStatus: 'warning',
       msgPL:
         'Musisz być zalogowany i konto musi być potwierdzone by wykonać tę operację',
-      msg: 'You must be logged in',
       alertTitle: 'Brak uprawnień',
     });
   }

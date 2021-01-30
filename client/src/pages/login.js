@@ -142,7 +142,7 @@ const Login = () => {
             </Grid.Column>
           </Grid>
 
-          <Divider vertical>lub</Divider>
+          <Divider className='divider' content='lub' vertical />
         </Segment>
       </Container>
     </Wrapper>

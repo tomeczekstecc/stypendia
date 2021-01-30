@@ -1,8 +1,8 @@
-import {  Response } from 'express';
+import { Response } from 'express';
 
-import { Draft, Submit, User}  from '../entity';
+import { Draft, Submit, User } from '../entity';
 import { msg } from '../parts/messages';
-import { makeLog, saveRollbar  } from '../services';
+import { makeLog, saveRollbar } from '../services';
 
 const OBJECT = 'Draft';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -12,7 +12,6 @@ let ACTION, INFO, STATUS, CONTROLLER;
 //
 
 export const addDraft = async (req: any, res: Response) => {
-
   CONTROLLER = 'addDraft';
   ACTION = 'dodawanie';
   try {
@@ -21,7 +20,7 @@ export const addDraft = async (req: any, res: Response) => {
     if (!user) {
       INFO = msg.client.fail.noUser;
       STATUS = 'error';
-      makeLog(req.session.userId, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
 
       return res.status(400).json({
         status: STATUS,
@@ -45,7 +44,7 @@ export const addDraft = async (req: any, res: Response) => {
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.draftSucceed;
     STATUS = 'success';
-    makeLog(user.id, OBJECT, draft.id, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, draft.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
 
     return res.status(201).json({
@@ -58,7 +57,7 @@ export const addDraft = async (req: any, res: Response) => {
     saveRollbar(CONTROLLER, err.message, STATUS);
     return res.status(500).json({
       resStatus: STATUS,
-      msgPL:msg._500,
+      msgPL: msg._500,
       msg: err.message,
       alertTitle: 'Błąd',
     });
@@ -82,7 +81,7 @@ export const editDraft = async (req: any, res: Response) => {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.noUser;
       STATUS = 'error';
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
 
       return res.status(400).json({
@@ -97,7 +96,7 @@ export const editDraft = async (req: any, res: Response) => {
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subUpdated;
     STATUS = 'success';
-    makeLog(user.id, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
 
     return res.status(201).json({
@@ -125,15 +124,7 @@ export const getAllDrafts = async (req: any, res: Response) => {
     const drafts = await Draft.find({ relations: ['user'] });
     INFO = msg.client.ok.draftsFetched;
     STATUS = 'success';
-    makeLog(
-      req.session.userId,
-      OBJECT,
-      undefined,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS
-    );
+    makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
     //
     return res.status(201).json({
       resStatus: 'success',
@@ -154,26 +145,18 @@ export const getAllDrafts = async (req: any, res: Response) => {
 
 export const getAllUsersDrafts = async (req: any, res: Response) => {
   CONTROLLER = 'getAllUsersDrafts';
-  ACTION = 'pobieranie danych draftów'
+  ACTION = 'pobieranie danych draftów';
   try {
     const drafts = await Draft.find({ where: { userId: req.session.userId } });
     INFO = msg.client.ok.draftsFetched;
     STATUS = 'success';
-    makeLog(
-      req.session.userId,
-      OBJECT,
-      undefined,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS
-    );
+    makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
     //
     return res.status(200).json({
       resStatus: 'success',
       msgPL: INFO,
       count: drafts.length,
-      data:drafts,
+      data: drafts,
     });
   } catch (err) {
     STATUS = 'error';

@@ -30,7 +30,7 @@ export const sendResetMail = async (req: any, res: Response) => {
     // ****************************** LOG *********************************//
     INFO =msg.client.fail.emailErr;
     STATUS = 'error';
-    makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog( OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
 
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
@@ -64,7 +64,7 @@ export const sendResetMail = async (req: any, res: Response) => {
 
       INFO = msg.client.ok.linkSend + email;
       STATUS = 'success';
-      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
     }
 
@@ -88,12 +88,12 @@ export const sendResetMail = async (req: any, res: Response) => {
   }
 };
 
-export const passwordReset = async ({ query, body }, res: Response) => {
+export const passwordReset = async (req, res: Response) => {
   CONTROLLER = 'passwordReset';
   ACTION = 'resetowanie hasła';
 
-  const { id, token} = query;
-  const { password, passwordConfirm } = body;
+  const { id, token} = req.query;
+  const { password, passwordConfirm } = req.body;
 
   let errors: any = {};
 
@@ -102,7 +102,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
   if (passwordConfirm !== password)
     errors.passwordConfirm = msg.client.fail.passNoDiff;
   if (Object.keys(errors).length > 0) {
-    makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
+    makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
 
     return res.status(400).json(errors);
   }
@@ -140,13 +140,14 @@ export const passwordReset = async ({ query, body }, res: Response) => {
       INFO = msg.client.fail.invalidToken;
       STATUS = 'error';
       makeLog(
-        reset.userId,
+
         OBJECT,
         reset.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS
+        STATUS,
+        req
       );
       // ********************************************************************//
       return res.status(400).json({
@@ -161,7 +162,7 @@ export const passwordReset = async ({ query, body }, res: Response) => {
     errors = await validate(user);
 
     if (errors.length > 0) {
-      makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
+      makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(mapErrors(errors));
     }
 
@@ -169,20 +170,21 @@ export const passwordReset = async ({ query, body }, res: Response) => {
 
 
     await Promise.all([
-      resetPassword(user.id, password),
+      resetPassword(user.id, password,req),
       PasswordReset.delete({ userId: reset.userId }),
     ]);
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.passChange;
     STATUS = 'success';
     makeLog(
-      reset.userId,
+
       OBJECT,
       reset.userId,
       ACTION,
       CONTROLLER,
       INFO,
-      STATUS
+      STATUS,
+      req
     );
     // ********************************************************************//
     return res.status(201).json({

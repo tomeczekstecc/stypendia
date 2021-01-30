@@ -38,15 +38,7 @@ export const uploadFile = async (req: any, res: Response) => {
         msg.client.fail.wrongAttType +
         ` - dozwolone wartości to: ${allowedTypes.join(', ')} `;
 
-      makeLog(
-        req.session.userId,
-        OBJECT,
-        undefined,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS
-      );
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
@@ -57,17 +49,9 @@ export const uploadFile = async (req: any, res: Response) => {
     if (!allowedMime.includes(req.file.mimetype)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
-      INFO = msg.client.fail.mime
+      INFO = msg.client.fail.mime;
 
-      makeLog(
-        req.session.userId,
-        OBJECT,
-        undefined,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS
-      );
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
@@ -79,15 +63,7 @@ export const uploadFile = async (req: any, res: Response) => {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO = msg.client.fail.attToBig;
-      makeLog(
-        req.session.userId,
-        OBJECT,
-        undefined,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS
-      );
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(200).json({
         resStatus: STATUS,
         msgPL: INFO,
@@ -122,20 +98,12 @@ export const uploadFile = async (req: any, res: Response) => {
         'checksum',
         'path',
         'fileName',
-        'size'
+        'size',
       ],
     });
     STATUS = 'success';
     INFO = msg.client.fail.attCreated;
-    makeLog(
-      req.session.userId,
-      OBJECT,
-      fileToShow.id,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS
-    );
+    makeLog(OBJECT, fileToShow.id, ACTION, CONTROLLER, INFO, STATUS, req);
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
@@ -184,15 +152,7 @@ export const downloadFile = async (req: any, res: Response) => {
           message: 'Could not download the file. ' + err,
         });
       }
-      makeLog(
-        req.session.userId,
-        OBJECT,
-        file.id,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS
-      );
+      makeLog(OBJECT, file.id, ACTION, CONTROLLER, INFO, STATUS, req);
     });
   } catch (err) {
     STATUS = 'error';
@@ -250,15 +210,7 @@ export const deleteFile = async (req: any, res: Response) => {
     STATUS = 'success';
     INFO = 'pomyślnie usunięto plik';
 
-    makeLog(
-      req.session.userId,
-      OBJECT,
-      fileToDelete.id,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS
-    );
+    makeLog(OBJECT, fileToDelete.id, ACTION, CONTROLLER, INFO, STATUS, req);
     return res.status(200).json({ type: fileToDelete.type });
   } catch (err) {
     STATUS = 'error';

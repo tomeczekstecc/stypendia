@@ -9,8 +9,18 @@ import userAgent from 'express-useragent';
 
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
 import { active, notFound, serverError, limiter } from './middleware';
-import {changePassRouter,userRouter,userHistoryRouter,submitRouter,draftRouter,submitHistoryRouter,emailRouter,resetRouter,pdfRouter, filesRouter } from './routes';
-
+import {
+  changePassRouter,
+  userRouter,
+  userHistoryRouter,
+  submitRouter,
+  draftRouter,
+  submitHistoryRouter,
+  emailRouter,
+  resetRouter,
+  pdfRouter,
+  filesRouter,
+} from './routes';
 
 import Rollbar from 'rollbar';
 const rollbar = new Rollbar({
@@ -23,10 +33,10 @@ const rollbar = new Rollbar({
 dotenv.config();
 export const createApp = (store: Store) => {
   const app = express();
-  app.use(rollbar.errorHandler())
+  app.use(rollbar.errorHandler());
 
   app.use(cookieParser());
- app.use(userAgent.express());
+  app.use(userAgent.express());
   app.use(
     cors({
       credentials: true,
@@ -41,6 +51,7 @@ export const createApp = (store: Store) => {
     })
   );
   const csrfProtection = csrf();
+  // app.get('/api/v1/', (_, res) => res.send('Hello world'));
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
     res.json({ csrfToken: req.csrfToken() });
   });
@@ -54,7 +65,7 @@ export const createApp = (store: Store) => {
   //   console.log(req.session);
   //   next();
   // });
-
+console.log(process.env.NODE_ENV, 'node env')
   app.use('/api/v1/users', userRouter);
   app.use('/api/v1/user_history', userHistoryRouter);
   app.use('/api/v1/submits', submitRouter);

@@ -24,7 +24,7 @@ export const SESSION_OPTIONS: SessionOptions = {
   name: SESSION_NAME,
   cookie: {
     maxAge: +SESSION_IDLE_TIMEOUT,
-    secure: IN_PROD,
+    secure: false, //TODO - update when SSL implemented
     sameSite: false,
     path: SESSION_PATH
   },

@@ -3,7 +3,8 @@
 
 sprawdzić dlaczego tworzy sid przy błednych danych logowania
 select dla submit i user - ukrycie nadmiarowych pól w responsie
-
+required fields
+mode indicator
 dodać pozostałe pola wniosku
 podsumowanie błędów
 spinner zapis
@@ -26,9 +27,11 @@ add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
 
 # FIXES
-
+  secure: false, //TODO - update when SSL implemented
 ip i przegladarka w logach
 buttons over modal i Attachments
+klejne bdne logoewania po blokadzie
+
 
 
 security https://dev.to/demetrakopetros/security-in-node-js-and-express-the-bare-minimum-part-3-54f3

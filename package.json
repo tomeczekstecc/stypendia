@@ -11,7 +11,6 @@
     "@types/express-rate-limit": "^5.1.1",
     "@types/ioredis": "^4.17.8",
     "@types/ip": "^1.1.0",
-    "@types/mongoose": "^5.10.3",
     "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
     "@types/node": "^8.0.29",
@@ -69,7 +68,7 @@
     "xss": "^1.0.8"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "node build/index.js",
     "devStart": "nodemon --exec ts-node src/index.ts",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "build": "tsc",

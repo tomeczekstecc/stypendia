@@ -51,8 +51,9 @@ export const addSubmit = async (req: any, res: Response) => {
     }
 
     const num = (await (await Submit.find()).length) + 10000;
-
+let id: any
     const car = await Car.create({
+id,
       ...req.body,
       numer: `WN-${num}-v1-20`,
       firstName: user.firstName,

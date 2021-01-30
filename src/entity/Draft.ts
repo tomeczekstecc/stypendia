@@ -17,11 +17,16 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
-
+import { v4 as uuid } from 'uuid';
 import {
   counselorProfileTypeEnums,
   voyevEnums,
@@ -31,10 +36,28 @@ import {
 } from './types';
 
 @Entity('drafs')
-export class Draft extends Model {
+export class Draft extends BaseEntity {
   constructor(draft: Partial<Draft>) {
     super();
     Object.assign(this, draft);
+  }
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn({ comment: 'Data utworzenia' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ comment: 'Data ostatniej aktualizacji' })
+  updatedAt: Date;
+
+  @Column({ type: 'uuid', comment: 'Unikalny identyfikator uuidV4' })
+  @Index()
+  uuid: string;
+
+  // do before saving
+  @BeforeInsert()
+  createUuid() {
+    this.uuid = uuid();
   }
 
   @Column({ comment: 'Wersja wniosku', default: 1 })

@@ -46,7 +46,8 @@ export class User extends Model {
   // @Index()
   @Column({ unique: true, comment: 'Email użytkownika' })
   @IsEmail(undefined, {
-    message: (props) => `${props.value || 'Ta wartość'} nie jest poprawnym adresem email`,
+    message: (props) =>
+      `${props.value || 'Ta wartość'} nie jest poprawnym adresem email`,
   })
   email: string;
 
@@ -133,7 +134,6 @@ export class User extends Model {
 
   @OneToMany(() => UserHistory, (user_history) => user_history.user)
   user_history: UserHistory[];
-  static id: any;
 
   @OneToOne(() => Draft)
   draft: Draft;

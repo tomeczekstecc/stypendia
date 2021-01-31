@@ -1,0 +1,17 @@
+name: Pull code, rebuild, restart
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rebuild server
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -a
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.username }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}

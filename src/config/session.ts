@@ -12,7 +12,7 @@ export const {
   SESSION_SECRET2,
   SESSION_NAME = 'sid',
   SESSION_IDLE_TIMEOUT = THIRTY_MINUTES,
-  SESSION_PATH = '/'
+  SESSION_PATH = '/',
 } = process.env;
 
 export const SESSION_ABSOLUTE_TIMEOUT = +(
@@ -24,9 +24,9 @@ export const SESSION_OPTIONS: SessionOptions = {
   name: SESSION_NAME,
   cookie: {
     maxAge: +SESSION_IDLE_TIMEOUT,
-    secure: false, //TODO - update when SSL implemented
+    secure: process.env.NODE_ENV === 'production',
     sameSite: false,
-    path: SESSION_PATH
+    path: SESSION_PATH,
   },
   rolling: true,
   resave: false,

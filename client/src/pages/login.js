@@ -121,7 +121,7 @@ const Login = () => {
                 <Button
                   loading={isLoading}
                   type='submit'
-                  content='Zaloguj się'
+                  content='Zaloguj się !'
                   primary
                   size='large'
                   onClick={handleOnClick}

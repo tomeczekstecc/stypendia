@@ -32,7 +32,6 @@ ip i przegladarka w logach
 buttons over modal i Attachments
 klejne bdne logoewania po blokadzie
 
-
 security https://dev.to/demetrakopetros/security-in-node-js-and-express-the-bare-minimum-part-3-54f3
 
 

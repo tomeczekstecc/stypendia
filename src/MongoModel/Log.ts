@@ -1,6 +1,6 @@
 import { resultEnum } from "../entity/types";
 
-import mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
 const LogSchema = new mongoose.Schema(

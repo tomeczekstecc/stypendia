@@ -20,10 +20,10 @@ import {
 } from './pages';
 import { AuthState, AlertState, AppState, SubmitState } from './context';
 import { Alert } from './components';
-import { useContext, useEffect } from 'react';
 
 
-axios.defaults.baseURL = 'http://localhost:5003';
+
+axios.defaults.baseURL = 'https://slaskietalenty.com/api/v1';
 axios.defaults.withCredentials = true;
 
 function App() {

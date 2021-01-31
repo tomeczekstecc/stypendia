@@ -28,7 +28,7 @@ const history = useHistory()
 
   const checkIsAuthenticated = async () => {
     const result = await (
-      await fetch('http://localhost:5003/api/v1/users/me', {
+      await fetch('https://slaskietalenty/api/v1/users/me', {
         method: 'GET',
         credentials: 'include',
         headers: {

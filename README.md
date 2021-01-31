@@ -34,7 +34,6 @@ klejne bdne logoewania po blokadzie
 
 security https://dev.to/demetrakopetros/security-in-node-js-and-express-the-bare-minimum-part-3-54f3
 
-
 # Awesome Project Build with TypeORM
 
 Steps to run this project:

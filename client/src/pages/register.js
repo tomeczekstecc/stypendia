@@ -45,7 +45,7 @@ const Register = (props) => {
     const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`${process.env.REACT_APP_ORIGIN}/api/v1/users`, newBody)
+      .post(`/api/v1/users`, newBody)
       .then((data) => {
         console.log(data.data);
         if (data.data.resStatus || data.data.resStatus === 'success') {

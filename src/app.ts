@@ -33,7 +33,6 @@ const rollbar = new Rollbar({
 dotenv.config();
 export const createApp = (store: Store) => {
   const app = express();
-  app.use(rollbar.errorHandler());
   app.use(
     cors({
       credentials: true,
@@ -41,6 +40,7 @@ export const createApp = (store: Store) => {
       optionsSuccessStatus: 200,
     })
   );
+  app.use(rollbar.errorHandler());
 
   app.use(cookieParser());
   app.use(userAgent.express());

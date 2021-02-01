@@ -7,7 +7,7 @@ export const {
   APP_HOSTNAME = 'localhost',
   APP_PROTOCOL = process.env.NODE_ENV === 'development' ?'http': 'http',
   APP_SECRET,
-  CLIENT_URI= process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://slaskietalenty.com',
+  CLIENT_URI= 'http://localhost:3000',
   FAILED_LOGINS_MAX = 5,
   FILE_MAX_SIZE = ONE_MB * 2
 } = process.env;

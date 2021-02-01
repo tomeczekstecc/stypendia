@@ -37,13 +37,13 @@ export const createApp = (store: Store) => {
 
   app.use(cookieParser());
   app.use(userAgent.express());
-  app.use(
-    cors({
-      credentials: true,
-      origin: 'https://slaskietalenty.com',
-      optionsSuccessStatus: 200,
-    })
-  );
+  // app.use(
+  //   cors({
+  //     credentials: true,
+  //     origin: 'https://slaskietalenty.com',
+  //     optionsSuccessStatus: 200,
+  //   })
+  // );
   app.use(
     session({
       ...SESSION_OPTIONS,

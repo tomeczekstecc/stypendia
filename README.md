@@ -35,6 +35,9 @@ security https://dev.to/demetrakopetros/security-in-node-js-and-express-the-bare
 
 # Awesome Project Build with TypeORM
 
+git commit -am'fix' && git push
+
+
 Steps to run this project:
 
 1. Run `npm i` command

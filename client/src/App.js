@@ -23,7 +23,7 @@ import { Alert } from './components';
 
 
 
-axios.defaults.baseURL = 'https://slaskietalenty.com/api/v1';
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_ORIGIN;
 axios.defaults.withCredentials = true;
 
 function App() {

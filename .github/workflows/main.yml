@@ -18,7 +18,7 @@ jobs:
             npx tsc
             cd client
             npm run build
-            pm2 restart stypendia-server stypendia-client
+            pm2 restart stypendia-server
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}

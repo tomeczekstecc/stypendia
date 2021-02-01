@@ -27,7 +27,7 @@ const AuthState = ({ children }) => {
 
   const checkIsAuthenticated = async () => {
     const result = await (
-      await fetch('http:localhost:5003/api/v1/users/me', {
+      await fetch('http://localhost:5003/api/v1/users/me', {
         method: 'GET',
         credentials: 'include',
         headers: {

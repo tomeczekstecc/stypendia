@@ -3,8 +3,7 @@ import authReducer from './authReducer';
 import AuthContext from './authContext';
 import axios from 'axios';
 import AlertContext from '../../context/alert/alertContext';
-import {useHistory} from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom';
 
 import {
   SET_USER,
@@ -14,8 +13,8 @@ import {
   SET_TIME,
 } from '../types';
 
-const AuthState = ({children}) => {
-const history = useHistory()
+const AuthState = ({ children }) => {
+  const history = useHistory();
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -28,7 +27,7 @@ const history = useHistory()
 
   const checkIsAuthenticated = async () => {
     const result = await (
-      await fetch('/api/v1/users/me', {
+      await fetch('http:localhost:5003/api/v1/users/me', {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -76,7 +75,7 @@ const history = useHistory()
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
-         history.push('/login');
+          history.push('/login');
         }
 
         dispatch({
@@ -96,7 +95,6 @@ const history = useHistory()
 
   useEffect(() => {
     checkIsAuthenticated();
-    
   }, []);
 
   return (

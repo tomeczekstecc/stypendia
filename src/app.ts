@@ -40,7 +40,7 @@ export const createApp = (store: Store) => {
   app.use(
     cors({
       credentials: true,
-      origin: 'https://slaskietalenty.com',
+      origin: 'http://localhost:3000',
       optionsSuccessStatus: 200,
     })
   );

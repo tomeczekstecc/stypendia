@@ -23,7 +23,7 @@ import { Alert } from './components';
 
 
 
-axios.defaults.baseURL = 'api/v1';
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_ORIGIN;
 axios.defaults.withCredentials = true;
 
 function App() {

@@ -38,7 +38,7 @@ exports.createApp = function (store) {
     app.use(express_useragent_1["default"].express());
     app.use(cors_1["default"]({
         credentials: true,
-        origin: config_1.CLIENT_URI,
+        origin: 'http://localhost:3000',
         optionsSuccessStatus: 200
     }));
     app.use(express_session_1["default"](__assign(__assign({}, config_1.SESSION_OPTIONS), { store: store })));

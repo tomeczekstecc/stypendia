@@ -36,7 +36,7 @@ export const createApp = (store: Store) => {
   app.use(
     cors({
       credentials: true,
-      origin: 'http://localhost:3000',
+      origin: '*',
       optionsSuccessStatus: 200,
     })
   );

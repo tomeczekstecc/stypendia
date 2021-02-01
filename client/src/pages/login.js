@@ -39,11 +39,11 @@ const Login = () => {
     e.preventDefault();
 
     setIsLoading(true);
-    const csrfData = await axios.get('/api/v1/csrf');
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    // const csrfData = await axios.get('/api/v1/csrf');
+    // const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/users/login`, newBody)
+      .post(`/api/v1/users/login`, body)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

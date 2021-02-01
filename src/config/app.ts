@@ -5,7 +5,7 @@ export const {
   NODE_ENV = 'development',
   APP_PORT = 5003,
   APP_HOSTNAME = 'localhost',
-  APP_PROTOCOL = process.env.NODE_ENV === 'development' ?'http': 'https',
+  APP_PROTOCOL = process.env.NODE_ENV === 'development' ?'http': 'http',
   APP_SECRET,
   CLIENT_URI= process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://slaskietalenty.com',
   FAILED_LOGINS_MAX = 5,

@@ -21,13 +21,10 @@ import {
 import { AuthState, AlertState, AppState, SubmitState } from './context';
 import { Alert } from './components';
 
-
-
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_ORIGIN;
+axios.defaults.baseURL = 'http://localhost:5003';
 axios.defaults.withCredentials = true;
 
 function App() {
-
   return (
     <AlertState>
       <AppState>

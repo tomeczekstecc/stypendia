@@ -21,8 +21,8 @@ import {
 import { AuthState, AlertState, AppState, SubmitState } from './context';
 import { Alert } from './components';
 
-axios.defaults.baseURL = 'http://localhost:5003';
-axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = 'http://localhost:5003';
+// axios.defaults.withCredentials = true;
 
 function App() {
   return (

@@ -40,12 +40,12 @@ const Register = (props) => {
   const handleOnClick = async (e) => {
     setErrors('');
     e.preventDefault();
-    const csrfData = await axios.get('/api/v1/csrf');
+    // const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    // const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/users`, newBody)
+      .post(`/api/v1/users`, body)
       .then((data) => {
         console.log(data.data);
         if (data.data.resStatus || data.data.resStatus === 'success') {
@@ -99,7 +99,7 @@ const Register = (props) => {
                 required
                 label={
                   <label>
-                    Oświadczam, iż zapoznałam/em się z powyższą informacją
+                    Oświadczam, iż zapoznałam/em się z powyższą informacją.
                     <span> *</span>
                   </label>
                 }

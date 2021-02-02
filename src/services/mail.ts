@@ -16,4 +16,3 @@ export const sendMail = (options: SendMailOptions) => {
     console.log(err.message);
   }
 };
-

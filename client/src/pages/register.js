@@ -99,7 +99,7 @@ const Register = (props) => {
                 required
                 label={
                   <label>
-                    Oświadczam, iż zapoznałam/em się z powyższą informacją
+                    Oświadczam, iż zapoznałam/em się z powyższą informacją.
                     <span> *</span>
                   </label>
                 }

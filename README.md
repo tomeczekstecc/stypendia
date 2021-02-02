@@ -24,6 +24,7 @@ swr(https://www.youtube.com/watch?v=v9DVxf8mSv4)?
 Logger (zainstalowany, skonfigurowany)?
 add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
+
  
 
 # FIXES

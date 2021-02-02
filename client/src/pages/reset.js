@@ -37,11 +37,11 @@ const Reset = ({ location, history }) => {
     setIsLoading(true);
     setErrors('');
     e.preventDefault();
-    const csrfData = await axios.get('/api/v1/csrf');
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    // const csrfData = await axios.get('/api/v1/csrf');
+    // const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/password/reset${location.search}`, newBody)
+      .post(`/api/v1/password/reset${location.search}`, body)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

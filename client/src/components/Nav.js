@@ -31,8 +31,10 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const addNewSubmit = async (submit) => {
     setIsLoading(true);
      setSubmitErrors('');
-    const csrfData = await axios.get('/api/v1/csrf');
-    const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
+    // const csrfData = await axios.get('/api/v1/csrf');
+    const newSubmit = { ...submit
+      // , _csrf: csrfData.data.csrfToken
+    };
     axios
       .post('/api/v1/submits', newSubmit)
       .then((data) => {
@@ -55,8 +57,10 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const updateSubmit = async (submit) => {
     setIsLoading(true);
     setSubmitErrors('');
-    const csrfData = await axios.get('/api/v1/csrf');
-    const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
+    // const csrfData = await axios.get('/api/v1/csrf');
+    const newSubmit = { ...submit
+      // , _csrf: csrfData.data.csrfToken
+     };
     axios
       .put('/api/v1/submits', newSubmit)
       .then((data) => {

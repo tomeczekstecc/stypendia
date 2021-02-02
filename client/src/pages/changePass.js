@@ -29,13 +29,13 @@ const ChangePass = ({ history }) => {
 
   const handleOnClick = async (e) => {
     e.preventDefault();
-    const csrfData = await axios.get('/api/v1/csrf');
+    // const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    // const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
 
     axios
-      .post(`/api/v1/changepass`, newBody)
+      .post(`/api/v1/changepass`, body)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

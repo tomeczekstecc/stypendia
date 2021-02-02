@@ -4,7 +4,7 @@ const { SMTP_USERNAME, SMTP_PASSWORD, SMTP_HOST, SMTP_PORT } = process.env;
 
 export const SMTP_OPTIONS: Options = {
   host: SMTP_HOST,
-  port: +SMTP_PORT,
+  port: 143,
   secure: false,
   auth: {
     user: SMTP_USERNAME,

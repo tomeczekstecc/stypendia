@@ -13,5 +13,5 @@ export const SMTP_OPTIONS: Options = {
 };
 
 // export const MAIL_FROM = `noreply@${APP_HOSTNAME}`;
-export const MAIL_FROM = `noreply@gmail.com`;
+export const MAIL_FROM = `admin@slaskietalenty.com`;
 // export const MAIL_FROM = `noreply@${APP_HOSTNAME}`;

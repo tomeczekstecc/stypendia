@@ -17,6 +17,7 @@ jobs:
             npm install
             npx tsc
             cd client
+            rm -rf build
             npm run build
             pm2 restart stypendia-server
           host: ${{ secrets.HOST }}

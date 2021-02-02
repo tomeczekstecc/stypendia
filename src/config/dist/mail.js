@@ -5,7 +5,7 @@ var _a = process.env, SMTP_USERNAME = _a.SMTP_USERNAME, SMTP_PASSWORD = _a.SMTP_
 exports.SMTP_OPTIONS = {
     host: SMTP_HOST,
     port: +SMTP_PORT,
-    secure: false,
+    secure: true,
     auth: {
         user: SMTP_USERNAME,
         pass: SMTP_PASSWORD

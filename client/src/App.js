@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import axios from 'axios';
 
 import Layout from './components/commonLayout/Layout';
 import 'semantic-ui-css/semantic.min.css';

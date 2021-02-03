@@ -19,7 +19,6 @@ jobs:
             cd client
             rm -rf build
             npm run build
-            sudo chown tomek:tomek /home/tomek/.pm2/rpc.sock /home/tomek/.pm2/pub.sock
             pm2 restart stypendia-server
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}

@@ -2,6 +2,11 @@
   "name": "new-typeorm-project",
   "version": "0.0.1",
   "main": "iondex8.ts",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/tomeczekstecc/stypendia",
+    "type": "remote"
+  },
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -49,7 +54,6 @@
     "express-rate-limit": "^5.2.3",
     "express-session": "^1.17.1",
     "express-useragent": "^1.0.15",
-    "filepond-plugin-image-exif-orientation": "^1.0.9",
     "handlebars": "^4.7.6",
     "ioredis": "^4.19.2",
     "ip": "^1.1.5",

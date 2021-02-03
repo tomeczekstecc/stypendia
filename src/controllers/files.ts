@@ -46,7 +46,7 @@ export const uploadFile = async (req: any, res: Response) => {
         alertTitle: 'Błąd załącznika',
       });
     }
-    if (!allowedMime.includes(req.file.mimetype)) {
+    if (!allowedMime.includes(req.file?.mimetype)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO = msg.client.fail.mime;

@@ -34,7 +34,7 @@ const ChangePass = ({ history }) => {
     const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/changepass`, newBody)
+      .post(`/api/v1/changepass`, { ...body, _csrf: csrfData.data.csrfToken })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

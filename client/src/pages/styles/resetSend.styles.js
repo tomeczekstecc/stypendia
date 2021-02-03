@@ -10,17 +10,17 @@ color: red !important;
   .input {
     max-width: 350px !important;
 
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
   .small-text{
-    font-size: .9rem;
-    text-align: center;
-    transform: translateY(-35px);
-    color: red;
+    font-size: .9rem !important;
+    text-align: center !important;
+    transform: translateY(-35px) !important;
+    color: red !important;
   }
   .msg {
-    text-align: left;
-    margin-top: 2.5rem !important;
+    text-align: left !important;
+    
   }
 
 `;

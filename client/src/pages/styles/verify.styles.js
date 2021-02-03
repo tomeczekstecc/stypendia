@@ -10,22 +10,22 @@ margin-top: 8rem !important;
     margin-bottom: 20px;
   }
   .small-text {
-    font-size: 0.9rem;
-    text-align: center;
-    transform: translateY(-35px);
-    color: red;
+    font-size: 0.9rem !important;
+    text-align: center !important;
+    transform: translateY(-35px) !important;
+    color: red !important;
   }
   .msg {
     margin-top: 8rem !important;
-    text-align: left;
-    margin-top: 2.5rem !important;
+    text-align: left !important;
+
   }
 
   .leadingHeader {
-    margin-bottom: 5rem;
-    margin-top: 8rem;
+    margin-bottom: 5rem !important;
+    margin-top: 8rem !important;
   }
   .itemHeader {
-    transform: translateY(8px);
+    transform: translateY(8px) !important;
   }
-`;
+`

@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  margin-top: 5%;
+  margin-top: 5% !important;
   .menu {
     margin-top: 6% !important;
   }
 
   .lead-header {
-    position: absolute;
-    top: -1.8rem;
-    left: 3rem;
-    z-index: 1;
+    position: absolute !important;
+    top: -1.8rem !important;
+    left: 3rem !important;
+    z-index: 1 !important;
   }
 
   .sub-header {
@@ -27,37 +27,37 @@ export const Wrapper = styled.div`
   }
 
   .column {
-    padding-left: 2rem;
+    padding-left: 2rem !important;
   }
 
   .container {
-    padding-bottom: 5rem;
+    padding-bottom: 5rem !important;
   }
 
   .select-header {
     font-size: 13px !important;
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
   }
 
   select:focus,
   select:active {
     border: 1px solid rgba(34, 36, 38, 0.15) !important;
-    outline: 0;
+    outline: 0 !important;
   }
 
   select {
     max-width: 25rem !important;
-    padding-top: 10px;
-    line-height: 38px;
+    padding-top: 10px !important;
+    line-height: 38px !important;
   }
 
   option {
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
   }
 
   .adress-wrapper {
-    max-width: 25rem;
-    margin-top: 27px;
+    max-width: 25rem !important;
+    margin-top: 27px !important;
   }
   input,
   select {
@@ -65,17 +65,17 @@ export const Wrapper = styled.div`
       props.submitMode === 'watch' ? 'not-allowed' : ''} !important;
   }
   .small-text {
-    font-size: 0.9rem;
-    text-align: center;
+    font-size: 0.9rem !important;
+    text-align: center !important;
     /* margin-left:15% !important; */
-    transform: translateY(-35px);
+    transform: translateY(-35px) !important;
     color: red;
   }
   .select {
-    font-size: 0.8rem;
+    font-size: 0.8rem !important;
     text-align: center;
     /* margin-left:15% !important; */
-    transform: translateY(0);
-    color: red;
+    transform: translateY(0) !important;
+    color: red !important;
   }
 `;

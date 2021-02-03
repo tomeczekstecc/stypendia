@@ -19,6 +19,6 @@ export const Wrapper = styled.div`
   }
   .msg {
     text-align: left;
-    margin-top: 2.5rem !important;
+
   }
 `;

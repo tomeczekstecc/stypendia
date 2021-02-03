@@ -49,7 +49,7 @@ export const createApp = (store: Store) => {
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
     res.json({ csrfToken: req.csrfToken() });
   });
-  app.set('trust proxy', true);
+  app.set('trust proxy', 1);
   // app.use(limiter);
   app.use(express.json());
   app.use(morgan('dev'));

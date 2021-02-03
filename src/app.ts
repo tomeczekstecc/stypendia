@@ -57,7 +57,7 @@ export const createApp = (store: Store) => {
 
   app.use((req: any, _, next) => {
     console.log(req.session);
-    console.log(req.headers.cookie);
+    console.log(req.headers.cookie, 'cookies');
     next();
   });
 

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-
   .notification-container {
     font-size: 14px;
 

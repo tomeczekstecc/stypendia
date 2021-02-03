@@ -64,7 +64,7 @@ const Profile = () => {
         content='Zamierzasz usunąć konto. Pamiętaj, że usunięcie konta oznacza usunięcie użytkownika, jego wniosków, kopii roboczych. Usunięcie konta nie jest możliwe, jeżeli złożyłaś/eś już wniosek. Czy jesteś pewna/y?'
       />
       <Title content='Twoje dane' />
-      <Container className='container'>
+      <Container className='items-container'>
         <Header as='h2' icon textAlign='center'>
           <Icon name='user' circular />
           <Header.Content>

@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   /* align-self: center; */
   height: 100vh;
 
-  .container {
+  .items-container {
     max-width: 600px !important;
   }
 

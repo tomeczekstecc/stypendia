@@ -83,7 +83,7 @@ const Login = () => {
     <Wrapper>
       <Container>
         <Title content='Logowanie' />
-        <Segment placeholder className='main' size='large'>
+        <Segment placeholder className='main-segment' size='large'>
           <Grid columns={2} relaxed='very' stackable>
             <Grid.Column>
               <Form>

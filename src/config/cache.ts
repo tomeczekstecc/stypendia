@@ -6,6 +6,7 @@ const {
   REDIS_PASSWORD = 'secret',
 } = process.env;
 
+
 export const REDIS_OPTIONS: RedisOptions = {
   port: +REDIS_PORT,
   host: REDIS_HOST,

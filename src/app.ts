@@ -49,16 +49,17 @@ export const createApp = (store: Store) => {
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
     res.json({ csrfToken: req.csrfToken() });
   });
-  app.set('trust proxy', 1);
+  app.set('trust proxy', true);
   // app.use(limiter);
   app.use(express.json());
   app.use(morgan('dev'));
   app.use(active); // TODO wywala aplikację
 
-  // app.use((req: any, _, next) => {
-  //   console.log(req.session);
-  //   next();
-  // });
+  app.use((req: any, _, next) => {
+    console.log(req.session);
+    console.log(req.headers.cookie);
+    next();
+  });
 
   app.use('/api/v1/users', userRouter);
   app.use('/api/v1/user_history', userHistoryRouter);

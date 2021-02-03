@@ -25,7 +25,7 @@ export const SESSION_OPTIONS: SessionOptions = {
   cookie: {
     maxAge: +SESSION_IDLE_TIMEOUT,
     secure: IN_PROD,
-    sameSite: false,
+    sameSite: true,
     path: SESSION_PATH,
   },
   rolling: true,

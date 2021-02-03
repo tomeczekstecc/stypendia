@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-color: red !important;
- .main {
-    margin-top: 7rem;
-
+  color: red !important;
+  .main {
+    margin-top: 7rem !important;
   }
 
   .input {
@@ -12,8 +11,8 @@ color: red !important;
 
     margin-bottom: 20px;
   }
-  .small{
-    font-size: .9rem;
+  .small {
+    font-size: 0.9rem;
     text-align: center;
     transform: translateY(-35px);
     color: red;
@@ -22,5 +21,4 @@ color: red !important;
     text-align: left;
     margin-top: 2.5rem !important;
   }
-
 `;

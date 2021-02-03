@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
 color: red !important;
  .main {
-    margin-top: 7rem;
+    margin-top: 7rem !important;
 
   }
 

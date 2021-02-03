@@ -24,7 +24,7 @@ export const SESSION_OPTIONS: SessionOptions = {
   name: SESSION_NAME,
   cookie: {
     maxAge: +SESSION_IDLE_TIMEOUT,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: false,
     path: SESSION_PATH,
   },

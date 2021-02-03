@@ -22,7 +22,7 @@ const Alert = (props) => {
             case 'error':
               return (
                 <div key={alert.id} className={`${props.position}`}>
-                  <Message error className='toast'>
+                  <Message error className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
                     </Message.Header>
@@ -35,7 +35,7 @@ const Alert = (props) => {
             case 'info':
               return (
                 <div key={alert.id} className={`${props.position}`}>
-                  <Message info className='toast'>
+                  <Message info className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
                     </Message.Header>
@@ -49,7 +49,7 @@ const Alert = (props) => {
             case 'warning':
               return (
                 <div key={alert.id} className={`${props.position}`}>
-                  <Message warning className='toast'>
+                  <Message warning className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
                     </Message.Header>
@@ -63,7 +63,7 @@ const Alert = (props) => {
             case 'success':
               return (
                 <div key={alert.id} className={`${props.position}`}>
-                  <Message success className='toast'>
+                  <Message success className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
                     </Message.Header>

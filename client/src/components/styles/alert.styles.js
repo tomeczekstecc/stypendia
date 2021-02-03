@@ -3,12 +3,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   .notification-container {
     font-size: 14px;
-
     box-sizing: border-box;
     position: fixed;
     z-index: 99999999;
-
-    font-family: Lato, sans-serif;
   }
 
   .top-right {
@@ -33,23 +30,9 @@ export const Wrapper = styled.div`
     left: 12px;
     animation: toast-in-left 0.5s;
   }
-
   .notification {
-    background: #fff;
-    transition: 0.3s ease;
-    position: relative;
-    pointer-events: auto;
-    overflow: hidden;
-    margin: 0 0 6px;
-    margin-bottom: 15px;
-
-    width: 300px;
-    max-height: 100px;
-    border-radius: 3px;
-    box-shadow: 0 0 10px #999;
-    color: #000;
-    opacity: 0.9;
-    padding: 20px;
+    min-width: 350px;
+    margin-top:5px !important;
   }
 
   .notification:hover {
@@ -61,31 +44,7 @@ export const Wrapper = styled.div`
     font-weight: 700 !important;
     font-size: 16px !important;
     text-align: left !important;
-    margin-top: -10px !important;
     margin-bottom: 6px !important;
-    margin-left: 10px !important;
-    width: 300px !important;
-    height: 18px !important;
-  }
-
-  .notification-message {
-    margin-left: 10px;
-    text-align: left;
-    height: 18px;
-    margin-bottom: 6px;
-  }
-  .notification-image {
-    float: left;
-    margin-right: 15px;
-    font-size: 36px;
-  }
-
-  .toast {
-    height: 85px;
-    width: 450px;
-    color: #fff;
-    padding: 20px 15px 10px 10px;
-    margin-top: 5px !important;
   }
 
   @keyframes toast-in-right {

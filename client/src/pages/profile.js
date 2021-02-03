@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Container, Header, Icon } from 'semantic-ui-react';
+import { Button,  Header, Icon } from 'semantic-ui-react';
 import { useHistory, Link } from 'react-router-dom';
 import { Wrapper } from './styles/profile.styles';
 import { AuthContext, AppContext, AlertContext } from '../context';
@@ -50,6 +50,7 @@ const Profile = () => {
     checkIsAuthenticated();
     resetTimeLeft();
     !isLoggedIn && history.push('/login');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, openConfirm]);
   return (
     <Wrapper>
@@ -64,7 +65,7 @@ const Profile = () => {
         content='Zamierzasz usunąć konto. Pamiętaj, że usunięcie konta oznacza usunięcie użytkownika, jego wniosków, kopii roboczych. Usunięcie konta nie jest możliwe, jeżeli złożyłaś/eś już wniosek. Czy jesteś pewna/y?'
       />
       <Title content='Twoje dane' />
-      <Container className='items-container'>
+      <div className='items-container'>
         <Header as='h2' icon textAlign='center'>
           <Icon name='user' circular />
           <Header.Content>
@@ -133,7 +134,7 @@ const Profile = () => {
             </Button>
           </Header.Subheader>
         </Header>
-      </Container>
+      </div>
     </Wrapper>
   );
 };

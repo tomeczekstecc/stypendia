@@ -36,6 +36,7 @@ const AllUsersSubmits = () => {
 
   useEffect(() => {
     resetTimeLeft();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return !isLoading ? (

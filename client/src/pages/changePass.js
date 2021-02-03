@@ -11,12 +11,12 @@ import {
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/changePass.styles';
 import Title from '../components/Title';
-import {AlertContext,AppContext,AuthContext} from '../context';
+import { AlertContext, AppContext, AuthContext } from '../context';
 import { changePassInputs } from '../parts/inputs';
 
 const ChangePass = ({ history }) => {
-    const authContext = useContext(AuthContext);
-    const { resetTimeLeft } = authContext;
+  const authContext = useContext(AuthContext);
+  const { resetTimeLeft } = authContext;
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -29,13 +29,12 @@ const ChangePass = ({ history }) => {
 
   const handleOnClick = async (e) => {
     e.preventDefault();
-    // const csrfData = await axios.get('/api/v1/csrf');
+    const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-    // const newBody = { ...body, _csrf: csrfData.data.csrfToken };
-
+    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/changepass`, body)
+      .post(`/api/v1/changepass`, newBody)
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -58,10 +57,10 @@ const ChangePass = ({ history }) => {
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 
-    useEffect(() => {
-      resetTimeLeft();
-    }, []);
-
+  useEffect(() => {
+    resetTimeLeft();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>

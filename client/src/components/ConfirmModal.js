@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { useEffect } from 'react';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 const ConfirmModal = ({
@@ -12,9 +10,7 @@ const ConfirmModal = ({
   redAction,
   greenAction,
 }) => {
-  const handleConfirm = () => {
-    axios.delete('/');
-  };
+
 
   return (
     <Modal

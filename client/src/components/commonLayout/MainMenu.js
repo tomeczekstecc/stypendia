@@ -10,6 +10,7 @@ const MainMenu = () => {
   const { setSubmitMode } = submitContext;
 
   const [activeItem, setActiveItem] = useState('home');
+  // eslint-disable-next-line no-unused-vars
   const [hasOwnSub, setHasOwnSub] = useState(false);
 
   const authContext = useContext(AuthContext);

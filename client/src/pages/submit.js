@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React, { useContext, useState } from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 

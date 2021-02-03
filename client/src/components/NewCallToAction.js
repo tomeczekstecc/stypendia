@@ -21,6 +21,7 @@ const NewCallToAction = () => {
 
   useEffect(() => {
     resetTimeLeft()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

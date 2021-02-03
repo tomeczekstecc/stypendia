@@ -26,6 +26,7 @@ const Timer = () => {
     const timer =
       timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
     return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
   return isLoggedIn ? (

@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
   button {
     margin-bottom: 20px !important;
   }
-  .link{
-    transform: translateY(-50%) !important
+  .link {
+    transform: translateY(-50%) !important;
   }
 `;

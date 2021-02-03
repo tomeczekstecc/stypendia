@@ -30,6 +30,7 @@ const Verify = ({ location: { search }, history }) => {
   const { checkIsAuthenticated, isLoggedIn } = authContext;
   isLoggedIn && history.push('/');
 
+  // eslint-disable-next-line no-unused-vars
   const [query, setQuery] = useState(search);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const Verify = ({ location: { search }, history }) => {
         setIsLoading(false);
         addAlert(err.response.data);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   return (

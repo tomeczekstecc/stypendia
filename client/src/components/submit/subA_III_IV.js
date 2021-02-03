@@ -37,6 +37,7 @@ const SubA_III_IV = () => {
 
   useEffect(() => {
     resetTimeLeft();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

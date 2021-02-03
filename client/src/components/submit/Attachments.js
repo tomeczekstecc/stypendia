@@ -121,6 +121,7 @@ const Attachments = () => {
     } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
   return (

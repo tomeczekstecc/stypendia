@@ -35,6 +35,7 @@ const Register = (props) => {
 
   useEffect(() => {
     checkIsAuthenticated();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOnClick = async (e) => {

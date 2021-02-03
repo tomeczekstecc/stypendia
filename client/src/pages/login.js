@@ -22,7 +22,7 @@ const Login = () => {
   const { addAlert } = alertContext;
 
   const appContext = useContext(AppContext);
-  const { setIsLoading, isLoading, saveRollbar } = appContext;
+  const { setIsLoading, isLoading } = appContext;
 
   const authContext = useContext(AuthContext);
   const { checkIsAuthenticated, isLoggedIn } = authContext;
@@ -33,6 +33,7 @@ const Login = () => {
   useEffect(() => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
@@ -48,12 +49,12 @@ const Login = () => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setIsLoading(false);
-          // saveRollbar(data.data);
+
           history.push('/');
         }
       })
       .catch((err) => {
-        // saveRollbar({ err: err.response.data.message, page: 'login' });
+
         if (err.response?.data?.forcePassChange) {
           addAlert(err.response.data);
           setIsLoading(false);

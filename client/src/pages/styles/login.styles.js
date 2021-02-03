@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .main-segment {
-    margin-top: 7rem;
+    margin-top: 7rem !important;
   }
 
   .input {

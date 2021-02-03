@@ -11,8 +11,8 @@ import {
 } from 'semantic-ui-react';
 
 import { Wrapper } from './styles/resend.styles';
-import {Title} from '../components';
-import {AlertContext, AuthContext,AppContext} from '../context';
+import { Title } from '../components';
+import { AlertContext, AuthContext, AppContext } from '../context';
 
 const Resend = ({ history }) => {
   const alertContext = useContext(AlertContext);
@@ -30,6 +30,7 @@ const Resend = ({ history }) => {
   useEffect(() => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
@@ -39,7 +40,7 @@ const Resend = ({ history }) => {
     // const csrfData = await axios.get('/api/v1/csrf');
     // const newBody = { email, _csrf: csrfData.data.csrfToken };
     axios
-      .post(`/api/v1/email/resend`, {email})
+      .post(`/api/v1/email/resend`, { email })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

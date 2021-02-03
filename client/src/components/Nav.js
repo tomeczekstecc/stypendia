@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 
@@ -55,10 +55,10 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const updateSubmit = async (submit) => {
     setIsLoading(true);
     setSubmitErrors('');
-    // const csrfData = await axios.get('/api/v1/csrf');
+    const csrfData = await axios.get('/api/v1/csrf');
     const newSubmit = {
       ...submit,
-      // , _csrf: csrfData.data.csrfToken
+      _csrf: csrfData.data.csrfToken,
     };
     axios
       .put('/api/v1/submits', newSubmit)
@@ -82,6 +82,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
 
   useEffect(() => {
     resetTimeLeft();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

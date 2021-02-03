@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useContext } from 'react';
 import { Message } from 'semantic-ui-react';
 import { Wrapper } from '../styles/alert.styles';

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-
 import { Button, Card, Image, Label } from 'semantic-ui-react';
+
 import NewCallToAction from './NewCallToAction';
 import { AuthContext, AppContext } from '../context';
 import useFetch from '../hooks/useFetch';
@@ -16,6 +16,7 @@ const AllUsersDrafts = () => {
 
   useEffect(() => {
     resetTimeLeft();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return !isLoading ? (

@@ -1,4 +1,4 @@
-const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'src';
+const rootDir = process.env.NODE_ENV === 'development' ? 'build' : 'build';
 
 module.exports = {
   type: process.env.DB_DIALECT,

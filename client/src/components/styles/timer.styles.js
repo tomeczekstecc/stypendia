@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: fixed;
-  bottom: 10px;
-  left: 5px;
+  position: fixed !important;
+  bottom: 10px !important;
+  left: 5px !important;
 
  
 

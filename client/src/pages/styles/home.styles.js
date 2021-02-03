@@ -3,16 +3,13 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   /* margin-top: 9rem; */
 
-  position: relative;
-  margin-top: 7rem;
-  width: 70%;
+  position: relative !important;
+  margin-top: 7rem !important;
+  width: 70% !important;
 
   .card {
-    margin: 20px 25px;
-    min-width: 297px;
-    min-height: 250px;
-
-
+    margin: 20px 25px !important;
+    min-width: 297px !important;
   }
 
   .text-left {
@@ -34,9 +31,7 @@ export const Wrapper = styled.div`
     min-height: 220px;
   }
 
-  .relative{
-    position: relative;
+  .relative {
+    position: relative !important;
   }
-
-
 `;

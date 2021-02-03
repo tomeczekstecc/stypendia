@@ -9,16 +9,15 @@ export const Wrapper = styled.div`
   .input {
     max-width: 350px !important;
 
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
-  .small {
-    font-size: 0.9rem;
-    text-align: center;
-    transform: translateY(-35px);
-    color: red;
+  .small-text {
+    font-size: 0.9rem !important;
+    text-align: center !important;
+    transform: translateY(-35px) !important;
+    color: red !important;
   }
   .msg {
-    text-align: left;
-    margin-top: 2.5rem !important;
+    text-align: left !important;
   }
 `;

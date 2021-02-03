@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
-  height: 100vh;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-self: center !important;
+  height: 100vh !important;
 
   .btn {
-    margin-top: 1rem;
+    margin-top: 1rem !important;
   }
 `;

@@ -66,7 +66,7 @@ const SubA_III_IV = () => {
             />
 
             {submitErrors?.schoolName && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.schoolName}
               </Label>
             )}
@@ -117,7 +117,7 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetName && (
-                  <Label basic color='red' pointing='above' className='small'>
+                  <Label basic color='red' pointing='above' className='small-text'>
                     {submitErrors?.schoolStreetName}
                   </Label>
                 )}
@@ -138,7 +138,7 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetNr && (
-                  <Label basic color='red' pointing='above' className='small'>
+                  <Label basic color='red' pointing='above' className='small-text'>
                     {submitErrors?.schoolStreetNr}
                   </Label>
                 )}
@@ -158,7 +158,7 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolZip && (
-                  <Label basic color='red' pointing='above' className='small'>
+                  <Label basic color='red' pointing='above' className='small-text'>
                     {submitErrors?.schoolZip}
                   </Label>
                 )}
@@ -179,7 +179,7 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolTown && (
-                  <Label basic color='red' pointing='above' className='small'>
+                  <Label basic color='red' pointing='above' className='small-text'>
                     {submitErrors?.schoolTown}
                   </Label>
                 )}
@@ -240,7 +240,7 @@ const SubA_III_IV = () => {
               onChange={(e) => handleOnChange(e)}
             />
             {submitErrors?.counselorFirstName && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.counselorFirstName}
               </Label>
             )}
@@ -261,7 +261,7 @@ const SubA_III_IV = () => {
               onChange={(e) => handleOnChange(e)}
             />
             {submitErrors?.counselorLastName && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.counselorLastName}
               </Label>
             )}

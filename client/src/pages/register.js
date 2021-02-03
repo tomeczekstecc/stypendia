@@ -131,7 +131,7 @@ const Register = (props) => {
                             color='red'
                             pointing='above'
                             key={input.id}
-                            className='small'
+                            className='small-text'
                           >
                             {errors[input.name]}
                           </Label>

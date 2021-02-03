@@ -64,7 +64,7 @@ export const Wrapper = styled.div`
     cursor: ${(props) =>
       props.submitMode === 'watch' ? 'not-allowed' : ''} !important;
   }
-  .small {
+  .small-text {
     font-size: 0.9rem;
     text-align: center;
     /* margin-left:15% !important; */

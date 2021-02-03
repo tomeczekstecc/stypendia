@@ -2,36 +2,36 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .notification-container {
-    font-size: 14px;
-    box-sizing: border-box;
-    position: fixed;
-    z-index: 99999999;
+    font-size: 14px !important ;
+    box-sizing: border-box !important;
+    position: fixed !important;
+    z-index: 99999999 !important;
   }
 
   .top-right {
-    top: 12px;
-    right: 12px;
-    animation: toast-in-right 0.5s;
+    top: 12px !important;
+    right: 12px !important;
+    animation: toast-in-right 0.5s !important;
   }
 
   .bottom-right {
-    bottom: 12px;
-    right: 12px;
-    animation: toast-in-right 0.5s;
+    bottom: 12px !important;
+    right: 12px !important;
+    animation: toast-in-right 0.5s !important;
   }
 
   .bottom-left {
-    bottom: 12px;
-    left: 12px;
-    animation: toast-in-left 0.5s;
+    bottom: 12px !important;
+    left: 12px !important;
+    animation: toast-in-left 0.5s !important;
   }
   .top-left {
-    top: 12px;
-    left: 12px;
-    animation: toast-in-left 0.5s;
+    top: 12px !important;
+    left: 12px !important;
+    animation: toast-in-left 0.5s !important;
   }
   .notification {
-    min-width: 350px;
+    min-width: 350px !important;
     margin-top:5px !important;
   }
 
@@ -44,25 +44,25 @@ export const Wrapper = styled.div`
 
   @keyframes toast-in-right {
     from {
-      transform: translateX(100%);
+      transform: translateX(100%) !important;
     }
     to {
-      translate: translateX(0);
+      translate: translateX(0) !important;
     }
   }
   @keyframes toast-in-left {
     from {
-      transform: translateX(-100%);
+      transform: translateX(-100%) !important;
     }
     to {
-      translate: translateX(0);
+      translate: translateX(0) !important;
     }
   }
 
   .close-button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 18px;
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    font-size: 18px !important;
   }
 `;

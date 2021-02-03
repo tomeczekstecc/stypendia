@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
   /* align-self: center; */
-  height: 100vh;
+  height: 100vh !important;
 
   .items-container {
     max-width: 600px !important;

@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .card {
-    min-width: 30%;
+    min-width: 30% !important;
   }
 
   .icons {
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   }
 
   .icon-wrapper {
-    height: 350px;
+    height: 350px !important;
     /* background-color: gray; */
   }
 
@@ -24,13 +24,13 @@ export const Wrapper = styled.div`
     height: 350px !important;
   }
   .target {
-    position: absolute;
-    top: 5px;
-    left: 10px;
+    position: absolute !important;
+    top: 5px !important;
+    left: 10px !important;
   }
 
   .placeholder-image {
-    position: relative;
+    position: relative !important;
   }
   .btn {
     display: inline-block !important;
@@ -39,10 +39,10 @@ export const Wrapper = styled.div`
     opacity: 0.9;
   }
   .img-button {
-    position: absolute;
-    z-index: 10000000000;
-    top: 10px;
-    right: 5px;
+    position: absolute !important;
+    z-index: 10000000000 !important;
+    top: 10px !important;
+    right: 5px !important;
   }
 
   .trash-btn {
@@ -50,11 +50,11 @@ export const Wrapper = styled.div`
       props.submitMode !== 'new' ? 'none' : null} !important;
   }
 
-  .small {
-    font-size: 0.9rem;
-    text-align: center;
+  .small-text {
+    font-size: 0.9rem !important;
+    text-align: center !important;
     /* margin-left:15% !important; */
-    margin-bottom: -40px;
-    color: red;
+    margin-bottom: -40px !important;
+    color: red !important;
   }
 `;

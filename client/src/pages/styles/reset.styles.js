@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
     margin-bottom: 20px;
   }
-  .small {
+  .small-text {
     font-size: 0.9rem;
     text-align: center;
     transform: translateY(-35px);

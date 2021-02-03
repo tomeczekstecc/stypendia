@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 
 export const Wrapper = styled.div`
-z-index: 999999999999999999999 !important;
+  z-index: 999999999999999999999 !important;
   .error {
     color: red !important;
-    font-weight: bold;
+    font-weight: bold !important;
   }
 `;

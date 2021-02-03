@@ -197,7 +197,7 @@ const Attachments = () => {
                 />
               ))}
             {submitErrors?.statementId && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.statementId}
               </Label>
             )}
@@ -278,7 +278,7 @@ const Attachments = () => {
             <Card.Content>
               <Card.Header textAlign='left'>
                 {submitErrors?.report_cardId && (
-                  <Label basic color='red' pointing='above' className='small'>
+                  <Label basic color='red' pointing='above' className='small-text'>
                     {submitErrors?.report_cardId}
                   </Label>
                 )}

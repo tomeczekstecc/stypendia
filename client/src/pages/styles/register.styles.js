@@ -3,40 +3,40 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   .main {
     margin-top: 7rem !important;
-    max-width: 95%;
+    max-width: 95% !important;
     margin: 0 auto;
   }
 
   .input {
     max-width: 320px !important;
 
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
-  .small {
-    font-size: 0.9rem;
-    text-align: center;
-    transform: translateY(-35px);
-    color: red;
+  .small-text {
+    font-size: 0.9rem!important;
+    text-align: center!important;
+    transform: translateY(-35px)!important;
+    color: red!important;
   }
 
   .span {
-    font-size: 1rem;
+    font-size: 1rem!important;
   }
 
   .buttonWrapper {
-    margin-top: 10px;
+    margin-top: 10px!important;
   }
 
   span {
-    color: red;
+    color: red!important;
   }
   .checkBox {
-    margin-bottom: 30px;
+    margin-bottom: 30px!important;
   }
 
   @media (max-width: 767px) {
     .divider {
-      display: none;
+      display: none!important;
     }
   }
 `;

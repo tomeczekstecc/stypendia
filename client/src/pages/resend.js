@@ -94,7 +94,7 @@ const Resend = ({ history }) => {
                 />
 
                 {errors && errors.email && (
-                  <Label basic color='red' pointing='above' className='small'>
+                  <Label basic color='red' pointing='above' className='small-text'>
                     {errors.email}
                   </Label>
                 )}

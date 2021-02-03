@@ -91,7 +91,7 @@ const SubA_I_II = () => {
               }
             />
             {submitErrors?.phone && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.phone}
               </Label>
             )}
@@ -166,7 +166,7 @@ const SubA_I_II = () => {
               }
             />
             {submitErrors?.pupilPesel && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilPesel}
               </Label>
             )}
@@ -189,7 +189,7 @@ const SubA_I_II = () => {
               }
             />
             {submitErrors?.pupilFirstName && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilFirstName}
               </Label>
             )}
@@ -213,7 +213,7 @@ const SubA_I_II = () => {
               }
             />
             {submitErrors?.pupilLastName && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilLastName}
               </Label>
             )}
@@ -237,7 +237,7 @@ const SubA_I_II = () => {
               }
             />
             {submitErrors?.pupilEmail && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilEmail}
               </Label>
             )}
@@ -259,7 +259,7 @@ const SubA_I_II = () => {
               }
             />
             {submitErrors?.pupilPhone && (
-              <Label basic color='red' pointing='above' className='small'>
+              <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilPhone}
               </Label>
             )}

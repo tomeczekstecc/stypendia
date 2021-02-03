@@ -2,19 +2,19 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .main {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
+    position: fixed  !important;
+    top: 0  !important;
+    left: 0  !important;
+    width: 100%  !important;
+    z-index: 1000  !important;
   }
 
   .right {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 100;
-    margin-left: 0;
-    margin-right: 0;
+    position: fixed  !important;
+    top: 0  !important;
+    right: 0  !important;
+    z-index: 100  !important;
+    margin-left: 0  !important;
+    margin-right: 0  !important;
   }
 `;

@@ -14,8 +14,8 @@ import csrf from 'csurf';
 const csrfProtection = csrf();
 const router = express.Router();
 
-router.route('/').post(guest, register); // create user
-router.route('/login').post( guest, login); // login
+router.route('/').post(csrfProtection, guest, register); // create user
+router.route('/login').post( csrfProtection, guest, login); // login
 router.route('/logout').get(auth, logout); // login
 router.route('/me').get(csrfProtection, me); // login
 // router.route('/').get(getAllUsers); // get all user

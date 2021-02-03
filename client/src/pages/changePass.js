@@ -31,7 +31,6 @@ const ChangePass = ({ history }) => {
     e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
     setIsLoading(true);
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
       .post(`/api/v1/changepass`, { ...body, _csrf: csrfData.data.csrfToken })

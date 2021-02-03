@@ -37,10 +37,9 @@ const Resend = ({ history }) => {
     setErrors('');
     e.preventDefault();
     setIsLoading(true);
-    // const csrfData = await axios.get('/api/v1/csrf');
-    // const newBody = { email, _csrf: csrfData.data.csrfToken };
-    axios
-      .post(`/api/v1/email/resend`, { email })
+    const csrfData = await axios.get('/api/v1/csrf');
+     axios
+      .post(`/api/v1/email/resend`, { email, _csrf: csrfData.data.csrfToken })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

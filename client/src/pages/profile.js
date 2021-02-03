@@ -23,10 +23,10 @@ const Profile = () => {
 
   const handleDelete = async () => {
     setIsLoading(true);
-    // const csrfData = await axios.get('/api/v1/csrf');
+    const csrfData = await axios.get('/api/v1/csrf');
     axios
       .put(`/api/v1/users/${user.uuid}`
-      // , { _csrf: csrfData.data.csrfToken }
+      , { _csrf: csrfData.data.csrfToken }
       )
       .then(async (data) => {
         console.log(data);

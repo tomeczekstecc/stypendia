@@ -38,11 +38,13 @@ const Reset = ({ location, history }) => {
     setIsLoading(true);
     setErrors('');
     e.preventDefault();
-    // const csrfData = await axios.get('/api/v1/csrf');
-    // const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    const csrfData = await axios.get('/api/v1/csrf');
 
     axios
-      .post(`/api/v1/password/reset${location.search}`, body)
+      .post(`/api/v1/password/reset${location.search}`, {
+        ...body,
+        _csrf: csrfData.data.csrfToken,
+      })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -52,7 +54,6 @@ const Reset = ({ location, history }) => {
         }
       })
       .catch((err) => {
-   
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);

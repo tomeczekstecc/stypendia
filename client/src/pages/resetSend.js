@@ -9,16 +9,14 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
-import {Wrapper} from './styles/resetSend.styles'
-import {Title} from '../components';
-import {AlertContext,AuthContext ,AppContext} from '../context';
+import { Wrapper } from './styles/resetSend.styles';
+import { Title } from '../components';
+import { AlertContext, AuthContext, AppContext } from '../context';
 import { resetReqInputs } from '../parts/inputs';
 
 const ResetSend = ({ history }) => {
-
   const appContext = useContext(AppContext);
   const { setIsLoading, isLoading } = appContext;
-
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -32,7 +30,7 @@ const ResetSend = ({ history }) => {
   useEffect(() => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
@@ -41,10 +39,12 @@ const ResetSend = ({ history }) => {
     e.preventDefault();
 
     const csrfData = await axios.get('/api/v1/csrf');
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
 
     axios
-      .post(`/api/v1/password/email`, newBody)
+      .post(`/api/v1/password/email`, {
+        ...body,
+        _csrf: csrfData.data.csrfToken,
+      })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -54,7 +54,6 @@ const ResetSend = ({ history }) => {
         }
       })
       .catch((err) => {
- 
         if (err.response.data.alertTitle) {
           setIsLoading(false);
           addAlert(err.response.data);
@@ -64,11 +63,10 @@ const ResetSend = ({ history }) => {
         setIsLoading(false);
       });
   };
-    const handleOnChange = (e) => {
-      e.preventDefault();
-      setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
-    };
-
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
+  };
 
   return (
     <Wrapper>
@@ -135,6 +133,5 @@ const ResetSend = ({ history }) => {
     </Wrapper>
   );
 };
-
 
 export default ResetSend;

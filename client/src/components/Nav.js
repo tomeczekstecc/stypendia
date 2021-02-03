@@ -32,9 +32,8 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
     setIsLoading(true);
     setSubmitErrors('');
     const csrfData = await axios.get('/api/v1/csrf');
-    const newSubmit = { ...submit, _csrf: csrfData.data.csrfToken };
     axios
-      .post('/api/v1/submits', newSubmit)
+      .post('/api/v1/submits', { ...submit, _csrf: csrfData.data.csrfToken })
       .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
@@ -56,12 +55,11 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
     setIsLoading(true);
     setSubmitErrors('');
     const csrfData = await axios.get('/api/v1/csrf');
-    const newSubmit = {
-      ...submit,
-      _csrf: csrfData.data.csrfToken,
-    };
     axios
-      .put('/api/v1/submits', newSubmit)
+      .put('/api/v1/submits', {
+        ...submit,
+        _csrf: csrfData.data.csrfToken,
+      })
       .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

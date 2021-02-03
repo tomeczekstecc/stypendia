@@ -35,11 +35,6 @@ export const Wrapper = styled.div`
     margin-top:5px !important;
   }
 
-  .notification:hover {
-    box-shadow: 0 0 12px #fff;
-    opacity: 1;
-    cursor: pointer;
-  }
   .notification-title {
     font-weight: 700 !important;
     font-size: 16px !important;

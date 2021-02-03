@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   return (
     <Wrapper>
       <MainMenu />
-      <Grid centered className='grid' verticalAlign='middle'>
+      <Grid centered verticalAlign='middle'>
         {children}
         {isLoggedIn && <Timer/>}
       </Grid>

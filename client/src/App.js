@@ -37,6 +37,8 @@ function App() {
                   <Route exact path='/reset' component={Reset} />
                   <Route exact path='/resetsend' component={ResetSend} />
                   <Route exact path='/resend' component={Resend} />
+                  <Route exact path='/resend' component={Resend} />
+
                   <ProtectedRoute
                     exact
                     path='/changepass'

@@ -6,12 +6,13 @@ export const SMTP_OPTIONS: Options = {
   host: SMTP_HOST,
   port: +SMTP_PORT,
   secure: true,
+
     auth: {
     user: SMTP_USERNAME,
     pass: SMTP_PASSWORD,
   },
 };
 
-// export const MAIL_FROM = `noreply@${APP_HOSTNAME}`;
-export const MAIL_FROM = `admin@slaskietalenty.com`;
-// export const MAIL_FROM = `noreply@${APP_HOSTNAME}`;
+
+export const MAIL_FROM = `Śląskie Talenty 2021 <admin@slaskietalenty.com>`;
+

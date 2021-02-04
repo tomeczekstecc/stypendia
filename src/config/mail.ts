@@ -6,7 +6,6 @@ export const SMTP_OPTIONS: Options = {
   host: SMTP_HOST,
   port: +SMTP_PORT,
   secure: true,
-  
     auth: {
     user: SMTP_USERNAME,
     pass: SMTP_PASSWORD,

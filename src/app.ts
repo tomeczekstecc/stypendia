@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import userAgent from 'express-useragent';
 
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
-import { active, notFound, serverError, limiter } from './middleware';
+import { active, notFound, serverError, limiter, clientIp } from './middleware';
 import {
   changePassRouter,
   userRouter,
@@ -35,7 +35,7 @@ export const createApp = (store: Store) => {
   const app = express();
   app.use(cors());
   app.use(rollbar.errorHandler());
-
+  app.use(clientIp);
   app.use(cookieParser());
   app.use(userAgent.express());
   app.use(
@@ -52,6 +52,7 @@ export const createApp = (store: Store) => {
   app.set('trust proxy', 1);
   // app.use(limiter);
   app.use(express.json());
+
   app.use(morgan('dev'));
   app.use(active); // TODO wywala aplikację
 

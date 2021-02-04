@@ -20,7 +20,7 @@ color: red !important;
   }
   .msg {
     text-align: left !important;
-    
+
   }
 
 `;

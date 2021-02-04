@@ -14,6 +14,7 @@ jobs:
           command: |
             cd apps/stypendia
             git pull
+            NODE_ENV=production
             npm install
             npx tsc
             cd client

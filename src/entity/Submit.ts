@@ -189,8 +189,7 @@ export class Submit extends Model {
   counselorLastName: string;
 
   @IsEnum(counselorProfileTypeEnums, {
-    message:
-      'Należy wybrać profil opiekuna dydaktycznego ucznia',
+    message: 'Należy wybrać profil opiekuna dydaktycznego ucznia',
   })
   @Column({
     type: 'enum',
@@ -199,89 +198,97 @@ export class Submit extends Model {
   })
   counselorProfile: string;
 
-  // //
-  // // V.  PODSTAWOWE KRYTERIA OCENY
-  // //
-  // @IsEnum(priGradesEnums, { message: 'Należy wybrać odpowiednią wartość' })
-  // @Column({
-  //   type: 'enum',
-  //   enum: priGradesEnums,
-  //   comment: 'Podstawowe kryteria oceny - ocena z matematyki',
-  // })
-  // priMathGrade: number;
+  //
+  // V.  PODSTAWOWE KRYTERIA OCENY
+  //
+  @IsEnum(priGradesEnums, { message: 'Należy wybrać ocenę dla matematyki' })
+  @Column({
+    type: 'enum',
+    enum: priGradesEnums,
+    comment: 'Podstawowe kryteria oceny - ocena z matematyki',
+  })
+  priMathGrade: number;
 
-  // @Length(1, 254, {
-  //   message: 'Nazwa języka obcego musi zawierać od 1 do 254 znaków',
-  // })
-  // @Column({ comment: 'Podstawowe kryteria oceny - nazwa języka obcego' })
-  // priLang: string;
+  @Length(1, 254, {
+    message: 'Należy wskazać język obcy',
+  })
+  @Column({ comment: 'Podstawowe kryteria oceny - nazwa języka obcego' })
+  priLang: string;
 
-  // @IsEnum(priGradesEnums, { message: 'Należy wybrać odpowiednią wartość' })
-  // @Column({
-  //   type: 'enum',
-  //   enum: priGradesEnums,
-  //   comment: 'Podstawowe kryteria oceny - ocena z wybranego języka',
-  // })
-  // priLangGrade: number;
+  @IsEnum(priGradesEnums, {
+    message: 'Należy wybrać ocenę dla języka obcego',
+  })
+  @Column({
+    type: 'enum',
+    enum: priGradesEnums,
+    comment: 'Podstawowe kryteria oceny - ocena z wybranego języka',
+  })
+  priLangGrade: number;
 
-  // @Length(1, 254, {
-  //   message: 'Nazwa języka obcego musi zawierać od 1 do 254 znaków',
-  // })
-  // @Column({
-  //   comment:
-  //     'Podstawowe kryteria oceny - nazwa wybranego przedmiotu kluczowego',
-  // })
-  // priOtherSubj: string;
+  @Length(1, 254, {
+    message: 'Należy wskazać inny przedmiot',
+  })
+  @Column({
+    comment:
+      'Podstawowe kryteria oceny - nazwa wybranego przedmiotu kluczowego',
+  })
+  priOtherSubj: string;
 
-  // @IsEnum(priGradesEnums, { message: 'Należy wybrać odpowiednią wartość' })
-  // @Column({
-  //   type: 'enum',
-  //   enum: priGradesEnums,
-  //   comment: 'Podstawowe kryteria oceny - ocena z wybranego przedmiotu',
-  // })
-  // priOtherSubjGrade: number;
+  @IsEnum(priGradesEnums, {
+    message: 'Należy wybrać ocenę dla innego przedmiotu',
+  })
+  @Column({
+    type: 'enum',
+    enum: priGradesEnums,
+    comment: 'Podstawowe kryteria oceny - ocena z wybranego przedmiotu',
+  })
+  priOtherSubjGrade: number;
 
-  // @Column({
-  //   comment: 'Podstawowe kryteria oceny - średnia z przedmiotów kierunkowych',
-  // })
-  // priTotalAver: number;
+  @Column({
+    comment: 'Podstawowe kryteria oceny - średnia z przedmiotów kierunkowych',
+  })
+  priTotalAver: number;
 
-  // @IsEnum(allTotalAvgEnums, { message: 'Należy wybrać odpowiednią wartość' })
-  // @Column({
-  //   type: 'enum',
-  //   enum: allTotalAvgEnums,
-  //   comment: 'Podstawowe kryteria oceny - średnia z wszystkich przedmiotów',
-  // })
-  // allTotalAver: string;
+  @IsEnum(allTotalAvgEnums, {
+    message: 'Należy wybrać średnią wszystkich ocen',
+  })
+  @Column({
+    type: 'enum',
+    enum: allTotalAvgEnums,
+    comment: 'Podstawowe kryteria oceny - średnia z wszystkich przedmiotów',
+  })
+  allTotalAver: string;
 
-  // //
-  // // V.  DDODATKOWE KRYTERIA OCENY
-  // //
+  //
+  // V.  DDODATKOWE KRYTERIA OCENY
+  //
 
-  // @IsIn([0, 1], { message: 'isFinalist może przyjąć wartość 0 lub 1' })
-  // @Column({
-  //   type: 'enum',
-  //   comment: 'Dodatkowe krytria oceny - czy uzyskał/a tytuł finalisty',
-  //   enum: [0, 1],
-  // })
-  // isFinalist: boolean;
+  @IsEnum(['Tak', 'Nie'], {
+    message: 'Należy wybrać odpowiedź. czy uczeń/uczennica uzyskał/a tytuł finalisty',
+  })
+  @Column({
+    type: 'enum',
+    comment: 'Dodatkowe krytria oceny - czy uzyskał/a tytuł finalisty',
+    enum: ['Tak', 'Nie'],
+  })
+  isFinalist: boolean;
 
-  // @IsIn([0, 1], { message: 'isFinalist może przyjąć wartość 0 lub 1' })
-  // @Column({
-  //   type: 'enum',
-  //   comment:
-  //     'Dodatkowe krytria oceny - czy posiada zezwolenie na indyw. program nauczania',
-  //   enum: [0, 1],
-  // })
-  // isAllowed: boolean;
+  @IsEnum(['Tak', 'Nie'], { message: 'Należy wybrać odpowiedź, czy uczeniń posiada zgodę' })
+  @Column({
+    type: 'enum',
+    comment:
+      'Dodatkowe krytria oceny - czy posiada zezwolenie na indyw. program nauczania',
+    enum: ['Tak', 'Nie'],
+  })
+  isAllowed: boolean;
 
-  // @IsIn([0, 1], { message: 'isFinalist może przyjąć wartość 0 lub 1' })
-  // @Column({
-  //   type: 'enum',
-  //   comment: 'Dodatkowe krytria oceny - czy uczeń/uczennica nbiepełnosprawny/a',
-  //   enum: [0, 1],
-  // })
-  // isHandicap: boolean;
+  @IsEnum(['Tak', 'Nie'], { message: 'Należy wybrać odpowiedź dot niepłnosprawności' })
+  @Column({
+    type: 'enum',
+    comment: 'Dodatkowe krytria oceny - czy uczeń/uczennica nbiepełnosprawny/a',
+    enum: ['Tak', 'Nie'],
+  })
+  isHandicap: boolean;
 
   @Column({
     comment: 'Suma kontrolna powiązanego pliku pdf 1 ',
@@ -331,10 +338,10 @@ export class Submit extends Model {
   @OneToMany(() => SubmitHistory, (submit_history) => submit_history.submit)
   history: SubmitHistory[];
 
-  // @BeforeInsert()
-  // calculatePriAver() {
-  //   this.priTotalAver = Math.round(
-  //     (this.priMathGrade + this.priLangGrade + this.priOtherSubjGrade) / 3
-  //   );
-  // }
+  @BeforeInsert()
+  calculatePriAver() {
+    this.priTotalAver = Math.round(
+      (this.priMathGrade + this.priLangGrade + this.priOtherSubjGrade) / 3
+    );
+  }
 }

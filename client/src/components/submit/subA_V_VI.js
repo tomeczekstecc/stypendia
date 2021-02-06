@@ -4,13 +4,13 @@ import {
   Form,
   Grid,
   Header,
-  Input,
+
   Label,
-  Segment,
+
 } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
-import { optionsVoyev, optionsSchoolType, optionsGrades } from '../../parts';
+import { optionsTotalGrades, optionsGrades, optionsYesNo } from '../../parts';
 
 const SubA_V_VI = () => {
   const authContext = useContext(AuthContext);
@@ -28,30 +28,26 @@ const SubA_V_VI = () => {
   } = submitContext;
 
   const handleOnChange = async (e) => {
-    e.stopPropagation()
-    console.log(e)
-console.log(e.target.innerText)
-console.log(e.nativeElement.path[3])
-
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
-        [e.target.name]: e.target.value,
+        [e.target.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name]:
+          e.target.value || e.target.innerText,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
-        [e.target.name]: e.target.value,
+        [e.target.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name]:
+          e.target.value || e.target.innerText,
       });
     }
   };
 
-const [priAverGrade, setPriAverGrade] = useState(0)
-
-const [curDocument, setCurDocument] = useState(null);
-
-
-
+  const [curDocument, setCurDocument] = useState(null);
 
   useEffect(() => {
     resetTimeLeft();
@@ -63,7 +59,7 @@ const [curDocument, setCurDocument] = useState(null);
       setCurDocument(submitToWatch);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitMode, submitToWatch, newSubmit, curSubmit]);;
+  }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -77,24 +73,28 @@ const [curDocument, setCurDocument] = useState(null);
               <Header as='h4'>
                 Średnia ocen z trzech wybranych przedmiotów kierunkowych
               </Header>
+
               <Form.Input
                 action={
                   <Dropdown
-                  data-name='priMathGrade'
                     button
-                    name='priMathGrade'
+                    data-name='priMathGrade'
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
+                    value={curDocument?.priMathGrade}
                     defaultValue='default'
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='calculator'
+                name='priMath'
                 iconPosition='left'
-                placeholder='Matematyka'
+                placeholder='MAtematyka'
                 value='Matematyka'
+                onChange={(e) => handleOnChange(e)}
               />
+
               {submitErrors?.priMathGrade && (
                 <Label
                   basic
@@ -109,11 +109,11 @@ const [curDocument, setCurDocument] = useState(null);
                 action={
                   <Dropdown
                     button
-                    name='priLangGrade'
                     data-name='priLangGrade'
                     className='priLangGrade'
                     basic
                     options={optionsGrades}
+                    value={curDocument?.priLangGrade}
                     defaultValue='default'
                     onChange={(e) => handleOnChange(e)}
                   />
@@ -135,14 +135,25 @@ const [curDocument, setCurDocument] = useState(null);
                   {submitErrors?.priLang}
                 </Label>
               )}
+              {!submitErrors?.priLang && submitErrors?.priLangGrade && (
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text'
+                >
+                  {submitErrors?.priLangGrade}
+                </Label>
+              )}
               <Form.Input
                 action={
                   <Dropdown
                     button
-                    name='priOtherSubjGrade'
-                    className='priMathGrade'
+                    data-name='priOtherSubjGrade'
+                    className='priOtherSubjGrade'
                     basic
                     options={optionsGrades}
+                    value={curDocument?.priOtherSubjGrade}
                     defaultValue='default'
                     onChange={(e) => handleOnChange(e)}
                   />
@@ -154,149 +165,57 @@ const [curDocument, setCurDocument] = useState(null);
                 value={curDocument?.priOtherSubj}
                 onChange={(e) => handleOnChange(e)}
               />
-              {submitErrors?.priLang && (
+              {submitErrors?.priOtherSubj && (
                 <Label
                   basic
                   color='red'
                   pointing='above'
                   className='small-text'
                 >
-                  {submitErrors?.priLang}
+                  {submitErrors?.priOtherSubj}
+                </Label>
+              )}
+              {!submitErrors?.priOtherSubj && submitErrors?.priOtherSubjGrade && (
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text'
+                >
+                  {submitErrors?.priOtherSubjGrade}
                 </Label>
               )}
 
-              <Label size='large'>
-                {' '}
-                Średnia ocen przedmiotów kierunkowych : {priAverGrade}
+              <Label size='large' className='aver-label'>
+                Średnia ocen przedmiotów kierunkowych :{' '}
+                <Label color='grey' size='large'>
+                  {Math.round(
+                    ((+curDocument?.priMathGrade +
+                      +curDocument?.priLangGrade +
+                      +curDocument?.priOtherSubjGrade) /
+                      3) *
+                      100
+                  ) / 100 || '0.00'}
+                </Label>
               </Label>
 
-              <Form.Input
-                className='input'
-                icon='zip'
-                iconPosition='left'
-                placeholder='Podaj kod pocztowy w formacie XX-XXX'
-                name='schoolZip'
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.schoolZip
-                    : submitMode === 'new'
-                    ? newSubmit?.schoolZip
-                    : submitToWatch?.schoolZip) || ''
-                }
-                onChange={(e) => handleOnChange(e)}
-              />
-              {submitErrors?.schoolZip && (
-                <Label
-                  basic
-                  color='red'
-                  pointing='above'
-                  className='small-text'
-                >
-                  {submitErrors?.schoolZip}
-                </Label>
-              )}
-              <Form.Input
-                className='input'
-                icon='zip'
-                iconPosition='left'
-                // label='Adres szkoły (miejscowość)'
-                placeholder='Podaj miejscowość'
-                name='schoolTown'
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.schoolTown
-                    : submitMode === 'new'
-                    ? newSubmit?.schoolTown
-                    : submitToWatch?.schoolTown) || ''
-                }
-                onChange={(e) => handleOnChange(e)}
-              />
-              {submitErrors?.schoolTown && (
-                <Label
-                  basic
-                  color='red'
-                  pointing='above'
-                  className='small-text'
-                >
-                  {submitErrors?.schoolTown}
-                </Label>
-              )}
-              <div className='select-wrapper'>
-                <select
-                  name='schoolVoyev'
-                  onChange={(e) => handleOnChange(e)}
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolVoyev
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolVoyev
-                      : submitToWatch?.schoolVoyev) || 'default'
-                  }
-                >
-                  {optionsVoyev.map((o) => (
-                    <option disabled={o.disabled} key={o.key} value={o.value}>
-                      {o.text}
-                    </option>
-                  ))}
-                </select>
-                {submitErrors?.schoolVoyev && (
-                  <Label basic color='red' pointing='above' className='select'>
-                    {submitErrors?.schoolVoyev}
-                  </Label>
-                )}
-              </div>
-
-              <Form.Input
-                className='input'
-                label='Pełna nazwa szkoły'
-                name='schoolName'
-                icon='building outline'
-                placeholder='Podaj pełną nazwę szkoły'
-                iconPosition='left'
-                onChange={(e) => handleOnChange(e)}
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.schoolName
-                    : submitMode === 'new'
-                    ? newSubmit?.schoolName
-                    : submitToWatch?.schoolName) || ''
-                }
-              />
-
-              {submitErrors?.schoolName && (
-                <Label
-                  basic
-                  color='red'
-                  pointing='above'
-                  className='small-text'
-                >
-                  {submitErrors?.schoolName}
-                </Label>
-              )}
-              <div className='select-wrapper'>
+              <div className='dropdown-wrapper'>
                 <Header className='select-header' as='h5'>
-                  Profil doradcy
+                  Średnia wszystkich ocen
                 </Header>
-                <select
-                  name='schoolType'
+                <Dropdown
+                  fluid
+                  selection
+                  floating
+                  className='dropdown'
+                  data-name='allTotalAver'
                   onChange={(e) => handleOnChange(e)}
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolType
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolType
-                      : submitToWatch?.schoolType) || 'default'
-                  }
-                >
-                  {optionsSchoolType.map((o) => (
-                    <option disabled={o.disabled} key={o.key} value={o.value}>
-                      {o.text}
-                    </option>
-                  ))}
-                </select>{' '}
-                {submitErrors?.schoolType && (
+                  value={curDocument?.allTotalAver || 'default'}
+                  options={optionsTotalGrades}
+                />
+                {submitErrors?.allTotalAver && (
                   <Label basic color='red' pointing='above' className='select'>
-                    {submitErrors?.schoolType}
+                    {submitErrors?.allTotalAver}
                   </Label>
                 )}
               </div>
@@ -310,73 +229,73 @@ const [curDocument, setCurDocument] = useState(null);
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-            <Form.Input
-              className='input'
-              icon='user'
-              iconPosition='left'
-              label='Imię doradcy'
-              name='counselorFirstName'
-              placeholder='Podaj imię doradcy'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.counselorFirstName
-                  : submitMode === 'new'
-                  ? newSubmit?.counselorFirstName
-                  : submitToWatch?.counselorFirstName) || ''
-              }
-              onChange={(e) => handleOnChange(e)}
-            />
-            {submitErrors?.counselorFirstName && (
-              <Label basic color='red' pointing='above' className='small-text'>
-                {submitErrors?.counselorFirstName}
-              </Label>
-            )}
-            <Form.Input
-              icon='user'
-              iconPosition='left'
-              className='input'
-              label='Nazwisko doradcy'
-              name='counselorLastName'
-              placeholder='Podaj nazwisko doradcy'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.counselorLastName
-                  : submitMode === 'new'
-                  ? newSubmit?.counselorLastName
-                  : submitToWatch?.counselorLastName) || ''
-              }
-              onChange={(e) => handleOnChange(e)}
-            />
-            {submitErrors?.counselorLastName && (
-              <Label basic color='red' pointing='above' className='small-text'>
-                {submitErrors?.counselorLastName}
-              </Label>
-            )}
-            <div className='select-wrapper'>
-              <Header className='select-header' as='h5'>
-                Profil doradcy
+            <div className='dropdown-wrapper'>
+              <Header className='select-header' as='h4'>
+                Uczeń/uczennica w roku szkolnym 2019/2020 uzyskał tytułu
+                laureata lub finalisty konkursu o zasięgu co najmniej
+                wojewódzkim lub olimpiady/turnieju co najmniej II stopnia
               </Header>
-              <select
-                name='counselorProfile'
+              <Dropdown
+                options={optionsYesNo}
+                fluid
+                selection
+                floating
+                className='dropdown'
+                data-name='isFinalist'
+                defaultValue='default'
                 onChange={(e) => handleOnChange(e)}
-                placeholder='Wybierz profil doradcy'
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.counselorProfile
-                    : submitMode === 'new'
-                    ? newSubmit?.counselorProfile
-                    : submitToWatch?.counselorProfile) || 'default'
-                }
-              >
-                {optionsGrades.map((o) => (
-                  <option disabled={o.disabled} key={o.key} value={o.value}>
-                    {o.text}
-                  </option>
-                ))}
-              </select>
-              {submitErrors?.counselorProfile && (
+                value={curDocument?.isFinalist || 'default'}
+              />
+              {submitErrors?.isFinalist && (
                 <Label basic color='red' pointing='above' className='select'>
-                  {submitErrors?.counselorProfile}
+                  {submitErrors?.isFinalist}
+                </Label>
+              )}
+            </div>
+            <div className='dropdown-wrapper'>
+              <Header className='select-header' as='h4'>
+                Uczeń/uczennica posiada w roku szkolnym 2019/2020 zezwolenie na
+                uczestnictwo, ze względu na szczególne uzdolnienia w
+                indywidualnym programie nauczania lub toku nauki
+              </Header>
+              <Dropdown
+                options={optionsYesNo}
+                fluid
+                selection
+                floating
+                className='dropdown'
+                data-name='isAllowed'
+                defaultValue='default'
+                onChange={(e) => handleOnChange(e)}
+                value={curDocument?.isAllowed || 'default'}
+              />
+              {submitErrors?.isAllowed && (
+                <Label basic color='red' pointing='above' className='select'>
+                  {submitErrors?.isAllowed}
+                </Label>
+              )}
+            </div>
+            <div className='dropdown-wrapper'>
+              <Header className='select-header' as='h4'>
+                Uczeń/uczennica posiada aktualne na dzień składania wniosku
+                orzeczenie o niepełnosprawności lub orzeczenie o stopniu
+                niepełnosprawności lub orzeczenie o potrzebie kształcenia
+                specjalnego
+              </Header>
+              <Dropdown
+                options={optionsYesNo}
+                fluid
+                selection
+                floating
+                className='dropdown'
+                data-name='isHandicap'
+                defaultValue='default'
+                onChange={(e) => handleOnChange(e)}
+                value={curDocument?.isHandicap || 'default'}
+              />
+              {submitErrors?.isHandicap && (
+                <Label basic color='red' pointing='above' className='select'>
+                  {submitErrors?.isHandicap}
                 </Label>
               )}
             </div>

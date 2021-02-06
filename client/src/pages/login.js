@@ -12,12 +12,12 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/login.styles';
-import {Title} from '../components';
-import {AlertContext, AppContext,AuthContext} from '../context';
+import { Title } from '../components';
+import { AlertContext, AppContext, AuthContext } from '../context';
 import { loginInputs } from '../parts/inputs';
 
 const Login = () => {
-  const history = useHistory()
+  const history = useHistory();
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
 
@@ -33,7 +33,7 @@ const Login = () => {
   useEffect(() => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
@@ -54,7 +54,6 @@ const Login = () => {
         }
       })
       .catch((err) => {
-
         if (err.response?.data?.forcePassChange) {
           addAlert(err.response.data);
           setIsLoading(false);

@@ -20,6 +20,10 @@ export const Wrapper = styled.div`
   .form {
     margin-top: 5rem !important;
   }
+  .dropdown-wrapper {
+    min-width: 100% !important;
+    margin-bottom: 3rem;
+  }
 
   .input {
     max-width: 25rem !important;
@@ -32,19 +36,22 @@ export const Wrapper = styled.div`
   .input-right {
     width: 50px !important;
   }
-
+  .aver-label {
+    margin-bottom: 4rem !important;
+    width: 100%;
+  }
   .column {
     padding-left: 2rem !important;
   }
-.grade-selector{
-/* max-width:145px !important; */
-}
+  .grade-selector {
+    /* max-width:145px !important; */
+  }
   .container {
     padding-bottom: 5rem !important;
   }
 
   .select-header {
-    font-size: 13px !important;
+    font-size: 14px !important;
     margin-bottom: 5px !important;
   }
 

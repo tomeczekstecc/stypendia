@@ -26,10 +26,19 @@ export const Wrapper = styled.div`
     margin-bottom: 2rem;
   }
 
+  .input-left {
+    width: 40% !important;
+  }
+  .input-right {
+    width: 50px !important;
+  }
+
   .column {
     padding-left: 2rem !important;
   }
-
+.grade-selector{
+/* max-width:145px !important; */
+}
   .container {
     padding-bottom: 5rem !important;
   }

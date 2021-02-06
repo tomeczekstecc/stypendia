@@ -46,3 +46,9 @@ export const optionsSchoolType = [
   { key: 'n', text: 'Liceum', value: 'liceum', disabled: false },
   { key: 'p', text: 'Technikum', value: 'technikum', disabled: false },
 ];
+
+export const optionsGrades= [
+  { key: 'a', text: 'Wybierz ocenę', value: 'default', disabled: true },
+  { key: 'n', text: '5', value: 5, disabled: false },
+  { key: 'p', text: '6', value: 6, disabled: false },
+];

@@ -28,6 +28,11 @@ const SubA_V_VI = () => {
   } = submitContext;
 
   const handleOnChange = async (e) => {
+    e.stopPropagation()
+    console.log(e)
+console.log(e.target.innerText)
+console.log(e.nativeElement.path[3])
+
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
@@ -43,21 +48,22 @@ const SubA_V_VI = () => {
 
 const [priAverGrade, setPriAverGrade] = useState(0)
 
-const recalculate = () =>{
-  if(submitMode = 'edit'){
-const mathGrade = curSubmit.priMathGrade
-const LangGrade = curSubmit.priLangGrade
-  }
-
-}
+const [curDocument, setCurDocument] = useState(null);
 
 
 
 
   useEffect(() => {
     resetTimeLeft();
+    if (submitMode === 'new') {
+      setCurDocument(newSubmit);
+    } else if (submitMode === 'edit') {
+      setCurDocument(curSubmit);
+    } else if (submitMode === 'watch') {
+      setCurDocument(submitToWatch);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [submitMode, submitToWatch, newSubmit, curSubmit]);;
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -74,15 +80,14 @@ const LangGrade = curSubmit.priLangGrade
               <Form.Input
                 action={
                   <Dropdown
+                  data-name='priMathGrade'
                     button
                     name='priMathGrade'
-                    className='grade-selector'
+                    className='priMathGrade'
                     basic
                     options={optionsGrades}
                     defaultValue='default'
-                    onChange={(e) =>
-                      console.log(e.nativeEvent.target.innerText)
-                    }
+                    onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='calculator'
@@ -105,26 +110,19 @@ const LangGrade = curSubmit.priLangGrade
                   <Dropdown
                     button
                     name='priLangGrade'
-                    className='grade-selector'
+                    data-name='priLangGrade'
+                    className='priLangGrade'
                     basic
                     options={optionsGrades}
                     defaultValue='default'
-                    onChange={(e) =>
-                      console.log(e.nativeEvent.target.innerText)
-                    }
+                    onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='talk'
                 name='priLang'
                 iconPosition='left'
                 placeholder='Wpisz język obcy'
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.priLang
-                    : submitMode === 'new'
-                    ? newSubmit?.priLang
-                    : submitToWatch?.priLang) || ''
-                }
+                value={curDocument?.priLang}
                 onChange={(e) => handleOnChange(e)}
               />
               {submitErrors?.priLang && (
@@ -142,26 +140,18 @@ const LangGrade = curSubmit.priLangGrade
                   <Dropdown
                     button
                     name='priOtherSubjGrade'
-                    className='grade-selector'
+                    className='priMathGrade'
                     basic
                     options={optionsGrades}
                     defaultValue='default'
-                    onChange={(e) =>
-                      console.log(e.nativeEvent.target.innerText)
-                    }
+                    onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='calendar check'
                 name='priOtherSubj'
                 iconPosition='left'
                 placeholder='Wpisz inny przedmiot'
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.priOtherSubj
-                    : submitMode === 'new'
-                    ? newSubmit?.priOtherSubj
-                    : submitToWatch?.priOtherSubj) || ''
-                }
+                value={curDocument?.priOtherSubj}
                 onChange={(e) => handleOnChange(e)}
               />
               {submitErrors?.priLang && (
@@ -175,7 +165,10 @@ const LangGrade = curSubmit.priLangGrade
                 </Label>
               )}
 
-              <Label size='large'> Średnia ocen przedmiotów kierunkowych : {priAverGrade}</Label>
+              <Label size='large'>
+                {' '}
+                Średnia ocen przedmiotów kierunkowych : {priAverGrade}
+              </Label>
 
               <Form.Input
                 className='input'

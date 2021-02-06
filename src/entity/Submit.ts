@@ -264,7 +264,8 @@ export class Submit extends Model {
   //
 
   @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź. czy uczeń/uczennica uzyskał/a tytuł finalisty',
+    message:
+      'Należy wybrać odpowiedź. czy uczeń/uczennica uzyskał/a tytuł finalisty',
   })
   @Column({
     type: 'enum',
@@ -273,7 +274,9 @@ export class Submit extends Model {
   })
   isFinalist: boolean;
 
-  @IsEnum(['Tak', 'Nie'], { message: 'Należy wybrać odpowiedź, czy uczeniń posiada zgodę' })
+  @IsEnum(['Tak', 'Nie'], {
+    message: 'Należy wybrać odpowiedź, czy uczeniń posiada zgodę',
+  })
   @Column({
     type: 'enum',
     comment:
@@ -282,7 +285,9 @@ export class Submit extends Model {
   })
   isAllowed: boolean;
 
-  @IsEnum(['Tak', 'Nie'], { message: 'Należy wybrać odpowiedź dot niepłnosprawności' })
+  @IsEnum(['Tak', 'Nie'], {
+    message: 'Należy wybrać odpowiedź dot niepłnosprawności',
+  })
   @Column({
     type: 'enum',
     comment: 'Dodatkowe krytria oceny - czy uczeń/uczennica nbiepełnosprawny/a',
@@ -341,7 +346,10 @@ export class Submit extends Model {
   @BeforeInsert()
   calculatePriAver() {
     this.priTotalAver = Math.round(
-      (+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) / 3
+      (((+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) /
+        3) *
+        100) /
+        100
     );
   }
 }

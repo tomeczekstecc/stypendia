@@ -48,16 +48,9 @@ function App() {
                   <Route exact path='/login' component={Login} />
                   <ProtectedRoute exact path='/logout' component={Logout} />
 
-                  {process.env.NODE_ENV === 'production' ? (
-                    <ProtectedRoute exact path='/submit' component={Submit} />
-                  ) : (
-                    <Route exact path='/submit' component={Submit} />
-                  )}
-                  {process.env.NODE_ENV === 'production' ? (
-                    <ProtectedRoute exact path='/' component={Home} />
-                  ) : (
-                    <Route exact path='/' component={Home} />
-                  )}
+                  <ProtectedRoute exact path='/submit' component={Submit} />
+
+                  <ProtectedRoute exact path='/' component={Home} />
 
                   <ProtectedRoute exact path='/profile' component={Profile} />
                   <Route path='*' component={Page404} />

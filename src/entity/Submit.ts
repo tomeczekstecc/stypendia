@@ -341,7 +341,7 @@ export class Submit extends Model {
   @BeforeInsert()
   calculatePriAver() {
     this.priTotalAver = Math.round(
-      (this.priMathGrade + this.priLangGrade + this.priOtherSubjGrade) / 3
+      (+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) / 3
     );
   }
 }

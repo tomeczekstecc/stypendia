@@ -7,7 +7,7 @@ export const registerInputs = [
     label: 'Nazwa użytkownika',
     placeholder: 'Podaj nazwę użytkownika',
     type: 'text',
-    name: 'login'
+    name: 'login',
   },
   {
     id: uuidv4(),
@@ -15,7 +15,7 @@ export const registerInputs = [
     label: 'Imię',
     placeholder: 'Podaj imię użytkownika',
     type: 'text',
-    name: 'firstName'
+    name: 'firstName',
   },
   {
     id: uuidv4(),
@@ -23,7 +23,7 @@ export const registerInputs = [
     label: 'Nazwisko',
     placeholder: 'Podaj nazwisko użytkownika',
     type: 'text',
-    name: 'lastName'
+    name: 'lastName',
   },
   {
     id: uuidv4(),
@@ -31,7 +31,7 @@ export const registerInputs = [
     label: 'Email',
     placeholder: 'Podaj email użytkownika',
     type: 'email',
-    name: 'email'
+    name: 'email',
   },
   {
     id: uuidv4(),
@@ -39,7 +39,7 @@ export const registerInputs = [
     label: 'Hasło',
     placeholder: 'Podaj hasło',
     type: 'password',
-    name: 'password'
+    name: 'password',
   },
   {
     id: uuidv4(),
@@ -47,10 +47,9 @@ export const registerInputs = [
     label: 'Powtórz hasło',
     placeholder: 'Powtórz hasło',
     type: 'password',
-    name: 'passwordConfirm'
+    name: 'passwordConfirm',
   },
 ];
-
 
 export const loginInputs = [
   {
@@ -59,7 +58,7 @@ export const loginInputs = [
     label: 'Nazwa użytkownika',
     placeholder: 'Podaj nazwę użytkownika',
     type: 'text',
-    name: 'login'
+    name: 'login',
   },
   {
     id: uuidv4(),
@@ -67,8 +66,9 @@ export const loginInputs = [
     label: 'Hasło',
     placeholder: 'Podaj hasło',
     type: 'password',
-    name: 'password'
-  }]
+    name: 'password',
+  },
+];
 
 export const resetReqInputs = [
   {
@@ -77,7 +77,7 @@ export const resetReqInputs = [
     label: 'Nazwa użytkownika',
     placeholder: 'Podaj nazwę użytkownika',
     type: 'text',
-    name: 'login'
+    name: 'login',
   },
   {
     id: uuidv4(),
@@ -85,19 +85,18 @@ export const resetReqInputs = [
     label: 'Email',
     placeholder: 'Podaj email',
     type: 'email',
-    name: 'email'
-  }]
-
+    name: 'email',
+  },
+];
 
 export const resetInputs = [
-
   {
     id: uuidv4(),
     icon: 'lock',
     label: 'Hasło',
     placeholder: 'Podaj hasło',
     type: 'password',
-    name: 'password'
+    name: 'password',
   },
   {
     id: uuidv4(),
@@ -110,14 +109,13 @@ export const resetInputs = [
 ];
 
 export const changePassInputs = [
-
   {
     id: uuidv4(),
     icon: 'lock',
     label: 'Obowiązujące hasło',
     placeholder: 'Podaj obowiązujące hasło',
     type: 'password',
-    name: 'oldPassword'
+    name: 'oldPassword',
   },
   {
     id: uuidv4(),
@@ -125,7 +123,7 @@ export const changePassInputs = [
     label: 'Nowe hasło',
     placeholder: 'Podaj nowe hasło',
     type: 'password',
-    name: 'password'
+    name: 'password',
   },
   {
     id: uuidv4(),
@@ -134,5 +132,85 @@ export const changePassInputs = [
     placeholder: 'Powtórz nowe hasło',
     type: 'password',
     name: 'passwordConfirm',
+  },
+];
+
+export const accordionsVIIa = [
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1a',
+    label:
+      'Udział w konkursie przedmiotowym /olimpiadzie przedmiotowej i uzyskanie tytułu laureata lub finalisty',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1b',
+    label: 'Wykonanie pracy badawczej',
+    areaName: 'tab1b_desc',
+    placeholder: 'Wpisz temat pracy badawczej',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1c',
+    label: 'Przygotowanie referatu lub prezentacji',
+    areaName: 'tab1c_desc',
+    placeholder: 'Wpisz temat referatu lub prezentacji',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1d',
+    label: 'Przygotowanie publikacji',
+    areaName: 'tab1d_desc',
+    placeholder: 'Wpisz temat publikacji',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1e',
+    label: 'Przygotowanie wystawy',
+    areaName: 'tab1e_desc',
+    placeholder: 'Wpisz temat wystawy',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1f',
+    label:
+      'Stworzenie filmu o tematyce dotyczącej wybranego przedmiotu kierunkowego',
+    areaName: 'tab1e_desf',
+    placeholder: 'Opisz planowany film',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1g',
+    label: 'Stworzenie programu komputerowego / aplikacji ',
+    areaName: 'tab1g_desc',
+    placeholder: 'Opisz czego dotyczć będzie program komputerowy / aplikacja',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1h',
+    label: 'Uzyskanie certyfikatu językowego',
+    areaName: 'tab1h_desc',
+    placeholder: 'Wpisz planowany poziom certyfikatu',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1i',
+    label:
+      'Otrzymanie oceny co najmniej bardzo dobrej na koniec roku szkolnego 2020/2021',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1j',
+    label: 'Stworzenie własnej strony internetowej',
+    areaName: 'tab1j_desc',
+    placeholder: 'Opisz czego dotyczytć będzie strona internetowa',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab1k',
+    label: 'Inny rezultat',
+    areaName: 'tab1k_desc',
+    placeholder:
+      'Opisz czego dotyczyć będzie inny rezultat i jak zostanie osiągnięty',
   },
 ];

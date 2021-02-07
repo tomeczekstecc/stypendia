@@ -1,5 +1,4 @@
 import {
-
   IsDefined,
   IsEmail,
   IsEmpty,
@@ -7,6 +6,7 @@ import {
   IsIn,
   IsInt,
   IsNumber,
+  IsString,
   Length,
   Matches,
   Max,
@@ -299,7 +299,7 @@ export class Submit extends Model {
   //
   // VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY tab1
   //
-  @IsEmpty({
+  @IsString({
     message: 'Należy wskazać przedmiot (lista z części V)',
   })
   @Column({
@@ -307,184 +307,144 @@ export class Submit extends Model {
   })
   tab1Subj: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. udziału w konkursie/olimpiadzie',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - udział w konkursie/olipiadzie',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1a: string;
+  isTab1a: boolean;
+
+
+
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 1 - przygotowane pracy badawczej',
+    default: 0,
+    nullable: true,
+  })
+  isTab1b: boolean;
 
   @Column({
     comment:
-      'Ścieżka rozwoju - tabela 1 - udział w konkursie/olipiadzie - opis',
+      'Ścieżka rozwoju - tabela 1 - przygotowane pracy badawczej - opis',
     nullable: true,
   })
-  isTab1a_desc: string;
+  tab1b_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. przygotowania referatu/prezentacji',
-  })
+
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane referatu/prezentacji',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1b: string;
+  isTab1c: boolean;
 
   @Column({
     comment:
       'Ścieżka rozwoju - tabela 1 - przygotowane referatu/prezentacji - opis',
     nullable: true,
   })
-  isTab1b_desc: string;
+  tab1c_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. przygotowania publikacji',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane publikacji',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1c: string;
+  isTab1d: string;
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane publikacji - opis',
     nullable: true,
   })
-  isTab1c_desc: string;
+  tab1d_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. przygotowania wystawy',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane wystawy',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1d: string;
+  isTab1e: string;
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane wystawy - opis',
     nullable: true,
   })
-  isTab1d_desc: string;
+  tab1e_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. przygotowania filmu',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie filmu',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1e: string;
+  isTab1f: string;
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie filmu - opis',
     nullable: true,
   })
-  isTab1e_desc: string;
+  tab1f_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. przygotowania aplikacji',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane aplikacji',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1f: string;
+  isTab1g: string;
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie aplikacji - opis',
     nullable: true,
   })
-  isTab1f_desc: string;
+  tab1g_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. uzyskania certyfikatu językowego',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - uzyskanie certyfikatu językowego',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    default: 0,
+    nullable: true,
   })
-  isTab1g: string;
+  isTab1h: string;
 
   @Column({
     comment:
       'Ścieżka rozwoju - tabela 1 - uzyskanie certyfikatu językowego - opis',
     nullable: true,
   })
-  isTab1g_desc: string;
+  tab1h_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. uzyskania oceny bardzo dobrej',
-  })
   @Column({
-    type: 'enum',
     comment: 'Ścieżka rozwoju - tabela 1 - uzyskanie oceny bardzo dobrej',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
-  })
-  isTab1h: string;
-
-  @Column({
-    comment:
-      'Ścieżka rozwoju - tabela 1 - uzyskanie oceny bardzo dobrej - opis',
+    default: 0,
     nullable: true,
-  })
-  isTab1h_desc: string;
-
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. strony internetowej',
-  })
-  @Column({
-    type: 'enum',
-    comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowea',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
   })
   isTab1i: string;
 
-  @Column({
-    comment:
-      'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
-    nullable: true,
-  })
-  isTab1i_desc: string;
 
-  @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. innego celu',
-  })
   @Column({
-    type: 'enum',
-    comment: 'Ścieżka rozwoju - tabela 1 - inny cel',
-    enum: ['Tak', 'Nie'],
-    default: 'Nie',
+    comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowea',
+    default: 0,
+    nullable: true,
   })
   isTab1j: string;
 
   @Column({
-    comment:
-      'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
+    comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
     nullable: true,
   })
-  isTab1j_desc: string;
+  tab1j_desc: string;
 
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 1 - inny cel',
+    default: 0,
+    nullable: true,
+  })
+  isTab1k: string;
 
-
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
+    nullable: true,
+  })
+  tab1k_desc: string;
 
   //
   //

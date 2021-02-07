@@ -11,8 +11,10 @@ import {
   Segment,
   TextArea,
 } from 'semantic-ui-react';
+import { accordionsVIIa } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
+import { V4MAPPED } from 'dns';
 
 const SubA_VIIa = () => {
   const authContext = useContext(AuthContext);
@@ -30,22 +32,40 @@ const SubA_VIIa = () => {
   } = submitContext;
 
   const handleOnChange = async (e) => {
-    if (submitMode === 'edit') {
-      await updateCurSubmit({
-        ...curSubmit,
-        [e.target.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name]:
-          e.target.value || e.target.innerText,
-      });
-    } else if (submitMode === 'new') {
-      await updateNewSubmit({
-        ...newSubmit,
-        [e.target.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name]:
-          e.target.value || e.target.innerText,
-      });
+    console.log(e);
+
+    if (e.nativeEvent.path[1].dataset.type === 'checkbox') {
+      if (submitMode === 'edit') {
+        await updateCurSubmit({
+          ...curSubmit,
+          [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
+            .children[0].checked,
+        });
+      } else if (submitMode === 'new') {
+        await updateNewSubmit({
+          ...newSubmit,
+          [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
+            .children[0].checked,
+        });
+      }
+    } else {
+      if (submitMode === 'edit') {
+        await updateCurSubmit({
+          ...curSubmit,
+          [e.nativeEvent.path[1].dataset.name ||
+          e.nativeEvent.path[2].dataset.name ||
+          e.nativeEvent.path[3].dataset.name ||
+          e.target.dataset.name]: e.target.value || e.target.innerText,
+        });
+      } else if (submitMode === 'new') {
+        await updateNewSubmit({
+          ...newSubmit,
+          [e.nativeEvent.path[1].dataset.name ||
+          e.nativeEvent.path[2].dataset.name ||
+          e.nativeEvent.path[3].dataset.name ||
+          e.target.dataset.name]: e.target.value || e.target.innerText,
+        });
+      }
     }
   };
 
@@ -69,21 +89,6 @@ const SubA_VIIa = () => {
     },
   ]);
 
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [optionsActive, setOptionsActive] = useState({
-    option1: false,
-    option2: false,
-    option3: false,
-    option4: false,
-    option5: false,
-    option6: false,
-    option7: false,
-    option8: false,
-    option9: false,
-    option10: false,
-    option11: false,
-  });
-
   useEffect(() => {
     resetTimeLeft();
     if (submitMode === 'new') {
@@ -102,10 +107,16 @@ const SubA_VIIa = () => {
         disabled: true,
       },
       {
+        key: 'd',
+        text: 'matematyka',
+        value: 'matematyka',
+      },
+      {
         key: 'b',
         text: curDocument?.priLang?.toLowerCase(),
         value: curDocument?.priLang?.toLowerCase(),
       },
+
       {
         key: 'c',
         text: curDocument?.priOtherSubj?.toLowerCase(),
@@ -161,279 +172,58 @@ const SubA_VIIa = () => {
             realizowania wskazanych celów edukacyjnych i planowanych do
             uzyskania rezultatów. z dwóch wybranych przedmiotów wraz z
             kandydatem na opiekuna dydaktycznego Stypendysty/opiekunem
-            dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu <strong>trzy
-            planowane</strong>  do osiągnięcia rezultaty, które uczeń zamierza osiągnąć w
-            roku szkolnym 2020/2021.
+            dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu{' '}
+            <strong>trzy planowane</strong> do osiągnięcia rezultaty, które
+            uczeń zamierza osiągnąć w roku szkolnym 2020/2021.
           </p>
         </Message>
         <Accordion fluid styled>
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option1: !optionsActive.option1,
-              })
-            }
-            active={optionsActive.option1}
-          >
-            <Checkbox
-              checked={optionsActive.option1}
-              name='option1'
-              toggle
-              label='Udział w konkursie przedmiotowym /olimpiadzie przedmiotowej i
-            uzyskanie tytułu laureata lub finalisty.'
-            />
-          </Accordion.Title>
+          {accordionsVIIa.map((acc) => (
+            <div key={acc.id}>
+              <Accordion.Title>
+                <Checkbox
+                  checked={
+                    curDocument &&
+                    curDocument[acc.checkeboxName] &&
+                    curDocument[acc.checkeboxName] === true
+                  }
+                  name={acc.checkeboxName}
+                  data-name={acc.checkeboxName}
+                  data-type='checkbox'
+                  onChange={(e) => handleOnChange(e)}
+                  toggle
+                  label={acc.label}
+                />
+              </Accordion.Title>
 
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option2: !optionsActive.option2,
-              })
-            }
-            active={optionsActive.option2}
-          >
-            <Checkbox
-              checked={optionsActive.option2}
-              name='option2'
-              toggle
-              label='Wykonanie pracy badawczej'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option2}>
-            <Form className='form-vii'>
-              <TextArea
-                name=''
-                placeholder='Wpisz temat pracy badawczej'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option3: !optionsActive.option3,
-              })
-            }
-            active={optionsActive.option3}
-          >
-            <Checkbox
-              checked={optionsActive.option3}
-              name='option3'
-              toggle
-              label='Przygotowanie referatu lub prezentacji '
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option3}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Wpisz temat referatu lub prezentacji'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option4: !optionsActive.option4,
-              })
-            }
-            active={optionsActive.option4}
-          >
-            <Checkbox
-              checked={optionsActive.option4}
-              name='option4'
-              toggle
-              label='Przygotowanie publikacji '
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option4}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Wpisz temat publikacji'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option5: !optionsActive.option5,
-              })
-            }
-            active={optionsActive.option5}
-          >
-            <Checkbox
-              checked={optionsActive.option5}
-              name='option5'
-              toggle
-              label='Przygotowanie wystawy'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option5}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Wpisz zakres wystawy'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option6: !optionsActive.option6,
-              })
-            }
-            active={optionsActive.option6}
-          >
-            <Checkbox
-              checked={optionsActive.option6}
-              name='option6'
-              toggle
-              label='Stworzenie filmu o tematyce dotyczącej wybranego przedmiotu kierunkowego'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option6}>
-            <Form className='form-vii'>
-              <TextArea
-                disabled={true}
-                placeholder={`Temat z zakresu: ${
-                  curDocument?.tab1Subj || '!!Nie wybrano przedmiotu!!!'
-                }`}
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option7: !optionsActive.option7,
-              })
-            }
-            active={optionsActive.option7}
-          >
-            <Checkbox
-              checked={optionsActive.option7}
-              name='option7'
-              toggle
-              label='Stworzenie programu komputerowego / aplikacji'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option7}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Opisz program komputerowy/aplikację'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option8: !optionsActive.option8,
-              })
-            }
-            active={optionsActive.option8}
-          >
-            <Checkbox
-              checked={optionsActive.option8}
-              name='option8'
-              toggle
-              label='Uzyskanie certyfikatu językowego'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option8}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Wpisz planowany poziom certyfikatu'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option9: !optionsActive.option9,
-              })
-            }
-            active={optionsActive.option9}
-          >
-            <Checkbox
-              checked={optionsActive.option9}
-              name='option9'
-              toggle
-              label='Otrzymanie oceny co najmniej bardzo dobrej na koniec roku szkolnego 2020/2021'
-            />
-          </Accordion.Title>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option10: !optionsActive.option10,
-              })
-            }
-            active={optionsActive.option10}
-          >
-            <Checkbox
-              checked={optionsActive.option10}
-              name='option10'
-              toggle
-              label='Stworzenie własnej strony internetowej'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option10}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Opisz tematyke strony internetowej'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
-
-          <Accordion.Title
-            onClick={() =>
-              setOptionsActive({
-                ...optionsActive,
-                option11: !optionsActive.option11,
-              })
-            }
-            active={optionsActive.option11}
-          >
-            <Checkbox
-              checked={optionsActive.option11}
-              name='option11'
-              toggle
-              label='Inny rezultat'
-            />
-          </Accordion.Title>
-          <Accordion.Content active={optionsActive.option11}>
-            <Form className='form-vii'>
-              <TextArea
-                placeholder='Opisz inny rezultat'
-                className='form-textArea'
-              ></TextArea>
-            </Form>
-          </Accordion.Content>
+              {acc.areaName && (
+                <Accordion.Content
+                  active={
+                    curDocument &&
+                    curDocument[acc.checkeboxName] &&
+                    curDocument[acc.checkeboxName] === true
+                  }
+                >
+                  <Form className='form-vii'>
+                    <TextArea
+                      value={
+                        curDocument &&
+                        curDocument[acc.areaName] &&
+                        curDocument[acc.areaName]
+                      }
+                      onChange={(e) => handleOnChange(e)}
+                      name={acc.areaName}
+                      data-name={acc.areaName}
+                      placeholder={acc.placeholder}
+                      className='form-textArea'
+                    ></TextArea>
+                  </Form>
+                </Accordion.Content>
+              )}
+            </div>
+          ))}
         </Accordion>
       </Container>
-      {/* </Grid.Column>
-      </Grid> */}
     </SubALayout>
   );
 };

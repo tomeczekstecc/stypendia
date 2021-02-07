@@ -6,12 +6,13 @@ import {
   SubA_I_II,
   SubA_III_IV,
   Attachments,
+  SubA_V_VI,
+  SubA_VIIa,
   Nav,
   Errors,
 } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
-import SubA_V_VI from '../components/submit/subA_V_VI';
 
 const Submit = () => {
   const submitContext = useContext(SubmitContext);
@@ -29,11 +30,13 @@ const Submit = () => {
         return <SubA_III_IV />;
       case 3:
         return <SubA_V_VI />;
-      case 4:
+        case 4:
+          return <SubA_VIIa />;
+      case 5:
         return <Attachments />;
 
       default:
-        return <SubA_I_II />;
+        return <SubA_VIIa />;
     }
   };
 
@@ -58,18 +61,25 @@ const Submit = () => {
               onClick={() => setActiveItem(2)}
             />
             <Menu.Item
-              icon='chart line'
+              icon='sliders horizontal'
               name='base'
               content='Kryteria oceny'
               active={activeItem === 3}
               onClick={() => setActiveItem(3)}
             />
             <Menu.Item
+              icon='chart line'
+              name='sciezka'
+              content='Ścieżka rozwoju [Tab1]'
+              active={activeItem === 4}
+              onClick={() => setActiveItem(4)}
+            />
+            <Menu.Item
               icon='attach'
               name='dane szkoły'
               content='Załączniki'
-              active={activeItem === 4}
-              onClick={() => setActiveItem(4)}
+              active={activeItem === 5}
+              onClick={() => setActiveItem(5)}
             />
           </Menu>
         </Grid.Column>

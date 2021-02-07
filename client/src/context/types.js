@@ -23,4 +23,6 @@ export const SET_TIME = 'SET_TIME';
 export const SET_SUBMIT_ERRORS = 'SET_SUBMIT_ERRORS';
 
 
+export const SET_SUBJECTS_OPTIONS = 'SET_SUBJECTS_OPTIONS';
+
 

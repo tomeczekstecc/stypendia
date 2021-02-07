@@ -118,7 +118,7 @@ const SubA_V_VI = () => {
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
-                icon='talk'
+                icon='language'
                 name='priLang'
                 iconPosition='left'
                 placeholder='Wpisz język obcy'

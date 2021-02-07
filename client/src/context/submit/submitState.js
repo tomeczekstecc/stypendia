@@ -15,6 +15,7 @@ import {
   SET_SUBMIT_TO_WATCH,
   SET_CUR_SUBMIT,
   SET_SUBMIT_ERRORS,
+  SET_SUBJECTS_OPTIONS,
 } from '../types';
 
 const SubmitState = (props) => {
@@ -35,6 +36,7 @@ const SubmitState = (props) => {
     submitToWatch: {},
     curSubmit: {}, //submit being edited
     submitErrors: null,
+    subjectsOptions: null
   };
 
   const [state, dispatch] = useReducer(submitReducer, initialState);
@@ -57,6 +59,13 @@ const SubmitState = (props) => {
     dispatch({
       type: SET_SUBMIT_MODE,
       payload: mode,
+    });
+  };
+
+  const setSubjectsOptions = (subject) => {
+    dispatch({
+      type: SET_SUBMIT_MODE,
+      payload: subject,
     });
   };
 

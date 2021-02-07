@@ -44,11 +44,10 @@ function App() {
                     path='/changepass'
                     component={ChangePass}
                   />
-                  {/* <ProtectedRoute exact path='/' component={Home} /> */}
                   <Route exact path='/login' component={Login} />
                   <ProtectedRoute exact path='/logout' component={Logout} />
 
-                  <ProtectedRoute exact path='/submit' component={Submit} />
+                  <Route exact path='/submit' component={Submit} />
 
                   <ProtectedRoute exact path='/' component={Home} />
 

@@ -14,7 +14,6 @@ import {
 import { accordionsVIIa } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
-import { V4MAPPED } from 'dns';
 
 const SubA_VIIa = () => {
   const authContext = useContext(AuthContext);
@@ -31,10 +30,25 @@ const SubA_VIIa = () => {
     submitErrors,
   } = submitContext;
 
-  const handleOnChange = async (e) => {
-    console.log(e);
+  const [curDocument, setCurDocument] = useState(null);
+  const [counter, setCounter] = useState(0);
+
+  const handleOnChange = async (e, parent = undefined, name = undefined) => {
+    if (parent && name) {
+      if (curDocument && curDocument[parent] && curDocument[parent] === true) {
+        curDocument[name] = '';
+      }
+    }
 
     if (e.nativeEvent.path[1].dataset.type === 'checkbox') {
+      if (e.nativeEvent.path[1].children[0].checked) {
+        if (counter < 1) setCounter(0);
+        setCounter(counter - 1);
+        curDocument.tab1results = counter;
+      } else {
+        setCounter(counter + 1);
+      }
+      curDocument.tab1Results = counter;
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
@@ -69,7 +83,6 @@ const SubA_VIIa = () => {
     }
   };
 
-  const [curDocument, setCurDocument] = useState(null);
   const [options, setOptions] = useState([
     {
       key: 'a',
@@ -175,7 +188,10 @@ const SubA_VIIa = () => {
             dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu{' '}
             <strong>trzy planowane</strong> do osiągnięcia rezultaty, które
             uczeń zamierza osiągnąć w roku szkolnym 2020/2021.
-          </p>
+          </p>{' '}
+          <Label size='large' color='teal'>
+            Liczba wybranych rezultatów: {counter} (brakuje: {3 - counter} )
+          </Label>
         </Message>
         <Accordion fluid styled>
           {accordionsVIIa.map((acc) => (
@@ -190,7 +206,12 @@ const SubA_VIIa = () => {
                   name={acc.checkeboxName}
                   data-name={acc.checkeboxName}
                   data-type='checkbox'
-                  onChange={(e) => handleOnChange(e)}
+                  onChange={(e) =>
+                    handleOnChange(e, acc.checkeboxName, acc.areaName)
+                  }
+                  disabled={
+                    counter >= 3 && curDocument[acc.checkeboxName] !== true
+                  }
                   toggle
                   label={acc.label}
                 />
@@ -207,9 +228,10 @@ const SubA_VIIa = () => {
                   <Form className='form-vii'>
                     <TextArea
                       value={
-                        curDocument &&
-                        curDocument[acc.areaName] &&
-                        curDocument[acc.areaName]
+                        (curDocument &&
+                          curDocument[acc.areaName] &&
+                          curDocument[acc.areaName]) ||
+                        ''
                       }
                       onChange={(e) => handleOnChange(e)}
                       name={acc.areaName}

@@ -1,4 +1,5 @@
 import {
+  Equals,
   IsDefined,
   IsEmail,
   IsEmpty,
@@ -13,6 +14,8 @@ import {
   min,
   Min,
   MinLength,
+  NotEquals,
+  ValidateIf,
 } from 'class-validator';
 import {
   Entity,
@@ -21,6 +24,7 @@ import {
   BeforeInsert,
   JoinColumn,
   OneToMany,
+  Equal,
 } from 'typeorm';
 
 import Model from './Model';
@@ -314,9 +318,6 @@ export class Submit extends Model {
   })
   isTab1a: boolean;
 
-
-
-
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane pracy badawczej',
     default: 0,
@@ -324,13 +325,15 @@ export class Submit extends Model {
   })
   isTab1b: boolean;
 
+  @ValidateIf((o) => o.isTab1b === true)
+  @MinLength(10, {
+    message: 'Pole dot.pracy badawczej musi zawierać co najmniej 10 znaków',
+  })
   @Column({
-    comment:
-      'Ścieżka rozwoju - tabela 1 - przygotowane pracy badawczej - opis',
+    comment: 'Ścieżka rozwoju - tabela 1 - przygotowane pracy badawczej - opis',
     nullable: true,
   })
   tab1b_desc: string;
-
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane referatu/prezentacji',
@@ -339,6 +342,11 @@ export class Submit extends Model {
   })
   isTab1c: boolean;
 
+  @ValidateIf((o) => o.isTab1c === true)
+  @MinLength(10, {
+    message:
+      'Pole dot. referatu/prezentacji musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment:
       'Ścieżka rozwoju - tabela 1 - przygotowane referatu/prezentacji - opis',
@@ -351,8 +359,12 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1d: string;
+  isTab1d: boolean;
 
+  @ValidateIf((o) => o.isTab1d === true)
+  @MinLength(10, {
+    message: 'Pole dot. publikacji musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane publikacji - opis',
     nullable: true,
@@ -364,8 +376,12 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1e: string;
+  isTab1e: boolean;
 
+  @ValidateIf((o) => o.isTab1e === true)
+  @MinLength(10, {
+    message: 'Pole dot. wystawy musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane wystawy - opis',
     nullable: true,
@@ -377,8 +393,12 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1f: string;
+  isTab1f: boolean;
 
+  @ValidateIf((o) => o.isTab1f === true)
+  @MinLength(10, {
+    message: 'Pole dot. filmu musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie filmu - opis',
     nullable: true,
@@ -390,8 +410,13 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1g: string;
+  isTab1g: boolean;
 
+  @ValidateIf((o) => o.isTab1g === true)
+  @MinLength(10, {
+    message:
+      'Pole dot. programu komputerowego/aplikacji musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie aplikacji - opis',
     nullable: true,
@@ -403,8 +428,12 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1h: string;
+  isTab1h: boolean;
 
+  @ValidateIf((o) => o.isTab1h === true)
+  @MinLength(10, {
+    message: 'Pole dot. certyfikatu musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment:
       'Ścieżka rozwoju - tabela 1 - uzyskanie certyfikatu językowego - opis',
@@ -417,16 +446,20 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1i: string;
-
+  isTab1i: boolean;
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowea',
     default: 0,
     nullable: true,
   })
-  isTab1j: string;
+  isTab1j: boolean;
 
+  @ValidateIf((o) => o.isTab1j === true)
+  @MinLength(10, {
+    message:
+      'Pole dot. strony internetowej musi zawierać co najmniej 10 znaków',
+  })
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
     nullable: true,
@@ -438,13 +471,26 @@ export class Submit extends Model {
     default: 0,
     nullable: true,
   })
-  isTab1k: string;
+  isTab1k: boolean;
 
+  @ValidateIf((o) => o.isTab1k === true)
+  @MinLength(10, {
+    message: 'Pole dot. innych rezultatów musi zawierać co najmniej 10 znaków',
+  })
   @Column({
-    comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
+    comment: 'Ścieżka rozwoju - tabela 1 - inne - opis',
     nullable: true,
   })
   tab1k_desc: string;
+
+  @NotEquals(3, {
+    message: 'Liczba wybranych rezultatów w tabeli 1 musi wynosić dokładnie 3',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 1 - inne - opis',
+    nullable: true,
+  })
+  tab1Results: number;
 
   //
   //

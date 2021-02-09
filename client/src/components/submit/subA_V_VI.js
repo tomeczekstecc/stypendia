@@ -82,8 +82,7 @@ const SubA_V_VI = () => {
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priMathGrade}
-                    defaultValue='default'
+                    value={curDocument?.priMathGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -113,8 +112,7 @@ const SubA_V_VI = () => {
                     className='priLangGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priLangGrade}
-                    defaultValue='default'
+                    value={curDocument?.priLangGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -153,8 +151,7 @@ const SubA_V_VI = () => {
                     className='priOtherSubjGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priOtherSubjGrade}
-                    defaultValue='default'
+                    value={curDocument?.priOtherSubjGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -242,7 +239,6 @@ const SubA_V_VI = () => {
                 floating
                 className='dropdown'
                 data-name='isFinalist'
-                defaultValue='default'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.isFinalist || 'default'}
               />
@@ -265,7 +261,6 @@ const SubA_V_VI = () => {
                 floating
                 className='dropdown'
                 data-name='isAllowed'
-                defaultValue='default'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.isAllowed || 'default'}
               />
@@ -289,7 +284,6 @@ const SubA_V_VI = () => {
                 floating
                 className='dropdown'
                 data-name='isHandicap'
-                defaultValue='default'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.isHandicap || 'default'}
               />

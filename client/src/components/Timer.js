@@ -12,15 +12,15 @@ const Timer = () => {
   const [size, setSize] = useState('tiny');
 
   const handleOnClick = () => {
-    setColor('');
+    setColor(null);
     setSize('tiny');
     setTimeLeft(+process.env.REACT_APP_SESSION_TIMEOUT);
   };
 
   useEffect(() => {
     timeLeft < +process.env.REACT_APP_SESSION_ALERT && setColor('red');
-    timeLeft < +process.env.REACT_APP_SESSION_ALERT && setSize('');
-    timeLeft > +process.env.REACT_APP_SESSION_ALERT && setColor('');
+    timeLeft < +process.env.REACT_APP_SESSION_ALERT && setSize(null);
+    timeLeft > +process.env.REACT_APP_SESSION_ALERT && setColor(null);
     timeLeft > +process.env.REACT_APP_SESSION_ALERT && setSize('tiny');
     timeLeft === 0 && logOut();
     const timer =

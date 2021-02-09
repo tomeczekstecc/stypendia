@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
@@ -19,6 +19,8 @@ const SubA_I_II = () => {
     submitToWatch,
     submitErrors,
   } = submitContext;
+
+  const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
     if (submitMode === 'edit') {
@@ -43,8 +45,16 @@ const SubA_I_II = () => {
   };
   useEffect(() => {
     resetTimeLeft();
+    if (submitMode === 'new') {
+      setCurDocument(newSubmit);
+    } else if (submitMode === 'edit') {
+      setCurDocument(curSubmit);
+    } else if (submitMode === 'watch') {
+      setCurDocument(submitToWatch);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -60,7 +70,7 @@ const SubA_I_II = () => {
               name='firstName'
               icon='user'
               iconPosition='left'
-              value={user?.firstName} // usynąć znak zapytania
+              value={user?.firstName || ''} //
             />
             <Form.Input
               icon='user'
@@ -68,7 +78,7 @@ const SubA_I_II = () => {
               className='input'
               label='Nazwisko wnioskodawcy'
               name='lastName'
-              value={user?.lastName}
+              value={user?.lastName || ''}
             />
 
             <Form.Input
@@ -78,7 +88,7 @@ const SubA_I_II = () => {
               iconPosition='left'
               placeholder='Podaj email wnioskodawcy'
               name='phone'
-              value={user?.email}
+              value={user?.email || ''}
             />
             <Form.Input
               className='input'
@@ -88,13 +98,7 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu wnioskodawcy'
               name='phone'
               onChange={(e) => handleOnChange(e)}
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.phone
-                  : submitMode === 'new'
-                  ? newSubmit?.phone
-                  : submitToWatch?.phone) || ''
-              }
+              value={curDocument?.phone || ''}
             />
             {submitErrors?.phone && (
               <Label basic color='red' pointing='above' className='small-text'>
@@ -110,13 +114,7 @@ const SubA_I_II = () => {
               label='Adres skrzynki ePuap (opcjonalnie)'
               placeholder='Podaj adres ePuap (opcjonalnie)'
               name='epuapAdr'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.epuapAdr
-                  : submitMode === 'new'
-                  ? newSubmit?.epuapAdr
-                  : submitToWatch?.epuapAdr) || ''
-              }
+              value={curDocument?.epuapAdr || ''}
             />
 
             <Dropdown
@@ -126,13 +124,7 @@ const SubA_I_II = () => {
               className='dropdown'
               data-name='isSelf'
               onChange={(e) => handleOnChange(e)}
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.isSelf
-                  : submitMode === 'new'
-                  ? newSubmit?.isSelf
-                  : submitToWatch?.isSelf) || 'default'
-              }
+              value={curDocument?.isSelf || 'default'}
               options={optionsAttachment}
             />
             {submitErrors?.isSelf && (
@@ -157,13 +149,7 @@ const SubA_I_II = () => {
               name='pupilPesel'
               icon='id card outline'
               iconPosition='left'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.pupilPesel
-                  : submitMode === 'new'
-                  ? newSubmit?.pupilPesel
-                  : submitToWatch?.pupilPesel) || ''
-              }
+              value={curDocument?.pupilPesel || ''}
             />
             {submitErrors?.pupilPesel && (
               <Label basic color='red' pointing='above' className='small-text'>
@@ -181,11 +167,7 @@ const SubA_I_II = () => {
               value={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.firstName
-                  : submitMode === 'edit'
-                  ? curSubmit?.pupilFirstName
-                  : submitMode === 'new'
-                  ? newSubmit?.pupilFirstName
-                  : submitToWatch?.pupilFirstName) || ''
+                  : curDocument.pupilFirstName) || ''
               }
             />
             {submitErrors?.pupilFirstName && (
@@ -205,11 +187,7 @@ const SubA_I_II = () => {
               value={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.lastName
-                  : submitMode === 'edit'
-                  ? curSubmit?.pupilLastName
-                  : submitMode === 'new'
-                  ? newSubmit?.pupilLastName
-                  : submitToWatch?.pupilLastName) || ''
+                  : curDocument.pupilLastName) || ''
               }
             />
             {submitErrors?.pupilLastName && (
@@ -229,11 +207,7 @@ const SubA_I_II = () => {
               value={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.email
-                  : submitMode === 'edit'
-                  ? curSubmit?.pupilEmail
-                  : submitMode === 'new'
-                  ? newSubmit?.pupilEmail
-                  : submitToWatch?.pupilEmail) || ''
+                  : curDocument.pupilEmail) || ''
               }
             />
             {submitErrors?.pupilEmail && (
@@ -250,13 +224,7 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu ucznia'
               type='phone'
               name='pupilPhone'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.pupilPhone
-                  : submitMode === 'new'
-                  ? newSubmit?.pupilPhone
-                  : submitToWatch?.pupilPhone) || ''
-              }
+              value={curDocument?.pupilPhone || ''}
             />
             {submitErrors?.pupilPhone && (
               <Label basic color='red' pointing='above' className='small-text'>

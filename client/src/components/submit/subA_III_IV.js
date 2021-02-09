@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Dropdown,
   Form,
@@ -26,6 +26,8 @@ const SubA_III_IV = () => {
     submitErrors,
   } = submitContext;
 
+  const [curDocument, setCurDocument] = useState({});
+
   const handleOnChange = async (e) => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -50,8 +52,16 @@ const SubA_III_IV = () => {
 
   useEffect(() => {
     resetTimeLeft();
+    if (submitMode === 'new') {
+      setCurDocument(newSubmit);
+    } else if (submitMode === 'edit') {
+      setCurDocument(curSubmit);
+    } else if (submitMode === 'watch') {
+      setCurDocument(submitToWatch);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -69,13 +79,7 @@ const SubA_III_IV = () => {
               placeholder='Podaj pełną nazwę szkoły'
               iconPosition='left'
               onChange={(e) => handleOnChange(e)}
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.schoolName
-                  : submitMode === 'new'
-                  ? newSubmit?.schoolName
-                  : submitToWatch?.schoolName) || ''
-              }
+              value={curDocument?.schoolName || ''}
             />
 
             {submitErrors?.schoolName && (
@@ -85,7 +89,7 @@ const SubA_III_IV = () => {
             )}
             <div className='select-wrapper'>
               <Header className='select-header' as='h5'>
-                Profil doradcy
+                Rodzaj szkoły
               </Header>
               <Dropdown
                 fluid
@@ -94,13 +98,7 @@ const SubA_III_IV = () => {
                 className='dropdown'
                 data-name='schoolType'
                 onChange={(e) => handleOnChange(e)}
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.schoolType
-                    : submitMode === 'new'
-                    ? newSubmit?.schoolType
-                    : submitToWatch?.schoolType) || 'default'
-                }
+                value={curDocument?.schoolType || 'default'}
                 options={optionsSchoolType}
               />
               {submitErrors?.schoolType && (
@@ -119,13 +117,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolStreetName
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolStreetName
-                      : submitToWatch?.schoolStreetName) || ''
-                  }
+                  value={curDocument?.schoolStreetName || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetName && (
@@ -145,13 +137,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolStreetNr
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolStreetNr
-                      : submitToWatch?.schoolStreetNr) || ''
-                  }
+                  value={curDocument?.schoolStreetNr || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetNr && (
@@ -170,13 +156,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolZip
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolZip
-                      : submitToWatch?.schoolZip) || ''
-                  }
+                  value={curDocument?.schoolZip || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolZip && (
@@ -196,13 +176,7 @@ const SubA_III_IV = () => {
                   // label='Adres szkoły (miejscowość)'
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolTown
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolTown
-                      : submitToWatch?.schoolTown) || ''
-                  }
+                  value={curDocument?.schoolTown || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolTown && (
@@ -223,13 +197,7 @@ const SubA_III_IV = () => {
                   className='dropdown'
                   data-name='schoolVoyev'
                   onChange={(e) => handleOnChange(e)}
-                  value={
-                    (submitMode === 'edit'
-                      ? curSubmit?.schoolVoyev
-                      : submitMode === 'new'
-                      ? newSubmit?.schoolVoyev
-                      : submitToWatch?.schoolVoyev) || 'default'
-                  }
+                  value={curDocument?.schoolVoyev || 'default'}
                   options={optionsVoyev}
                 />
                 {submitErrors?.schoolVoyev && (
@@ -255,13 +223,7 @@ const SubA_III_IV = () => {
               label='Imię doradcy'
               name='counselorFirstName'
               placeholder='Podaj imię doradcy'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.counselorFirstName
-                  : submitMode === 'new'
-                  ? newSubmit?.counselorFirstName
-                  : submitToWatch?.counselorFirstName) || ''
-              }
+              value={curDocument?.counselorFirstName || ''}
               onChange={(e) => handleOnChange(e)}
             />
             {submitErrors?.counselorFirstName && (
@@ -276,13 +238,7 @@ const SubA_III_IV = () => {
               label='Nazwisko doradcy'
               name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
-              value={
-                (submitMode === 'edit'
-                  ? curSubmit?.counselorLastName
-                  : submitMode === 'new'
-                  ? newSubmit?.counselorLastName
-                  : submitToWatch?.counselorLastName) || ''
-              }
+              value={curDocument?.counselorLastName || ''}
               onChange={(e) => handleOnChange(e)}
             />
             {submitErrors?.counselorLastName && (
@@ -301,13 +257,7 @@ const SubA_III_IV = () => {
                 className='dropdown'
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.counselorProfile
-                    : submitMode === 'new'
-                    ? newSubmit?.counselorProfile
-                    : submitToWatch?.counselorProfile) || 'default'
-                }
+                value={curDocument?.counselorProfile || 'default'}
                 options={optionsProfile}
               />
               {submitErrors?.counselorProfile && (

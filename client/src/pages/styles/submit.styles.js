@@ -126,7 +126,27 @@ export const Wrapper = styled.div`
     /* margin-top: -70px !important; */
   }
 
-  .form-vii{
-margin: 0 !important; width: 100% !important;
+  .form-vii {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .area-err {
+    margin-top: 2.5rem !important;
+    margin-left: 0.8rem !important;
+  }
+  .inputVIIb {
+    margin: 0 !important;
+    margin-left: 1rem !important;
+    padding: 0 !important;
+    height: 3rem !important;
+  }
+
+  .key-subj-err {
+    margin-top: 3px !important;
+  }
+
+  .accordion-results {
+    transform: translateY(4px) !important;
   }
 `;

@@ -291,7 +291,7 @@ export class Submit extends Model {
   isAllowed: boolean;
 
   @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź dot. niepłnosprawności',
+    message: 'Należy wybrać odpowiedź dot. niepełnosprawności',
   })
   @Column({
     type: 'enum',
@@ -307,7 +307,7 @@ export class Submit extends Model {
     message: 'Należy wskazać przedmiot (lista z części V)',
   })
   @Column({
-    comment: 'Ścieżka rozwoju - tabela 1 - wybrany przedmiot',
+    comment: 'Ścieżka rozwoju - tabela 1 - wybrany przedmiot kierunkowy',
   })
   tab1Subj: string;
 
@@ -483,7 +483,7 @@ export class Submit extends Model {
   })
   tab1k_desc: string;
 
-  @NotEquals(3, {
+  @Equals(3, {
     message: 'Liczba wybranych rezultatów w tabeli 1 musi wynosić dokładnie 3',
   })
   @Column({
@@ -491,6 +491,210 @@ export class Submit extends Model {
     nullable: true,
   })
   tab1Results: number;
+
+  //
+  // VIIB. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY tab2
+  //
+  @IsString({
+    message: 'Należy wybrać przedmiot kluczowy',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - wybrany przedmiot kluczowy',
+  })
+  tab2Subj: string;
+
+  @ValidateIf(
+    (o) =>
+      o.tab2Subj !== 'język nowożytny obcy' || o.tab2Subj !== 'przedmiot ICT'
+  )
+  @MinLength(3,{
+    message: 'Należy wpisać nazwę wybranego przedmiotu kluczowego',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - wybrany przedmiot',
+  })
+  tab2SubjName: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - udział w konkursie/olipiadzie',
+    default: 0,
+    nullable: true,
+  })
+  isTab2a: boolean;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane pracy badawczej',
+    default: 0,
+    nullable: true,
+  })
+  isTab2b: boolean;
+
+  @ValidateIf((o) => o.isTab2b === true)
+  @MinLength(10, {
+    message: 'Pole dot.pracy badawczej musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane pracy badawczej - opis',
+    nullable: true,
+  })
+  tab2b_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane referatu/prezentacji',
+    default: 0,
+    nullable: true,
+  })
+  isTab2c: boolean;
+
+  @ValidateIf((o) => o.isTab2c === true)
+  @MinLength(10, {
+    message:
+      'Pole dot. referatu/prezentacji musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment:
+      'Ścieżka rozwoju - tabela 2 - przygotowane referatu/prezentacji - opis',
+    nullable: true,
+  })
+  tab2c_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane publikacji',
+    default: 0,
+    nullable: true,
+  })
+  isTab2d: boolean;
+
+  @ValidateIf((o) => o.isTab2d === true)
+  @MinLength(10, {
+    message: 'Pole dot. publikacji musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane publikacji - opis',
+    nullable: true,
+  })
+  tab2d_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane wystawy',
+    default: 0,
+    nullable: true,
+  })
+  isTab2e: boolean;
+
+  @ValidateIf((o) => o.isTab2e === true)
+  @MinLength(10, {
+    message: 'Pole dot. wystawy musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane wystawy - opis',
+    nullable: true,
+  })
+  tab2e_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowanie filmu',
+    default: 0,
+    nullable: true,
+  })
+  isTab2f: boolean;
+
+  @ValidateIf((o) => o.isTab2f === true)
+  @MinLength(10, {
+    message: 'Pole dot. filmu musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowanie filmu - opis',
+    nullable: true,
+  })
+  tab2f_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowane aplikacji',
+    default: 0,
+    nullable: true,
+  })
+  isTab2g: boolean;
+
+  @ValidateIf((o) => o.isTab2g === true)
+  @MinLength(10, {
+    message:
+      'Pole dot. programu komputerowego/aplikacji musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - przygotowanie aplikacji - opis',
+    nullable: true,
+  })
+  tab2g_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - uzyskanie certyfikatu językowego',
+    default: 0,
+    nullable: true,
+  })
+  isTab2h: boolean;
+
+  @ValidateIf((o) => o.isTab2h === true)
+  @MinLength(10, {
+    message: 'Pole dot. certyfikatu musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment:
+      'Ścieżka rozwoju - tabela 2 - uzyskanie certyfikatu językowego - opis',
+    nullable: true,
+  })
+  tab2h_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - uzyskanie oceny bardzo dobrej',
+    default: 0,
+    nullable: true,
+  })
+  isTab2i: boolean;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - własna strona internetowea',
+    default: 0,
+    nullable: true,
+  })
+  isTab2j: boolean;
+
+  @ValidateIf((o) => o.isTab2j === true)
+  @MinLength(10, {
+    message:
+      'Pole dot. strony internetowej musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - własna strona internetowa - opis',
+    nullable: true,
+  })
+  tab2j_desc: string;
+
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - inny cel',
+    default: 0,
+    nullable: true,
+  })
+  isTab2k: boolean;
+
+  @ValidateIf((o) => o.isTab2k === true)
+  @MinLength(10, {
+    message: 'Pole dot. innych rezultatów musi zawierać co najmniej 10 znaków',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - inne - opis',
+    nullable: true,
+  })
+  tab2k_desc: string;
+
+  @Equals(3, {
+    message: 'Liczba wybranych rezultatów w tabeli 2 musi wynosić dokładnie 3',
+  })
+  @Column({
+    comment: 'Ścieżka rozwoju - tabela 2 - inne - opis',
+    nullable: true,
+  })
+  tab2Results: number;
 
   //
   //

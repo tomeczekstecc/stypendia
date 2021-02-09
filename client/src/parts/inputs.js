@@ -214,3 +214,83 @@ export const accordionsVIIa = [
       'Opisz czego dotyczyć będzie inny rezultat i jak zostanie osiągnięty',
   },
 ];
+
+export const accordionsVIIb = [
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2a',
+    label:
+      'Udział w konkursie przedmiotowym /olimpiadzie przedmiotowej i uzyskanie tytułu laureata lub finalisty',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2b',
+    label: 'Wykonanie pracy badawczej',
+    areaName: 'tab2b_desc',
+    placeholder: 'Wpisz temat pracy badawczej',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2c',
+    label: 'Przygotowanie referatu lub prezentacji',
+    areaName: 'tab2c_desc',
+    placeholder: 'Wpisz temat referatu lub prezentacji',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2d',
+    label: 'Przygotowanie publikacji',
+    areaName: 'tab2d_desc',
+    placeholder: 'Wpisz temat publikacji',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2e',
+    label: 'Przygotowanie wystawy',
+    areaName: 'tab2e_desc',
+    placeholder: 'Wpisz temat wystawy',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2f',
+    label:
+      'Stworzenie filmu o tematyce dotyczącej wybranego przedmiotu kierunkowego',
+    areaName: 'tab2e_desf',
+    placeholder: 'Opisz planowany film',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2g',
+    label: 'Stworzenie programu komputerowego / aplikacji ',
+    areaName: 'tab2g_desc',
+    placeholder: 'Opisz czego dotyczć będzie program komputerowy / aplikacja',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2h',
+    label: 'Uzyskanie certyfikatu językowego',
+    areaName: 'tab2h_desc',
+    placeholder: 'Wpisz planowany poziom certyfikatu',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2i',
+    label:
+      'Otrzymanie oceny co najmniej bardzo dobrej na koniec roku szkolnego 2020/2022',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2j',
+    label: 'Stworzenie własnej strony internetowej',
+    areaName: 'tab2j_desc',
+    placeholder: 'Opisz czego dotyczytć będzie strona internetowa',
+  },
+  {
+    id: uuidv4(),
+    checkeboxName: 'isTab2k',
+    label: 'Inny rezultat',
+    areaName: 'tab2k_desc',
+    placeholder:
+      'Opisz czego dotyczyć będzie inny rezultat i jak zostanie osiągnięty',
+  },
+];

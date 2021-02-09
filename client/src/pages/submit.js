@@ -8,6 +8,7 @@ import {
   Attachments,
   SubA_V_VI,
   SubA_VIIa,
+  SubA_VIIb,
   Nav,
   Errors,
 } from '../components';
@@ -21,7 +22,7 @@ const Submit = () => {
   const [activeItem, setActiveItem] = useState(1);
 
   const renderComponent = () => {
-    if (activeItem > 5) setActiveItem(1);
+    if (activeItem > 6) setActiveItem(1);
     if (activeItem < 1) setActiveItem(1);
     switch (activeItem) {
       case 1:
@@ -30,9 +31,11 @@ const Submit = () => {
         return <SubA_III_IV />;
       case 3:
         return <SubA_V_VI />;
-        case 4:
-          return <SubA_VIIa />;
+      case 4:
+        return <SubA_VIIa />;
       case 5:
+        return <SubA_VIIb />;
+      case 6:
         return <Attachments />;
 
       default:
@@ -75,11 +78,18 @@ const Submit = () => {
               onClick={() => setActiveItem(4)}
             />
             <Menu.Item
+              icon='chart line'
+              name='sciezka2'
+              content=' Ścieżka rozwoju [Tab2]'
+              active={activeItem === 5}
+              onClick={() => setActiveItem(5)}
+            />
+            <Menu.Item
               icon='attach'
               name='dane szkoły'
               content='Załączniki'
-              active={activeItem === 5}
-              onClick={() => setActiveItem(5)}
+              active={activeItem === 6}
+              onClick={() => setActiveItem(6)}
             />
           </Menu>
         </Grid.Column>

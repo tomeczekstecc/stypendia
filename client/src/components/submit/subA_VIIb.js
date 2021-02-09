@@ -6,16 +6,17 @@ import {
   Dropdown,
   Form,
   Header,
+  Input,
   Label,
   Message,
   Segment,
   TextArea,
 } from 'semantic-ui-react';
-import { accordionsVIIa } from '../../parts/index';
+import { accordionsVIIb, keySubjects } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 
-const SubA_VIIa = () => {
+const SubA_VIIb = () => {
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -42,9 +43,9 @@ const SubA_VIIa = () => {
 
     if (e.nativeEvent.path[1].dataset.type === 'checkbox') {
       if (e.nativeEvent.path[1].children[0].checked) {
-        curDocument.tab1Results -= 1;
+        curDocument.tab2Results -= 1;
       } else if (!e.nativeEvent.path[1].children[0].checked) {
-        curDocument.tab1Results += 1;
+        curDocument.tab2Results += 1;
       }
 
       if (submitMode === 'edit') {
@@ -81,25 +82,6 @@ const SubA_VIIa = () => {
     }
   };
 
-  const [options, setOptions] = useState([
-    {
-      key: 'a',
-      text: 'Wybierz przedmiot',
-      value: 'default',
-      disabled: true,
-    },
-    {
-      key: 'b',
-      text: curDocument?.priLang,
-      value: curDocument?.priLang,
-    },
-    {
-      key: 'c',
-      text: curDocument?.priOtherSubj,
-      value: curDocument?.priOtherSubj,
-    },
-  ]);
-
   useEffect(() => {
     resetTimeLeft();
     if (submitMode === 'new') {
@@ -110,31 +92,13 @@ const SubA_VIIa = () => {
       setCurDocument(submitToWatch);
     }
 
-    setOptions([
-      {
-        key: 'a',
-        text: 'Wybierz przedmiot',
-        value: 'default',
-        disabled: true,
-      },
-      {
-        key: 'd',
-        text: 'matematyka',
-        value: 'matematyka',
-      },
-      {
-        key: 'b',
-        text: curDocument?.priLang?.toLowerCase(),
-        value: curDocument?.priLang?.toLowerCase(),
-      },
+    if (!curDocument.tab2Results) curDocument.tab2Results = 0;
+    if (
+      curDocument.tab2Subj !== 'język obcy nowożytny' &&
+      curDocument.tab2Subj !== 'przedmiot ICT'
+    )
+      curDocument.tab2SubjName = '';
 
-      {
-        key: 'c',
-        text: curDocument?.priOtherSubj?.toLowerCase(),
-        value: curDocument?.priOtherSubj?.toLowerCase(),
-      },
-    ]);
-    if (!curDocument.tab1Results) curDocument.tab1Results = 0;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
@@ -142,11 +106,10 @@ const SubA_VIIa = () => {
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
       <Header className='sub-header' floated='left' as='h4'>
         VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY - Przedmiot
-        kierunkowy
+        kluczowy
       </Header>
 
       <Container textAlign='left' fluid>
-        {' '}
         <Segment className='segment-vii'>
           <Header
             textAlign='left'
@@ -154,41 +117,57 @@ const SubA_VIIa = () => {
             className='inline-position header'
             as='h4'
           >
-            Przedmiot kierunkowy:
+            Przedmiot kluczowy:
           </Header>
 
           <Dropdown
-            disabled={!curDocument?.priLang || !curDocument?.priOtherSubj}
             floating
             fluid
             className='inline-position drop'
             selection
-            data-name='tab1Subj'
-            value={curDocument?.tab1Subj}
+            data-name='tab2Subj'
+            value={curDocument?.tab2Subj}
             basic
-            options={options}
+            options={keySubjects}
             defaultValue='default'
             onChange={(e) => handleOnChange(e)}
           />
-          {(!curDocument?.priLang || !curDocument?.priOtherSubj) && (
-            <Label basic color='red' className='label-valid' size='large'>
-              Nie wybrano wszytkich przedmiotów w części V.
-            </Label>
+
+          {(curDocument?.tab2Subj === 'język obcy nowożytny' ||
+            curDocument?.tab2Subj === 'przedmiot ICT') && (
+            <Input
+              onChange={(e) => handleOnChange(e)}
+              value={curDocument?.tab2SubjName}
+              name='tab2SubjName'
+              data-name='tab2SubjName'
+              placeholder='wpisz nazwę przedmiotu'
+              className='inputVIIb'
+            />
           )}
         </Segment>
-        {submitErrors?.tab1Subj && (
+        {submitErrors?.tab2Subj && (
           <Label
             basic
             color='red'
             pointing='above'
             className='small-text key-subj-err'
           >
-            {submitErrors?.tab1Subj}
+            {submitErrors?.tab2Subj}
+          </Label>
+        )}
+        {!submitErrors?.tab2Subj && submitErrors?.tab2SubjName && (
+          <Label
+            basic
+            color='red'
+            pointing='above'
+            className='small-text key-subj-err'
+          >
+            {submitErrors?.tab2SubjName}
           </Label>
         )}
         <Message className='msg' info size='small' floating>
           <Message.Header>
-            Planowane rezultaty - przedmiot kierunkowy. Wybierz maksymalnie 3
+            Planowane rezultaty - przedmiot kluczowy. Wybierz maksymalnie 3
             rezultaty.
           </Message.Header>
           <p>
@@ -196,27 +175,27 @@ const SubA_VIIa = () => {
             realizowania wskazanych celów edukacyjnych i planowanych do
             uzyskania rezultatów. z dwóch wybranych przedmiotów wraz z
             kandydatem na opiekuna dydaktycznego Stypendysty/opiekunem
-            dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu
-            <strong> trzy planowane</strong> do osiągnięcia rezultaty, które
+            dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu{' '}
+            <strong>trzy planowane</strong> do osiągnięcia rezultaty, które
             uczeń zamierza osiągnąć w roku szkolnym 2020/2021.
-          </p>{' '}
+          </p>
           <Label size='large' basic color='teal'>
             Liczba wybranych rezultatów:
-            {curDocument?.tab1Results} (brakuje: {3 - curDocument?.tab1Results})
+            {curDocument?.tab2Results} (brakuje: {3 - curDocument?.tab2Results})
           </Label>
         </Message>
-        {submitErrors?.tab1Results && (
+        {submitErrors?.tab2Results && (
           <Label
             basic
             color='red'
             pointing='below'
             className='small-text accordion-results'
           >
-            {submitErrors?.tab1Results}
+            {submitErrors?.tab2Results}
           </Label>
         )}
         <Accordion fluid styled>
-          {accordionsVIIa.map((acc) => (
+          {accordionsVIIb.map((acc) => (
             <div key={acc.id}>
               <Accordion.Title>
                 <Checkbox
@@ -232,7 +211,7 @@ const SubA_VIIa = () => {
                     handleOnChange(e, acc.checkeboxName, acc.areaName)
                   }
                   disabled={
-                    curDocument.tab1Results >= 3 &&
+                    curDocument.tab2Results >= 3 &&
                     curDocument[acc.checkeboxName] !== true
                   }
                   toggle
@@ -283,4 +262,4 @@ const SubA_VIIa = () => {
   );
 };
 
-export default SubA_VIIa;
+export default SubA_VIIb;

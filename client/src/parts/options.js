@@ -67,5 +67,21 @@ export const optionsYesNo = [
   { key: 'a', text: 'Wybierz odpowiedź', value: 'default', disabled: true },
   { key: 'b', text: 'Tak', value: 'Tak', disabled: false },
   { key: 'c', text: 'Nie', value: 'Nie', disabled: false },
+];
 
+export const keySubjects = [
+  { key: 'a', text: 'Wybierz przedmiot', value: 'default', disabled: true },
+  { key: 'b', text: 'matematyka', value: 'matematyka', disabled: false },
+  {
+    key: 'c',
+    text: 'język obcy nowożytny',
+    value: 'język obcy nowożytny',
+    disabled: false,
+  },
+  { key: 'd', text: 'biologia', value: 'biologia', disabled: false },
+  { key: 'e', text: 'chemia', value: 'chemia', disabled: false },
+  { key: 'f', text: 'geografia', value: 'geografia', disabled: false },
+  { key: 'g', text: 'fizyka', value: 'fizyka', disabled: false },
+  { key: 'h', text: 'przyroda', value: 'przyroda', disabled: false },
+  { key: 'i', text: 'przedmiot ICT', value: 'przedmiot ICT', disabled: false },
 ];

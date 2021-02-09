@@ -699,6 +699,101 @@ export class Submit extends Model {
   tab2Results: number;
 
   //
+  // VIII. PLAN WYDATÓW
+  //
+
+
+
+  @Column({
+    comment: 'Zakup pomocy dydaktycznych i przyborów szkolnych',
+    default: 0,
+  })
+  cost1: number;
+
+
+  @Column({
+    comment: 'Wydatki związane z wyposażeniem miejsca domowej nauki',
+    default: 0,
+  })
+  cost2: number;
+
+
+   @Column({
+    comment: 'Zakup sprzętu komputerowego wraz z oprogramowaniem i akcesoriami',
+    default: 0,
+  })
+  cost3: number;
+
+
+  @Column({
+    comment: 'Zakup sprzętu elektronicznego',
+    default: 0,
+  })
+  cost4: number;
+
+
+  @Column({
+    comment: 'Opłaty związane z dostępem do Internetu',
+    default: 0,
+  })
+  cost5: number;
+
+
+  @Column({
+    comment:
+      'Koszty transportu ponoszone przez ucznia/uczennicę w celu dotarcia do szkoły oraz na dodatkowe zajęcia edukacyjne. (Nie dotyczy kosztów związanych z zakupem paliwa samochodowego)',
+    default: 0,
+  })
+  cost6: number;
+
+  @Column({
+    comment: 'Opłaty za kursy, szkolenia',
+    default: 0,
+  })
+  cost7: number;
+
+  @Column({
+    comment:
+      'Wydatki zawiązane z wyposażeniem ucznia/uczennicy niezbędnym dla realizacji potrzeb edukacyjno-rozwojowych wskazanych w PRU ',
+    default: 0,
+  })
+  cost8: number;
+
+  @Column({
+    comment: 'Opłaty szkolne',
+    default: 0,
+  })
+  cost9: number;
+
+
+  @Column({
+    comment: 'Koszty uczestnictwa w konkursach, turniejach, olimpiadach',
+    default: 0,
+  })
+  cost10: number;
+
+
+  @Column({
+    comment: 'Koszty uczestnictwa w kulturze wysokiej',
+    default: 0,
+  })
+  cost11: number;
+
+  @Min(0.1, {
+    message:
+      'Wartość całkowita pplnu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000',
+  })
+  @Max(5000, {
+    message:
+      'Wartość całkowita pplnu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000',
+  })
+  @Column({
+    comment: 'Koszty uczestnictwa w kulturze wysokiej',
+    default: 0,
+  })
+  totalCosts: number;
+
+  //
   //
   //
   @Column({

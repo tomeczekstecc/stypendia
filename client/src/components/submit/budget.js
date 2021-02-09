@@ -1,19 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Accordion,
-  Checkbox,
-  Container,
-  Dropdown,
-  Form,
-  Header,
-  Input,
-  Label,
-  Message,
-  Segment,
-  Table,
-  TextArea,
-} from 'semantic-ui-react';
-import { accordionsVIIb, keySubjects } from '../../parts/index';
+import { Container, Header, Input, Message, Table } from 'semantic-ui-react';
+import { budgetRows } from '../../parts/';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 
@@ -34,52 +21,33 @@ const Budget = () => {
 
   const [curDocument, setCurDocument] = useState({});
 
-  const handleOnChange = async (e, parent = undefined, name = undefined) => {
+  const handleOnChange = async (e) => {
     if (submitMode === 'watch') return;
-    if (parent && name) {
-      if (curDocument && curDocument[parent] && curDocument[parent] === true) {
-        curDocument[name] = '';
-      }
+
+    if (submitMode === 'edit') {
+      await updateCurSubmit({
+        ...curSubmit,
+        [e.target.name]: +e.target.value,
+      });
+    } else if (submitMode === 'new') {
+      await updateNewSubmit({
+        ...newSubmit,
+        [e.target.name]: +e.target.value,
+      });
     }
+  };
 
-    if (e.nativeEvent.path[1].dataset.type === 'checkbox') {
-      if (e.nativeEvent.path[1].children[0].checked) {
-        curDocument.tab2Results -= 1;
-      } else if (!e.nativeEvent.path[1].children[0].checked) {
-        curDocument.tab2Results += 1;
+  const updateTotalCosts = (curSubmit) => {
+    let arr = [];
+    for (const [key, value] of Object.entries(curSubmit)) {
+      console.log(key.slice(0, 4));
+      if (key.slice(0, 4) === 'cost') {
+        arr.push(value);
       }
-
-      if (submitMode === 'edit') {
-        await updateCurSubmit({
-          ...curSubmit,
-          [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
-            .children[0].checked,
-        });
-      } else if (submitMode === 'new') {
-        await updateNewSubmit({
-          ...newSubmit,
-          [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
-            .children[0].checked,
-        });
-      }
-    } else {
-      if (submitMode === 'edit') {
-        await updateCurSubmit({
-          ...curSubmit,
-          [e.nativeEvent.path[1].dataset.name ||
-          e.nativeEvent.path[2].dataset.name ||
-          e.nativeEvent.path[3].dataset.name ||
-          e.target.dataset.name]: e.target.value || e.target.innerText,
-        });
-      } else if (submitMode === 'new') {
-        await updateNewSubmit({
-          ...newSubmit,
-          [e.nativeEvent.path[1].dataset.name ||
-          e.nativeEvent.path[2].dataset.name ||
-          e.nativeEvent.path[3].dataset.name ||
-          e.target.dataset.name]: e.target.value || e.target.innerText,
-        });
-      }
+      const total = arr.reduce((acc, cur) => {
+        return acc + cur;
+      },0);
+      curDocument.totalCosts = total;
     }
   };
 
@@ -92,78 +60,91 @@ const Budget = () => {
     } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
     }
-
-    if (!curDocument.tab2Results) curDocument.tab2Results = 0;
-    if (
-      curDocument.tab2Subj !== 'język obcy nowożytny' &&
-      curDocument.tab2Subj !== 'przedmiot ICT'
-    )
-      curDocument.tab2SubjName = '';
-
+    curDocument && updateTotalCosts(curDocument);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
       <Header className='sub-header' floated='left' as='h4'>
-        VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY - Przedmiot
-        kluczowy
+        VIII. PLAN WYDATKÓW
       </Header>
-
+      <Container textAlign='left'>
+        <Message className='msg' info size='small'>
+          <Message.Header>
+            Lista planowanych wydatków na realizację ścieżki rozwoju{' '}
+          </Message.Header>
+          <div>
+            <ol>
+              <li>
+                Należy przedstawić szacunkowy plan wydatków związanych z
+                realizacją działań zmierzających do osiągnięcia celów
+                edukacyjnych i rezultatów na okres otrzymywania stypendium.{' '}
+              </li>
+              <li>
+                Planowane wydatki muszą mieścić się w katalogu kosztów,
+                wskazanym w § 8 ust. 5 Regulaminu przyznawania stypendiów w
+                ramach projektu Śląskie. Inwestujemy w talenty – VI edycja.
+                Wydatki należy wykazać na kwotę (sumę) nie mniejszą niż
+                przewidywana wartość stypendium, tj. 5 000,00 PLN. Szczegółowy
+                opis wydatków kwalifikowalnych w obrębie poszczególnych
+                katalogów zawarty jest w załączniku nr 1 do regulaminu.{' '}
+              </li>
+              <li>
+                W przypadku Stypendystów, którzy uczestniczyli w poprzedniej
+                edycji projektu „Śląskie. Inwestujemy w talenty”, planowanie
+                zakupu przedmiotów, o których mowa w ust. 5 pkt 2 - 4, tożsamych
+                z już zakupionymi ze środków stypendialnych, otrzymanych w
+                ramach poprzedniej edycji projektu jest możliwe, tylko w
+                uzasadnionych przypadkach. Wnioskodawca będzie zobowiązany do
+                złożenia stosownego oświadczenia, zawartego we Wniosku.
+              </li>
+            </ol>
+          </div>{' '}
+        </Message>
+      </Container>
       <Container textAlign='left' fluid>
-        <Table  definition sortable={true} celled>
+        <Table sortable celled>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell></Table.HeaderCell>
-              <Table.HeaderCell>Status</Table.HeaderCell>
-              <Table.HeaderCell>Notes</Table.HeaderCell>
+              <Table.HeaderCell>LP</Table.HeaderCell>
+              <Table.HeaderCell>Katalogi wydatków</Table.HeaderCell>
+              <Table.HeaderCell textAlign='right'>
+                Szacunkowy koszt (PLN)
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
-          <Table.Body>
+          {budgetRows.map((r, i) => (
+            <Table.Body key={r.id}>
+              <Table.Row>
+                <Table.Cell textAlign='center'>{i + 1}</Table.Cell>
+                <Table.Cell>{r.categoryName}</Table.Cell>
+                <Table.Cell textAlign='right' selectable>
+
+                  <Input
+                    onChange={(e) => handleOnChange(e)}
+                    type='number'
+                    // placeholder='PLN'
+                    name={r.costName}
+                    data-name={r.costName}
+                    className='table-input'
+                    value={curDocument[r.costName] || 0}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          ))}
+          <Table.Footer fullWidth>
             <Table.Row>
-              <Table.Cell>John</Table.Cell>
-              <Table.Cell>No Action</Table.Cell>
-              <Table.Cell selectable>
-                <a href='#'>Edit</a>
-              </Table.Cell>
+              <Table.HeaderCell textAlign='right' colSpan='2'>
+                Razem
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign='right'>
+                <strong>{curDocument.totalCosts || '0.00'} PLN</strong>{' '}
+              </Table.HeaderCell>
             </Table.Row>
-            <Table.Row>
-              <Table.Cell>Jamie</Table.Cell>
-              <Table.Cell>Approved</Table.Cell>
-              <Table.Cell selectable>
-                <a href='#'>Edit</a>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Jill</Table.Cell>
-              <Table.Cell>Denied</Table.Cell>
-              <Table.Cell selectable>
-                <a href='#'>Edit</a>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row warning>
-              <Table.Cell>John</Table.Cell>
-              <Table.Cell>No Action</Table.Cell>
-              <Table.Cell selectable warning>
-                <a href='#'>Requires change</a>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Jamie</Table.Cell>
-              <Table.Cell positive>Approved</Table.Cell>
-              <Table.Cell selectable positive>
-                <a href='#'>Approve</a>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Jill</Table.Cell>
-              <Table.Cell negative>Denied</Table.Cell>
-              <Table.Cell selectable negative>
-                <a href='#'>Remove</a>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
+          </Table.Footer>
         </Table>
       </Container>
     </SubALayout>

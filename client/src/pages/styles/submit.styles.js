@@ -153,4 +153,6 @@ export const Wrapper = styled.div`
   .accordion-results {
     transform: translateY(4px) !important;
   }
+
+
 `;

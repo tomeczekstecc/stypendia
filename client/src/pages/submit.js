@@ -88,7 +88,7 @@ const Submit = () => {
               onClick={() => setActiveItem(5)}
             />
             <Menu.Item
-              icon='money'
+              icon='dollar'
               name='budget'
               content='Plan wydatków'
               active={activeItem === 6}

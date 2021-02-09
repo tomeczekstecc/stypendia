@@ -27,8 +27,8 @@ export const voyevEnums = [
   // 'wielkopolskie',
   // 'zachodniopomorskie',
 ];
-export const schoolTypeEnums = ['liceum', 'technikum'];
-export const counselorProfileTypeEnums = ['nauczyciel', 'pedagog', 'doradca'];
+export const schoolTypeEnums = ['Liceum', 'Technikum'];
+export const counselorProfileTypeEnums = ['Nauczyciel', 'Pedagog szkolny', 'Doradca zawodowy'];
 export const priGradesEnums = ['5', '6'];
 export const priGradesAvgEnums = [5.33, 5.67, 6];
 export const allTotalAvgEnums = [

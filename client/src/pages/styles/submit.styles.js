@@ -25,6 +25,10 @@ export const Wrapper = styled.div`
     margin-bottom: 3rem;
   }
 
+  .dropdown {
+    max-width: 25rem !important;
+  }
+
   .input {
     max-width: 25rem !important;
     margin-bottom: 2rem;

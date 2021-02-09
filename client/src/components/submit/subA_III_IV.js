@@ -1,5 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import { Form, Grid, Header, Label, Segment } from 'semantic-ui-react';
+import {
+  Dropdown,
+  Form,
+  Grid,
+  Header,
+  Label,
+  Segment,
+} from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsVoyev, optionsSchoolType, optionsProfile } from '../../parts';
@@ -20,24 +27,30 @@ const SubA_III_IV = () => {
   } = submitContext;
 
   const handleOnChange = async (e) => {
-    e.preventDefault();
-
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
-        [e.target.name]: e.target.value,
+        [e.target.name ||
+        e.nativeEvent.path[1].dataset.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name ||
+        e.target.dataset.name]: e.target.value || e.target.innerText,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
-        [e.target.name]: e.target.value,
+        [e.target.name ||
+        e.nativeEvent.path[1].dataset.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name ||
+        e.target.dataset.name]: e.target.value || e.target.innerText,
       });
     }
   };
 
   useEffect(() => {
     resetTimeLeft();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -74,8 +87,12 @@ const SubA_III_IV = () => {
               <Header className='select-header' as='h5'>
                 Profil doradcy
               </Header>
-              <select
-                name='schoolType'
+              <Dropdown
+                fluid
+                selection
+                floating
+                className='dropdown'
+                data-name='schoolType'
                 onChange={(e) => handleOnChange(e)}
                 value={
                   (submitMode === 'edit'
@@ -84,13 +101,8 @@ const SubA_III_IV = () => {
                     ? newSubmit?.schoolType
                     : submitToWatch?.schoolType) || 'default'
                 }
-              >
-                {optionsSchoolType.map((o) => (
-                  <option disabled={o.disabled} key={o.key} value={o.value}>
-                    {o.text}
-                  </option>
-                ))}
-              </select>{' '}
+                options={optionsSchoolType}
+              />
               {submitErrors?.schoolType && (
                 <Label basic color='red' pointing='above' className='select'>
                   {submitErrors?.schoolType}
@@ -117,7 +129,12 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetName && (
-                  <Label basic color='red' pointing='above' className='small-text'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text'
+                  >
                     {submitErrors?.schoolStreetName}
                   </Label>
                 )}
@@ -138,7 +155,12 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetNr && (
-                  <Label basic color='red' pointing='above' className='small-text'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text'
+                  >
                     {submitErrors?.schoolStreetNr}
                   </Label>
                 )}
@@ -158,7 +180,12 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolZip && (
-                  <Label basic color='red' pointing='above' className='small-text'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text'
+                  >
                     {submitErrors?.schoolZip}
                   </Label>
                 )}
@@ -179,39 +206,37 @@ const SubA_III_IV = () => {
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolTown && (
-                  <Label basic color='red' pointing='above' className='small-text'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text'
+                  >
                     {submitErrors?.schoolTown}
                   </Label>
                 )}
-                <div className='select-wrapper'>
-                  <select
-                    name='schoolVoyev'
-                    onChange={(e) => handleOnChange(e)}
-                    value={
-                      (submitMode === 'edit'
-                        ? curSubmit?.schoolVoyev
-                        : submitMode === 'new'
-                        ? newSubmit?.schoolVoyev
-                        : submitToWatch?.schoolVoyev) || 'default'
-                    }
-                  >
-                    {optionsVoyev.map((o) => (
-                      <option disabled={o.disabled} key={o.key} value={o.value}>
-                        {o.text}
-                      </option>
-                    ))}
-                  </select>
-                  {submitErrors?.schoolVoyev && (
-                    <Label
-                      basic
-                      color='red'
-                      pointing='above'
-                      className='select'
-                    >
-                      {submitErrors?.schoolVoyev}
-                    </Label>
-                  )}
-                </div>
+
+                <Dropdown
+                  fluid
+                  selection
+                  floating
+                  className='dropdown'
+                  data-name='schoolVoyev'
+                  onChange={(e) => handleOnChange(e)}
+                  value={
+                    (submitMode === 'edit'
+                      ? curSubmit?.schoolVoyev
+                      : submitMode === 'new'
+                      ? newSubmit?.schoolVoyev
+                      : submitToWatch?.schoolVoyev) || 'default'
+                  }
+                  options={optionsVoyev}
+                />
+                {submitErrors?.schoolVoyev && (
+                  <Label basic color='red' pointing='above' className='select'>
+                    {submitErrors?.schoolVoyev}
+                  </Label>
+                )}
               </Segment>
             </div>
           </Form.Group>
@@ -269,10 +294,13 @@ const SubA_III_IV = () => {
               <Header className='select-header' as='h5'>
                 Profil doradcy
               </Header>
-              <select
-                name='counselorProfile'
+              <Dropdown
+                fluid
+                selection
+                floating
+                className='dropdown'
+                data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-                placeholder='Wybierz profil doradcy'
                 value={
                   (submitMode === 'edit'
                     ? curSubmit?.counselorProfile
@@ -280,13 +308,8 @@ const SubA_III_IV = () => {
                     ? newSubmit?.counselorProfile
                     : submitToWatch?.counselorProfile) || 'default'
                 }
-              >
-                {optionsProfile.map((o) => (
-                  <option disabled={o.disabled} key={o.key} value={o.value}>
-                    {o.text}
-                  </option>
-                ))}
-              </select>
+                options={optionsProfile}
+              />
               {submitErrors?.counselorProfile && (
                 <Label basic color='red' pointing='above' className='select'>
                   {submitErrors?.counselorProfile}

@@ -58,11 +58,11 @@ export const addSubmit = async (req: any, res: Response) => {
       lastName: user.lastName,
       email: user.email,
       pupilFirstName:
-        (req.body.isSelf === '1' && user.firstName) || req.body.pupilFirstName,
+        (req.body.isSelf === 'Pełnoletni uczeń' && user.firstName) || req.body.pupilFirstName,
       pupilLastName:
-        (req.body.isSelf === '1' && user.lastName) || req.body.pupilLastName,
+        (req.body.isSelf === 'Pełnoletni uczeń' && user.lastName) || req.body.pupilLastName,
       pupilEmail:
-        (req.body.isSelf === '1' && user.email) || req.body.pupilEmail,
+        (req.body.isSelf === 'Pełnoletni uczeń' && user.email) || req.body.pupilEmail,
 
       user,
     });
@@ -150,12 +150,12 @@ export const editSubmit = async (req: any, res: Response) => {
       {
         ...req.body,
         pupilFirstName:
-          (req.body.isSelf === '1' && user.firstName) ||
+          (req.body.isSelf === 'Pełnoletni uczeń' && user.firstName) ||
           req.body.pupilFirstName,
         pupilLastName:
-          (req.body.isSelf === '1' && user.lastName) || req.body.pupilLastName,
+          (req.body.isSelf === 'Pełnoletni uczeń' && user.lastName) || req.body.pupilLastName,
         pupilEmail:
-          (req.body.isSelf === '1' && user.email) || req.body.pupilEmail,
+          (req.body.isSelf === 'Pełnoletni uczeń' && user.email) || req.body.pupilEmail,
       }
     );
 

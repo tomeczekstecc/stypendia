@@ -78,10 +78,12 @@ export class Submit extends Model {
   //I. dane osobowe
   //
 
-  @IsEnum(['0', '1'], { message: 'Należy wybrać status Wnioskodawcy' })
+  @IsEnum(['Rodzic/Opiekun prawny', 'Pełnoletni uczeń'], {
+    message: 'Należy wybrać status Wnioskodawcy',
+  })
   @Column({
     type: 'enum',
-    enum: ['0', '1'],
+    enum: ['Rodzic/Opiekun prawny', 'Pełnoletni uczeń'],
     comment:
       '1:Status prawny Wnioskodawcy - Pełnoletni uczeń, 0:Status prawny Wnioskodawcy - Rodzic ucznia',
   })
@@ -507,7 +509,7 @@ export class Submit extends Model {
     (o) =>
       o.tab2Subj !== 'język nowożytny obcy' || o.tab2Subj !== 'przedmiot ICT'
   )
-  @MinLength(3,{
+  @MinLength(3, {
     message: 'Należy wpisać nazwę wybranego przedmiotu kluczowego',
   })
   @Column({

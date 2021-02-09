@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { Form, Grid, Header, Label } from 'semantic-ui-react';
+import { Dropdown, Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 
-import {AuthContext, SubmitContext }from '../../context';
+import { AuthContext, SubmitContext } from '../../context';
 import { optionsAttachment } from '../../parts/options';
 
 const SubA_I_II = () => {
@@ -21,23 +21,29 @@ const SubA_I_II = () => {
   } = submitContext;
 
   const handleOnChange = async (e) => {
-    e.preventDefault();
-
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
-        [e.target.name]: e.target.value,
+        [e.target.name ||
+        e.nativeEvent.path[1].dataset.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name ||
+        e.target.dataset.name]: e.target.value || e.target.innerText,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
-        [e.target.name]: e.target.value,
+        [e.target.name ||
+        e.nativeEvent.path[1].dataset.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name ||
+        e.target.dataset.name]: e.target.value || e.target.innerText,
       });
     }
   };
   useEffect(() => {
     resetTimeLeft();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -113,33 +119,27 @@ const SubA_I_II = () => {
               }
             />
 
-            <div className='select-wrapper'>
-              <Header className='select-header' as='h5'>
-                Status Wnioskodawcy
-              </Header>
-              <select
-                onChange={(e) => handleOnChange(e)}
-                name='isSelf'
-                value={
-                  (submitMode === 'edit'
-                    ? curSubmit?.isSelf
-                    : submitMode === 'new'
-                    ? newSubmit?.isSelf
-                    : submitToWatch?.isSelf) || 'default'
-                }
-              >
-                {optionsAttachment.map((o) => (
-                  <option disabled={o.disabled} key={o.key} value={o.value}>
-                    {o.text}
-                  </option>
-                ))}
-              </select>
-              {submitErrors?.isSelf && (
-                <Label basic color='red' pointing='above' className='select'>
-                  {submitErrors?.isSelf}
-                </Label>
-              )}
-            </div>
+            <Dropdown
+              fluid
+              selection
+              floating
+              className='dropdown'
+              data-name='isSelf'
+              onChange={(e) => handleOnChange(e)}
+              value={
+                (submitMode === 'edit'
+                  ? curSubmit?.isSelf
+                  : submitMode === 'new'
+                  ? newSubmit?.isSelf
+                  : submitToWatch?.isSelf) || 'default'
+              }
+              options={optionsAttachment}
+            />
+            {submitErrors?.isSelf && (
+              <Label basic color='red' pointing='above' className='select'>
+                {submitErrors?.isSelf}
+              </Label>
+            )}
           </Form.Group>
         </Form>
       </Grid.Column>
@@ -179,7 +179,7 @@ const SubA_I_II = () => {
               name='pupilFirstName'
               placeholder='Podaj imię ucznia'
               value={
-                (newSubmit.isSelf === '1'
+                (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.firstName
                   : submitMode === 'edit'
                   ? curSubmit?.pupilFirstName
@@ -203,7 +203,7 @@ const SubA_I_II = () => {
               name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
               value={
-                (newSubmit.isSelf === '1'
+                (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.lastName
                   : submitMode === 'edit'
                   ? curSubmit?.pupilLastName
@@ -227,7 +227,7 @@ const SubA_I_II = () => {
               name='pupilEmail'
               placeholder='Podaj adres email ucznia'
               value={
-                (newSubmit.isSelf === '1'
+                (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.email
                   : submitMode === 'edit'
                   ? curSubmit?.pupilEmail

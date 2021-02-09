@@ -11,6 +11,7 @@ import {
   SubA_VIIb,
   Nav,
   Errors,
+  Budget
 } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
@@ -22,7 +23,7 @@ const Submit = () => {
   const [activeItem, setActiveItem] = useState(1);
 
   const renderComponent = () => {
-    if (activeItem > 6) setActiveItem(1);
+    if (activeItem > 7) setActiveItem(1);
     if (activeItem < 1) setActiveItem(1);
     switch (activeItem) {
       case 1:
@@ -36,6 +37,8 @@ const Submit = () => {
       case 5:
         return <SubA_VIIb />;
       case 6:
+        return <Budget />;
+      case 7:
         return <Attachments />;
 
       default:
@@ -85,11 +88,18 @@ const Submit = () => {
               onClick={() => setActiveItem(5)}
             />
             <Menu.Item
+              icon='money'
+              name='budget'
+              content='Plan wydatków'
+              active={activeItem === 6}
+              onClick={() => setActiveItem(6)}
+            />
+            <Menu.Item
               icon='attach'
               name='dane szkoły'
               content='Załączniki'
-              active={activeItem === 6}
-              onClick={() => setActiveItem(6)}
+              active={activeItem === 7}
+              onClick={() => setActiveItem(7)}
             />
           </Menu>
         </Grid.Column>

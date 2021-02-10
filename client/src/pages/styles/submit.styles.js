@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
+
   margin-top: 5% !important;
   .menu {
     margin-top: 6% !important;
@@ -154,5 +156,51 @@ export const Wrapper = styled.div`
     transform: translateY(4px) !important;
   }
 
+  .input-cell {
+    padding: 10px !important;
+  }
+  .table-input {
+    border: 0;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.87);
+    text-align: right;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(235, 234, 232) !important;
+    border-collapse: none;
+    border-width: 1px;
+  }
+  .red {
+    color: red !important;
+  }
 
+  .cell-red {
+    background-color: #ffebee !important;
+  }
+
+  .visible {
+    padding-top: 5px;
+    text-align: left;
+    color: red;
+    font-size: 13px;
+    line-height: 1.15;
+  }
+  .hidden {
+    display: none;
+  }
+
+  .substantion {
+    min-width: 98% !important;
+  }
+
+  .table-err {
+    margin-top: 50px !important;
+    margin-bottom: -70px !important;
+    margin-right: 5px !important;
+    /* text-align: right !important; */
+
+  }
 `;

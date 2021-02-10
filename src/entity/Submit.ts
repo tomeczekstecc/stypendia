@@ -702,14 +702,11 @@ export class Submit extends Model {
   // VIII. PLAN WYDATÓW
   //
 
-
-
   @Column({
     comment: 'Zakup pomocy dydaktycznych i przyborów szkolnych',
     default: 0,
   })
   cost1: number;
-
 
   @Column({
     comment: 'Wydatki związane z wyposażeniem miejsca domowej nauki',
@@ -717,13 +714,11 @@ export class Submit extends Model {
   })
   cost2: number;
 
-
-   @Column({
+  @Column({
     comment: 'Zakup sprzętu komputerowego wraz z oprogramowaniem i akcesoriami',
     default: 0,
   })
   cost3: number;
-
 
   @Column({
     comment: 'Zakup sprzętu elektronicznego',
@@ -731,13 +726,11 @@ export class Submit extends Model {
   })
   cost4: number;
 
-
   @Column({
     comment: 'Opłaty związane z dostępem do Internetu',
     default: 0,
   })
   cost5: number;
-
 
   @Column({
     comment:
@@ -765,13 +758,11 @@ export class Submit extends Model {
   })
   cost9: number;
 
-
   @Column({
     comment: 'Koszty uczestnictwa w konkursach, turniejach, olimpiadach',
     default: 0,
   })
   cost10: number;
-
 
   @Column({
     comment: 'Koszty uczestnictwa w kulturze wysokiej',
@@ -781,17 +772,31 @@ export class Submit extends Model {
 
   @Min(0.1, {
     message:
-      'Wartość całkowita pplnu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000',
+      'Wartość całkowita planu wydatków nie może być mniejsza niż 5000,00 PLN',
   })
-  @Max(5000, {
+  @Min(5000, {
     message:
-      'Wartość całkowita pplnu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000',
+      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000',
   })
   @Column({
     comment: 'Koszty uczestnictwa w kulturze wysokiej',
     default: 0,
   })
   totalCosts: number;
+
+  @Column({
+    comment:
+      'Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu wskazanym w § 8 ust. 5 Regulaminu',
+    nullable: true,
+  })
+  substantion1: string;
+
+  @Column({
+    comment:
+      'Uzasadnienie zakupu sprzętu tożsamego z już zakupionym sprzętem ze środków stypendialnych',
+    nullable: true,
+  })
+  substantion2: string;
 
   //
   //

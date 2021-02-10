@@ -1,6 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, Header, Input, Message, Table } from 'semantic-ui-react';
-import { budgetRows } from '../../parts/';
+import {
+  Accordion,
+  Checkbox,
+  Container,
+  Form,
+  Header,
+  Input,
+  Label,
+  Message,
+  Table,
+  TextArea,
+} from 'semantic-ui-react';
+import { budgetRows } from '../../parts';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 
@@ -36,17 +47,37 @@ const Budget = () => {
       });
     }
   };
+  const handleOnChange2 = async (e) => {
+    if (submitMode === 'watch') return;
+    if (submitMode === 'edit') {
+      await updateCurSubmit({
+        ...curSubmit,
+        [e.nativeEvent.path[1].dataset.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name ||
+        e.target.dataset.name]: e.target.value || e.target.innerText,
+      });
+    } else if (submitMode === 'new') {
+      await updateNewSubmit({
+        ...newSubmit,
+        [e.nativeEvent.path[1].dataset.name ||
+        e.nativeEvent.path[2].dataset.name ||
+        e.nativeEvent.path[3].dataset.name ||
+        e.target.dataset.name]: e.target.value || e.target.innerText,
+      });
+    }
+  };
 
   const updateTotalCosts = (curSubmit) => {
     let arr = [];
     for (const [key, value] of Object.entries(curSubmit)) {
-      console.log(key.slice(0, 4));
+      if (isNaN(+value)) return;
       if (key.slice(0, 4) === 'cost') {
         arr.push(value);
       }
       const total = arr.reduce((acc, cur) => {
         return acc + cur;
-      },0);
+      }, 0);
       curDocument.totalCosts = total;
     }
   };
@@ -61,6 +92,7 @@ const Budget = () => {
       setCurDocument(submitToWatch);
     }
     curDocument && updateTotalCosts(curDocument);
+    console.log(curDocument?.totalCosts?.toLocaleString('pl-PL'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
@@ -104,13 +136,15 @@ const Budget = () => {
         </Message>
       </Container>
       <Container textAlign='left' fluid>
-        <Table sortable celled>
+        <Table className='table' sortable celled>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>LP</Table.HeaderCell>
               <Table.HeaderCell>Katalogi wydatków</Table.HeaderCell>
               <Table.HeaderCell textAlign='right'>
-                Szacunkowy koszt (PLN)
+                <span>
+                  Szacunkowy koszt <br /> w pełnych złotych (PLN)
+                </span>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -120,16 +154,15 @@ const Budget = () => {
               <Table.Row>
                 <Table.Cell textAlign='center'>{i + 1}</Table.Cell>
                 <Table.Cell>{r.categoryName}</Table.Cell>
-                <Table.Cell textAlign='right' selectable>
-
-                  <Input
+                <Table.Cell textAlign='right' className='input-cell' selectable>
+                  <input
                     onChange={(e) => handleOnChange(e)}
-                    type='number'
-                    // placeholder='PLN'
                     name={r.costName}
                     data-name={r.costName}
                     className='table-input'
-                    value={curDocument[r.costName] || 0}
+                    value={
+                      (curDocument[r.costName] && +curDocument[r.costName]) || 0
+                    }
                   />
                 </Table.Cell>
               </Table.Row>
@@ -140,12 +173,115 @@ const Budget = () => {
               <Table.HeaderCell textAlign='right' colSpan='2'>
                 Razem
               </Table.HeaderCell>
-              <Table.HeaderCell textAlign='right'>
-                <strong>{curDocument.totalCosts || '0.00'} PLN</strong>{' '}
-              </Table.HeaderCell>
+              <Table.HeaderCell
+                className={curDocument?.totalCosts < 5000 ? 'cell-red' : null}
+                textAlign='right'
+              >
+                <div>
+                  <strong
+                    className={curDocument?.totalCosts < 5000 ? 'red' : null}
+                  >
+                    {curDocument?.totalCosts?.toLocaleString('pl-PL', {
+                      style: 'currency',
+                      currency: 'PLN',
+                    }) ||
+                      (0).toLocaleString('pl-PL', {
+                        style: 'currency',
+                        currency: 'PLN',
+                      })}
+                  </strong>
+                </div>
+                {submitErrors?.totalCosts && (
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text table-err'
+                  >
+                    {submitErrors?.totalCosts}
+                  </Label>
+                )}
+                <div
+                  className={
+                    curDocument?.totalCosts < 5000 && !submitErrors?.totalCosts
+                      ? 'visible'
+                      : 'hidden'
+                  }
+                >
+                  Wartość planu wydatków nie może być niższa niż 5000,00 PLN
+                </div>
+              </Table.HeaderCell>{' '}
             </Table.Row>
           </Table.Footer>
         </Table>
+        <Accordion fluid styled>
+          <Accordion.Title active>
+            Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu
+            wskazanym w § 8 ust. 5 Regulaminu - jeśli dotyczy
+          </Accordion.Title>
+
+          <Accordion.Content active={true}>
+            <Form className='form-vii'>
+              <TextArea
+                value={
+                  (curDocument &&
+                    curDocument.substantion1 &&
+                    curDocument.substantion1) ||
+                  ''
+                }
+                onChange={(e) => handleOnChange2(e)}
+                name='substantion1'
+                data-name='substantion1'
+                placeholder='Wpisz uzasadnienie'
+                className='form-textArea substantion'
+              ></TextArea>
+            </Form>
+            {submitErrors && submitErrors.substantion1 && (
+              <Label
+                basic
+                color='red'
+                pointing='above'
+                className='small-text area-err'
+              >
+                {curDocument?.substantion1}
+              </Label>
+            )}
+          </Accordion.Content>
+
+          <Accordion.Title active>
+            Uzasadnienie zakupu sprzętu tożsamego z już zakupionym sprzętem ze
+            środków stypendialnych otrzymanych w ramach projektu „Śląskie.
+            Inwestujemy w talenty – V edycja” - jeśli dotyczy
+          </Accordion.Title>
+
+          <Accordion.Content active={true}>
+            <Form className='form-vii'>
+              <TextArea
+                value={
+                  (curDocument &&
+                    curDocument.substantion2 &&
+                    curDocument.substantion2) ||
+                  ''
+                }
+                onChange={(e) => handleOnChange2(e)}
+                name='substantion2'
+                data-name='substantion2'
+                placeholder='Wpisz uzasadnienie'
+                className='form-textArea substantion'
+              ></TextArea>
+            </Form>
+            {submitErrors && submitErrors.substantion2 && (
+              <Label
+                basic
+                color='red'
+                pointing='above'
+                className='small-text area-err'
+              >
+                {curDocument?.substantion2}
+              </Label>
+            )}
+          </Accordion.Content>
+        </Accordion>
       </Container>
     </SubALayout>
   );

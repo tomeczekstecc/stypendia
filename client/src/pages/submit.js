@@ -15,6 +15,7 @@ import {
 } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
+import Statemants from '../components/submit/Statemants';
 
 const Submit = () => {
   const submitContext = useContext(SubmitContext);
@@ -23,7 +24,7 @@ const Submit = () => {
   const [activeItem, setActiveItem] = useState(1);
 
   const renderComponent = () => {
-    if (activeItem > 7) setActiveItem(1);
+    if (activeItem > 8) setActiveItem(1);
     if (activeItem < 1) setActiveItem(1);
     switch (activeItem) {
       case 1:
@@ -39,6 +40,8 @@ const Submit = () => {
       case 6:
         return <Budget />;
       case 7:
+        return <Statemants />;
+      case 8:
         return <Attachments />;
 
       default:
@@ -100,6 +103,13 @@ const Submit = () => {
               content='Załączniki'
               active={activeItem === 7}
               onClick={() => setActiveItem(7)}
+            />
+            <Menu.Item
+              icon='attach'
+              name='dane szkoły'
+              content='Załączniki'
+              active={activeItem === 8}
+              onClick={() => setActiveItem(8)}
             />
           </Menu>
         </Grid.Column>

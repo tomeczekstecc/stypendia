@@ -71,14 +71,15 @@ const Budget = () => {
   const updateTotalCosts = (curSubmit) => {
     let arr = [];
     for (const [key, value] of Object.entries(curSubmit)) {
-      if (isNaN(+value)) return;
-      if (key.slice(0, 4) === 'cost') {
-        arr.push(value);
+      if (!isNaN(+value)) {
+        if (key.slice(0, 4) === 'cost') {
+          arr.push(value);
+        }
+        const total = arr.reduce((acc, cur) => {
+          return acc + cur;
+        }, 0);
+        curDocument.totalCosts = total;
       }
-      const total = arr.reduce((acc, cur) => {
-        return acc + cur;
-      }, 0);
-      curDocument.totalCosts = total;
     }
   };
 

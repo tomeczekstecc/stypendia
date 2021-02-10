@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Accordion,
-  Checkbox,
   Container,
   Form,
   Header,
@@ -178,6 +177,7 @@ const Budget = () => {
                 textAlign='right'
               >
                 <div>
+
                   <strong
                     className={curDocument?.totalCosts < 5000 ? 'red' : null}
                   >

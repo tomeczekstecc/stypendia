@@ -3,6 +3,7 @@ export { default as Layout } from './commonLayout/Layout';
 export { default as MainMenu } from './commonLayout/MainMenu';
 export { default as Attachments } from './submit/Attachments';
 export { default as Budget } from './submit/Budget';
+export { default as Statements } from './submit/Statements';
 export { default as SubA_I_II } from './submit/subA_I_II';
 export { default as SubA_III_IV } from './submit/subA_III_IV';
 export { default as SubA_V_VI } from './submit/subA_V_VI';

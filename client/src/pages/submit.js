@@ -11,11 +11,11 @@ import {
   SubA_VIIb,
   Nav,
   Errors,
-  Budget
+  Budget,
+  Statements,
 } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
-import Statemants from '../components/submit/Statemants';
 
 const Submit = () => {
   const submitContext = useContext(SubmitContext);
@@ -40,9 +40,9 @@ const Submit = () => {
       case 6:
         return <Budget />;
       case 7:
-        return <Statemants />;
-      case 8:
         return <Attachments />;
+      case 8:
+        return <Statements />;
 
       default:
         return <SubA_VIIa />;
@@ -105,9 +105,9 @@ const Submit = () => {
               onClick={() => setActiveItem(7)}
             />
             <Menu.Item
-              icon='attach'
-              name='dane szkoły'
-              content='Załączniki'
+              icon='tasks'
+              name='disclaimers'
+              content='Oświadczenia'
               active={activeItem === 8}
               onClick={() => setActiveItem(8)}
             />

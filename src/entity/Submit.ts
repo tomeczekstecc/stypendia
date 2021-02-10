@@ -2,19 +2,12 @@ import {
   Equals,
   IsDefined,
   IsEmail,
-  IsEmpty,
   IsEnum,
-  IsIn,
-  IsInt,
-  IsNumber,
   IsString,
   Length,
   Matches,
-  Max,
-  min,
   Min,
   MinLength,
-  NotEquals,
   ValidateIf,
 } from 'class-validator';
 import {
@@ -797,6 +790,15 @@ export class Submit extends Model {
     nullable: true,
   })
   substantion2: string;
+
+  @Equals(1, {
+    message: 'Należy zpoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',
+  })
+  @Column({
+    comment:
+      'Potwierdzenie oświadczeń i informacji',
+  })
+  isStatementsChecked: boolean;
 
   //
   //

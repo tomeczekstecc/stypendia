@@ -28,12 +28,14 @@ const Statements = () => {
       await updateCurSubmit({
         ...curSubmit,
 
-        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0].checked,
+        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
+          .checked,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
-        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0].checked,
+        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
+          .checked,
       });
     }
   };
@@ -284,7 +286,11 @@ const Statements = () => {
           </li>
         </ol>
 
-        <div>
+        <div className='check-wrapper'>     {submitErrors?.isStatementsChecked && (
+        <Label basic color='red' pointing='above' className='small-text err'>
+          {submitErrors?.isStatementsChecked}
+        </Label>
+      )}
           <Checkbox
             onChange={(e) => handleOnChange(e)}
             as='h3'
@@ -299,18 +305,9 @@ const Statements = () => {
               </label>
             }
           />{' '}
-          {submitErrors?.isStatementsChecked && (
-            <Label
-              basic
-              color='red'
-              pointing='above'
-              className='small-text err'
-            >
-              {submitErrors?.isStatementsChecked}
-            </Label>
-          )}
         </div>
       </Wrapper>{' '}
+ 
     </SubALayout>
   );
 };

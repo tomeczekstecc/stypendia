@@ -67,7 +67,6 @@ const Attachments = () => {
         responseType: 'blob',
       })
       .then((response) => {
-
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
@@ -121,7 +120,7 @@ const Attachments = () => {
     } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
   return (
@@ -147,10 +146,14 @@ const Attachments = () => {
           </p>
         </Message>
         <Card.Group itemsPerRow={4} stackable>
-          <Card className='card' onClick={() => openFileInput('statement')}>
+          <Card
+            className='card-item'
+            as='h3'
+            onClick={() => openFileInput('statement')}
+          >
             {curDocument &&
               (curDocument.statementId ? (
-<>
+                <>
                   <div className='img-button'>
                     <Button
                       onClick={(e) => callFetch(e, curDocument.statementId)}
@@ -161,12 +164,13 @@ const Attachments = () => {
                     >
                       <Icon name='download' />
                     </Button>
+
                     <Button
                       onClick={(e) => deleteFile(e, curDocument.statementId)}
                       className='trash-btn btn'
                       color='red'
-                      icon
                       size='tiny'
+                      icon
                     >
                       <Icon name='trash' />
                     </Button>
@@ -182,7 +186,7 @@ const Attachments = () => {
                     }}
                     src={statementImg}
                   />
-</>
+                </>
               ) : (
                 <Image
                   fluid
@@ -196,20 +200,26 @@ const Attachments = () => {
                   src={addedImg}
                 />
               ))}
-            {submitErrors?.statementId && (
-              <Label basic color='red' pointing='above' className='small-text'>
-                {submitErrors?.statementId}
-              </Label>
-            )}
+
             <Card.Content>
-              <Card.Header textAlign='left'>
+              {' '}
+              {submitErrors?.statementId && (
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text'
+                >
+                  {submitErrors?.statementId}
+                </Label>
+              )}
+              <Card.Header className='card-header' textAlign='left'>
                 Oświadczenie opiekuna dydaktycznego
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {curDocument && curDocument.statementCreatedAt && (
                   <span className='date'>
-                    Dodano:{' '}
-                    {toLocaleDate(curDocument?.statementCreatedAt)}
+                    Dodano: {toLocaleDate(curDocument?.statementCreatedAt)}
                   </span>
                 )}
               </Card.Meta>
@@ -224,7 +234,11 @@ const Attachments = () => {
             </Card.Content>
           </Card>
 
-          <Card onClick={() => openFileInput('report_card')}>
+          <Card
+            className='card-item'
+            as='h3'
+            onClick={() => openFileInput('report_card')}
+          >
             {curDocument &&
               (curDocument.report_cardId ? (
                 <div className='placeholder-image'>
@@ -239,7 +253,6 @@ const Attachments = () => {
                       <Icon name='download' />
                     </Button>
                     <Button
-
                       onClick={(e) => deleteFile(e, curDocument.report_cardId)}
                       className='trash-btn btn'
                       color='red'
@@ -276,19 +289,24 @@ const Attachments = () => {
               ))}
 
             <Card.Content>
-              <Card.Header textAlign='left'>
-                {submitErrors?.report_cardId && (
-                  <Label basic color='red' pointing='above' className='small-text'>
-                    {submitErrors?.report_cardId}
-                  </Label>
-                )}
+              {' '}
+              {submitErrors?.report_cardId && (
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text'
+                >
+                  {submitErrors?.report_cardId}
+                </Label>
+              )}
+              <Card.Header className='card-header' textAlign='left'>
                 Świadectwo szkolne - ostatni rok szkolny
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {curDocument && curDocument.report_cardCreatedAt && (
                   <span className='date'>
-                    Dodano:{' '}
-                    {toLocaleDate(curDocument?.report_cardCreatedAt)}{' '}
+                    Dodano: {toLocaleDate(curDocument?.report_cardCreatedAt)}{' '}
                   </span>
                 )}
               </Card.Meta>

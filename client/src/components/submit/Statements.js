@@ -287,7 +287,7 @@ const Statements = () => {
         </ol>
 
         <div className='check-wrapper'>     {submitErrors?.isStatementsChecked && (
-        <Label basic color='red' pointing='above' className='small-text err'>
+        <Label basic color='red-clr' pointing='above' className='small-text err'>
           {submitErrors?.isStatementsChecked}
         </Label>
       )}

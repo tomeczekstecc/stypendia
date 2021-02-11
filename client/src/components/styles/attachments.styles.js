@@ -1,8 +1,9 @@
- import styled from 'styled-components';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  .card {
-    min-width: 30% !important;
+  .card-item {
+    min-width: 20% !important;
+    position: relative !important;
   }
 
   .icons {
@@ -11,18 +12,10 @@ export const Wrapper = styled.div`
     left: 45%;
   }
 
-  .icon-wrapper {
-    height: 350px !important;
-    /* background-color: gray; */
-  }
-
   img:hover {
     cursor: pointer !important;
   }
 
-  .pond {
-    height: 350px !important;
-  }
   .target {
     position: absolute !important;
     top: 5px !important;
@@ -40,9 +33,10 @@ export const Wrapper = styled.div`
   }
   .img-button {
     position: absolute !important;
-    z-index: 10000000000 !important;
+    z-index: 1 !important;
     top: 10px !important;
     right: 5px !important;
+    display: inline-flex !important;
   }
 
   .trash-btn {
@@ -56,5 +50,12 @@ export const Wrapper = styled.div`
     /* margin-left:15% !important; */
     margin-bottom: -40px !important;
     color: red !important;
+  }
+  .date {
+    font-size: 14px !important;
+  }
+
+  .card-header {
+    font-size: 16px !important;
   }
 `;

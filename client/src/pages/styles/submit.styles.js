@@ -173,7 +173,7 @@ export const Wrapper = styled.div`
     border-collapse: none;
     border-width: 1px;
   }
-  .red {
+  .red-clr {
     color: red !important;
   }
 

@@ -17,7 +17,7 @@ line-height: 1.7;
     color: #666 !important;
 }
 .err{
-    transform: translateY(-1rem) !important;
+    transform: translateY(0rem) !important;
 }
 
 `;

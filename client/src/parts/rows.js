@@ -56,6 +56,6 @@ export const budgetRows = [
   {
     id: uuidv4(),
     categoryName: 'Koszty uczestnictwa w kulturze wysokiej',
-    costName: 'cost12',
+    costName: 'cost11',
   },
 ];

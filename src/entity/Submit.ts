@@ -791,7 +791,7 @@ export class Submit extends Model {
   })
   substantion2: string;
 
-  @Equals(1, {
+  @Equals(true, {
     message: 'Należy zpoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',
   })
   @Column({

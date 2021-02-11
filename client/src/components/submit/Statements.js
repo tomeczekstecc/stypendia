@@ -27,16 +27,13 @@ const Statements = () => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
-        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
-          .checked,
+
+        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0].checked,
       });
     } else if (submitMode === 'new') {
-      let value;
-      !e.nativeEvent.path[1].children[0].checked ? (value = 1) : (value = 0);
-
       await updateNewSubmit({
         ...newSubmit,
-        [e.nativeEvent.path[1].dataset.name]: value,
+        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0].checked,
       });
     }
   };
@@ -294,7 +291,7 @@ const Statements = () => {
             name='isStatementsChecked'
             data-name='isStatementsChecked'
             // value={isRegulationsChecked}
-            checked={curDocument?.isStatementsChecked === 1}
+            checked={curDocument?.isStatementsChecked}
             label={
               <label>
                 Potwierdzam powyższe oświadczenia i przyjęcie informacji

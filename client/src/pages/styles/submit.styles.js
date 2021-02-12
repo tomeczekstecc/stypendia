@@ -110,8 +110,8 @@ export const Wrapper = styled.div`
   }
   .drop {
     margin: 0 !important;
+    padding: .8rem 2.5rem .8rem 2.5rem !important;
     margin-left: 1rem !important;
-    min-width: 15% !important;
     /* padding-left: 2rem !important; */
   }
 
@@ -201,6 +201,14 @@ export const Wrapper = styled.div`
     margin-bottom: -70px !important;
     margin-right: 5px !important;
     /* text-align: right !important; */
+  }
 
+  .calculatePriAver {
+    margin-bottom: 2rem !important;
+    transform: translateY(-55px);
+  }
+
+  [data-name='tab1Subj'] {
+    min-width: 400px !important;
   }
 `;

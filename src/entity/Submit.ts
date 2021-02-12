@@ -1,5 +1,6 @@
 import {
   Equals,
+  IsBoolean,
   IsDefined,
   IsEmail,
   IsEnum,
@@ -18,6 +19,7 @@ import {
   JoinColumn,
   OneToMany,
   Equal,
+  BeforeUpdate,
 } from 'typeorm';
 
 import Model from './Model';
@@ -244,7 +246,12 @@ export class Submit extends Model {
   })
   priOtherSubjGrade: number;
 
-  @Column({
+  @Min(5.3, {
+    message: 'Średnia przedmiotów kierunkowych musi wynosić co najmniej 5.33',
+  })
+  @Column('decimal', {
+    precision: 5,
+    scale: 2,
     comment: 'Podstawowe kryteria oceny - średnia z przedmiotów kierunkowych',
   })
   priTotalAver: number;
@@ -792,11 +799,11 @@ export class Submit extends Model {
   substantion2: string;
 
   @Equals(true, {
-    message: 'Należy zpoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',
+    message:
+      'Należy zpoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',
   })
   @Column({
-    comment:
-      'Potwierdzenie oświadczeń i informacji',
+    comment: 'Potwierdzenie oświadczeń i informacji',
   })
   isStatementsChecked: boolean;
 
@@ -851,13 +858,29 @@ export class Submit extends Model {
   @OneToMany(() => SubmitHistory, (submit_history) => submit_history.submit)
   history: SubmitHistory[];
 
-  @BeforeInsert()
-  calculatePriAver() {
-    this.priTotalAver = Math.round(
-      (((+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) /
-        3) *
-        100) /
-        100
-    );
-  }
+  // @BeforeInsert()
+  // @Min(5.1, {
+  //   message: 'Średnia przedmiotów kierunkowych musi wynosić co najmniej 5.33',
+  // })
+  // calculatePriAver() {
+  //   this.priTotalAver =
+  //     Math.round(
+  //       ((+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) /
+  //         3) *
+  //         100
+  //     ) / 100;
+  // }
+
+  // @BeforeUpdate()
+  // @Min(5.1, {
+  //   message: 'Średnia przedmiotów kierunkowych musi wynosić co najmniej 5.33',
+  // })
+  // calculatePriAve2r() {
+  //   this.priTotalAver =
+  //     Math.round(
+  //       ((+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) /
+  //         3) *
+  //         100
+  //     ) / 100;
+  // }
 }

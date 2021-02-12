@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .main-segment {
+    padding-top: 2rem !important;
     margin-top: 7rem !important;
   }
 

@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Dropdown,
-  Form,
-  Grid,
-  Header,
-
-  Label,
-
-} from 'semantic-ui-react';
+import { Dropdown, Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsTotalGrades, optionsGrades, optionsYesNo } from '../../parts';
@@ -26,8 +18,23 @@ const SubA_V_VI = () => {
     submitToWatch,
     submitErrors,
   } = submitContext;
+  const [aver, setAver] = useState(0);
+
+  const updateAver = async () => {
+    await setAver(
+      Math.round(
+        ((+curDocument?.priMathGrade +
+          +curDocument?.priLangGrade +
+          +curDocument?.priOtherSubjGrade) /
+          3) *
+          100
+      ) / 100 || 0
+    );
+  };
 
   const handleOnChange = async (e) => {
+    if (submitMode === 'watch') return;
+
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
@@ -58,8 +65,28 @@ const SubA_V_VI = () => {
     } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
     }
+
+    if (curDocument) {
+      curDocument.priTotalAver =
+        Math.round(
+          ((+curDocument?.priMathGrade +
+            +curDocument?.priLangGrade +
+            +curDocument?.priOtherSubjGrade) /
+            3) *
+            100
+        ) / 100 || 0;
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitMode, submitToWatch, newSubmit, curSubmit]);
+  }, [
+    submitMode,
+    submitToWatch,
+    newSubmit,
+    curSubmit,
+    curDocument?.priMathGrade,
+    curDocument?.priLangGrade,
+    curDocument?.priOtherSubjGrade,
+  ]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -186,16 +213,19 @@ const SubA_V_VI = () => {
               <Label size='large' className='aver-label'>
                 Średnia ocen przedmiotów kierunkowych :{' '}
                 <Label color='grey' size='large'>
-                  {Math.round(
-                    ((+curDocument?.priMathGrade +
-                      +curDocument?.priLangGrade +
-                      +curDocument?.priOtherSubjGrade) /
-                      3) *
-                      100
-                  ) / 100 || '0.00'}
+                  {curDocument?.priTotalAver || '0.00'}
                 </Label>
               </Label>
-
+              {submitErrors?.priTotalAver && (
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='calculatePriAver'
+                >
+                  {submitErrors?.priTotalAver}
+                </Label>
+              )}
               <div className='dropdown-wrapper'>
                 <Header className='select-header' as='h5'>
                   Średnia wszystkich ocen

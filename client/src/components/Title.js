@@ -26,7 +26,7 @@ const styles = {
    top: '2rem' ,
     left: '50%',
     transform:'translateX(-8rem)',
-    zIndex: '99999',
+    zIndex: '1000',
   },
   block: {
     display: 'inline-block',

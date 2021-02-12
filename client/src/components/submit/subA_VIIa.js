@@ -159,13 +159,13 @@ const SubA_VIIa = () => {
 
           <Dropdown
             disabled={!curDocument?.priLang || !curDocument?.priOtherSubj}
-            floating
-            fluid
+            // floating
+            // fluid
             className='inline-position drop'
             selection
             data-name='tab1Subj'
             value={curDocument?.tab1Subj}
-            basic
+            // basic
             options={options}
             defaultValue='default'
             onChange={(e) => handleOnChange(e)}

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Checkbox, Header, Label } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 import { Wrapper } from '../styles/statements.styles';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 
 const Statements = () => {
-  // const [isStatementChecked, setIsStatementsChecked] = useState(false);
+  const history = useHistory();
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -18,8 +19,9 @@ const Statements = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
-
+  submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
@@ -27,13 +29,14 @@ const Statements = () => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
-
+        tempUuid,
         [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
           .checked,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
+        tempUuid,
         [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
           .checked,
       });
@@ -286,11 +289,18 @@ const Statements = () => {
           </li>
         </ol>
 
-        <div className='check-wrapper'>     {submitErrors?.isStatementsChecked && (
-        <Label basic color='red-clr' pointing='above' className='small-text err'>
-          {submitErrors?.isStatementsChecked}
-        </Label>
-      )}
+        <div className='check-wrapper'>
+          {' '}
+          {submitErrors?.isStatementsChecked && (
+            <Label
+              basic
+              color='red-clr'
+              pointing='above'
+              className='small-text err'
+            >
+              {submitErrors?.isStatementsChecked}
+            </Label>
+          )}
           <Checkbox
             onChange={(e) => handleOnChange(e)}
             as='h3'
@@ -307,7 +317,6 @@ const Statements = () => {
           />{' '}
         </div>
       </Wrapper>{' '}
- 
     </SubALayout>
   );
 };

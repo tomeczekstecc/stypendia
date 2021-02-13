@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Accordion,
   Checkbox,
@@ -16,6 +17,7 @@ import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 
 const SubA_VIIa = () => {
+  const history = useHistory();
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -28,8 +30,9 @@ const SubA_VIIa = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
-
+  submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
@@ -50,12 +53,14 @@ const SubA_VIIa = () => {
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
+          tempUuid,
           [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
             .children[0].checked,
         });
       } else if (submitMode === 'new') {
         await updateNewSubmit({
           ...newSubmit,
+          tempUuid,
           [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
             .children[0].checked,
         });

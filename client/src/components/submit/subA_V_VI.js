@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Form, Grid, Header, Label } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsTotalGrades, optionsGrades, optionsYesNo } from '../../parts';
 
 const SubA_V_VI = () => {
+  const history = useHistory();
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -17,7 +19,9 @@ const SubA_V_VI = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
+  submitMode === '' && history.push('/');
   const [aver, setAver] = useState(0);
 
   const updateAver = async () => {
@@ -38,6 +42,7 @@ const SubA_V_VI = () => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
+        tempUuid,
         [e.target.name ||
         e.nativeEvent.path[2].dataset.name ||
         e.nativeEvent.path[3].dataset.name]:
@@ -46,6 +51,7 @@ const SubA_V_VI = () => {
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
+        tempUuid,
         [e.target.name ||
         e.nativeEvent.path[2].dataset.name ||
         e.nativeEvent.path[3].dataset.name]:
@@ -213,7 +219,7 @@ const SubA_V_VI = () => {
               <Label size='large' className='aver-label'>
                 Średnia ocen przedmiotów kierunkowych :{' '}
                 <Label color='grey' size='large'>
-                  {curDocument?.priTotalAver || '0.00'}
+                  {+curDocument?.priTotalAver || '0.00'}
                 </Label>
               </Label>
               {submitErrors?.priTotalAver && (

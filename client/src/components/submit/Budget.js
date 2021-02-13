@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {useHistory} from 'react-router-dom'
 import {
   Accordion,
   Container,
@@ -14,6 +15,8 @@ import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 
 const Budget = () => {
+
+  const history = useHistory()
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -26,8 +29,10 @@ const Budget = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
 
+  submitMode === ''&& history.push('/')
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
@@ -36,11 +41,13 @@ const Budget = () => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
+        tempUuid,
         [e.target.name]: +e.target.value,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
+        tempUuid,
         [e.target.name]: +e.target.value,
       });
     }
@@ -91,7 +98,7 @@ const Budget = () => {
       setCurDocument(submitToWatch);
     }
     curDocument && updateTotalCosts(curDocument);
-    console.log(curDocument?.totalCosts?.toLocaleString('pl-PL'));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
@@ -209,7 +216,7 @@ const Budget = () => {
                 >
                   Wartość planu wydatków nie może być niższa niż 5000,00 PLN
                 </div>
-              </Table.HeaderCell>{' '}
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
         </Table>

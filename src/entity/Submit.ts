@@ -5,6 +5,8 @@ import {
   IsEmail,
   IsEnum,
   IsString,
+  IsUUID,
+  isUUID,
   Length,
   Matches,
   Min,
@@ -68,6 +70,13 @@ export class Submit extends Model {
   // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })
   // @Column({ comment: 'Status prawny Wnioskodawcy - Rodzic ucznia' })
   // isParent: boolean;
+
+  // @IsUUID('4', { message: 'Błędny tempUuid' })
+  @Column({
+    comment: 'Identyfiakto tymczasowy - przed nadaniem numeru wniosku ',
+    nullable: true
+  })
+  tempUuid: string;
 
   //
   //I. dane osobowe
@@ -857,30 +866,4 @@ export class Submit extends Model {
 
   @OneToMany(() => SubmitHistory, (submit_history) => submit_history.submit)
   history: SubmitHistory[];
-
-  // @BeforeInsert()
-  // @Min(5.1, {
-  //   message: 'Średnia przedmiotów kierunkowych musi wynosić co najmniej 5.33',
-  // })
-  // calculatePriAver() {
-  //   this.priTotalAver =
-  //     Math.round(
-  //       ((+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) /
-  //         3) *
-  //         100
-  //     ) / 100;
-  // }
-
-  // @BeforeUpdate()
-  // @Min(5.1, {
-  //   message: 'Średnia przedmiotów kierunkowych musi wynosić co najmniej 5.33',
-  // })
-  // calculatePriAve2r() {
-  //   this.priTotalAver =
-  //     Math.round(
-  //       ((+this.priMathGrade + +this.priLangGrade + +this.priOtherSubjGrade) /
-  //         3) *
-  //         100
-  //     ) / 100;
-  // }
 }

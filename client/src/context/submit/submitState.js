@@ -15,7 +15,10 @@ import {
   SET_SUBMIT_TO_WATCH,
   SET_CUR_SUBMIT,
   SET_SUBMIT_ERRORS,
-  SET_SUBJECTS_OPTIONS,
+  SET_TEMP_UUID,
+  CLEAR_CUR_SUBMIT,
+  CLEAR_NEW_SUBMIT,
+  CLEAR_SUBMIT_TO_WATCH,
 } from '../types';
 
 const SubmitState = (props) => {
@@ -36,7 +39,8 @@ const SubmitState = (props) => {
     submitToWatch: {},
     curSubmit: {}, //submit being edited
     submitErrors: null,
-    subjectsOptions: null
+    subjectsOptions: null,
+    tempUuid: '',
   };
 
   const [state, dispatch] = useReducer(submitReducer, initialState);
@@ -56,16 +60,36 @@ const SubmitState = (props) => {
   };
 
   const setSubmitMode = (mode) => {
+    if (mode === 'new') {
+      dispatch({
+        type: SET_TEMP_UUID,
+      });
+
+      dispatch({
+        type: CLEAR_CUR_SUBMIT,
+      });
+      dispatch({
+        type: CLEAR_SUBMIT_TO_WATCH,
+      });
+    } else if (mode === 'edit') {
+      dispatch({
+        type: CLEAR_NEW_SUBMIT,
+      });
+      dispatch({
+        type: CLEAR_SUBMIT_TO_WATCH,
+      });
+    } else {
+      dispatch({
+        type: CLEAR_NEW_SUBMIT,
+      });
+      dispatch({
+        type: CLEAR_CUR_SUBMIT,
+      });
+    }
+
     dispatch({
       type: SET_SUBMIT_MODE,
       payload: mode,
-    });
-  };
-
-  const setSubjectsOptions = (subject) => {
-    dispatch({
-      type: SET_SUBMIT_MODE,
-      payload: subject,
     });
   };
 
@@ -149,6 +173,7 @@ const SubmitState = (props) => {
         setSubmitToWatch,
         submitErrors: state.submitErrors,
         setSubmitErrors,
+        tempUuid: state.tempUuid,
       }}
     >
       {props.children}

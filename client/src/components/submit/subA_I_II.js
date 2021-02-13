@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Dropdown, Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
+import { useHistory } from 'react-router-dom';
 
 import { AuthContext, SubmitContext } from '../../context';
 import { optionsAttachment } from '../../parts/options';
 
 const SubA_I_II = () => {
+    const history = useHistory();
   const authContext = useContext(AuthContext);
   const { user, resetTimeLeft } = authContext;
 
@@ -18,14 +20,17 @@ const SubA_I_II = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
-
+submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
+        tempUuid,
         [e.target.name ||
         e.nativeEvent.path[1].dataset.name ||
         e.nativeEvent.path[2].dataset.name ||
@@ -35,6 +40,7 @@ const SubA_I_II = () => {
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
+        tempUuid,
         [e.target.name ||
         e.nativeEvent.path[1].dataset.name ||
         e.nativeEvent.path[2].dataset.name ||

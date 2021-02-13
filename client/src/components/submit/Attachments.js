@@ -1,6 +1,7 @@
 import React, { createRef, useContext, useEffect, useState } from 'react';
 import { Button, Card, Icon, Image, Label, Message } from 'semantic-ui-react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
 import { Wrapper } from '../styles/attachments.styles';
 
@@ -11,6 +12,7 @@ import SubALayout from '../subALayout';
 import { toLocaleDate } from '../../utils/toLocaleDate';
 
 const Attachments = () => {
+    const history = useHistory();
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
   const alertContext = useContext(AlertContext);
@@ -26,8 +28,9 @@ const Attachments = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
-
+  submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState(null);
 
   const fileInputRef = createRef();
@@ -44,6 +47,7 @@ const Attachments = () => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
+        tempUuid,
         [`${res.data.type}Id`]: null,
         [`${res.data.type}Checksum`]: null, //virtual
         [`${res.data.type}CreatedAt`]: null, //virtual
@@ -51,6 +55,7 @@ const Attachments = () => {
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
+        tempUuid,
         [`${res.data.type}Id`]: null,
         [`${res.data.type}Checksum`]: null, //virtual
         [`${res.data.type}CreatedAt`]: null, //virtual

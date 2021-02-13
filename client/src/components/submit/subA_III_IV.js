@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Dropdown,
   Form,
@@ -12,6 +13,8 @@ import { SubmitContext, AuthContext } from '../../context';
 import { optionsVoyev, optionsSchoolType, optionsProfile } from '../../parts';
 
 const SubA_III_IV = () => {
+  const history = useHistory();
+
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -24,14 +27,16 @@ const SubA_III_IV = () => {
     updateCurSubmit,
     submitToWatch,
     submitErrors,
+    tempUuid,
   } = submitContext;
-
+  submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
+        tempUuid,
         [e.target.name ||
         e.nativeEvent.path[1].dataset.name ||
         e.nativeEvent.path[2].dataset.name ||
@@ -41,6 +46,7 @@ const SubA_III_IV = () => {
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
+        tempUuid,
         [e.target.name ||
         e.nativeEvent.path[1].dataset.name ||
         e.nativeEvent.path[2].dataset.name ||

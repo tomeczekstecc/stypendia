@@ -14,4 +14,3 @@ export const {
 export const IN_PROD = NODE_ENV === 'production';
 export const APP_URI = `${APP_PROTOCOL}://${APP_HOSTNAME}`;
 export const APP_ORIGIN = `${APP_PROTOCOL}://${APP_HOSTNAME}:${APP_PORT}`;
-console.log(APP_ORIGIN);

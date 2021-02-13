@@ -8,6 +8,7 @@ import { FILE_MAX_SIZE } from '../config';
 import { File, User } from '../entity';
 import { mapFileBody } from '../utils';
 import { makeLog, saveRollbar } from '../services';
+import { fileTypeAllowed, mimeTypeAllowed } from '../entity/types';
 // import { scanFile } from '../services/scanFile';
 import { msg } from '../parts/messages';
 
@@ -26,17 +27,15 @@ const calculateChecksum = async (fileToShow) => {
 export const uploadFile = async (req: any, res: Response) => {
   CONTROLLER = 'uploadFile';
   ACTION = 'dodawanie pliku';
-  const { type } = req.body;
-  const allowedTypes = ['statement', 'report_card'];
-  const allowedMime = ['image/jpeg', 'image/png', 'application/pdf'];
+  const { type, submitTempId, submitId } = req.body;
 
   try {
-    if (!allowedTypes.includes(type)) {
+    if (!fileTypeAllowed.includes(type)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO =
         msg.client.fail.wrongAttType +
-        ` - dozwolone wartości to: ${allowedTypes.join(', ')} `;
+        ` - dozwolone wartości to: ${fileTypeAllowed.join(', ')} `;
 
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(200).json({
@@ -46,7 +45,7 @@ export const uploadFile = async (req: any, res: Response) => {
         alertTitle: 'Błąd załącznika',
       });
     }
-    if (!allowedMime.includes(req.file?.mimetype)) {
+    if (!mimeTypeAllowed.includes(req.file?.mimetype)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO = msg.client.fail.mime;
@@ -84,6 +83,8 @@ export const uploadFile = async (req: any, res: Response) => {
     const file = await new File({
       ...fileBody,
       type,
+      tempSubmitId: submitTempId,
+      submitId,
       checksum,
       user,
     }).save();
@@ -186,6 +187,38 @@ export const getFileInfo = async (req: Request, res: Response) => {
     }
 
     return res.status(200).json({ file });
+  } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL: msg._500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
+  }
+};
+
+
+export const getUsersFiles = async (req:any, res: Response) => {
+  CONTROLLER = 'getUsersFiles';
+  const { userId } = req.session;
+  try {
+    const files = await File.find({
+      where: { userId },
+    });
+
+    if (!files) {
+      STATUS = 'error';
+      INFO = msg.client.fail.noFile;
+      return res.status(400).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd!',
+      });
+    }
+
+    return res.status(200).json({ files });
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);

@@ -11,7 +11,7 @@ import {
 
 import Model from './Model';
 import { User } from './User';
-import { fileType } from './types';
+import { fileTypeAllowed } from './types';
 import { Submit } from './Submit';
 
 @Entity('files')
@@ -23,6 +23,9 @@ export class File extends Model {
 
   @Column({ comment: 'ID użytkownika' })
   userId: number;
+
+  @Column({ comment: 'ID wniosku', nullable: true })
+  submitId: number;
 
   // @Column({
   //   comment: 'Powiązany wniosek',
@@ -44,9 +47,15 @@ export class File extends Model {
   fileName: string;
 
   @Column({
+    comment: 'Tymczasowy identyfikator dla wniosku',
+    nullable: true,
+  })
+  tempSubmitId: string;
+
+  @Column({
     comment: 'Rodzaj załącznika',
     type: 'enum',
-    enum: fileType,
+    enum: fileTypeAllowed,
   })
   type: string;
 
@@ -80,8 +89,8 @@ export class File extends Model {
   @JoinColumn({ name: 'userUuid', referencedColumnName: 'uuid' })
   user: User;
 
-  // @ManyToOne(() => Submit)
-  // @JoinColumn({ name: 'submitId', referencedColumnName: 'id' })
-  // @JoinColumn({ name: 'submitUuid', referencedColumnName: 'uuid' })
-  // submit: Submit;
+  @ManyToOne(() => Submit)
+  @JoinColumn({ name: 'submitId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'submitUuid', referencedColumnName: 'uuid' })
+  submit: Submit;
 }

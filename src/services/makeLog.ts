@@ -28,7 +28,6 @@ export const makeLog = async (
     req.connection.remoteAddress ||
     req.socket.remoteAddress ||
     (req.connection.socket ? req.connection.socket.remoteAddress : null);
-  console.log(req.connection.remoteAddress);
 
   const user = await User.findOne(req.session.userId);
 

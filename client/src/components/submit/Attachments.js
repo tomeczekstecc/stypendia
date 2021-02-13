@@ -5,14 +5,65 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
 import { Wrapper } from '../styles/attachments.styles';
 
-import addedImg from '../../assets/img/wireframe.png';
-import statementImg from '../../assets/img/statement.jpg';
-import reportImg from '../../assets/img/reportCard.jpg';
+import {
+  statementImg,
+  wireframeImg,
+  reportCardImg,
+  diplomaImg,
+  fileImg,
+} from '../../assets/img';
 import SubALayout from '../subALayout';
-import { toLocaleDate } from '../../utils/toLocaleDate';
+import { toLocaleDate } from '../../utils';
+import RandomAtt from './RandomAtt';
 
 const Attachments = () => {
-    const history = useHistory();
+  const getUsersFiles = async () => {
+    const res = await axios.get(`/api/v1/files/info`, { submitMode });
+    if (submitMode === 'new') {
+      setStatement(
+        res.data.files.filter(
+          (f) =>
+            !f.submitId && f.tempSubmitId === tempUuid && f.type === 'statement'
+        )
+      );
+      setReportCard(
+        res.data.files.filter(
+          (f) =>
+            !f.submitId &&
+            f.tempSubmitId === tempUuid &&
+            f.type === 'report_card'
+        )
+      );
+      setAllowance(
+        res.data.files.filter(
+          (f) =>
+            !f.submitId && f.tempSubmitId === tempUuid && f.type === 'allowance'
+        )
+      );
+      setAttestation(
+        res.data.files.filter(
+          (f) =>
+            !f.submitId &&
+            f.tempSubmitId === tempUuid &&
+            f.type === 'attestation'
+        )
+      );
+    } else {
+      setStatement(
+        res.data.files.filter((f) => f.submitId && f.type === 'statement')
+      );
+      setReportCard(
+        res.data.files.filter((f) => f.submitId && f.type === 'report_card')
+      );
+      setAllowance(
+        res.data.files.filter((f) => f.submitId && f.type === 'allowance')
+      );
+      setAttestation(
+        res.data.files.filter((f) => f.submitId && f.type === 'attestation')
+      );
+    }
+  };
+  const history = useHistory();
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
   const alertContext = useContext(AlertContext);
@@ -31,10 +82,21 @@ const Attachments = () => {
     tempUuid,
   } = submitContext;
   submitMode === '' && history.push('/');
+
   const [curDocument, setCurDocument] = useState(null);
+  const [statement, setStatement] = useState({});
+  const [report_card, setReportCard] = useState({});
+  const [allowance, setAllowance] = useState({});
+  const [attestation, setAttestation] = useState({});
 
   const fileInputRef = createRef();
+
   const openFileInput = (type) => {
+    if (type === 'statement' && statement.length > 0) return;
+    if (type === 'report_card' && report_card.length > 0) return;
+    if (type === 'allowance' && allowance.length > 0) return;
+    if (type === 'attestation' && attestation.length > 0) return;
+
     if (submitMode === 'watch') return;
     fileInputRef.current.name = type;
     fileInputRef.current.click();
@@ -43,22 +105,15 @@ const Attachments = () => {
   const deleteFile = async (e, id) => {
     e.stopPropagation();
     const res = await axios.delete(`/api/v1/files/${id}`);
-    addAlert(res.data);
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
         tempUuid,
-        [`${res.data.type}Id`]: null,
-        [`${res.data.type}Checksum`]: null, //virtual
-        [`${res.data.type}CreatedAt`]: null, //virtual
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
         tempUuid,
-        [`${res.data.type}Id`]: null,
-        [`${res.data.type}Checksum`]: null, //virtual
-        [`${res.data.type}CreatedAt`]: null, //virtual
       });
     }
   };
@@ -90,6 +145,11 @@ const Attachments = () => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', fileInputRef.current.name);
+    if (submitMode === 'new') {
+      formData.append('submitTempId', tempUuid);
+    } else {
+      formData.append('submitId', curDocument.id || '');
+    }
 
     try {
       const res = await axios.post('/api/v1/files/upload', formData);
@@ -99,16 +159,10 @@ const Attachments = () => {
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
-          [`${res.data.file.type}Id`]: res.data.file.id,
-          [`${res.data.file.type}Checksum`]: res.data.file.checksum, //virtual
-          [`${res.data.file.type}CreatedAt`]: res.data.file.createdAt, //virtual
         });
       } else if (submitMode === 'new') {
         await updateNewSubmit({
           ...newSubmit,
-          [`${res.data.file.type}Id`]: res.data.file.id,
-          [`${res.data.file.type}Checksum`]: res.data.file.checksum, //virtual
-          [`${res.data.file.type}CreatedAt`]: res.data.file.createdAt, //virtual
         });
       }
     } catch (err) {
@@ -125,11 +179,19 @@ const Attachments = () => {
     } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
     }
+    getUsersFiles();
+    console.log(statement, report_card, allowance, attestation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
   return (
-    <Wrapper submitMode={submitMode}>
+    <Wrapper
+      statementDisabled={statement.length > 0}
+      report_cardDisabled={report_card.length > 0}
+      allowanceDisabled={allowance.length > 0}
+      attestationDisabled={attestation.length > 0}
+      // submitMode={submitMode}
+    >
       <SubALayout leadHeader='CZĘŚĆ A – ZAŁĄCZNIKI'>
         <input
           type='file'
@@ -152,87 +214,87 @@ const Attachments = () => {
         </Message>
         <Card.Group itemsPerRow={4} stackable>
           <Card
-            className='card-item'
+            className='card-item statement'
             as='h3'
             onClick={() => openFileInput('statement')}
           >
-            {curDocument &&
-              (curDocument.statementId ? (
-                <>
-                  <div className='img-button'>
-                    <Button
-                      onClick={(e) => callFetch(e, curDocument.statementId)}
-                      primary
-                      icon
-                      size='tiny'
-                      className='download-btn btn'
-                    >
-                      <Icon name='download' />
-                    </Button>
+            {statement[0] ? (
+              <>
+                <div className='img-button'>
+                  <Button
+                    onClick={(e) => callFetch(e, statement[0].id)}
+                    primary
+                    icon
+                    size='tiny'
+                    className='download-btn btn'
+                  >
+                    <Icon name='download' />
+                  </Button>
 
-                    <Button
-                      onClick={(e) => deleteFile(e, curDocument.statementId)}
-                      className='trash-btn btn'
-                      color='red'
-                      size='tiny'
-                      icon
-                    >
-                      <Icon name='trash' />
-                    </Button>
-                  </div>
-                  <Image
-                    fluid
-                    label={{
-                      as: 'div',
-                      color: 'green',
-                      content: 'Plik dodany',
-                      icon: 'thumbs up',
-                      ribbon: true,
-                    }}
-                    src={statementImg}
-                  />
-                </>
-              ) : (
+                  <Button
+                    onClick={(e) => deleteFile(e, statement[0].id)}
+                    className='trash-btn btn'
+                    color='red'
+                    size='tiny'
+                    icon
+                  >
+                    <Icon name='trash' />
+                  </Button>
+                </div>
                 <Image
+                  className='img-c'
                   fluid
                   label={{
                     as: 'div',
-                    color: 'red',
-                    content: 'Kliknij i dodaj plik',
-                    icon: 'upload',
+                    color: 'green',
+                    content: 'Plik dodany',
+                    icon: 'thumbs up',
                     ribbon: true,
                   }}
-                  src={addedImg}
+                  src={statementImg}
                 />
-              ))}
+              </>
+            ) : (
+              <Image
+                fluid
+                label={{
+                  as: 'div',
+                  color: 'red',
+                  content: 'Kliknij i dodaj plik',
+                  icon: 'upload',
+                  ribbon: true,
+                }}
+                src={wireframeImg}
+              />
+            )}
 
             <Card.Content>
-              {' '}
-              {submitErrors?.statementId && (
+              {submitErrors?.statement && (
                 <Label
                   basic
                   color='red'
                   pointing='above'
                   className='small-text'
                 >
-                  {submitErrors?.statementId}
+                  {submitErrors?.statement}
                 </Label>
               )}
               <Card.Header className='card-header' textAlign='left'>
-                Oświadczenie opiekuna dydaktycznego
+                Oświadczenie opiekuna dydaktycznego -{' '}
+                <span className='obligatory'> plik obowiązkowy</span>
               </Card.Header>
               <Card.Meta textAlign='left'>
-                {curDocument && curDocument.statementCreatedAt && (
+                {statement[0] && statement[0].createdAt && (
                   <span className='date'>
-                    Dodano: {toLocaleDate(curDocument?.statementCreatedAt)}
+                    Dodano: {toLocaleDate(statement[0]?.createdAt)}
                   </span>
                 )}
               </Card.Meta>
               <Card.Meta textAlign='left'>
-                {curDocument && curDocument.statementChecksum && (
+                {statement[0] && statement[0].checksum && (
                   <div className='date' style={{ wordWrap: 'break-word' }}>
                     Suma kontrolna pliku:{' '}
-                    <strong> {curDocument.statementChecksum}</strong>
+                    <strong> {statement[0].checksum}</strong>
                   </div>
                 )}
               </Card.Meta>
@@ -240,93 +302,247 @@ const Attachments = () => {
           </Card>
 
           <Card
-            className='card-item'
+            className='card-item report_card'
             as='h3'
             onClick={() => openFileInput('report_card')}
           >
-            {curDocument &&
-              (curDocument.report_cardId ? (
-                <div className='placeholder-image'>
-                  <div className='img-button'>
-                    <Button
-                      onClick={(e) => callFetch(e, curDocument.report_cardId)}
-                      primary
-                      icon
-                      size='tiny'
-                      className='download-btn btn'
-                    >
-                      <Icon name='download' />
-                    </Button>
-                    <Button
-                      onClick={(e) => deleteFile(e, curDocument.report_cardId)}
-                      className='trash-btn btn'
-                      color='red'
-                      icon
-                      size='tiny'
-                    >
-                      <Icon name='trash' />
-                    </Button>
-                  </div>
-                  <Image
-                    fluid
-                    label={{
-                      as: 'div',
-                      color: 'green',
-                      content: 'Plik dodany',
-                      icon: 'thumbs up',
-                      ribbon: true,
-                    }}
-                    src={reportImg}
-                  />
+            {report_card[0] ? (
+              <>
+                <div className='img-button'>
+                  <Button
+                    onClick={(e) => callFetch(e, report_card[0]?.id)}
+                    primary
+                    icon
+                    size='tiny'
+                    className='download-btn btn'
+                  >
+                    <Icon name='download' />
+                  </Button>
+
+                  <Button
+                    onClick={(e) => deleteFile(e, report_card[0]?.id)}
+                    className='trash-btn btn'
+                    color='red'
+                    size='tiny'
+                    icon
+                  >
+                    <Icon name='trash' />
+                  </Button>
                 </div>
-              ) : (
                 <Image
                   fluid
                   label={{
                     as: 'div',
-                    color: 'red',
-                    content: 'Kliknij i dodaj plik',
-                    icon: 'upload',
+                    color: 'green',
+                    content: 'Plik dodany',
+                    icon: 'thumbs up',
                     ribbon: true,
                   }}
-                  src={addedImg}
+                  src={reportCardImg}
                 />
-              ))}
+              </>
+            ) : (
+              <Image
+                fluid
+                label={{
+                  as: 'div',
+                  color: 'red',
+                  content: 'Kliknij i dodaj plik',
+                  icon: 'upload',
+                  ribbon: true,
+                }}
+                src={wireframeImg}
+              />
+            )}
 
             <Card.Content>
-              {' '}
-              {submitErrors?.report_cardId && (
+              {submitErrors?.report_card && (
                 <Label
                   basic
                   color='red'
                   pointing='above'
                   className='small-text'
                 >
-                  {submitErrors?.report_cardId}
+                  {submitErrors?.report_card}
                 </Label>
               )}
               <Card.Header className='card-header' textAlign='left'>
-                Świadectwo szkolne - ostatni rok szkolny
+                Świadectwo szkolne za ostatni rok -{' '}
+                <span className='obligatory'> plik obowiązkowy</span>
               </Card.Header>
               <Card.Meta textAlign='left'>
-                {curDocument && curDocument.report_cardCreatedAt && (
+                {report_card[0] && report_card[0].createdAt && (
                   <span className='date'>
-                    Dodano: {toLocaleDate(curDocument?.report_cardCreatedAt)}{' '}
+                    Dodano: {toLocaleDate(report_card[0]?.createdAt)}
                   </span>
                 )}
               </Card.Meta>
               <Card.Meta textAlign='left'>
-                {curDocument && curDocument.report_cardChecksum && (
+                {report_card[0] && report_card[0].checksum && (
                   <div className='date' style={{ wordWrap: 'break-word' }}>
                     Suma kontrolna pliku:{' '}
-                    <strong> {curDocument.report_cardChecksum}</strong>
+                    <strong> {report_card[0].checksum}</strong>
                   </div>
                 )}
               </Card.Meta>
-              <Card.Description textAlign='left'></Card.Description>
+            </Card.Content>
+          </Card>
+
+          <Card
+            className='card-item allowance'
+            as='h3'
+            onClick={() => openFileInput('allowance')}
+          >
+            {allowance[0] ? (
+              <>
+                <div className='img-button'>
+                  <Button
+                    onClick={(e) => callFetch(e, allowance[0].id)}
+                    primary
+                    icon
+                    size='tiny'
+                    className='download-btn btn'
+                  >
+                    <Icon name='download' />
+                  </Button>
+
+                  <Button
+                    onClick={(e) => deleteFile(e, allowance[0].id)}
+                    className='trash-btn btn'
+                    color='red'
+                    size='tiny'
+                    icon
+                  >
+                    <Icon name='trash' />
+                  </Button>
+                </div>
+                <Image
+                  fluid
+                  label={{
+                    as: 'div',
+                    color: 'green',
+                    content: 'Plik dodany',
+                    icon: 'thumbs up',
+                    ribbon: true,
+                  }}
+                  src={diplomaImg}
+                />
+              </>
+            ) : (
+              <Image
+                fluid
+                label={{
+                  as: 'div',
+                  color: 'blue',
+                  content: 'Kliknij i dodaj plik',
+                  icon: 'upload',
+                  ribbon: true,
+                }}
+                src={wireframeImg}
+              />
+            )}
+
+            <Card.Content>
+
+              <Card.Header className='card-header' textAlign='left'>
+                Zgoda na indywidualny tryb nauki
+              </Card.Header>
+              <Card.Meta textAlign='left'>
+                {allowance[0] && allowance[0].createdAt && (
+                  <span className='date'>
+                    Dodano: {toLocaleDate(allowance[0]?.createdAt)}
+                  </span>
+                )}
+              </Card.Meta>
+              <Card.Meta textAlign='left'>
+                {allowance[0] && allowance[0].checksum && (
+                  <div className='date' style={{ wordWrap: 'break-word' }}>
+                    Suma kontrolna pliku:{' '}
+                    <strong> {allowance[0].checksum}</strong>
+                  </div>
+                )}
+              </Card.Meta>
+            </Card.Content>
+          </Card>
+
+          <Card
+            className='card-item attestation'
+            as='h3'
+            onClick={() => openFileInput('attestation')}
+          >
+            {attestation[0] ? (
+              <>
+                <div className='img-button'>
+                  <Button
+                    onClick={(e) => callFetch(e, attestation[0]?.id)}
+                    primary
+                    icon
+                    size='tiny'
+                    className='download-btn btn'
+                  >
+                    <Icon name='download' />
+                  </Button>
+
+                  <Button
+                    onClick={(e) => deleteFile(e, attestation[0]?.id)}
+                    className='trash-btn btn'
+                    color='red'
+                    size='tiny'
+                    icon
+                  >
+                    <Icon name='trash' />
+                  </Button>
+                </div>
+                <Image
+                  fluid
+                  label={{
+                    as: 'div',
+                    color: 'green',
+                    content: 'Plik dodany',
+                    icon: 'thumbs up',
+                    ribbon: true,
+                  }}
+                  src={fileImg}
+                />
+              </>
+            ) : (
+              <Image
+                fluid
+                label={{
+                  as: 'div',
+                  color: 'blue',
+                  content: 'Kliknij i dodaj plik',
+                  icon: 'upload',
+                  ribbon: true,
+                }}
+                src={wireframeImg}
+              />
+            )}
+
+            <Card.Content>
+
+              <Card.Header className='card-header' textAlign='left'>
+                Orzeczenie o niepełnosprawności
+              </Card.Header>
+              <Card.Meta textAlign='left'>
+                {attestation[0] && attestation[0].createdAt && (
+                  <span className='date'>
+                    Dodano: {toLocaleDate(attestation[0]?.createdAt)}
+                  </span>
+                )}
+              </Card.Meta>
+              <Card.Meta textAlign='left'>
+                {attestation[0] && attestation[0].checksum && (
+                  <div className='date' style={{ wordWrap: 'break-word' }}>
+                    Suma kontrolna pliku:{' '}
+                    <strong> {attestation[0].checksum}</strong>
+                  </div>
+                )}
+              </Card.Meta>
             </Card.Content>
           </Card>
         </Card.Group>{' '}
+        <RandomAtt />
       </SubALayout>
     </Wrapper>
   );

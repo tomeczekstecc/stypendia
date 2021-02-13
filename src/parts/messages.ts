@@ -39,7 +39,10 @@ export const msg = {
       alreadyConfirmed: 'Użytkownik był już potwierdzony',
       noFile: 'Niestety nie udało się znalźć pliku',
       mime: 'Niedozwolony typ pliku. Dozwolone pliki: .JPG, .PNG, .PDF',
-    delUser: 'Nie możemy usunąć Twojego konta jeżeli masz aktywne wnioski'
+      delUser: 'Nie możemy usunąć Twojego konta jeżeli masz aktywne wnioski',
+      noStatement:
+        'Nie dodano załącznika - oświadczenia opiekuna dydaktytcznego',
+      noReportCard: 'Nie dodano za łacznika - świadectwa szkolnego',
     },
     ok: {
       passChange: 'Udało się zmienić hasło',

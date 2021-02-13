@@ -18,7 +18,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const { resetTimeLeft } = authContext;
 
   const submitContext = useContext(SubmitContext);
-  const { newSubmit, submitMode, curSubmit, setSubmitErrors } = submitContext;
+  const { newSubmit, submitMode, curSubmit, setSubmitErrors, tempUuid } = submitContext;
 
   const appContext = useContext(AppContext);
   const { setIsLoading, isLoading } = appContext;
@@ -33,7 +33,11 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
     setSubmitErrors('');
     const csrfData = await axios.get('/api/v1/csrf');
     axios
-      .post('/api/v1/submits', { ...submit, _csrf: csrfData.data.csrfToken })
+      .post('/api/v1/submits', {
+        ...submit,
+        _csrf: csrfData.data.csrfToken,
+        tempUuid,
+      })
       .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

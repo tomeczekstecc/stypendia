@@ -6,16 +6,53 @@ export const Wrapper = styled.div`
     position: relative !important;
   }
 
+  .card-item.statement{
+    cursor: ${(props) => (props.statementDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+
+
+  .card-item.report_card{
+    cursor: ${(props) => (props.report_cardDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+  .img-c.report_card {
+    cursor: ${(props) => (props.report_cardDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+  .card-item.allowance{
+    cursor: ${(props) => (props.allowanceDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+  .img-c.allowance {
+    cursor: ${(props) => (props.allowanceDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+
+  .card-item.attestation{
+    cursor: ${(props) => (props.attestationDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+  .img-c.attestation {
+    cursor: ${(props) => (props.attestationDisabled ? 'not-allowed' : 'pointer')};
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   .icons {
     position: relative;
     display: inline-block;
     left: 45%;
   }
-
-  img:hover {
-    cursor: pointer !important;
-  }
-
   .target {
     position: absolute !important;
     top: 5px !important;
@@ -39,11 +76,6 @@ export const Wrapper = styled.div`
     display: inline-flex !important;
   }
 
-  .trash-btn {
-    display: ${(props) =>
-      props.submitMode !== 'new' ? 'none' : null} !important;
-  }
-
   .small-text {
     font-size: 0.9rem !important;
     text-align: center !important;
@@ -57,5 +89,11 @@ export const Wrapper = styled.div`
 
   .card-header {
     font-size: 16px !important;
+  }
+
+  .obligatory{
+  color: red;
+
+
   }
 `;

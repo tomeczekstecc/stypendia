@@ -74,7 +74,7 @@ export class Submit extends Model {
   // @IsUUID('4', { message: 'Błędny tempUuid' })
   @Column({
     comment: 'Identyfiakto tymczasowy - przed nadaniem numeru wniosku ',
-    nullable: true
+    nullable: true,
   })
   tempUuid: string;
 
@@ -829,27 +829,6 @@ export class Submit extends Model {
   @Column({ comment: 'Hash', nullable: true })
   hash: string;
 
-  //@TODO virtual
-  @IsDefined({ message: 'Należy dodać załącznik - oświadczenie' })
-  @Column({ comment: 'ID załącznika - oświadczenia opiekuna ' })
-  statementId: string;
-  //@TODO virtual
-  @Column({ comment: 'Suma kontrolna - oświadczenia opiekuna ' })
-  statementChecksum: string;
-  //@TODO virtual
-  @Column({ comment: 'Data utworzenia - oświadczenia opiekuna ' })
-  statementCreatedAt: string;
-  //@TODO virtual
-  @IsDefined({ message: 'Należy dodać załącznik - świadectwo' })
-  @Column({ comment: 'ID załącznika - świadectwa' })
-  report_cardId: string;
-  //@TODO virtual
-  @Column({ comment: 'Suma kontrolna - świadectwa' })
-  report_cardChecksum: string;
-  //@TODO virtual
-  @Column({ comment: 'Data utworzenia - świadectwa' })
-  report_cardCreatedAt: string;
-  //@TODO virtual
   @Column({ comment: 'Csrf' })
   _csrf: string;
 

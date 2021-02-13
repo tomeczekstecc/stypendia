@@ -1,8 +1,8 @@
 import { validate } from 'class-validator';
 import { Response } from 'express';
-import { Any } from 'typeorm';
+import { Any, getRepository } from 'typeorm';
 
-import { Submit, User } from '../entity';
+import { Submit, User, File } from '../entity';
 import { msg } from '../parts/messages';
 import { generatePdf, makeLog, saveRollbar } from '../services';
 import { mapErrors } from '../utils';
@@ -43,9 +43,30 @@ export const addSubmit = async (req: any, res: Response) => {
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
     }
+
+    const statement = await getRepository(File)
+      .createQueryBuilder('file')
+      .select()
+      .where('tempSubmitId = :tempSubmitId and type = :type', {
+        tempSubmitId: req.body.tempUuid,
+        type: 'statement',
+      })
+      .execute();
+    if (statement.length === 0) errors.statement = msg.client.fail.noStatement;
+
+    const report_card = await getRepository(File)
+      .createQueryBuilder('file')
+      .select()
+      .where('tempSubmitId = :tempSubmitId and type = :type', {
+        tempSubmitId: req.body.tempUuid,
+        type: 'report_card',
+      })
+      .execute();
+    if (report_card.length === 0)
+      errors.report_card = msg.client.fail.noReportCard;
+
     if (Object.keys(errors).length > 0) {
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-
       return res.status(400).json(errors);
     }
 
@@ -58,11 +79,14 @@ export const addSubmit = async (req: any, res: Response) => {
       lastName: user.lastName,
       email: user.email,
       pupilFirstName:
-        (req.body.isSelf === 'Pełnoletni uczeń' && user.firstName) || req.body.pupilFirstName,
+        (req.body.isSelf === 'Pełnoletni uczeń' && user.firstName) ||
+        req.body.pupilFirstName,
       pupilLastName:
-        (req.body.isSelf === 'Pełnoletni uczeń' && user.lastName) || req.body.pupilLastName,
+        (req.body.isSelf === 'Pełnoletni uczeń' && user.lastName) ||
+        req.body.pupilLastName,
       pupilEmail:
-        (req.body.isSelf === 'Pełnoletni uczeń' && user.email) || req.body.pupilEmail,
+        (req.body.isSelf === 'Pełnoletni uczeń' && user.email) ||
+        req.body.pupilEmail,
 
       user,
     });
@@ -79,6 +103,14 @@ export const addSubmit = async (req: any, res: Response) => {
     }
 
     await submit.save();
+
+    await getRepository(File)
+      .createQueryBuilder('file')
+      .update()
+      .set({ submitId: submit.id })
+      .where('tempSubmitId = :submitId', { submitId: req.body.tempUuid })
+      .execute();
+
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subCreated;
     STATUS = 'success';
@@ -142,6 +174,26 @@ export const editSubmit = async (req: any, res: Response) => {
       STATUS = 'error';
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
+    const statement = await getRepository(File)
+      .createQueryBuilder('file')
+      .select()
+      .where('tempSubmitId = :tempSubmitId and type = :type', {
+        tempSubmitId: req.body.tempUuid,
+        type: 'statement',
+      })
+      .execute();
+    if (statement.length === 0) errors.statement = msg.client.fail.noStatement;
+
+    const report_card = await getRepository(File)
+      .createQueryBuilder('file')
+      .select()
+      .where('tempSubmitId = :tempSubmitId and type = :type', {
+        tempSubmitId: req.body.tempUuid,
+        type: 'report_card',
+      })
+      .execute();
+    if (report_card.length === 0)
+      errors.report_card = msg.client.fail.noReportCard;
 
       return res.status(400).json(mapErrors(errors));
     }
@@ -153,9 +205,11 @@ export const editSubmit = async (req: any, res: Response) => {
           (req.body.isSelf === 'Pełnoletni uczeń' && user.firstName) ||
           req.body.pupilFirstName,
         pupilLastName:
-          (req.body.isSelf === 'Pełnoletni uczeń' && user.lastName) || req.body.pupilLastName,
+          (req.body.isSelf === 'Pełnoletni uczeń' && user.lastName) ||
+          req.body.pupilLastName,
         pupilEmail:
-          (req.body.isSelf === 'Pełnoletni uczeń' && user.email) || req.body.pupilEmail,
+          (req.body.isSelf === 'Pełnoletni uczeń' && user.email) ||
+          req.body.pupilEmail,
       }
     );
 
@@ -212,7 +266,6 @@ export const getAllSubmits = async (req: any, res: Response) => {
 };
 
 export const getAllUsersSubmits = async (req: any, res: Response) => {
-
   try {
     const submits = await Submit.find({
       where: { userId: req.session.userId },
@@ -222,7 +275,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
       Status: 'success',
       msgPL: msg.client.ok.subsFetched,
       count: submits.length,
-      data:submits,
+      data: submits,
     });
   } catch (err) {
     STATUS = 'error';

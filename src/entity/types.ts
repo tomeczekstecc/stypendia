@@ -43,4 +43,13 @@ export const rolesEnum = ['wnioskodawca', 'admin', 'ocen', 'god'];
 
 export const resultEnum = ['info', 'error', 'warning', 'success'];
 
-export const fileType = ['statement', 'report_card'];
+export const fileTypeAllowed = [
+  'statement',
+  'report_card',
+  'random',
+  'allowance',
+  'attestation',
+];
+
+
+export const mimeTypeAllowed = ['image/jpeg', 'image/png', 'application/pdf'];

@@ -152,7 +152,7 @@ const RandomAtt = () => {
           .map((f, i) => (
             <Card
               key={f.uuid}
-              className='card-item'
+              className='card-item random'
               as='h3'
               onClick={() => openFileInput('random')}
             >

@@ -22,19 +22,7 @@ const SubA_V_VI = () => {
     tempUuid,
   } = submitContext;
   submitMode === '' && history.push('/');
-  const [aver, setAver] = useState(0);
 
-  const updateAver = async () => {
-    await setAver(
-      Math.round(
-        ((+curDocument?.priMathGrade +
-          +curDocument?.priLangGrade +
-          +curDocument?.priOtherSubjGrade) /
-          3) *
-          100
-      ) / 100 || 0
-    );
-  };
 
   const handleOnChange = async (e) => {
     if (submitMode === 'watch') return;
@@ -74,13 +62,13 @@ const SubA_V_VI = () => {
 
     if (curDocument) {
       curDocument.priTotalAver =
-        Math.round(
+        (Math.round(
           ((+curDocument?.priMathGrade +
             +curDocument?.priLangGrade +
             +curDocument?.priOtherSubjGrade) /
             3) *
             100
-        ) / 100 || 0;
+        ) / 100 || 0).toString();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

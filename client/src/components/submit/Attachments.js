@@ -190,7 +190,7 @@ const Attachments = () => {
       report_cardDisabled={report_card.length > 0}
       allowanceDisabled={allowance.length > 0}
       attestationDisabled={attestation.length > 0}
-      // submitMode={submitMode}
+      submitMode={submitMode}
     >
       <SubALayout leadHeader='CZĘŚĆ A – ZAŁĄCZNIKI'>
         <input

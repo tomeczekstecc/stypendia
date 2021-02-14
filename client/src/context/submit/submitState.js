@@ -60,10 +60,11 @@ const SubmitState = (props) => {
   };
 
   const setSubmitMode = (mode) => {
+    dispatch({
+      type: SET_TEMP_UUID,
+    });
+
     if (mode === 'new') {
-      dispatch({
-        type: SET_TEMP_UUID,
-      });
 
       dispatch({
         type: CLEAR_CUR_SUBMIT,

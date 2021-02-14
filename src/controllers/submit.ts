@@ -174,30 +174,34 @@ export const editSubmit = async (req: any, res: Response) => {
       STATUS = 'error';
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
-    const statement = await getRepository(File)
-      .createQueryBuilder('file')
-      .select()
-      .where('tempSubmitId = :tempSubmitId and type = :type', {
-        tempSubmitId: req.body.tempUuid,
-        type: 'statement',
-      })
-      .execute();
-    if (statement.length === 0) errors.statement = msg.client.fail.noStatement;
-
-    const report_card = await getRepository(File)
-      .createQueryBuilder('file')
-      .select()
-      .where('tempSubmitId = :tempSubmitId and type = :type', {
-        tempSubmitId: req.body.tempUuid,
-        type: 'report_card',
-      })
-      .execute();
-    if (report_card.length === 0)
-      errors.report_card = msg.client.fail.noReportCard;
-
+    
       return res.status(400).json(mapErrors(errors));
     }
-    const submit = await Submit.update(
+
+   console.log(req.body.tempUuid, 'req.body.tempSubmitId');
+  const statement = await getRepository(File)
+        .createQueryBuilder('file')
+        .select()
+        .where('tempSubmitId = :tempSubmitId and type = :type', {
+          tempSubmitId: req.body.tempUuid,
+          type: 'statement',
+        })
+        .execute();
+      if (statement.length === 0)
+        errors.statement = msg.client.fail.noStatement;
+
+      const report_card = await getRepository(File)
+        .createQueryBuilder('file')
+        .select()
+        .where('tempSubmitId = :tempSubmitId and type = :type', {
+          tempSubmitId: req.body.tempUuid,
+          type: 'report_card',
+        })
+        .execute();
+      if (report_card.length === 0)
+        errors.report_card = msg.client.fail.noReportCard;
+
+  await Submit.update(
       { uuid: req.body.uuid },
       {
         ...req.body,
@@ -225,7 +229,6 @@ export const editSubmit = async (req: any, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-      data: submit,
       alertTitle: 'Zaktualizowano!',
     });
   } catch (err) {

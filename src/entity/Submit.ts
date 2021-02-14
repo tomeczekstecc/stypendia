@@ -1,12 +1,9 @@
 import {
   Equals,
-  IsBoolean,
   IsDefined,
   IsEmail,
   IsEnum,
   IsString,
-  IsUUID,
-  isUUID,
   Length,
   Matches,
   Min,
@@ -22,10 +19,12 @@ import {
   OneToMany,
   Equal,
   BeforeUpdate,
+  getRepository,
 } from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
+import { File } from './File';
 import SubmitHistory from './SubmitHistory';
 import {
   counselorProfileTypeEnums,
@@ -33,6 +32,7 @@ import {
   schoolTypeEnums,
   priGradesEnums,
   allTotalAvgEnums,
+  averEnum,
 } from './types';
 import { Exclude } from 'class-transformer';
 
@@ -255,15 +255,15 @@ export class Submit extends Model {
   })
   priOtherSubjGrade: number;
 
-  @Min(5.3, {
+  @IsEnum(averEnum, {
     message: 'Średnia przedmiotów kierunkowych musi wynosić co najmniej 5.33',
   })
-  @Column('decimal', {
-    precision: 5,
-    scale: 2,
+  @Column({
+    type: 'enum',
+    enum: averEnum,
     comment: 'Podstawowe kryteria oceny - średnia z przedmiotów kierunkowych',
   })
-  priTotalAver: number;
+  priTotalAver: string;
 
   @IsEnum(allTotalAvgEnums, {
     message: 'Należy wybrać średnią wszystkich ocen',
@@ -516,7 +516,7 @@ export class Submit extends Model {
 
   @ValidateIf(
     (o) =>
-      o.tab2Subj !== 'język nowożytny obcy' || o.tab2Subj !== 'przedmiot ICT'
+      o.tab2Subj !== 'język obcy nowożytny' || o.tab2Subj !== 'przedmiot ICT'
   )
   @MinLength(3, {
     message: 'Należy wpisać nazwę wybranego przedmiotu kluczowego',
@@ -845,4 +845,30 @@ export class Submit extends Model {
 
   @OneToMany(() => SubmitHistory, (submit_history) => submit_history.submit)
   history: SubmitHistory[];
+
+  // @BeforeUpdate()
+  // async checkAtt() {
+  //   let errors: any = {};
+  //   const statement = await getRepository(File)
+  //     .createQueryBuilder('file')
+  //     .select()
+  //     .where('submitId = :submitId and type = :type', {
+  //       submitId: this.id,
+  //       type: 'statement',
+  //     })
+  //     .execute();
+  //   const report_card = await getRepository(File)
+  //     .createQueryBuilder('file')
+  //     .select()
+  //     .where('submitId = :submitId and type = :type', {
+  //       submitId: this.id,
+  //       type: 'report_card',
+  //     })
+  //     .execute();
+  //   if (statement.length === 0) throw Error('jhweihdweddw');
+  //   // throw Error('Należy dodać oświadczenie')
+
+  //   if (report_card.length === 0) return undefined;
+  //   // throw Error('Należy dodać świadectwo szkolne')
+  // }
 }

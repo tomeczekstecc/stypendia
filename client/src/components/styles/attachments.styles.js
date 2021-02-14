@@ -6,47 +6,28 @@ export const Wrapper = styled.div`
     position: relative !important;
   }
 
-  .card-item.statement{
+  .card-item.statement {
     cursor: ${(props) => (props.statementDisabled ? 'not-allowed' : 'pointer')};
   }
 
-
-
-  .card-item.report_card{
-    cursor: ${(props) => (props.report_cardDisabled ? 'not-allowed' : 'pointer')};
+  .card-item.report_card {
+    cursor: ${(props) =>
+      props.report_cardDisabled ? 'not-allowed' : 'pointer'};
   }
 
-  .img-c.report_card {
-    cursor: ${(props) => (props.report_cardDisabled ? 'not-allowed' : 'pointer')};
-  }
-
-  .card-item.allowance{
+  .card-item.allowance {
     cursor: ${(props) => (props.allowanceDisabled ? 'not-allowed' : 'pointer')};
   }
 
-  .img-c.allowance {
-    cursor: ${(props) => (props.allowanceDisabled ? 'not-allowed' : 'pointer')};
+  .card-item.attestation {
+    cursor: ${(props) =>
+      props.attestationDisabled ? 'not-allowed' : 'pointer'};
   }
 
-
-  .card-item.attestation{
-    cursor: ${(props) => (props.attestationDisabled ? 'not-allowed' : 'pointer')};
+  .card-item {
+    cursor: ${(props) =>
+      props.submitMode === 'watch' ? 'not-allowed' : 'pointer'};
   }
-
-  .img-c.attestation {
-    cursor: ${(props) => (props.attestationDisabled ? 'not-allowed' : 'pointer')};
-  }
-
-
-
-
-
-
-
-
-
-
-
 
   .icons {
     position: relative;
@@ -73,7 +54,8 @@ export const Wrapper = styled.div`
     z-index: 1 !important;
     top: 10px !important;
     right: 5px !important;
-    display: inline-flex !important;
+    display: ${(props) =>
+      props.submitMode === 'watch' ? 'none' : 'inline-flex !important'};
   }
 
   .small-text {
@@ -91,9 +73,17 @@ export const Wrapper = styled.div`
     font-size: 16px !important;
   }
 
-  .obligatory{
-  color: red;
+  .obligatory {
+    color: red;
+  }
 
-
+  .ui.fluid.image::before {
+    display: none !important;
+  }
+  img{
+    overflow: hidden !important;
+    border-top-left-radius : 4px !important;
+    border-top-right-radius : 4px !important;
+    overflow: hidden !important;
   }
 `;

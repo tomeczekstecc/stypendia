@@ -1,14 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { SubmitContext, AuthContext, AppContext } from '../context';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
 import useFetch from '../hooks/useFetch';
 import { fetchPdf } from '../services';
 
 const AllUsersSubmits = () => {
+  const history = useHistory();
   const authContext = useContext(AuthContext);
-  const { resetTimeLeft } = authContext;
+  const { resetTimeLeft, isLoggedIn } = authContext;
 
   const appContext = useContext(AppContext);
   const { isLoading } = appContext;

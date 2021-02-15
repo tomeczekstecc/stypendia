@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   bottom: 10px !important;
   left: 5px !important;
 
- 
-
+  .btn {
+    margin-left: .7rem;
+  }
 `;

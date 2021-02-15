@@ -1,14 +1,12 @@
 # TODO:
 
 
-sprawdzić dlaczego tworzy sid przy błednych danych logowania
 select dla submit i user - ukrycie nadmiarowych pól w responsie
 required fields
 mode indicator
 dodać pozostałe pola wniosku
 podsumowanie błędów
 spinner zapis
-zamienić na useHistory
 submit template
 mail template
 ewquired fields

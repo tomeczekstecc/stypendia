@@ -17,22 +17,31 @@ const useFetch = (url) => {
   useEffect(() => {
     setIsLoading(true);
     isLoggedIn &&
-    axios
-      .get(`/api/v1/${url}`)
-      .then((data) => {
-        setData(data.data.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        if (err.response.data) {
-          addAlert(err.response.data);
+      axios
+        .get(`/api/v1/${url}`)
+        .then((data) => {
+          setData(data.data.data);
           setIsLoading(false);
-          return;
-        }
-      });
+        })
+        .catch((err) => {
+          if (err.response.data) {
+            if (
+              err.response.data.msgPL ===
+              'Musisz być zalogowany i konto musi być potwierdzone by wykonać tę operację'
+            ) {
+              setIsLoading(false);
+              return;
+            }
+            console.log(err.response.data);
+
+            addAlert(err.response.data);
+            setIsLoading(false);
+            return;
+          }
+        });
     resetTimeLeft();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
 
   return { data };
 };

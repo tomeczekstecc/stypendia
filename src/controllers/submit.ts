@@ -52,7 +52,12 @@ export const addSubmit = async (req: any, res: Response) => {
         type: 'statement',
       })
       .execute();
-    if (statement.length === 0) errors.statement = msg.client.fail.noStatement;
+    if (statement.length === 0) {
+      STATUS = 'error';
+      INFO = msg.client.fail.noStatement;
+
+      errors.statement = msg.client.fail.noStatement;
+    }
 
     const report_card = await getRepository(File)
       .createQueryBuilder('file')
@@ -62,8 +67,11 @@ export const addSubmit = async (req: any, res: Response) => {
         type: 'report_card',
       })
       .execute();
-    if (report_card.length === 0)
+    if (report_card.length === 0) {
+      STATUS = 'error';
+      INFO = msg.client.fail.noReportCard;
       errors.report_card = msg.client.fail.noReportCard;
+    }
 
     if (Object.keys(errors).length > 0) {
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
@@ -174,34 +182,33 @@ export const editSubmit = async (req: any, res: Response) => {
       STATUS = 'error';
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
-    
+
       return res.status(400).json(mapErrors(errors));
     }
 
-   console.log(req.body.tempUuid, 'req.body.tempSubmitId');
-  const statement = await getRepository(File)
-        .createQueryBuilder('file')
-        .select()
-        .where('tempSubmitId = :tempSubmitId and type = :type', {
-          tempSubmitId: req.body.tempUuid,
-          type: 'statement',
-        })
-        .execute();
-      if (statement.length === 0)
-        errors.statement = msg.client.fail.noStatement;
+    console.log(req.body.tempUuid, 'req.body.tempSubmitId');
+    const statement = await getRepository(File)
+      .createQueryBuilder('file')
+      .select()
+      .where('tempSubmitId = :tempSubmitId and type = :type', {
+        tempSubmitId: req.body.tempUuid,
+        type: 'statement',
+      })
+      .execute();
+    if (statement.length === 0) errors.statement = msg.client.fail.noStatement;
 
-      const report_card = await getRepository(File)
-        .createQueryBuilder('file')
-        .select()
-        .where('tempSubmitId = :tempSubmitId and type = :type', {
-          tempSubmitId: req.body.tempUuid,
-          type: 'report_card',
-        })
-        .execute();
-      if (report_card.length === 0)
-        errors.report_card = msg.client.fail.noReportCard;
+    const report_card = await getRepository(File)
+      .createQueryBuilder('file')
+      .select()
+      .where('tempSubmitId = :tempSubmitId and type = :type', {
+        tempSubmitId: req.body.tempUuid,
+        type: 'report_card',
+      })
+      .execute();
+    if (report_card.length === 0)
+      errors.report_card = msg.client.fail.noReportCard;
 
-  await Submit.update(
+    await Submit.update(
       { uuid: req.body.uuid },
       {
         ...req.body,

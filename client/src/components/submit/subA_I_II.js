@@ -88,6 +88,7 @@ submitMode === '' && history.push('/');
             />
 
             <Form.Input
+            disabled
               className='input'
               label='Email wnioskodawcy'
               icon='at'

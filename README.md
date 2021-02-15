@@ -1,20 +1,13 @@
 # TODO:
 
 
-select dla submit i user - ukrycie nadmiarowych pól w responsie
-required fields
-mode indicator
-dodać pozostałe pola wniosku
-podsumowanie błędów
 spinner zapis
-submit template
 mail template
 ewquired fields
 help modals
 
 
 useRollbar na frontendzie - może jak tylko 500?
-protecteed firlds - czy ma załączniki, czy ma wniosek+?
 xss?
 panel postępu?
 skeleton?

@@ -202,9 +202,9 @@ const Attachments = () => {
         <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>
-            W tej części wniosku należy dodać 2 różne typy załączników:{' '}
+            W tej części wniosku należy dodać załączniki obowiązkowe:{' '}
             <strong>Oświadczenie opiekuna dydaktycznego</strong> oraz{' '}
-            <strong>Świadectwo szkolne za ostatni rok szkolny</strong>
+            <strong>Świadectwo szkolne za ostatni rok szkolny</strong>. Dodatkowo, w zależności od udzeielonych odpowiedzi w części VI. DODATKOWE KRYTERIA, możesz dodać jedną zgodę na indywidualny tryb nauki oraz jeden załącznik związany z orzeczeniem o niepełnosprawności. Możesz także dodać załączniki potwierdzające uzyskanie tytułu w olimpiadach.
             Pamiętaj, iż dopuszczalna wielkość każdego z plików (załączników) to
             20MB. Dopuszatne formaty plików to: <strong> .pdf, .jpg. </strong>
             oraz <strong>.png.</strong> Kliknij w odpowiednie pole, aby dodać
@@ -281,7 +281,7 @@ const Attachments = () => {
               )}
               <Card.Header className='card-header' textAlign='left'>
                 Oświadczenie opiekuna dydaktycznego -{' '}
-                <span className='obligatory'> plik obowiązkowy</span>
+                <span className='obligatory'> załącznik obowiązkowy</span>
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {statement[0] && statement[0].createdAt && (
@@ -368,7 +368,7 @@ const Attachments = () => {
               )}
               <Card.Header className='card-header' textAlign='left'>
                 Świadectwo szkolne za ostatni rok -{' '}
-                <span className='obligatory'> plik obowiązkowy</span>
+                <span className='obligatory'> załącznik obowiązkowy</span>
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {report_card[0] && report_card[0].createdAt && (

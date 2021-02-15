@@ -21,7 +21,7 @@ export const makeLog = async (
     controller,
     info,
     status,
-    'MakeLoGG'
+    'MakeLoG'
   );
   const ip =
     req.headers['x-forwarded-for'] ||
@@ -29,11 +29,11 @@ export const makeLog = async (
     req.socket.remoteAddress ||
     (req.connection.socket ? req.connection.socket.remoteAddress : null);
 
-  const user = await User.findOne(req.session.userId);
+  const user = await User.findOne(req?.session?.userId) || undefined;
 
   try {
     const log = new Log({
-      userId: req.session.userId || undefined,
+      userId: req?.session?.userId || undefined,
       login: user?.login || undefined,
       object,
       objectId,

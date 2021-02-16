@@ -4,3 +4,4 @@ export * from './makeLog';
 export * from './saveRollbar';
 // export * from './scanFile';
 export * from './upload';
+export * from './checkForAtt';

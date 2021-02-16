@@ -5,6 +5,7 @@ import { Any, getRepository } from 'typeorm';
 import { Submit, User, File } from '../entity';
 import { msg } from '../parts/messages';
 import { generatePdf, makeLog, saveRollbar } from '../services';
+import { checkForAtt } from '../services';
 import { mapErrors } from '../utils';
 
 const OBJECT: any = 'Submit';
@@ -44,38 +45,11 @@ export const addSubmit = async (req: any, res: Response) => {
       // ********************************************************************//
     }
 
-    const statement = await getRepository(File)
-      .createQueryBuilder('file')
-      .select()
-      .where('tempSubmitId = :tempSubmitId and type = :type', {
-        tempSubmitId: req.body.tempUuid,
-        type: 'statement',
-      })
-      .execute();
-    if (statement.length === 0) {
-      STATUS = 'error';
-      INFO = msg.client.fail.noStatement;
+    const allErrors = await checkForAtt(req, errors, 'new');
 
-      errors.statement = msg.client.fail.noStatement;
-    }
-
-    const report_card = await getRepository(File)
-      .createQueryBuilder('file')
-      .select()
-      .where('tempSubmitId = :tempSubmitId and type = :type', {
-        tempSubmitId: req.body.tempUuid,
-        type: 'report_card',
-      })
-      .execute();
-    if (report_card.length === 0) {
-      STATUS = 'error';
-      INFO = msg.client.fail.noReportCard;
-      errors.report_card = msg.client.fail.noReportCard;
-    }
-
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(allErrors).length > 0) {
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(400).json(errors);
+      return res.status(400).json(allErrors);
     }
 
     const num = (await (await Submit.find()).length) + 10000;
@@ -98,6 +72,8 @@ export const addSubmit = async (req: any, res: Response) => {
 
       user,
     });
+
+
 
     errors = await validate(submit);
 
@@ -154,6 +130,8 @@ export const addSubmit = async (req: any, res: Response) => {
 //
 
 export const editSubmit = async (req: any, res: Response) => {
+
+  console.log(req.body)
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
   try {
@@ -171,10 +149,34 @@ export const editSubmit = async (req: any, res: Response) => {
         msgPL: INFO,
       });
     }
+let errors:any = {}
+    const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
+
+console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
+
+
+    if (peselExists.length > 0 && peselExists[0].id !== req.body.id) {
+      errors.pupilPesel = msg.client.fail.peselExists;
+      // ****************************** LOG *********************************//
+      INFO = msg.client.fail.peselExists;
+      STATUS = 'error';
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+      // ********************************************************************//
+    }
+
+    const allErrors = await checkForAtt(req, errors, 'edit');
+
+    if (Object.keys(allErrors).length > 0) {
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+      return res.status(400).json(allErrors);
+    }
+
+
+
 
     const tempSubmit = await new Submit({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
 
-    const errors = await validate(tempSubmit);
+ errors = await validate(tempSubmit);
 
     if (errors.length > 0) {
       // ****************************** LOG *********************************//
@@ -185,28 +187,6 @@ export const editSubmit = async (req: any, res: Response) => {
 
       return res.status(400).json(mapErrors(errors));
     }
-
-    console.log(req.body.tempUuid, 'req.body.tempSubmitId');
-    const statement = await getRepository(File)
-      .createQueryBuilder('file')
-      .select()
-      .where('tempSubmitId = :tempSubmitId and type = :type', {
-        tempSubmitId: req.body.tempUuid,
-        type: 'statement',
-      })
-      .execute();
-    if (statement.length === 0) errors.statement = msg.client.fail.noStatement;
-
-    const report_card = await getRepository(File)
-      .createQueryBuilder('file')
-      .select()
-      .where('tempSubmitId = :tempSubmitId and type = :type', {
-        tempSubmitId: req.body.tempUuid,
-        type: 'report_card',
-      })
-      .execute();
-    if (report_card.length === 0)
-      errors.report_card = msg.client.fail.noReportCard;
 
     await Submit.update(
       { uuid: req.body.uuid },

@@ -246,6 +246,12 @@ const RandomAtt = () => {
           />
 
           <Card.Content>
+            {submitErrors?.isFinalistAtt && (
+              <Label basic color='red' pointing='above' className='small-text att'>
+                {submitErrors?.isFinalistAtt}
+              </Label>
+            )}
+
             <Card.Header className='card-header' textAlign='left'>
               Dodaj zaświadczenie o uzyskanych tytułach
             </Card.Header>

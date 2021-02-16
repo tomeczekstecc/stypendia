@@ -42,7 +42,12 @@ export const msg = {
       delUser: 'Nie możemy usunąć Twojego konta jeżeli masz aktywne wnioski',
       noStatement:
         'Nie dodano załącznika - oświadczenia opiekuna dydaktytcznego',
-      noReportCard: 'Nie dodano za łacznika - świadectwa szkolnego',
+      noReportCard: 'Nie dodano załącznika - świadectwa szkolnego',
+      noRandoms:
+        'Nie dodano żadnego załącznika potwierdzającego tytuł laureta/finalisty',
+      noAllowance: 'Nie dodano załącznika ze zgodą na indywidualny tryb nauki',
+      noAttestation:
+        'Nie dodano załącznika z orzeczeniem o niepełnosprawności',
     },
     ok: {
       passChange: 'Udało się zmienić hasło',

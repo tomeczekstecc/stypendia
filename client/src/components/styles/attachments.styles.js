@@ -58,11 +58,14 @@ export const Wrapper = styled.div`
       props.submitMode === 'watch' ? 'none' : 'inline-flex !important'};
   }
 
-  .small-text {
+  .small-text.att {
+    position: absolute !important;
+    width: 100% !important;
+    left: 0 !important;
+transform: translateY(-70px) !important;
     font-size: 0.9rem !important;
     text-align: center !important;
     /* margin-left:15% !important; */
-    margin-bottom: -40px !important;
     color: red !important;
   }
   .date {

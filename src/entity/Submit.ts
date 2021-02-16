@@ -516,7 +516,7 @@ export class Submit extends Model {
 
   @ValidateIf(
     (o) =>
-      o.tab2Subj !== 'język obcy nowożytny' || o.tab2Subj !== 'przedmiot ICT'
+      o.tab2Subj === 'język obcy nowożytny' || o.tab2Subj === 'przedmiot ICT'
   )
   @MinLength(3, {
     message: 'Należy wpisać nazwę wybranego przedmiotu kluczowego',

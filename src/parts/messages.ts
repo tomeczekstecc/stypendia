@@ -45,9 +45,14 @@ export const msg = {
       noReportCard: 'Nie dodano załącznika - świadectwa szkolnego',
       noRandoms:
         'Nie dodano żadnego załącznika potwierdzającego tytuł laureta/finalisty',
+      unnecRandoms:
+        'Dodano załącznik potwierdzający tytuł laureata/finalisty, ale w części VI zaznaczono NIE przy pytaniu pierwszym',
       noAllowance: 'Nie dodano załącznika ze zgodą na indywidualny tryb nauki',
-      noAttestation:
-        'Nie dodano załącznika z orzeczeniem o niepełnosprawności',
+      unnecAllowance:
+        'Dodano załącznik ze zgodą na indywidualny tryb nauki, ale w części VI zaznzczono NIE przy pytaniu drugim',
+      noAttestation: 'Nie dodano załącznika z orzeczeniem o niepełnosprawności',
+      unnecAttestation:
+        'Dodano załącznik z orzeczeniem o niepełnosprawności, ale w częścii VI zaznaczono NIE przy pytaniu trzecim',
     },
     ok: {
       passChange: 'Udało się zmienić hasło',

@@ -1,6 +1,5 @@
 import {
   Equals,
-  IsDefined,
   IsEmail,
   IsEnum,
   IsString,
@@ -14,17 +13,12 @@ import {
   Entity,
   Column,
   ManyToOne,
-  BeforeInsert,
   JoinColumn,
   OneToMany,
-  Equal,
-  BeforeUpdate,
-  getRepository,
 } from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
-import { File } from './File';
 import SubmitHistory from './SubmitHistory';
 import {
   counselorProfileTypeEnums,

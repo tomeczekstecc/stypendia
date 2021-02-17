@@ -1,12 +1,8 @@
-import { Length } from 'class-validator';
 import {
   Entity,
   Column,
   ManyToOne,
-  BeforeInsert,
   JoinColumn,
-  OneToMany,
-  OneToOne,
 } from 'typeorm';
 
 import Model from './Model';

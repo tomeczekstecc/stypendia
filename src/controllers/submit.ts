@@ -48,6 +48,8 @@ export const addSubmit = async (req: any, res: Response) => {
     const allErrors = await checkForAtt(req, errors, 'new');
 
     if (Object.keys(allErrors).length > 0) {
+      STATUS = 'error';
+      INFO = 'Błąd dodanych załączników - nie dołączono wymaganych załączników lub dołączono nadmiarowe załączniki'
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(allErrors);
     }
@@ -167,7 +169,9 @@ console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
     const allErrors = await checkForAtt(req, errors, 'edit');
 
     if (Object.keys(allErrors).length > 0) {
-      STATUS='error'
+         STATUS = 'error';
+         INFO =
+           'Błąd dodanych załączników - nie dołączono wymaganych załączników lub dołączono nadmiarowe załączniki';
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(allErrors);
     }

@@ -49,7 +49,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     if (Object.keys(allErrors).length > 0) {
       STATUS = 'error';
-      INFO = 'Błąd dodanych załączników - nie dołączono wymaganych załączników lub dołączono nadmiarowe załączniki'
+      INFO = msg.client.fail.attGeneralERR;
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(allErrors);
     }
@@ -74,8 +74,6 @@ export const addSubmit = async (req: any, res: Response) => {
 
       user,
     });
-
-
 
     errors = await validate(submit);
 
@@ -132,8 +130,7 @@ export const addSubmit = async (req: any, res: Response) => {
 //
 
 export const editSubmit = async (req: any, res: Response) => {
-
-  console.log(req.body)
+  console.log(req.body);
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
   try {
@@ -151,11 +148,10 @@ export const editSubmit = async (req: any, res: Response) => {
         msgPL: INFO,
       });
     }
-let errors:any = {}
+    let errors: any = {};
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
 
-console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
-
+    console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
 
     if (peselExists.length > 0 && peselExists[0].id !== req.body.id) {
       errors.pupilPesel = msg.client.fail.peselExists;
@@ -169,19 +165,15 @@ console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
     const allErrors = await checkForAtt(req, errors, 'edit');
 
     if (Object.keys(allErrors).length > 0) {
-         STATUS = 'error';
-         INFO =
-           'Błąd dodanych załączników - nie dołączono wymaganych załączników lub dołączono nadmiarowe załączniki';
+      STATUS = 'error';
+      INFO = msg.client.fail.attGeneralERR;
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(allErrors);
     }
 
-
-
-
     const tempSubmit = await new Submit({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
 
- errors = await validate(tempSubmit);
+    errors = await validate(tempSubmit);
 
     if (errors.length > 0) {
       // ****************************** LOG *********************************//

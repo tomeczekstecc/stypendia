@@ -167,6 +167,7 @@ console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
     const allErrors = await checkForAtt(req, errors, 'edit');
 
     if (Object.keys(allErrors).length > 0) {
+      STATUS='error'
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(allErrors);
     }

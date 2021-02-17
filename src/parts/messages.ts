@@ -53,6 +53,7 @@ export const msg = {
       noAttestation: 'Nie dodano załącznika z orzeczeniem o niepełnosprawności',
       unnecAttestation:
         'Dodano załącznik z orzeczeniem o niepełnosprawności, ale w częścii VI zaznaczono NIE przy pytaniu trzecim',
+        
     },
     ok: {
       passChange: 'Udało się zmienić hasło',

@@ -54,8 +54,7 @@ export const msg = {
       unnecAttestation:
         'Dodano załącznik z orzeczeniem o niepełnosprawności, ale w częścii VI zaznaczono NIE przy pytaniu trzecim',
             },
-            
-    ok: {
+                ok: {
       passChange: 'Udało się zmienić hasło',
       draftSucceed: 'Pomyślnie utworzono wniosek roboczy',
       subUpdated: 'Pomyślnie zaktualizowano wniosek',

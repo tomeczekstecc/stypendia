@@ -1,5 +1,4 @@
-
-import { Entity, Column,  JoinColumn, OneToOne } from 'typeorm';
+import { Entity, Column, JoinColumn, OneToOne } from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
@@ -10,12 +9,6 @@ export class Draft extends Model {
     super();
     Object.assign(this, draft);
   }
-
-  @Column({ comment: 'Wersja wniosku', default: 1 })
-  ver: number;
-
-  @Column({ comment: 'Numer wniosku' })
-  numer: string;
 
   @Column({
     type: 'enum',
@@ -200,6 +193,7 @@ export class Draft extends Model {
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 1 - wybrany przedmiot kierunkowy',
+    nullable: true,
   })
   tab1Subj: string;
 
@@ -412,7 +406,6 @@ export class Draft extends Model {
   })
   isTab2e: boolean;
 
-
   @Column({
     comment: 'Ścieżka rozwoju - tabela 2 - przygotowane wystawy - opis',
     nullable: true,
@@ -452,7 +445,6 @@ export class Draft extends Model {
   })
   isTab2h: boolean;
 
-
   @Column({
     comment:
       'Ścieżka rozwoju - tabela 2 - uzyskanie certyfikatu językowego - opis',
@@ -474,7 +466,6 @@ export class Draft extends Model {
   })
   isTab2j: boolean;
 
-
   @Column({
     comment: 'Ścieżka rozwoju - tabela 2 - własna strona internetowa - opis',
     nullable: true,
@@ -493,7 +484,6 @@ export class Draft extends Model {
     nullable: true,
   })
   tab2k_desc: string;
-
 
   @Column({
     comment: 'Ścieżka rozwoju - tabela 2 - inne - opis',
@@ -593,17 +583,15 @@ export class Draft extends Model {
   })
   substantion2: string;
 
-
   @Column({
     comment: 'Potwierdzenie oświadczeń i informacji',
+    default: false,
   })
   isStatementsChecked: boolean;
 
   //
   //
   //
-
-
 
   @Column({ comment: 'UuuidV4 użytkownika' })
   userUuid: string;
@@ -615,7 +603,4 @@ export class Draft extends Model {
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   @JoinColumn({ name: 'userUuid', referencedColumnName: 'uuid' })
   user: User;
-
-
-
 }

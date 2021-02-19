@@ -58,7 +58,7 @@ export class Submit extends Model {
   // @Max(9, {
   //   message: 'Status nie może być większy niż 9',
   // })
-  @Column({ default: 1, comment: 'Status wniosku' })
+  @Column({ default: 0, comment: 'Status wniosku' })
   status: number;
 
   // @IsBoolean({ message: 'isParent może przyjąć wartość 0 lub 1' })

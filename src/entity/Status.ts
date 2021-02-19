@@ -1,7 +1,7 @@
 import { IsEnum } from 'class-validator';
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-import {statusEnums} from './types'
+import { statusEnums } from './types';
 
 @Entity('dict_submit_statuses')
 export class Status extends BaseEntity {
@@ -11,6 +11,19 @@ export class Status extends BaseEntity {
   @Column({
     type: 'enum',
     enum: statusEnums,
- comment: `Nazwa statusu: ${statusEnums}` })
+    comment: `Nazwa statusu: ${statusEnums}`,
+  })
   title: string;
+
+
+
+  @Column({
+    type:'int',
+    comment: `Numer statusu`,
+  })
+  value: number;
+  @Column({
+      comment: `Nazwa do wyświetlenia`,
+  })
+ description: string;
 }

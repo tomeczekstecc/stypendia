@@ -151,7 +151,7 @@ export const editSubmit = async (req: any, res: Response) => {
     let errors: any = {};
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
 
-    console.log(peselExists[0].pupilPesel, 'asdasdasdasdasdad');
+
 
     if (peselExists.length > 0 && peselExists[0].id !== req.body.id) {
       errors.pupilPesel = msg.client.fail.peselExists;

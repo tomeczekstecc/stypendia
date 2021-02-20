@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
 
   margin-top: 5% !important;
-  .menu {
+  .menu-topper {
     margin-top: 6% !important;
   }
 
@@ -52,7 +52,7 @@ export const Wrapper = styled.div`
   .grade-selector {
     /* max-width:145px !important; */
   }
-  .container {
+  .container{
     padding-bottom: 5rem !important;
   }
 

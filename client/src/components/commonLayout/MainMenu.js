@@ -24,7 +24,7 @@ const MainMenu = () => {
 
   return (
     <Wrapper>
-      <Menu icon='labeled' className='main'>
+      <Menu icon='labeled' className='main-menu-el'>
         {leftMenuItems
           .filter(
             (item) =>
@@ -45,7 +45,7 @@ const MainMenu = () => {
             </Link>
           ))}
 
-        <Menu.Menu position='right' className='right'>
+        <Menu.Menu position='right' className='right-el'>
           {rightMenuItems
             .filter((item) => item.isLoggedInDisplay === isLoggedIn)
             .map((item) => (

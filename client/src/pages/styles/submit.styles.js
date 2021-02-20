@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
 
-  margin-top: 5% !important;
+  margin-top: 3% !important;
   .menu-topper {
     margin-top: 6% !important;
   }

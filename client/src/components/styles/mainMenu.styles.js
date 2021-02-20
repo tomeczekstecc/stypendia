@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  .main {
+  .main-menu-el {
     position: fixed  !important;
     top: 0  !important;
     left: 0  !important;
@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
     z-index: 1000  !important;
   }
 
-  .right {
+  .right-el {
     position: fixed  !important;
     top: 0  !important;
     right: 0  !important;

@@ -60,7 +60,9 @@ export const Wrapper = styled.div`
     font-size: 14px !important;
     margin-bottom: 5px !important;
   }
-
+.central-grid{
+  margin-top: 40px !important;
+}
   select:focus,
   select:active {
     border: 1px solid rgba(34, 36, 38, 0.15) !important;

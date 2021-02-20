@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+:root {
+  --borderSizeNormal: 7px;
+  --borderSizeThin: 5px;
+  --borderSizeInput: 2px;
+  --borderColor: #444;
+  --borderRadiusInput: 6px;
+  --borderRadiusBox: 3px;
+  --primary-background-color: #eee;
+  --backgroubd-color-white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Lato, sans-serif;
+  width: 100%;
+  margin: 20px auto;
+  border: 1px solid #eee;
+  width: 97%;
+}
+h1 {
+  margin: 0;
+  font-size: 40px;
+}
+h2 {
+  margin: 0;
+  font-size: 30px;
+}
+h3 {
+  font-size: 20px;
+  margin: 15px 0 10px 0;
+  font-weight: 400;
+}
+.logo {
+  margin: 20px;
+  text-align: center;
+}
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 40px;
+}
+
+.intro {
+  margin-bottom: 5rem;
+}
+.intro-box {
+  border: var(--borderSizeNormal) var(--borderColor) solid;
+  display: inline-block;
+  padding: 2rem;
+}
+.part-title {
+  margin-top: 6rem;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.small-box-container {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+.small-box-title {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.small-box {
+  border: var(--borderSizeThin) solid var(--borderColor);
+  width: 97%;
+  display: inline-block;
+  padding: 0 1rem 1rem 1rem;
+  border-radius: var(--borderRadiusBox);
+  display: flex;
+  background-color: var(--primary-background-color);
+  min-height: 290px;
+}
+.normal-input-title {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+.normal-input {
+  border: solid var(--borderSizeInput) var(--borderColor);
+  border-radius: var(--borderRadiusInput);
+  min-width: 40%;
+  padding: 10px 5px;
+  font-size: 0.9rem;
+  max-width: 97%;
+  background-color: var(--backgroubd-color-white);
+}
+.normal-input-container {
+  margin-top: 1rem;
+}
+.small-box-right,
+.small-box-left {
+  width: 100%;
+}
+.small-box-left {
+  margin-right: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.school-name {
+  /* width: 200%; */
+}
+.school {
+  display: block;
+}
+
+.flex-2 {
+  display: flex;
+}
+
+.flex-3 {
+  display: flex;
+}
+
+.gap-right {
+  margin-right: 0.8rem;
+}
+
+.adress,
+.town {
+  width: 65%;
+}
+
+.zip,
+.type {
+  width: 33%;
+}
+.ghost {
+  opacity: 0;
+}
+
+
+.additional-right .normal-input-container{
+margin-top: 2rem;
+margin-bottom: 2rem;
+}
+
+.additional-left, .additional-right{
+  font-size: 1rem;
+}
+
+.additional{
+  display: block;
+}
+
+.additional .normal-input-container{
+  display: flex;
+}
+.text-container{
+ width: 75%;
+}
+.additional .normal-input-container .normal-input{
+  max-height: 2.5rem;
+}
+
+.seven {
+  min-width: 7.5rem;
+  margin-right: .5rem;
+  margin-left: auto ;
+}
+
+.reversed{
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  color: #fff;;
+  background-color: #666;
+  border-radius: var(--borderRadiusInput);
+  margin-left: .5rem;
+  max-width: 20%;
+  text-align: center;
+}
+.sub-title{
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.half{
+  max-width: 48%;
+}
+
+textarea{
+  width: 100%;
+  font-size: 16px !important;
+}
+
+.down-table{
+  margin-top: 1rem;;
+}
+
+table, tr, th, td{
+font-weight: bold;
+  border: 1px black solid;
+  border-color: var(--borderColor);
+    border-radius: 3px;
+    padding: 1.2rem 1rem;
+
+}
+table{
+  border:var(--borderSizeThin) solid black;
+  border-radius: var(--borderRadiusBox) !important;
+  border-collapse: collapse;
+
+  margin-left: .8rem;
+
+  margin-top: 4rem;
+  width: 95%;
+}
+
+th{
+  font-size: 1.3rem;
+}
+
+h3{
+  font-weight: bold;
+}
+
+
+td{
+  font-size: 1.1rem;
+}
+
+table tr .cost{
+  text-align: right;
+  width: 25%;
+}
+.sum{
+font-weight: 700;
+font-size: 1.3rem;
+}
+
+.text{
+padding-top: 2rem;
+}
+
+.statements{
+  margin-top: 2rem;
+}

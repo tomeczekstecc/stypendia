@@ -52,7 +52,7 @@ const Submit = () => {
   return (
     <Wrapper submitMode={submitMode}>
       <Errors />
-      <Grid>
+      <Grid className='central-grid'>
         <Grid.Column width={4}>
           <Menu fluid vertical tabular className='menu'>
             <Menu.Item

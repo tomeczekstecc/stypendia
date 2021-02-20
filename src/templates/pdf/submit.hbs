@@ -3,243 +3,1126 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Wniosek PDF</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+    :root {
+      --borderSizeNormal: 5px;
+      --borderSizeThin: 3px;
+      --borderSizeInput: 2px;
+      --borderColor: #444;
+      --borderRadiusInput: 6px;
+      --borderRadiusBox: 3px;
+      --primary-background-color: #eee;
+      --backgroubd-color-white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Lato, sans-serif;
+      width: 100%;
+
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 15px 0 10px 0;
+      font-weight: 400;
+    }
+
+    .logo {
+      width: 100%;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      margin-left: 0;
+
+    }
+
+    .container {
+
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .intro {
+      margin-bottom: 1rem;
+    }
+
+    .intro-box {
+      border: var(--borderSizeNormal) var(--borderColor) solid;
+      display: inline-block;
+      padding: .7rem;
+    }
+
+    .part-title {
+
+      font-size: 18px;
+      font-weight: 700;
+      /* margin-top: 3rem; */
+      margin-bottom: 0;
+    }
+
+    .small-box-container {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    .small-box-title {
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .small-box {
+      border: var(--borderSizeThin) solid var(--borderColor);
+      width: 97%;
+      display: inline-block;
+      padding: 0 1rem 1rem 1rem;
+      border-radius: var(--borderRadiusBox);
+      display: flex;
+      background-color: var(--primary-background-color);
+      min-height: 235px;
+    }
+
+    .normal-input-title {
+      font-size: .7rem;
+      margin-bottom: 0.3rem;
+      font-size: bold;
+    }
+
+    .normal-input {
+      border: solid var(--borderSizeInput) var(--borderColor);
+      border-radius: var(--borderRadiusInput);
+      min-width: 40%;
+      padding: 8px 4px;
+      font-size: 0.7rem;
+      max-width: 97%;
+      background-color: var(--backgroubd-color-white);
+    }
+
+    .normal-input-container {
+      margin-top: 1rem;
+      font-size: 11px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    textarea {
+      font-size: 10px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .small-box-right,
+    .small-box-left {
+      width: 100%;
+    }
+
+    .small-box-left {
+      margin-right: 7px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .school-name {
+      /* width: 200%; */
+    }
+
+    .school {
+      display: block;
+    }
+
+    .flex-2 {
+      display: flex;
+    }
+
+    .flex-3 {
+      display: flex;
+    }
+
+    .gap-right {
+      margin-right: 0.8rem;
+    }
+
+    .adress,
+    .town {
+      width: 65%;
+    }
+
+    .zip,
+    .type {
+      width: 33%;
+    }
+
+    .ghost {
+      opacity: 0;
+    }
+
+
+    .additional-right .normal-input-container {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .additional-left,
+    .additional-right {
+      font-size: 1rem;
+    }
+
+    .additional {
+      display: block;
+    }
+
+    .additional .normal-input-container {
+      display: flex;
+    }
+
+    .text-container {
+      width: 75%;
+      font-size: 10px;
+    }
+
+    .additional .normal-input-container .normal-input {
+      max-height: 2.5rem;
+    }
+
+    .seven {
+      min-width: 7.5rem;
+      margin-right: .5rem;
+      margin-left: auto;
+    }
+
+    .reversed {
+      font-size: 1.2rem;
+      padding: 8px 16px;
+      color: #fff;
+      ;
+      background-color: #666;
+      border-radius: var(--borderRadiusInput);
+      margin-left: .5rem;
+      max-width: 20%;
+      text-align: center;
+    }
+
+    .sub-title {
+      margin-top: 1rem;
+      font-size: 14px;
+    }
+
+    .half {
+      max-width: 48%;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 16px !important;
+    }
+
+    .down-table {
+      margin-top: 1rem;
+      ;
+    }
+
+    table,
+    tr,
+    th,
+    td {
+      font-weight: bold;
+      border: 1px black solid;
+      border-color: var(--borderColor);
+      border-radius: 3px;
+      padding: 5px 11px;
+
+    }
+
+    table {
+      border: var(--borderSizeThin) solid var(--borderColor);
+      border-radius: var(--borderRadiusBox) !important;
+      border-collapse: collapse;
+      margin-left: 0;
+      margin-top: 1rem;
+      width: 95%;
+    }
+
+    th {
+      font-size: 12px;
+    }
+
+    h3 {
+      font-weight: bold;
+    }
+
+
+    td {
+      font-size: 11px;
+    }
+
+    table tr .cost {
+      text-align: right;
+      width: 25%;
+    }
+
+    .sum {
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .text {
+      padding-top: 10px;
+    }
+
+    .statements {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    .expenses {
+      margin-bottom: 10px;
+    }
+
+    .liar {
+      min-width: 110%;
+      min-height: 1px;
+    }
+
+    @media screen {
+      .next-page {
+        page-break-after: always;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div style="text-align: center; padding: 30px;font-size: 13px; line-height: 1.5; font-family: Arial;"><img
-      src="https://lsi.slaskie.pl/public/img/EFS_kolor_poziom.png" width="630" />
-    <h4>{{ name }}</h4>
-    <small>{{checksum}}</small>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident, incidunt. Voluptatum laborum minus vitae
-      cumque?
-      Nemo perspiciatis culpa distinctio eligendi quidem atque consequuntur ex soluta, modi ad dignissimos dolor
-      deserunt
-      iste, cupiditate vero harum provident? Nam esse doloribus quam suscipit ducimus quas dolor molestiae voluptatum,
-      explicabo vel, cumque eius deleniti vero quaerat eaque atque illo itaque! Soluta repellendus asperiores maxime
-      amet
-      ipsum quia nemo doloremque dolorem in, autem neque obcaecati impedit possimus dolor ut! Ipsam possimus
-      necessitatibus
-      voluptatibus architecto in quisquam nulla excepturi maxime, asperiores sit, modi fugit! Perspiciatis eveniet,
-      expedita
-      in sed natus dolorum accusamus modi, laborum ratione ducimus earum cum aliquid eaque! Dolorem saepe quasi
-      veritatis
-      voluptatem similique dolor, at ratione ab libero quaerat! Nulla ipsa eligendi expedita exercitationem voluptas.
-      Cupiditate molestiae est laudantium saepe nihil. Perspiciatis accusantium blanditiis laudantium commodi similique
-      corporis voluptatem quasi impedit asperiores rem perferendis, cum, architecto vel ea laborum modi iusto dolores
-      eum amet
-      quas ipsam neque! Rerum eveniet sequi itaque delectus ad alias. Cum optio quod ad perferendis minima, animi
-      temporibus
-      tenetur, aspernatur dolore, ullam est aperiam. Odit assumenda perferendis itaque, blanditiis officia facilis
-      quibusdam
-      debitis cum porro commodi nulla necessitatibus autem doloremque ullam dolorum maxime id quasi, praesentium hic
-      reprehenderit a explicabo? Eum, rem? Excepturi, corporis placeat culpa repellat corrupti eligendi quae fugit et
-      animi
-      adipisci quis doloremque? Quisquam eos libero sapiente facilis, distinctio recusandae praesentium delectus,
-      blanditiis
-      illo impedit quas quaerat pariatur reprehenderit optio? Nihil doloremque consectetur adipisci perspiciatis rem
-      explicabo! Ex perspiciatis eum exercitationem ab, consequuntur ipsam expedita vero. Aliquid quod fugiat minus
-      quaerat
-      voluptatem sit mollitia, repellat beatae repudiandae dolore tenetur optio totam cupiditate iste saepe in magnam
-      non
-      quibusdam animi necessitatibus quo dignissimos fugit ipsa blanditiis! Eius molestias illo doloremque cupiditate
-      eveniet
-      quibusdam nulla corrupti aperiam porro obcaecati? Voluptatum, dolores consequuntur? Provident unde at dolore
-      aliquid
-      iure rem dignissimos inventore sed repellendus culpa labore, possimus dolores harum qui sint animi incidunt sequi
-      doloribus deserunt ipsa voluptatum quae laudantium. Repellat numquam quis distinctio dolor explicabo consectetur
-      neque
-      eos eius possimus amet, error culpa fugit laudantium nisi nemo aliquam maxime, temporibus facere consequatur et.
-      Amet
-      modi deserunt aut, placeat ad perspiciatis molestias fugiat obcaecati, voluptatem corporis neque! Neque sed sequi
-      consequatur in perspiciatis ratione possimus, quaerat quae suscipit voluptatum voluptatibus fuga ea nihil, amet
-      nostrum
-      fugiat, adipisci eaque itaque est rerum iste. Temporibus soluta neque ab voluptas maxime, dolorem ratione atque
-      sed!
-      Enim blanditiis explicabo provident eum nemo sunt debitis sapiente, omnis, aperiam culpa necessitatibus quos
-      corrupti
-      totam sit quis dolor dolorum! Consequatur odit facilis, nihil numquam distinctio debitis a odio fugit, expedita
-      magnam
-      labore in? Esse velit, quo harum laboriosam eaque sequi nemo iure ab consequuntur consectetur expedita. Aspernatur
-      officiis sapiente expedita odit provident atque tenetur! Quibusdam mollitia alias repudiandae? Quisquam dolorum
-      tempora
-      delectus nostrum voluptas repellat sed rerum veritatis dolores! Quasi quod perferendis corrupti! Autem laudantium
-      officiis dolores nobis sapiente quidem rerum est neque molestias tenetur accusamus, ducimus quibusdam dicta
-      aliquid
-      iusto animi modi explicabo quasi repudiandae corporis odio vitae. Illo assumenda, omnis eius nam voluptas error
-      sequi
-      autem cum! Quod ullam voluptas facilis nemo quasi, labore odit corporis nobis sed? Amet commodi ex illo ab
-      molestias id.
-      Impedit recusandae consequuntur maxime quam nulla dicta nisi, ut laborum dignissimos incidunt sunt deserunt quas
-      quasi
-      provident! Tempora voluptatem repellendus odit voluptas praesentium cumque quam! Nostrum vero sit totam delectus
-      dolorum
-      corrupti nulla distinctio similique cupiditate aliquid. Ratione cum quisquam consequuntur modi repellendus quis
-      officiis
-      suscipit alias at recusandae, quibusdam culpa asperiores, animi, delectus esse dolorem corporis. Libero qui ut
-      consequatur suscipit omnis aliquid molestiae nulla velit laborum, unde nam sint facere labore. Numquam, eos
-      adipisci
-      quisquam eveniet libero debitis facere officiis. Doloremque iusto, ducimus dolorem sed debitis, inventore tenetur
-      laborum, non impedit ea nesciunt cumque temporibus. Reiciendis illo fugit tempore nam modi perspiciatis
-      repudiandae
-      aliquid aperiam sapiente repellendus laborum, voluptatibus molestias, numquam velit. Dolor quaerat illum quibusdam
-      consequatur quas fugiat cupiditate, dolore autem ut voluptatem reiciendis veritatis optio. Dolorem sunt eum
-      facilis
-      earum provident sit atque est magnam nemo cum. Possimus, dolorum quaerat. Ipsa earum iste quos distinctio quod!
-      Eius
-      consectetur quod, perspiciatis delectus hic non repellat aut quisquam fuga officiis est unde consequuntur id optio
-      sapiente quos molestias ratione corporis mollitia! Numquam harum voluptatibus totam cum saepe nobis placeat
-      quisquam
-      consectetur deleniti eius eos fuga quam maxime excepturi hic assumenda rem aspernatur quae inventore dolore ipsum,
-      nulla
-      est error repudiandae! Obcaecati, inventore laudantium magni quidem necessitatibus facere, porro totam velit ex
-      architecto nobis accusamus excepturi eum sint nulla a dicta! Quasi consequuntur rerum maxime reiciendis quia iure
-      error
-      nulla nam dolores soluta. Recusandae, dolor. Eum veritatis maiores laudantium amet, neque fugiat quae atque
-      perspiciatis
-      repellat suscipit magnam, quia cumque iste pariatur aliquam consequatur saepe id, sed tempora dolorem. Saepe iusto
-      corrupti, quae, sapiente facilis quos doloribus similique, error nisi cumque mollitia. Doloribus natus hic
-      similique
-      veritatis corporis alias est excepturi et saepe voluptatibus mollitia ratione voluptas, impedit accusamus fugiat
-      pariatur numquam fuga labore voluptate quisquam atque quaerat vero? Odio sunt, aliquid debitis rem quam dolores
-      perferendis obcaecati. Officiixsaxs, repudiandae aspernatur praesentium repellat suscipit commodi nulla cum
-      delectus
-      possimus quam maxime. Nobis quasxxcvc i fugit repellendus sunt error earum laudantium corrupti, porro omnis?
-      Laudantium
-      est,
-      assumenda consequuntur debitis bugiuygvecusandae numquam, sapiente accusamus cumque dolorum maiores esse, fuga
-      officiis
-      tempora! Sapiente odit soluta cumque quis ea inventore id tempore reprehenderit, iste numquam minus explicabo
-      delectus
-      accusamus. Dolor hic nihil inventore vitae est esse ea amet, quidem adipisci quia tenetur temporibus distinctio
-      ipsa.
-      Unde minima hic voluptas neque ratione eligendi blanditiis libero, repellat dolorum rem architecto amet tempore
-      harum
-      tenetur molestiae aperiam facilis alias consequuntur reprehenderit aliquam autem tempora assumenda eaque. Nihil
-      dicta
-      delectus omnis ducimus nostrum veniam eligendi architecto, maxime dolores neque, illum id totam cum odit non
-      ratione
-      nisi perferendis voluptatem perspiciatis voluptate consequuntur itaque hic. Est impedit voluptatem asperiores
-      placeat
-      error. Corrupti delectus maxime accusamus nesciunt numquam iure mollitia quam quibusdam velit neque voluptas
-      repellendus
-      tempora distinctio suscipit omnis provident, animi deleniti officia voluptates nisi eligendi vero! Assumenda
-      molestiae
-      magni iste consectetur excepturi reiciendis neque consequuntur autem suscipit ut iusto obcaecati reprehenderit
-      optio
-      ullam deserunt nesciunt omnis eos quibusdam labore, deleniti odio tempora doloremque? Nam ratione perspiciatis ab
-      quidem
-      ducimus consequuntur corrupti ullam exercitationem, nulla officia commodi rem porro mollitia et natus nisi quos
-      aut
-      odio! Officia atque placeat, rem unde quod ullam quidem eaque cumque doloremque nam autem at consequatur dolores
-      id
-      corporis accusantium vel labore. Nulla aliquam, commodi modi fugit deleniti doloremque obcaecati pariatur velit
-      nobis?
-      Perspiciatis sunt aut molestiae tenetur, eveniet ipsam libero aspernatur eaque quod quibusdam tempora quisquam
-      delectus,
-      aperiam earum dolorem atque, rerum eos rem! Eius provident iure laudantium quos explicabo odio, nemo quas sapiente
-      adipisci tempore dolorum expedita dolor ad molestiae sunt aut nulla beatae id tempora culpa soluta perspiciatis
-      nam
-      repellendus hic. Facere laboriosam deserunt id doloremque eius, maiores rerum tempora saepe fuga, doloribus itaque
-      cum
-      temporibus, deleniti dicta quasi consequuntur! Natus id quae quam earum. Repellat aliquam ullam minima odit
-      numquam
-      asperiores ipsum mollitia debitis ut necessitatibus. Incidunt architecto numquam accusamus, eveniet, facere rerum
-      repudiandae quam natus illo dolorem eligendi minus. Ipsum voluptatum sequi officiis suscipit, nihil id, vero
-      veniam
-      culpa quam neque temporibus in quo. At aliquid quod est magnam deleniti saepe vel cupiditate voluptatem sequi,
-      praesentium, voluptas in facere sit aspernatur, eligendi rem consectetur! Officia est sapiente placeat natus sequi
-      provident perferendis assumenda, sunt a eum voluptate illum sed autem, vitae saepe adipisci beatae. Dolore,
-      officia
-      voluptates! Eveniet minima pariatur nesciunt asperiores adipisci, nemo fugiat vel deserunt non laborum
-      repudiandae,
-      tenetur cum accusamus labore iste eaque ex doloremque temporibus. Amet quaerat quod iusto, delectus impedit,
-      reiciendis
-      illo, repudiandae obcaecati provident eaque inventore velit possimus sunt! Molestiae ratione provident sint
-      repellendus
-      quaerat dolore consequuntur inventore fugiat qui neque corrupti eaque error veniam eveniet assumenda, at eos magni
-      voluptatem dicta? Quisquam quos perspiciatis eos accusantium recusandae laborum, eum totam vel ex veniam ut quam
-      voluptatem ea atque alias neque unde harum, labore doloribus facilis nisi sunt quibusdam. Totam exercitationem
-      atque
-      quia sed illum molestiae nostrum natus odit omnis esse rerum eligendi hic consequatur dolore modi aut quis tenetur
-      in ex
-      accusamus recusandae, iusto voluptatem! Corrupti earum provident dolores itaque quibusdam architecto eveniet
-      accusamus
-      repellendus! Ut rem doloremque adipisci velit, eos delectus aperiam, eligendi architecto saepe rerum error natus
-      deserunt sed quia minima quidem officia ipsam labore sunt quas? Quae accusantium magnam ipsum a esse amet, eos
-      perferendis dolor, ipsam excepturi vitae, officia suscipit animi maiores veritatis aperiam? Alias, sapiente iste
-      laborum
-      autem est sequi facilis excepturi dolore. Numquam at earum ratione consequuntur odit, eligendi sit mollitia
-      inventore
-      voluptatibus, quas maxime atque amet architecto nobis, porro molestias! Tempora quia dignissimos expedita
-      molestias quas
-      iusto aut nulla iure possimus, qui excepturi culpa voluptatum reprehenderit quaerat voluptas commodi itaque
-      consequuntur
-      autem eligendi repellat beatae voluptate! Aut, asperiores, neque inventore nemo enim illo expedita quam autem
-      dolorum ab
-      tempore quasi tenetur cum nam hic consectetur, atque sint exercitationem voluptatem nisi doloribus necessitatibus
-      sit
-      reiciendis repudiandae. Maiores, et? Veniam suscipit odio error ad amet nulla labore unde perspiciatis commodi.
-      Repellendus sint nobis, dolorem dicta omnis debitis ipsam quod sed minima eius voluptatibus perferendis, maxime
-      necessitatibus consequuntur exercitationem. Dolor velit hic perspiciatis ad. Cumque, pariatur! Minus incidunt
-      dolor
-      debitis enim? Dolorem perspiciatis cupiditate aut nulla illum provident. Aut corrupti quod minima velit veniam
-      quibusdam
-      rem ad itaque unde, enim autem excepturi animi praesentium consequatur aspernatur, atque nemo sit quis ut
-      molestiae
-      quisquam id. Rem laborum laudantium error at delectus neque quasi tenetur id, ex aperiam, dolorum, voluptatum
-      debitis
-      cum facilis impedit sapiente! Dolore neque sequi est officiis debitis quibusdam pariatur doloremque. Recusandae
-      amet
-      nobis error ipsa qui officiis dolorem ratione atque quia? Doloremque fugiat iusto soluta nemo mollitia nesciunt
-      quos
-      explicabo odit sint ad quis officiis, porro id hic tempore est modi nostrum laboriosam, corrupti dolor? Doloremque
-      excepturi dolor expedita, magnam, ab animi veniam neque porro dolorum impedit, sed ullam eum voluptas voluptates
-      facilis
-      minus repellat autem libero commodi quia? Nihil, deleniti voluptatum. Accusamus facere tempora sint quia minus sit
-      expedita earum delectus possimus illo eveniet, aperiam recusandae laboriosam iusto esse explicabo, sequi neque
-      soluta,
-      voluptatum eius laudantium a! Saepe eaque ex quibusdam odio amet voluptate error dignissimos incidunt ipsa vitae
-      libero
-      dolorum dolores in maiores iusto corrupti corporis nulla, asperiores earum, aspernatur nobis! Dolores alias eius
-      inventore molestiae deleniti tempora ipsum cumque dignissimos quos error aliquid, porro, harum, consequuntur
-      aliquam sed
-      quo praesentium? Eum sequi voluptatem praesentium nulla reiciendis quos illum rerum similique nemo natus.
-      Repellendus
-      quaerat nihil rerum consequatur! Distinctio accusamus, voluptas debitis est dolor similique a iure perferendis sed
-      unde
-      doloribus pariatur necessitatibus odio ea! Eos, eaque itaque similique deleniti fuga illum recusandae repellendus
-      ducimus non temporibus expedita soluta ratione accusantium, id voluptatem suscipit harum molestiae, ipsum esse
-      nobis.
-      Fugit ipsam autem tenetur voluptatum ad voluptatibus quia aliquam dolore non, tempore explicabo odit suscipit
-      ducimus
-      minima consequatur? Hic, sequi ut doloribus provident nihil et aut repudiandae beatae nemo, perspiciatis explicabo
-      voluptas quibusdam id quis a vitae necessitatibus libero sed repellendus fugit inventore unde delectus porro.
-      Iusto ea
-      harum quos nam. Nemo, architecto quisquam voluptate dignissimos voluptas, doloremque optio quod, earum itaque
-      obcaecati
-      blanditiis. Corrupti tempore nemo esse quibusdam soluta aliquam, veniam molestias pariatur nisi blanditiis aliquid
-      animi
-      asperiores nesciunt vitae atque excepturi, sit nihil, harum non consectetur sint ea deleniti architecto. Hic
-      possimus
-      tempore perspiciatis ipsam error eius, odio eveniet doloremque soluta facere ea minus accusantium quod ipsa
-      incidunt.
-      Praesentium dolore, hic pariatur reiciendis dolorem ut molestiae doloremque adipisci quo, voluptatibus quos
-      perspiciatis
-      quis quod in distinctio quidem dicta accusamus architecto, vel a consequatur ratione amet laboriosam provident! Ex
-      fugiat fugit culpa eius est, deleniti suscipit amet aliquid quasi quaerat earum sint nesciunt. Voluptates
-      assumenda
-      alias quibusdam autem error, laboriosam sequi, nihil ut itaque eveniet ullam. Repellendus, vel tempora ea quidem
-      nam
-      adipisci animi est cum dolorum tenetur maxime repudiandae ratione suscipit nobis explicabo distinctio alias modi
-      laboriosam accusantium ut tempore officiis provident beatae! Quis quisquam perferendis tenetur cum architecto,
-      obcaecati
-      distinctio incidunt. Dicta, asperiores magni? Animi, velit veniam. Veritatis recusandae laudantium eos, dolore
-      placeat
-      ab dolorum cum nobis reiciendis? Illum, omnis ducimus?
-    </p>
+  <div class="liar"></div>
+  <div class="logo">
+    <img src="https://lsi.slaskie.pl/public/img/logo_2014-2020.png" alt="logo UE">
   </div>
+  <div class="container">
+    <div class="intro">
+      <div class="intro-box">
+        <h1 class="primary-intro-title">Wniosek o stypendium</h1>
+        <h2 class="intro-sub-title">Śląskie. Inwestujemy w talenty. VII edycja.</h2>
+        <h3 class="ssecondary-intro-title">Numer wniosku: <span> <strong> WN-1000-v1</strong></span> </h3>
+
+
+      </div>
+    </div>
+    <div class="part-title">CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY</div>
+
+    <div class="row">
+      <div class="small-box-container">
+        <div class="small-box-title">Dane osobowe wnioskodwcy:</div>
+        <div class="small-box">
+          <div class="small-box-left">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Imię:</div>
+              <div name="name" class="normal-input"><span>Maria</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div name="name" class="normal-input"><span>Kowalska-Wiśniewska</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Status prawny:</div>
+              <div name="name" class="normal-input"><span>Rodzic/opieki prawny</span></div>
+            </div>
+          </div>
+
+          <div class="small-box-right">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Telefon kontaktowy:</div>
+              <div name="name" class="normal-input"><span>501 768 456</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Email:</div>
+              <div name="name" class="normal-input"><span>januszek@gmail.com</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Konto ePuap</div>
+              <div name="name" class="normal-input"><span>grKonto_pol</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="small-box-container">
+        <div class="small-box-title">Dane osobowe uczennicy/ucznia:</div>
+        <div class="small-box">
+          <div class="small-box-left">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Imię:</div>
+              <div name="name" class="normal-input"><span>Jan</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div name="name" class="normal-input"><span>Martyniuk</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">PESEL:</div>
+              <div name="name" class="normal-input"><span>67364645367</span></div>
+            </div>
+          </div>
+
+          <div class="small-box-right">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Telefon kontaktowy:</div>
+              <div name="name" class="normal-input"><span>501 768 456</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Email:</div>
+              <div name="name" class="normal-input"><span>januszek@gmail.com</span></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="small-box-container">
+        <div class="small-box-title">Informacje o szkole:</div>
+        <div class="small-box school">
+          <div class="small-box-left">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title school-name">Nazwa:</div>
+              <div name="name" class="normal-input"><span>Szkoła im. Tadeusza Kownackiego w Siemianowicach
+                  Śląskich</span></div>
+            </div>
+
+            <div class="flex-2">
+              <div class="normal-input-container adress">
+                <div for="name" class="normal-input-title">Adres:</div>
+                <div name="name" class="normal-input gap-right"><span>Technikum</span></div>
+              </div>
+              <div class="normal-input-container zip">
+                <div for="name" class="normal-input-title">Kod pocztowy:</div>
+                <div name="name" class="  normal-input"><span>42-620</span></div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="small-box-right">
+            <div class="flex-3">
+              <div class="normal-input-container town">
+                <div for="name" class="normal-input-title">Miejscowość:</div>
+                <div name="name" class="normal-input gap-right"><span>januszek@gmail.com</span></div>
+              </div>
+              <div class="normal-input-container type">
+                <div for="name" class="normal-input-title type">Rodzaj:</div>
+                <div name="name" class="normal-input"><span>Tehnikum</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="small-box-container">
+        <div class="small-box-title">Dane kandydata na opiekuna dydaktycznego:</div>
+        <div class="small-box">
+          <div class="small-box-left">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Imię:</div>
+              <div name="name" class="normal-input"><span>Grzegorz</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div name="name" class="normal-input"><span>Warazyniak</span></div>
+            </div>
+            <div class="normal-input-container ghost">
+              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div name="name" class="normal-input"><span>Warazyniak</span></div>
+            </div>
+
+          </div>
+
+          <div class="small-box-right">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Profil:</div>
+              <div name="name" class="normal-input"><span>Pedagog szkolny</span></div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="small-box-container">
+        <div class="small-box-title">Podstawowe kryteria oceny:</div>
+        <div class="small-box">
+          <div class="small-box-left">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Matematyka</div>
+              <div name="name" class="normal-input"><span>6</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Inny przedmiot (fizyka):</div>
+              <div name="name" class="normal-input"><span>5</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Średnia wszystkich przedmiotów</div>
+              <div name="name" class="normal-input"><span>5.15-5.34</span></div>
+            </div>
+          </div>
+
+          <div class="small-box-right">
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Język obcy (niemiecki):</div>
+              <div name="name" class="normal-input"><span>5</span></div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">Średnia przedm.kierunkowych:</div>
+              <div name="name" class="normal-input"><span>5.33</span></div>
+            </div>
+            <div class="normal-input-container ghost">
+              <div for="name" class="normal-input-title">Konto ePuap</div>
+              <div name="name" class="normal-input"><span>grKonto_pol</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="small-box-container">
+        <div class="small-box-title">Dodatkowe kryteria oceny:</div>
+        <div class="small-box additional">
+
+          <div class="normal-input-container">
+            <div class="text-container">
+              Laureat/ka lub finalista konkursu o zasiegu co najmniej wojewódzkim lub olimpiady/turnieju co najmniej
+              II
+              stopnia:</div>
+            <div name="name" class="normal-input seven"><span>Tak</span></div>
+
+          </div>
+          <div class="normal-input-container">
+            <div class="text-container"> Uczeń/uczennica posiada w roku szkolnym 2019/2020 zezwolenie na uczestnictwo,
+              ze względu na
+              szczególne
+              uzdolnienia
+              w indywidualnym programie nauczania:</div>
+            <div name="name" class="normal-input seven"><span>Nie</span></div>
+          </div>
+          <div class="normal-input-container">
+            <div class="text-container"> Uczeń/uczennica posiada aktualne na dzień składania wniosku orzeczenie o
+              niepełnosprawności lub
+              orzeczenie
+              o stopniu
+              niepełnosprawności lub orzeczenie o potrzebie kształcenia specjalnego:</div>
+            <div name="name" class="normal-input seven"><span>Tak</span></div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="next-page"></div>
+    <div class="part-title">CZĘŚĆ B – PLAN ROZWOJU UCZNIA</div>
+
+    <div class="row">
+      <div class="small-box-container">
+        <div class="small-box-title">Cele edukacyjne i rezultaty planowane do osiągnięcia w trakcie otrzymywania
+          stypendium:</div>
+        <div class="small-box">
+          <div class="small-box-left">
+
+            <div class="normal-input-container">
+              <h3 class="reversed">Tabela 1</h3>
+              <div for="name" class="normal-input-title">Przedmiot kierunkowy: </div>
+              <div name="name" class="normal-input half"><span>matematyka</span></div>
+            </div>
+            <div class="sub-title">Wybrane rezultaty:</div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">1. <span>Przygotowanie wystawy z zakresu: </span></div>
+              <div name="name" class="normal-input">Bonbon gummi bears liquorice gummies. Fruitcake cheesecake sesame
+                snaps wafer croissant liquorice gummies wafer jelly.
+                Fruitcake croissant muffin. Gummies tiramisu pie chocolate carrot cake danish biscuit. Caramels
+                croissant lollipop
+                gingerbread tart topping. Candy halvah biscuit cake muffin jujubes chocolate. Lemon drops dessert toffee
+                jelly-o wafer
+                carrot cake gingerbread danish. Gingerbread jelly-o marzipan candy lollipop sugar plum cupcake jelly
+                jujubes. Macaroon
+                biscuit cookie tootsie roll cotton candy pudding. Macaroon ice cream sugar plum jujubes. Tart candy
+                cupcake. Dragée
+                caramels macaroon sesame snaps tart. Caramels cake danish biscuit.</div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">2. <span>Udział w konkursie przedmiotowym /olimpiadzie
+                  przedmiotowej i
+                  uzyskanie tytułu laureata lub finalisty</span></div>
+              <div name="name" class="normal-input">Cake gummies sesame snaps. Fruitcake gummi bears icing. Sweet
+                biscuit icing cake dragée. Donut cake jelly beans.
+                Caramels gummies tart macaroon. Sweet roll fruitcake bonbon. Marzipan carrot cake tart marshmallow
+                lollipop. Caramels
+                biscuit oat cake croissant oat cake lemon drops lemon drops. Chocolate marshmallow cheesecake. Dragée
+                liquorice jujubes.
+                Chupa chups brownie powder toffee candy. Pastry chupa chups topping donut biscuit sesame snaps lollipop.
+                Sweet
+                cheesecake brownie jelly beans sugar plum cotton candy carrot cake. Caramels carrot cake candy jelly
+                candy canes muffin.</div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">3. <span>Przygotowanie wystawy z zakresu </span></div>
+              <div name="name" class="normal-input">Pastry pudding halvah brownie. Chocolate cake gummies chocolate cake
+                cookie chupa chups donut. Pie chocolate pastry
+                biscuit jujubes pastry dragée powder cheesecake. Cookie halvah jelly-o cake chocolate. Donut halvah
+                chocolate bar
+                cheesecake tootsie roll jelly-o tart dragée tootsie roll.</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="small-box down-table">
+          <div class="small-box-left">
+
+            <div class="normal-input-container">
+              <h3 class="reversed">Tabela 2</h3>
+              <div for="name" class="normal-input-title">Przedmiot kluczowy: </div>
+              <div name="name" class="normal-input half"><span>język chiński</span></div>
+            </div>
+            <div class="sub-title">Wybrane rezultaty:</div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">1. <span>Przygotowanie wystawy z zakresu:</span></div>
+              <div name="name" class="normal-input">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat minima voluptatum ipsa nobis
+                voluptatibus eius rem iste ea, ut nisi mollitia nesciunt, porro fugiat illum! Similique dicta quo eaque?
+                Quod veritatis recusandae beatae totam a amet dolor. Impedit optio molestiae eligendi iusto distinctio
+                atque qui id aliquam? Impedit, adipisci tempora.</div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">2. <span>Udział w konkursie przedmiotowym /olimpiadzie
+                  przedmiotowej i
+                  uzyskanie tytułu laureata lub finalisty</span></div>
+              <div name="name" class="normal-input">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem sint
+                exercitationem expedita tenetur. Eaque, amet voluptatibus facilis blanditiis nostrum doloribus
+                laudantium architecto aut ducimus ad alias autem excepturi illo reprehenderit itaque vel tempore eos
+                error, corrupti dolores. Officiis neque, maiores qui error corrupti iure harum ipsa voluptatum ut
+                necessitatibus pariatur repellendus eaque cum impedit placeat? Veritatis odit sequi quos harum ipsa
+                architecto repellendus? Corrupti voluptatum magnam architecto, inventore nobis labore? Vitae illum
+                cumque temporibus illo, tenetur molestiae inventore dolorem beatae animi reprehenderit, laborum
+                architecto, suscipit atque porro asperiores nesciunt </div>
+            </div>
+            <div class="normal-input-container">
+              <div for="name" class="normal-input-title">3. <span> Przygotowanie wystawy z zakresu: </span></div>
+              <div name="name" class="normal-input">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, error
+                eius voluptate nisi rem aliquid velit dolores similique voluptatum soluta quidem sequi necessitatibus.
+                Quas, tempore, laborum quidem natus similique ad assumenda necessitatibus sit facilis, provident officia
+                unde in! Labore ad eos eaque quaerat doloribus aliquid fugiat asperiores fugit, quo dolores rem voluptas
+                blanditiis consectetur autem pariatur esse aperiam, dolorum quidem maiores, molestiae temporibus nihil
+                impedit totam. Libero voluptatibus vel itaque?</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="next-page"></div>
+
+    <div class="part-title expenses">PLAN WYDATKÓW:</div>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            LP
+          </th>
+          <th>
+            Katalog wydatków
+          </th>
+          <th>
+            Szacunkowy koszt
+            (wpisz kwotę w zł
+            przy wybranym katalogu wydatków)
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            1
+          </td>
+          <td>
+            Zakup pomocy dydaktycznych i przyborów szkolnych
+          </td>
+          <td class="cost">
+            <span> 2000 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            2
+          </td>
+          <td>
+            Wydatki związane z wyposażeniem miejsca domowej nauki
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            3
+          </td>
+          <td>
+            Zakup sprzętu komputerowego wraz z oprogramowaniem i akcesoriami
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            4
+          </td>
+          <td>
+            Zakup sprzętu elektronicznego
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            5
+          </td>
+          <td>
+            Opłaty związane z dostępem do Internetu
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            6
+          </td>
+          <td>
+            Koszty transportu ponoszone przez ucznia/uczennicę w celu dotarcia
+            do szkoły oraz na dodatkowe zajęcia edukacyjne. (Nie dotyczy kosztów
+            związanych z zakupem paliwa samochodowego)
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            7
+          </td>
+          <td>
+            Opłaty za kursy, szkolenia
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            8
+          </td>
+          <td>
+            Wydatki zawiązane z wyposażeniem ucznia/uczennicy niezbędnym dla
+            realizacji potrzeb edukacyjno-rozwojowych wskazanych w PRU
+
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td>9
+          </td>
+          <td>
+            Opłaty szkolne
+
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td>10
+          </td>
+          <td>
+            Koszty uczestnictwa w konkursach, turniejach, olimpiadach
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td>11
+          </td>
+          <td>
+            Koszty uczestnictwa w kulturze wysokiej
+          </td>
+          <td class="cost">
+            <span> 0 zł</span>
+          </td>
+        </tr>
+      </tbody>
+
+
+
+      <tfoot>
+
+
+
+        <tr>
+          <td class="sum" colspan="2"> Razem
+
+          <td class="cost sum">
+            <span> 2 200 zł</span>
+          </td>
+        </tr>
+
+
+
+
+
+        <tr>
+          <td class="text" colspan="3"> Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu wskazanym w
+            § 8 ust. 5 Regulaminu - jeśli dotyczy:
+        </tr>
+
+        <tr>
+          <td colspan="3">
+            <div name="" id="" cols="30" rows="10"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
+              placeat deleniti beatae necessitatibus autem! Dolores, cum possimus quibusdam fugiat necessitatibus
+              accusantium expedita autem ab consequuntur odio dolor ad exercitationem reprehenderit ipsum beatae eaque
+              aut hic ut vero. Eveniet incidunt rem voluptatum dolores dolore tempora architecto deleniti consectetur
+              repellat cumque distinctio assumenda error, inventore aliquid eos. Corporis quas ab, ducimus error, quia
+              esse cum reiciendis molestiae, enim nostrum natus quasi debitis dignissimos asperiores doloribus non minus
+              iusto earum ipsum? Placeat dicta voluptatem a fuga corrupti quidem officiis perferendis necessitatibus qui
+              nobis iusto accusamus repudiandae blanditiis molestiae eius iure, facere modi perspiciatis exercitationem
+              obcaecati excepturi. Iusto in itaque, saepe incidunt magnam alias odio praesentium ut est sit laborum
+              cupiditate aspernatur et delectus veritatis iste reiciendis at consequuntur id beatae excepturi ipsum
+              repellendus! Itaque dolorum reprehenderit soluta, eveniet natus tempore dignissimos, necessitatibus
+              facilis unde possimus saepe assumenda quod, quidem blanditiis? Nemo, necessitatibus inventore!
+            </div>
+        </tr>
+
+
+        <tr>
+          <td class="text" colspan="3">Uzasadnienie zakupu sprzętu tożsamego z już zakupionym sprzętem ze środków
+            stypendialnych
+            otrzymanych w ramach projektu „Śląskie. Inwestujemy w talenty – V edycja” - jeśli dotyczy:
+        </tr>
+
+        <tr>
+          <td colspan="3">
+            <div name="" id="" cols="30" rows="10"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
+              nostrum error non minus, nesciunt quo doloribus corporis earum magnam veritatis blanditiis, quas nobis
+              ratione distinctio. Aperiam nihil quibusdam minus quam consectetur earum aliquid labore explicabo atque
+              non est qui velit nulla sit, nam nesciunt exercitationem ipsam aspernatur incidunt repudiandae,
+              consequuntur rem quis dicta molestiae. Eos doloremque voluptate, nihil porro nobis alias illum atque odit
+              voluptas voluptatem totam temporibus aliquid? Suscipit inventore voluptate dolores repellat saepe,
+              assumenda autem aut dolorem. Distinctio ut praesentium possimus facere iste quod nulla quo expedita,
+              consectetur quos eaque neque impedit natus laudantium perferendis quidem totam voluptas, repellat aliquid
+              quaerat ducimus voluptate illo, quasi aut. Sapiente, sed at in assumenda doloribus molestiae tempora id
+              necessitatibus, facere libero temporibus vitae. Alias minus, quidem voluptatum vitae distinctio
+              perspiciatis laborum, incidunt sapiente veniam nobis assumenda, ex optio beatae non doloribus consequatur?
+              Consequatur numquam officia, aut doloribus iste illo et possimus soluta veritatis molestias expedita odio
+              magni voluptas cupiditate eligendi, delectus enim voluptatem quas. Facilis, esse est. Hic non dolor ullam
+              earum iusto et corrupti quidem velit quas dolorum dolores eaque autem reprehenderit repellendus, soluta
+              corporis maxime ducimus illum laudantium atque omnis ipsum quae. Earum, repudiandae. Eos eum libero
+              tempora? Deleniti.
+            </div>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="next-page"></div>
+
+    <div class="part-title expenses">OŚWIADCZENIA:</div>
+    <div class="small-box statements">
+      <div class="small-box-left">
+        <br />
+        <br />
+        <h3>Oświadczenia rodzica/opiekuna prawnego niepełnoletniego ucznia / uczennicy lub pełnoletniego ucznia /
+          uczennicy</h3>
+        <div className='intro'>
+          W związku z przystąpieniem do projektu pn. Śląskie. Inwestujemy w
+          talenty – VI edycja:
+        </div>
+
+        <ol>
+          <li>
+            Oświadczam, iż:
+            <ol type='a'>
+              <li>
+                uczeń / uczennica, o którym / której mowa we Wniosku o
+                przyznanie stypendium, w okresie trwania zajęć
+                dydaktyczno-wychowawczych w roku szkolnym 2020/2021, będzie
+                realizować przedmiotowy Plan Rozwoju Ucznia, w tym przede
+                wszystkim pracować na rzecz osiągnięcia założonych celów
+                edukacyjnych i rezultatów w zakresie przedmiotów kierunkowych
+                wskazanych we wniosku o przyznanie stypendium i przestrzegać
+                przedłożonego planu wydatków.
+              </li>
+              <li>
+                uczeń / uczennica, o którym / której mowa we Wniosku o
+                przyznanie stypendium, w okresie trwania zajęć
+                dydaktyczno-wychowawczych w roku szkolnym 2020/2021, będzie
+                realizować przedmiotowy Plan Rozwoju Ucznia, w tym przede
+                wszystkim pracować na rzecz osiągnięcia założonych celów
+                edukacyjnych i rezultatów w zakresie przedmiotów kierunkowych
+                wskazanych we wniosku o przyznanie stypendium i przestrzegać
+                przedłożonego planu wydatków.
+              </li>
+            </ol>
+          </li>
+          <li>
+            Zobowiązuję się do poinformowania Departamentu Europejskiego
+            Funduszu Społecznego o zaprzestaniu sprawowania opieki dydaktycznej
+            przez kandydata na opiekuna dydaktycznego lub opiekuna
+            dydaktycznego,
+          </li>
+          <li>
+            Oświadczam, że informacje zawarte w niniejszym wniosku są zgodne z
+            prawdą.
+          </li>
+          <li>
+            Oświadczam, że zapoznałem/am się ze wzorem umowy stypendialnej, a
+            także pozostałą dokumentacją projektową
+          </li>
+          <li>
+            Oświadczam, że zapoznałem/am się z Regulaminem przyznawania
+            stypendiów w ramach projektu Śląskie. Inwestujemy w talenty - VI
+            edycja realizowanego w ramach Regionalnego Programu Operacyjnego
+            Województwa Śląskiego na lata 2014-2020 i akceptuję wszystkie jego
+            postanowienia
+          </li>
+          <li>
+            Oświadczam, iż posiadam oryginały dokumentów dołączonych do Wniosku
+            i zobowiązuję się do ich przedstawienia na wezwanie Beneficjenta.
+          </li>
+          <li>
+            Oświadczam, iż planowane w obrębie katalogów 2-4 wydatki nie są
+            tożsame z już zakupionym sprzętem ze środków stypendialnych
+            otrzymanych w ramach projektu „Śląskie. Inwestujemy w talenty – V
+            edycja”, z wyłączeniem sytuacji w której ich planowany zakup został
+            uzasadniony we wniosku.
+          </li>
+          <li>
+            Oświadczam, iż informacje zawarte we wniosku i załącznikach są
+            zgodne ze stanem faktycznym i jestem świadomy odpowiedzialności
+            karnej dotyczącej składania nierzetelnych, pisemnych oświadczeń co
+            do okoliczności o istotnym znaczeniu dla uzyskania wsparcia.
+          </li>
+          <li>
+            Przyjmuję do wiadomości, iż:
+            <ol type='a'>
+              <li>
+                Administratorem danych osobowych jest Zarząd Województwa
+                Śląskiego, z siedzibą przy ul. Ligonia 46, 40-037 Katowice,
+                adres email: kancelaria@slaskie.pl, strona internetowa:
+                bip.slaskie.pl, www.slaskie.pl;
+              </li>
+              <li>
+                Została wyznaczona osoba do kontaktu w sprawie przetwarzania
+                danych osobowych (inspektor ochrony danych), adres email:
+                daneosobowe@slaskie.pl;
+              </li>
+              <li>
+                Moje dane osobowe, w związku ze złożeniem wniosku o przyznanie
+                stypendium w ramach programu wspierania edukacji uzdolnionej
+                młodzieży, będą przetwarzane w celu obsługi i realizacji
+                projektu Śląskie. Inwestujemy w talenty – VI edycja, w tym:
+                <ul>
+                  <li>rekrutacji uczniów do projektu;</li>
+                  <li>odpisywania umów cywilnoprawnych;</li>
+                  <li>
+                    organizacji przedsięwzięć dotyczących informacji i promocji
+                    projektu (działania te mogą obejmować także upublicznianie
+                    wizerunku);
+                  </li>
+                  <li>archiwizacji dokumentacji projektu.</li>
+                </ul>
+                Moje dane osobowe w przypadku zakwalifikowania (przyznania
+                stypendium) do projektu dofinansowanego ze środków Regionalnego
+                Programu Operacyjnego Województwa Śląskiego na lata 2014-2020
+                (RPO WSL) będą przetwarzane także do celów:
+                <ul>
+                  <li> udzielenia wsparcia;</li>
+
+                  <li> potwierdzenia kwalifikowalności wydatków;</li>
+                  <li> monitoringu;</li>
+                  <li> ewaluacji;</li>
+                  <li> kontroli; </li>
+                  <li> audytu prowadzonego przez upoważnione instytucje; </li>
+                  <li> sprawozdawczości;</li>
+                  <li> rozliczenia projektu;</li>
+                  <li>
+
+                    odzyskiwania wypłaconych beneficjentowi środków
+                    dofinansowania;
+                  </li>
+                  <li> zachowania trwałości projektu; </li>
+                  <li> badań i analiz; </li>
+                  <li>
+
+                    działania informacyjno-promocyjne w ramach RPO WSL
+                    2014-2020;
+                  </li>
+                  <li>archiwizacji.</li>
+                </ul>
+                Podstawą prawną przetwarzania moich danych osobowych jest
+                obowiązek prawny ciążący na administratorze (art. 6 ust. 1 lit.
+                c oraz art. 9 ust. 2 lit. g Rozporządzenia Parlamentu
+                Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w
+                sprawie ochrony osób fizycznych w związku z przetwarzaniem
+                danych osobowych i w sprawie swobodnego przepływu takich danych
+                oraz uchylenia dyrektywy 95/46/WE – dalej: RODO), wynikający z:
+                <ul>
+                  <li>
+                    ustawy z dnia 11 lipca 2014 r. o zasadach realizacji
+                    programów w zakresie polityki spójności finansowanych w
+                    perspektywie finansowej 2014-2020 - w szczególności art. 6 i
+                    9;
+                  </li>
+                  <li>
+                    rozporządzenia Parlamentu Europejskiego i Rady (UE) nr
+                    1303/2013 z dnia 17 grudnia 2013 r. ustanawiające wspólne
+                    przepisy dotyczące Europejskiego Funduszu Rozwoju
+                    Regionalnego, Europejskiego Funduszu Społecznego, Funduszu
+                    Spójności, Europejskiego Funduszu Rolnego na rzecz Rozwoju
+                    Obszarów Wiejskich oraz Europejskiego Funduszu Morskiego i
+                    Rybackiego oraz ustanawiające przepisy ogólne dotyczące
+                    Europejskiego Funduszu Rozwoju Regionalnego, Europejskiego
+                    Funduszu Społecznego, Funduszu Spójności i Europejskiego
+                    Funduszu Morskiego i Rybackiego oraz uchylające
+                    rozporządzenie Rady (WE) nr 1083/2006 – w szczególności art.
+                    125;
+                  </li>
+                  <li>
+                    rozporządzenia Parlamentu Europejskiego i Rady (UE) nr
+                    1304/2013 z dnia 17 grudnia 2013 r. w sprawie Europejskiego
+                    Funduszu Społecznego i uchylające rozporządzenie Rady (WE)
+                    nr 1081/2006 – w szczególności załącznik nr 1;
+                  </li>
+                  <li>
+                    ustawy z dnia z dnia 5 czerwca 1998 r. o samorządzie
+                    województwa – w szczególności art. 11;
+                  </li>
+                  <li>
+                    ustawy z dnia 7 września 1991 r. o systemie oświaty – art.
+                    90t.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Moje dane osobowe będą ujawniane osobom upoważnionym przez
+                administratora danych osobowych w związku z realizacją celów o
+                których mowa w lit. c, podmiotom upoważnionym na podstawie
+                przepisów prawa, dostawcom systemów informatycznych i usług IT,
+                operatorowi pocztowemu lub kurierowi, podmiotom realizującym
+                badania ewaluacyjne lub inne działania związane z realizacją
+                Regionalnego Programu Operacyjnego Województwa Śląskiego na lata
+                2014 - 2020 na zlecenie Instytucji Zarządzającej lub
+                Beneficjenta w tym analiz, ekspertyz, ministrowi właściwemu do
+                spraw rozwoju regionalnego, wykonawcom/organizatorom
+                przedsięwzięć dotyczących informacji i promocji projektu,
+                podmiotom realizującym archiwizację, stronom i innym uczestnikom
+                postępowań administracyjnych. Ponadto w zakresie stanowiącym
+                informację publiczną dane będą ujawniane każdemu
+                zainteresowanemu taką informacją lub publikowane w BIP Urzędu
+              </li>
+              <li>
+                Dane osobowe będą przechowywane do czasu zamknięcia Regionalnego
+                Programu Operacyjnego Województwa Śląskiego na lata 2014-2020
+                (art. 140 i 141 Rozporządzenia Parlamentu Europejskiego i Rady
+                (UE) nr 1303/2013 dnia 17 grudnia 2013 r.) bez uszczerbku dla
+                zasad regulujących pomoc publiczną oraz krajowych przepisów
+                dotyczących archiwizacji dokumentów;
+              </li>
+              <li>
+                Przysługuje mi prawo dostępu do treści swoich danych oraz prawo
+                żądania ich sprostowania, usunięcia lub ograniczenia
+                przetwarzania, prawo wniesienia skargi do Prezesa Urzędu Ochrony
+                Danych Osobowych;
+              </li>
+              <li>
+                Administrator danych osobowych, na mocy art. 17 ust. 3 lit. b
+                RODO, ma prawo odmówić usunięcia moich danych osobowych;
+              </li>
+              <li>
+                Podanie przeze mnie danych osobowych jest wymogiem ustawowym, a
+                konsekwencją ich niepodania będzie brak możliwości uczestnictwa
+                w projekcie;
+              </li>
+              <li>
+                Moje dane osobowe nie będą wykorzystywane do zautomatyzowanego
+                podejmowania decyzji ani profilowania, o którym mowa w art. 22
+                RODO.
+              </li>
+            </ol>
+          <li>
+            Udostępnię informację o swojej sytuacji na rynku pracy firmom
+            badawczym realizującym ewaluacje/analizy/ekspertyzy na zlecenie
+            Beneficjenta oraz Instytucji Zarządzającej.
+          </li>
+          </li>
+        </ol>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
 </body>
 
 </html>

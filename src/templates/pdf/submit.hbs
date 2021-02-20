@@ -11,12 +11,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
     :root {
-      --borderSizeNormal: 5px;
-      --borderSizeThin: 3px;
-      --borderSizeInput: 2px;
+      --borderSizeNormal: 3px;
+      --borderSizeThin: 2px;
+      --borderSizeInput: 1px;
       --borderColor: #444;
-      --borderRadiusInput: 6px;
-      --borderRadiusBox: 3px;
+      --borderRadiusInput: 4px;
+      --borderRadiusBox: 2px;
       --primary-background-color: #eee;
       --backgroubd-color-white: #fff;
     }
@@ -38,12 +38,12 @@
 
     h2 {
       margin: 0;
-      font-size: 20px;
+      font-size: 19px;
     }
 
     h3 {
-      font-size: 18px;
-      margin: 15px 0 10px 0;
+      font-size: 17px;
+      margin: 14px 0 9px 0;
       font-weight: 400;
     }
 
@@ -100,7 +100,7 @@
       border-radius: var(--borderRadiusBox);
       display: flex;
       background-color: var(--primary-background-color);
-      min-height: 235px;
+      min-height: 230px;
     }
 
     .normal-input-title {
@@ -113,6 +113,7 @@
       border: solid var(--borderSizeInput) var(--borderColor);
       border-radius: var(--borderRadiusInput);
       min-width: 40%;
+      min-height: 33px;
       padding: 8px 4px;
       font-size: 0.7rem;
       max-width: 97%;
@@ -125,10 +126,6 @@
       font-family: 'Lato', sans-serif;
     }
 
-    textarea {
-      font-size: 10px;
-      font-family: 'Lato', sans-serif;
-    }
 
     .small-box-right,
     .small-box-left {
@@ -208,11 +205,7 @@
       max-height: 2.5rem;
     }
 
-    .seven {
-      min-width: 7.5rem;
-      margin-right: .5rem;
-      margin-left: auto;
-    }
+
 
     .reversed {
       font-size: 1.2rem;
@@ -235,21 +228,22 @@
       max-width: 48%;
     }
 
-    textarea {
-      width: 100%;
-      font-size: 16px !important;
-    }
-
     .down-table {
       margin-top: 1rem;
-      ;
+
+    }
+
+    table,
+    tr,
+    th{
+
+      font-weight: bold;
     }
 
     table,
     tr,
     th,
     td {
-      font-weight: bold;
       border: 1px black solid;
       border-color: var(--borderColor);
       border-radius: 3px;
@@ -291,6 +285,7 @@
 
     .text {
       padding-top: 10px;
+      font-weight: bold !important;
     }
 
     .statements {
@@ -302,9 +297,17 @@
       margin-bottom: 10px;
     }
 
+
     .liar {
       min-width: 110%;
       min-height: 1px;
+    }
+
+    .seven {
+      min-width: 7.5rem;
+      margin-right: .5rem;
+      margin-left: auto;
+      height: 33px;
     }
 
     @media screen {
@@ -325,7 +328,7 @@
       <div class="intro-box">
         <h1 class="primary-intro-title">Wniosek o stypendium</h1>
         <h2 class="intro-sub-title">Śląskie. Inwestujemy w talenty. VII edycja.</h2>
-        <h3 class="ssecondary-intro-title">Numer wniosku: <span> <strong> WN-1000-v1</strong></span> </h3>
+        <h3 class="ssecondary-intro-title">Numer wniosku: <span> <strong>{{submit.numer}}</strong></span> </h3>
 
 
       </div>
@@ -339,30 +342,30 @@
           <div class="small-box-left">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Imię:</div>
-              <div name="name" class="normal-input"><span>Maria</span></div>
+              <div name="name" class="normal-input"><span>{{user.firstName}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Nazwisko:</div>
-              <div name="name" class="normal-input"><span>Kowalska-Wiśniewska</span></div>
+              <div name="name" class="normal-input"><span>{{user.lastName}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Status prawny:</div>
-              <div name="name" class="normal-input"><span>Rodzic/opieki prawny</span></div>
+              <div name="name" class="normal-input"><span>{{submit.isSelf}}</span></div>
             </div>
           </div>
 
           <div class="small-box-right">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Telefon kontaktowy:</div>
-              <div name="name" class="normal-input"><span>501 768 456</span></div>
+              <div name="name" class="normal-input"><span>{{submit.phone}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Email:</div>
-              <div name="name" class="normal-input"><span>januszek@gmail.com</span></div>
+              <div name="name" class="normal-input"><span>{{user.email}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Konto ePuap</div>
-              <div name="name" class="normal-input"><span>grKonto_pol</span></div>
+              <div for="name" class="normal-input-title">Konto ePuap:</div>
+              <div name="name" class="normal-input"><span>{{submit.epuapAdr}}</span></div>
             </div>
           </div>
         </div>
@@ -375,26 +378,26 @@
           <div class="small-box-left">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Imię:</div>
-              <div name="name" class="normal-input"><span>Jan</span></div>
+              <div name="name" class="normal-input"><span>{{submit.pupilFirstName}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Nazwisko:</div>
-              <div name="name" class="normal-input"><span>Martyniuk</span></div>
+              <div name="name" class="normal-input"><span>{{submit.pupilLastName}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">PESEL:</div>
-              <div name="name" class="normal-input"><span>67364645367</span></div>
+              <div name="name" class="normal-input"><span>{{submit.pupilPesel}}</span></div>
             </div>
           </div>
 
           <div class="small-box-right">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Telefon kontaktowy:</div>
-              <div name="name" class="normal-input"><span>501 768 456</span></div>
+              <div name="name" class="normal-input"><span>{{submit.pupilPhone}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Email:</div>
-              <div name="name" class="normal-input"><span>januszek@gmail.com</span></div>
+              <div name="name" class="normal-input"><span>{{submit.pupilEmail}}</span></div>
             </div>
 
           </div>
@@ -412,18 +415,18 @@
           <div class="small-box-left">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title school-name">Nazwa:</div>
-              <div name="name" class="normal-input"><span>Szkoła im. Tadeusza Kownackiego w Siemianowicach
-                  Śląskich</span></div>
+              <div name="name" class="normal-input"><span>{{submit.schoolName}}</span></div>
             </div>
 
             <div class="flex-2">
               <div class="normal-input-container adress">
                 <div for="name" class="normal-input-title">Adres:</div>
-                <div name="name" class="normal-input gap-right"><span>Technikum</span></div>
+                <div name="name" class="normal-input gap-right"><span>{{submit.schoolStreetName}}
+                    {{submit.schoolStreetNr}}</span></div>
               </div>
               <div class="normal-input-container zip">
                 <div for="name" class="normal-input-title">Kod pocztowy:</div>
-                <div name="name" class="  normal-input"><span>42-620</span></div>
+                <div name="name" class="  normal-input"><span>{{submit.schoolZip}}</span></div>
               </div>
 
             </div>
@@ -434,11 +437,12 @@
             <div class="flex-3">
               <div class="normal-input-container town">
                 <div for="name" class="normal-input-title">Miejscowość:</div>
-                <div name="name" class="normal-input gap-right"><span>januszek@gmail.com</span></div>
+                <div name="name" class="normal-input gap-right"><span>{{submit.schoolTown}}
+                    ({{submit.schoolVoyev}})</span></div>
               </div>
               <div class="normal-input-container type">
                 <div for="name" class="normal-input-title type">Rodzaj:</div>
-                <div name="name" class="normal-input"><span>Tehnikum</span></div>
+                <div name="name" class="normal-input"><span>{{submit.schoolType}}</span></div>
               </div>
             </div>
           </div>
@@ -452,11 +456,11 @@
           <div class="small-box-left">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Imię:</div>
-              <div name="name" class="normal-input"><span>Grzegorz</span></div>
+              <div name="name" class="normal-input"><span>{{submit.counselorFirstName}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Nazwisko:</div>
-              <div name="name" class="normal-input"><span>Warazyniak</span></div>
+              <div name="name" class="normal-input"><span>{{submit.counselorLastName}}</span></div>
             </div>
             <div class="normal-input-container ghost">
               <div for="name" class="normal-input-title">Nazwisko:</div>
@@ -468,7 +472,7 @@
           <div class="small-box-right">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Profil:</div>
-              <div name="name" class="normal-input"><span>Pedagog szkolny</span></div>
+              <div name="name" class="normal-input"><span>{{submit.counselorProfile}}</span></div>
             </div>
 
 
@@ -486,30 +490,30 @@
           <div class="small-box-left">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Matematyka</div>
-              <div name="name" class="normal-input"><span>6</span></div>
+              <div name="name" class="normal-input"><span>{{submit.priMathGrade}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Inny przedmiot (fizyka):</div>
-              <div name="name" class="normal-input"><span>5</span></div>
+              <div for="name" class="normal-input-title">Inny przedmiot ({{submit.priOtherSubj}}):</div>
+              <div name="name" class="normal-input"><span>{{submit.priOtherSubjGrade}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Średnia wszystkich przedmiotów</div>
-              <div name="name" class="normal-input"><span>5.15-5.34</span></div>
+              <div for="name" class="normal-input-title">Średnia wszystkich przedmiotów:</div>
+              <div name="name" class="normal-input"><span>{{submit.allTotalAver}}</span></div>
             </div>
           </div>
 
           <div class="small-box-right">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Język obcy (niemiecki):</div>
-              <div name="name" class="normal-input"><span>5</span></div>
+              <div for="name" class="normal-input-title">Język obcy ({{submit.priLang}}):</div>
+              <div name="name" class="normal-input"><span>{{submit.priLangGrade}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Średnia przedm.kierunkowych:</div>
-              <div name="name" class="normal-input"><span>5.33</span></div>
+              <div name="name" class="normal-input"><span>{{submit.priTotalAver}}</span></div>
             </div>
             <div class="normal-input-container ghost">
               <div for="name" class="normal-input-title">Konto ePuap</div>
-              <div name="name" class="normal-input"><span>grKonto_pol</span></div>
+              <div name="name" class="normal-input"><span></span></div>
             </div>
           </div>
         </div>
@@ -525,7 +529,7 @@
               Laureat/ka lub finalista konkursu o zasiegu co najmniej wojewódzkim lub olimpiady/turnieju co najmniej
               II
               stopnia:</div>
-            <div name="name" class="normal-input seven"><span>Tak</span></div>
+            <div name="name" class="normal-input seven"><span>{{submit.isFinalist}}</span></div>
 
           </div>
           <div class="normal-input-container">
@@ -534,7 +538,7 @@
               szczególne
               uzdolnienia
               w indywidualnym programie nauczania:</div>
-            <div name="name" class="normal-input seven"><span>Nie</span></div>
+            <div name="name" class="normal-input seven"><span>{{submit.isAllowed}}</span></div>
           </div>
           <div class="normal-input-container">
             <div class="text-container"> Uczeń/uczennica posiada aktualne na dzień składania wniosku orzeczenie o
@@ -542,7 +546,7 @@
               orzeczenie
               o stopniu
               niepełnosprawności lub orzeczenie o potrzebie kształcenia specjalnego:</div>
-            <div name="name" class="normal-input seven"><span>Tak</span></div>
+            <div name="name" class="normal-input seven"><span>{{submit.isHandicap}}</span></div>
           </div>
 
 
@@ -560,49 +564,28 @@
         <div class="small-box">
           <div class="small-box-left">
 
+
+
             <div class="normal-input-container">
               <h3 class="reversed">Tabela 1</h3>
               <div for="name" class="normal-input-title">Przedmiot kierunkowy: </div>
-              <div name="name" class="normal-input half"><span>matematyka</span></div>
+              <div name="name" class="normal-input half"><span>{{submit.tab1Subj}}</span></div>
             </div>
             <div class="sub-title">Wybrane rezultaty:</div>
+
+            {{#each tabs1}}
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">1. <span>Przygotowanie wystawy z zakresu: </span></div>
-              <div name="name" class="normal-input">Bonbon gummi bears liquorice gummies. Fruitcake cheesecake sesame
-                snaps wafer croissant liquorice gummies wafer jelly.
-                Fruitcake croissant muffin. Gummies tiramisu pie chocolate carrot cake danish biscuit. Caramels
-                croissant lollipop
-                gingerbread tart topping. Candy halvah biscuit cake muffin jujubes chocolate. Lemon drops dessert toffee
-                jelly-o wafer
-                carrot cake gingerbread danish. Gingerbread jelly-o marzipan candy lollipop sugar plum cupcake jelly
-                jujubes. Macaroon
-                biscuit cookie tootsie roll cotton candy pudding. Macaroon ice cream sugar plum jujubes. Tart candy
-                cupcake. Dragée
-                caramels macaroon sesame snaps tart. Caramels cake danish biscuit.</div>
+              <div for="name" class="normal-input-title">{{inc @index}}. <span>{{description}}</span></div>
+
+              {{#if value}}
+
+              <div name="name" class="normal-input">{{value}}</div>
+
+              {{/if}}
+
+
             </div>
-            <div class="normal-input-container">
-              <div for="name" class="normal-input-title">2. <span>Udział w konkursie przedmiotowym /olimpiadzie
-                  przedmiotowej i
-                  uzyskanie tytułu laureata lub finalisty</span></div>
-              <div name="name" class="normal-input">Cake gummies sesame snaps. Fruitcake gummi bears icing. Sweet
-                biscuit icing cake dragée. Donut cake jelly beans.
-                Caramels gummies tart macaroon. Sweet roll fruitcake bonbon. Marzipan carrot cake tart marshmallow
-                lollipop. Caramels
-                biscuit oat cake croissant oat cake lemon drops lemon drops. Chocolate marshmallow cheesecake. Dragée
-                liquorice jujubes.
-                Chupa chups brownie powder toffee candy. Pastry chupa chups topping donut biscuit sesame snaps lollipop.
-                Sweet
-                cheesecake brownie jelly beans sugar plum cotton candy carrot cake. Caramels carrot cake candy jelly
-                candy canes muffin.</div>
-            </div>
-            <div class="normal-input-container">
-              <div for="name" class="normal-input-title">3. <span>Przygotowanie wystawy z zakresu </span></div>
-              <div name="name" class="normal-input">Pastry pudding halvah brownie. Chocolate cake gummies chocolate cake
-                cookie chupa chups donut. Pie chocolate pastry
-                biscuit jujubes pastry dragée powder cheesecake. Cookie halvah jelly-o cake chocolate. Donut halvah
-                chocolate bar
-                cheesecake tootsie roll jelly-o tart dragée tootsie roll.</div>
-            </div>
+            {{/each}}
 
           </div>
 
@@ -614,39 +597,33 @@
             <div class="normal-input-container">
               <h3 class="reversed">Tabela 2</h3>
               <div for="name" class="normal-input-title">Przedmiot kluczowy: </div>
-              <div name="name" class="normal-input half"><span>język chiński</span></div>
+              <div name="name" class="normal-input half"><span>
+                  {{#if submit.tab2SubjName}}
+                  {{submit.tab2SubjName}}
+                  {{else}}
+                  {{submit.tab2Subj}}
+                  {{/if}}
+                </span></div>
             </div>
             <div class="sub-title">Wybrane rezultaty:</div>
+
+
+
+            {{#each tabs2}}
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">1. <span>Przygotowanie wystawy z zakresu:</span></div>
-              <div name="name" class="normal-input">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                eveniet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat minima voluptatum ipsa nobis
-                voluptatibus eius rem iste ea, ut nisi mollitia nesciunt, porro fugiat illum! Similique dicta quo eaque?
-                Quod veritatis recusandae beatae totam a amet dolor. Impedit optio molestiae eligendi iusto distinctio
-                atque qui id aliquam? Impedit, adipisci tempora.</div>
+              <div for="name" class="normal-input-title">{{inc @index}}. <span>{{description}}</span></div>
+              {{#if value}}
+
+              <div name="name" class="normal-input">{{value}}</div>
+
+              {{/if}}
+
             </div>
-            <div class="normal-input-container">
-              <div for="name" class="normal-input-title">2. <span>Udział w konkursie przedmiotowym /olimpiadzie
-                  przedmiotowej i
-                  uzyskanie tytułu laureata lub finalisty</span></div>
-              <div name="name" class="normal-input">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem sint
-                exercitationem expedita tenetur. Eaque, amet voluptatibus facilis blanditiis nostrum doloribus
-                laudantium architecto aut ducimus ad alias autem excepturi illo reprehenderit itaque vel tempore eos
-                error, corrupti dolores. Officiis neque, maiores qui error corrupti iure harum ipsa voluptatum ut
-                necessitatibus pariatur repellendus eaque cum impedit placeat? Veritatis odit sequi quos harum ipsa
-                architecto repellendus? Corrupti voluptatum magnam architecto, inventore nobis labore? Vitae illum
-                cumque temporibus illo, tenetur molestiae inventore dolorem beatae animi reprehenderit, laborum
-                architecto, suscipit atque porro asperiores nesciunt </div>
-            </div>
-            <div class="normal-input-container">
-              <div for="name" class="normal-input-title">3. <span> Przygotowanie wystawy z zakresu: </span></div>
-              <div name="name" class="normal-input">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, error
-                eius voluptate nisi rem aliquid velit dolores similique voluptatum soluta quidem sequi necessitatibus.
-                Quas, tempore, laborum quidem natus similique ad assumenda necessitatibus sit facilis, provident officia
-                unde in! Labore ad eos eaque quaerat doloribus aliquid fugiat asperiores fugit, quo dolores rem voluptas
-                blanditiis consectetur autem pariatur esse aperiam, dolorum quidem maiores, molestiae temporibus nihil
-                impedit totam. Libero voluptatibus vel itaque?</div>
-            </div>
+            {{/each}}
+
+
+
+
 
           </div>
 
@@ -668,9 +645,6 @@
           </th>
           <th>
             Szacunkowy koszt
-            (wpisz kwotę w zł
-            przy wybranym katalogu wydatków)
-
           </th>
         </tr>
       </thead>
@@ -683,7 +657,7 @@
             Zakup pomocy dydaktycznych i przyborów szkolnych
           </td>
           <td class="cost">
-            <span> 2000 zł</span>
+            <span> {{submit.cost1}} zł</span>
           </td>
         </tr>
 
@@ -695,7 +669,7 @@
             Wydatki związane z wyposażeniem miejsca domowej nauki
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost2}} zł</span>
           </td>
         </tr>
 
@@ -707,7 +681,7 @@
             Zakup sprzętu komputerowego wraz z oprogramowaniem i akcesoriami
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost3}} zł</span>
           </td>
         </tr>
 
@@ -719,7 +693,7 @@
             Zakup sprzętu elektronicznego
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost4}} zł</span>
           </td>
         </tr>
 
@@ -731,7 +705,7 @@
             Opłaty związane z dostępem do Internetu
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost5}} zł</span>
           </td>
         </tr>
 
@@ -745,7 +719,7 @@
             związanych z zakupem paliwa samochodowego)
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost6}} zł</span>
           </td>
         </tr>
 
@@ -757,7 +731,7 @@
             Opłaty za kursy, szkolenia
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost7}} zł</span>
           </td>
         </tr>
 
@@ -771,7 +745,7 @@
 
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost8}} zł</span>
           </td>
         </tr>
 
@@ -784,7 +758,7 @@
 
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost9}} zł</span>
           </td>
         </tr>
 
@@ -796,7 +770,7 @@
             Koszty uczestnictwa w konkursach, turniejach, olimpiadach
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost10}} zł</span>
           </td>
         </tr>
 
@@ -808,7 +782,7 @@
             Koszty uczestnictwa w kulturze wysokiej
           </td>
           <td class="cost">
-            <span> 0 zł</span>
+            <span> {{submit.cost11}} zł</span>
           </td>
         </tr>
       </tbody>
@@ -823,7 +797,7 @@
           <td class="sum" colspan="2"> Razem
 
           <td class="cost sum">
-            <span> 2 200 zł</span>
+            <span> {{submit.totalCosts}} zł</span>
           </td>
         </tr>
 
@@ -838,18 +812,7 @@
 
         <tr>
           <td colspan="3">
-            <div name="" id="" cols="30" rows="10"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-              placeat deleniti beatae necessitatibus autem! Dolores, cum possimus quibusdam fugiat necessitatibus
-              accusantium expedita autem ab consequuntur odio dolor ad exercitationem reprehenderit ipsum beatae eaque
-              aut hic ut vero. Eveniet incidunt rem voluptatum dolores dolore tempora architecto deleniti consectetur
-              repellat cumque distinctio assumenda error, inventore aliquid eos. Corporis quas ab, ducimus error, quia
-              esse cum reiciendis molestiae, enim nostrum natus quasi debitis dignissimos asperiores doloribus non minus
-              iusto earum ipsum? Placeat dicta voluptatem a fuga corrupti quidem officiis perferendis necessitatibus qui
-              nobis iusto accusamus repudiandae blanditiis molestiae eius iure, facere modi perspiciatis exercitationem
-              obcaecati excepturi. Iusto in itaque, saepe incidunt magnam alias odio praesentium ut est sit laborum
-              cupiditate aspernatur et delectus veritatis iste reiciendis at consequuntur id beatae excepturi ipsum
-              repellendus! Itaque dolorum reprehenderit soluta, eveniet natus tempore dignissimos, necessitatibus
-              facilis unde possimus saepe assumenda quod, quidem blanditiis? Nemo, necessitatibus inventore!
+            <div>{{submit.substantion1}}
             </div>
         </tr>
 
@@ -862,22 +825,7 @@
 
         <tr>
           <td colspan="3">
-            <div name="" id="" cols="30" rows="10"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-              nostrum error non minus, nesciunt quo doloribus corporis earum magnam veritatis blanditiis, quas nobis
-              ratione distinctio. Aperiam nihil quibusdam minus quam consectetur earum aliquid labore explicabo atque
-              non est qui velit nulla sit, nam nesciunt exercitationem ipsam aspernatur incidunt repudiandae,
-              consequuntur rem quis dicta molestiae. Eos doloremque voluptate, nihil porro nobis alias illum atque odit
-              voluptas voluptatem totam temporibus aliquid? Suscipit inventore voluptate dolores repellat saepe,
-              assumenda autem aut dolorem. Distinctio ut praesentium possimus facere iste quod nulla quo expedita,
-              consectetur quos eaque neque impedit natus laudantium perferendis quidem totam voluptas, repellat aliquid
-              quaerat ducimus voluptate illo, quasi aut. Sapiente, sed at in assumenda doloribus molestiae tempora id
-              necessitatibus, facere libero temporibus vitae. Alias minus, quidem voluptatum vitae distinctio
-              perspiciatis laborum, incidunt sapiente veniam nobis assumenda, ex optio beatae non doloribus consequatur?
-              Consequatur numquam officia, aut doloribus iste illo et possimus soluta veritatis molestias expedita odio
-              magni voluptas cupiditate eligendi, delectus enim voluptatem quas. Facilis, esse est. Hic non dolor ullam
-              earum iusto et corrupti quidem velit quas dolorum dolores eaque autem reprehenderit repellendus, soluta
-              corporis maxime ducimus illum laudantium atque omnis ipsum quae. Earum, repudiandae. Eos eum libero
-              tempora? Deleniti.
+            <div> {{submit.substantion2}}
             </div>
         </tr>
       </tfoot>

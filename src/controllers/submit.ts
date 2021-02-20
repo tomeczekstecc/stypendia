@@ -6,7 +6,7 @@ import { Submit, User, File } from '../entity';
 import { msg } from '../parts/messages';
 import { generatePdf, makeLog, saveRollbar } from '../services';
 import { checkForAtt } from '../services';
-import { mapErrors } from '../utils';
+import { mapErrors, mapTabs } from '../utils';
 
 const OBJECT: any = 'Submit';
 let ACTION, INFO: string, STATUS: string, CONTROLLER: string;
@@ -88,6 +88,17 @@ export const addSubmit = async (req: any, res: Response) => {
 
     await submit.save();
 
+    const data = {
+      submit,
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
+    };
+
+    await generatePdf(data, 'submit');
+
     await getRepository(File)
       .createQueryBuilder('file')
       .update()
@@ -100,11 +111,6 @@ export const addSubmit = async (req: any, res: Response) => {
     STATUS = 'success';
     makeLog(OBJECT, submit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
-
-    const data = {
-      submit,
-    };
-    await generatePdf(data, 'submit');
 
     return res.status(201).json({
       resStatus: 'success',
@@ -130,7 +136,6 @@ export const addSubmit = async (req: any, res: Response) => {
 //
 
 export const editSubmit = async (req: any, res: Response) => {
-  console.log(req.body);
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
   try {
@@ -150,8 +155,6 @@ export const editSubmit = async (req: any, res: Response) => {
     }
     let errors: any = {};
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
-
-
 
     if (peselExists.length > 0 && peselExists[0].id !== req.body.id) {
       errors.pupilPesel = msg.client.fail.peselExists;
@@ -206,9 +209,18 @@ export const editSubmit = async (req: any, res: Response) => {
     STATUS = 'success';
     makeLog(OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
+
     const data = {
-      tempSubmit,
+      submit: { ...tempSubmit },
+      tabs1: mapTabs(tempSubmit, '1'),
+      tabs2: mapTabs(tempSubmit, '2'),
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
     };
+
     await generatePdf(data, 'submit');
     return res.status(201).json({
       resStatus: STATUS,

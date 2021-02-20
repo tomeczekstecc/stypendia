@@ -255,7 +255,7 @@ export const accordionsVIIb = [
     checkeboxName: 'isTab2f',
     label:
       'Stworzenie filmu o tematyce dotyczącej wybranego przedmiotu kierunkowego',
-    areaName: 'tab2e_desf',
+    areaName: 'tab2f_desc',
     placeholder: 'Opisz planowany film',
   },
   {

@@ -9,6 +9,11 @@ import { createHmac } from 'crypto';
 import { Submit } from '../entity/Submit';
 import { APP_SECRET } from '../config';
 
+hbs.registerHelper('inc', function (value, options) {
+  return parseInt(value) + 1;
+});
+
+
 const hashedToken = (plaintextToken: string) => {
   return createHmac('md5', APP_SECRET).update(plaintextToken).digest('hex');
 };
@@ -24,6 +29,7 @@ const compile = async function (templateName, data) {
 };
 
 export async function generatePdf(data, type) {
+  console.log(data, 'pdf data')
   const hash = hashedToken(new Date().getTime().toString());
   const fileName = data.submit?.numer || data.tempSubmit?.numer; // inne przypadki też dorobić
   // console.log(fileName);
@@ -63,7 +69,7 @@ export async function generatePdf(data, type) {
           new Date()
         ).format(
           'YYYY-MM-DD HH:mm:ss'
-        )}</strong> przez www.stypendystaslaski.com</span></div>
+        )}</strong> przez www.slaskietalenty.com</span></div>
 
         <div style="position: absolute; right: 10px; top: 10px;">strona <span class="pageNumber"></span>/<span class="totalPages"></span></div>
         </div>

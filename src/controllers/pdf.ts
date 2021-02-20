@@ -19,7 +19,8 @@ export const addSubmitPdf = async (req: any, res: Response) => {
       submit,
     };
 
-    await generatePdf(data, 'submit');
+
+generatePdf(data, 'submit');
     STATUS = 'success';
     INFO = msg.client.ok.pdfCreated;
 

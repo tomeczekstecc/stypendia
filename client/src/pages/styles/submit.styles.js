@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
-
   margin-top: 3% !important;
   .menu-topper {
     /* margin-top: 6% !important; */
@@ -16,6 +15,7 @@ export const Wrapper = styled.div`
   }
 
   .sub-header {
+  color: red !important;
     margin-top: 2rem !important;
   }
 
@@ -52,7 +52,7 @@ export const Wrapper = styled.div`
   .grade-selector {
     /* max-width:145px !important; */
   }
-  .container{
+  .container {
     padding-bottom: 5rem !important;
   }
 
@@ -60,9 +60,9 @@ export const Wrapper = styled.div`
     font-size: 14px !important;
     margin-bottom: 5px !important;
   }
-.central-grid{
-  margin-top: 40px !important;
-}
+  .central-grid {
+    margin-top: 40px !important;
+  }
   select:focus,
   select:active {
     border: 1px solid rgba(34, 36, 38, 0.15) !important;
@@ -112,7 +112,7 @@ export const Wrapper = styled.div`
   }
   .drop {
     margin: 0 !important;
-    padding: .8rem 2.5rem .8rem 2.5rem !important;
+    padding: 0.8rem 2.5rem 0.8rem 2.5rem !important;
     margin-left: 1rem !important;
     /* padding-left: 2rem !important; */
   }

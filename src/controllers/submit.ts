@@ -88,8 +88,13 @@ export const addSubmit = async (req: any, res: Response) => {
 
     await submit.save();
 
+    const submitFiles = await File.find({ submitId: submit.id });
+
     const data = {
       submit,
+      files: submitFiles,
+      tabs1: mapTabs(submit, '1'),
+      tabs2: mapTabs(submit, '2'),
       user: {
         firstName: user.firstName,
         lastName: user.lastName,
@@ -209,9 +214,11 @@ export const editSubmit = async (req: any, res: Response) => {
     STATUS = 'success';
     makeLog(OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
-
+    const submitFiles = await File.find({ submitId: tempSubmit.id });
+    console.log(submitFiles)
     const data = {
       submit: { ...tempSubmit },
+      files: submitFiles,
       tabs1: mapTabs(tempSubmit, '1'),
       tabs2: mapTabs(tempSubmit, '2'),
       user: {

@@ -9,10 +9,47 @@ import { createHmac } from 'crypto';
 import { Submit } from '../entity/Submit';
 import { APP_SECRET } from '../config';
 
+hbs.registerHelper('format', function (value, options) {
+  return value.toLocaleString('pl-PL', {
+    useGrouping: 'true',
+    // minimumFractionDigits: '2',
+    // maxFractionDigits: '2',
+  });
+});
+
 hbs.registerHelper('inc', function (value, options) {
   return parseInt(value) + 1;
 });
 
+hbs.registerHelper('toMB', function (value, options) {
+  return Math.floor((value / 1024 / 1024) * 100) / 100 + 'MB';
+});
+
+hbs.registerHelper('mime', function (value, options) {
+  return value.slice(-3);
+});
+
+hbs.registerHelper('typeToName', function (value, options) {
+  switch (value) {
+    case 'statement':
+      return 'Oświadczenie opiekuna dydaktycznego';
+
+    case 'report_card':
+      return 'Świadectwo szkolne za ostatni rok';
+
+    case 'allowance':
+      return 'Zgoda na indywidualny tryb nauki';
+
+    case 'attestation':
+      return 'Orzeczenie o niepełnosprawności';
+
+    case 'random':
+      return 'Zaświadczenie o uzyskanym tytule laureata';
+
+    default:
+      return 'Dkument';
+  }
+});
 
 const hashedToken = (plaintextToken: string) => {
   return createHmac('md5', APP_SECRET).update(plaintextToken).digest('hex');
@@ -29,7 +66,7 @@ const compile = async function (templateName, data) {
 };
 
 export async function generatePdf(data, type) {
-  console.log(data, 'pdf data')
+  console.log(data, 'pdf data');
   const hash = hashedToken(new Date().getTime().toString());
   const fileName = data.submit?.numer || data.tempSubmit?.numer; // inne przypadki też dorobić
   // console.log(fileName);

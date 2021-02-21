@@ -235,7 +235,7 @@
 
     table,
     tr,
-    th{
+    th {
 
       font-weight: bold;
     }
@@ -247,7 +247,7 @@
       border: 1px black solid;
       border-color: var(--borderColor);
       border-radius: 3px;
-      padding: 5px 11px;
+      padding: 8px;
 
     }
 
@@ -261,7 +261,7 @@
     }
 
     th {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     h3 {
@@ -270,7 +270,7 @@
 
 
     td {
-      font-size: 11px;
+      font-size: 12px;
     }
 
     table tr .cost {
@@ -308,6 +308,10 @@
       margin-right: .5rem;
       margin-left: auto;
       height: 33px;
+    }
+
+    .files {
+      margin-top: 30px;
     }
 
     @media screen {
@@ -657,7 +661,7 @@
             Zakup pomocy dydaktycznych i przyborów szkolnych
           </td>
           <td class="cost">
-            <span> {{submit.cost1}} zł</span>
+            <span> {{format submit.cost1}} zł</span>
           </td>
         </tr>
 
@@ -669,7 +673,7 @@
             Wydatki związane z wyposażeniem miejsca domowej nauki
           </td>
           <td class="cost">
-            <span> {{submit.cost2}} zł</span>
+            <span> {{format submit.cost2}} zł</span>
           </td>
         </tr>
 
@@ -681,7 +685,7 @@
             Zakup sprzętu komputerowego wraz z oprogramowaniem i akcesoriami
           </td>
           <td class="cost">
-            <span> {{submit.cost3}} zł</span>
+            <span> {{format submit.cost3}} zł</span>
           </td>
         </tr>
 
@@ -693,7 +697,7 @@
             Zakup sprzętu elektronicznego
           </td>
           <td class="cost">
-            <span> {{submit.cost4}} zł</span>
+            <span> {{format submit.cost4}} zł</span>
           </td>
         </tr>
 
@@ -705,7 +709,7 @@
             Opłaty związane z dostępem do Internetu
           </td>
           <td class="cost">
-            <span> {{submit.cost5}} zł</span>
+            <span> {{format submit.cost5}} zł</span>
           </td>
         </tr>
 
@@ -719,7 +723,7 @@
             związanych z zakupem paliwa samochodowego)
           </td>
           <td class="cost">
-            <span> {{submit.cost6}} zł</span>
+            <span> {{format submit.cost6}} zł</span>
           </td>
         </tr>
 
@@ -731,7 +735,7 @@
             Opłaty za kursy, szkolenia
           </td>
           <td class="cost">
-            <span> {{submit.cost7}} zł</span>
+            <span> {{format submit.cost7}} zł</span>
           </td>
         </tr>
 
@@ -745,7 +749,7 @@
 
           </td>
           <td class="cost">
-            <span> {{submit.cost8}} zł</span>
+            <span> {{format submit.cost8}} zł</span>
           </td>
         </tr>
 
@@ -758,7 +762,7 @@
 
           </td>
           <td class="cost">
-            <span> {{submit.cost9}} zł</span>
+            <span> {{format submit.cost9}} zł</span>
           </td>
         </tr>
 
@@ -770,7 +774,7 @@
             Koszty uczestnictwa w konkursach, turniejach, olimpiadach
           </td>
           <td class="cost">
-            <span> {{submit.cost10}} zł</span>
+            <span> {{format submit.cost10}} zł</span>
           </td>
         </tr>
 
@@ -782,7 +786,7 @@
             Koszty uczestnictwa w kulturze wysokiej
           </td>
           <td class="cost">
-            <span> {{submit.cost11}} zł</span>
+            <span> {{format submit.cost11}} zł</span>
           </td>
         </tr>
       </tbody>
@@ -797,7 +801,7 @@
           <td class="sum" colspan="2"> Razem
 
           <td class="cost sum">
-            <span> {{submit.totalCosts}} zł</span>
+            <span> {{format submit.totalCosts}} zł</span>
           </td>
         </tr>
 
@@ -830,6 +834,90 @@
         </tr>
       </tfoot>
     </table>
+
+
+
+
+
+
+    <br>
+    <div class="part-title files">ZAŁĄCZNIKI:</div>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            LP
+          </th>
+          <th>
+            Rodzaj dokumentu
+          </th>
+          <th> Rodzaj pliku
+
+          </th>
+          <th>
+            Wielkość pliku
+          </th>
+          <th>
+            Suma kontrolna pliku
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+        {{#each files}}
+        <tr>
+          <td>
+            {{inc @index}}
+          </td>
+          <td>
+            {{typeToName type}}
+          </td>
+          <td>
+            {{mime fileName}}
+          </td>
+          <td>
+            {{toMB size}}
+          </td>
+          <td class="cost">
+            <span> {{checksum}}</span>
+          </td>
+        </tr>
+
+        {{/each}}
+
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="next-page"></div>
 

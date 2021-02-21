@@ -23,11 +23,6 @@ export class File extends Model {
   @Column({ comment: 'ID wniosku', nullable: true })
   submitId: number;
 
-  // @Column({
-  //   comment: 'Powiązany wniosek',
-  // })
-  // submitId: string;
-
   @Column({ comment: 'Ścieżka zapisu' })
   path: string;
 

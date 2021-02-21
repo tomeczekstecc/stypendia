@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Grid } from 'semantic-ui-react';
 import CookieConsent from 'react-cookie-consent';
 import MainMenu from './MainMenu';
-import { Wrapper } from '../styles/layout.styles';
 import Timer from '../Timer';
 import AuthContext from '../../context/auth/authContext';
 
@@ -11,9 +10,9 @@ const Layout = ({ children }) => {
     const authContext = useContext(AuthContext);
     const { isLoggedIn } = authContext;
   return (
-    <Wrapper>
+    <>
       <MainMenu />
-      <Grid centered verticalAlign='middle' className='gridziol'>
+      <Grid centered verticalAlign='middle' style={{marginTop:'40px' }}>
         {children}
         {isLoggedIn && <Timer />}
       </Grid>
@@ -48,7 +47,7 @@ const Layout = ({ children }) => {
         </a>
         <span style={{ fontSize: '10px' }}></span>
       </CookieConsent>
-    </Wrapper>
+    </>
   );
 };
 

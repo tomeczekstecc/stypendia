@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { Wrapper } from '../styles/mainMenu.styles';
 import { leftMenuItems, rightMenuItems } from '../../parts/items';
 import { AuthContext, SubmitContext } from '../../context';
 
@@ -23,8 +22,8 @@ const MainMenu = () => {
   };
 
   return (
-    <Wrapper>
-      <Menu icon='labeled' className='main-menu-el'>
+    <>
+      <Menu fixed='top' fluid icon='labeled'>
         {leftMenuItems
           .filter(
             (item) =>
@@ -62,7 +61,7 @@ const MainMenu = () => {
             ))}
         </Menu.Menu>
       </Menu>
-    </Wrapper>
+    </>
   );
 };
 

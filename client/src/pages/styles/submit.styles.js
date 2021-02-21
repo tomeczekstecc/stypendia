@@ -2,10 +2,8 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
-  margin-top: 5% !important;
-  .menu {
-    margin-top: 6% !important;
-  }
+  /* margin-top: 5% !important; */
+
   .lead-header {
     position: absolute !important;
     top: -1.8rem !important;

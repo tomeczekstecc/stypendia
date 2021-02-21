@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   /* margin-top: 9rem; */
 
   position: relative !important;
-  margin-top: 7rem !important;
+  /* margin-top: 7rem !important; */
   width: 70% !important;
 
   .card {

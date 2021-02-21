@@ -53,7 +53,7 @@ const Profile = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, openConfirm]);
   return (
-    <Wrapper>
+    <Wrapper className='wrap2'>
       <Confirm
         openConfirm={openConfirm}
         setOpenConfirm={setOpenConfirm}

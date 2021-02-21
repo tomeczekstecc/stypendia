@@ -5,13 +5,13 @@ export const Wrapper = styled.div`
 
   margin-top: 3% !important;
   .menu-topper {
-    margin-top: 6% !important;
+    /* margin-top: 6% !important; */
   }
 
   .lead-header {
     position: absolute !important;
-    top: -1.8rem !important;
-    left: 3rem !important;
+    /* top: -1.8rem !important; */
+    /* left: 3rem !important; */
     z-index: 1 !important;
   }
 

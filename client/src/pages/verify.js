@@ -79,7 +79,7 @@ const Verify = ({ location: { search }, history }) => {
 
       {!isLoading && isSuccess && (
         <>
-          <Segment placeholder className='main' size='large'>
+          <Segment placeholder className='main-el' size='large'>
             <Message success size='medium' floating>
               <Message.Header>Potwierdzono konto!!!</Message.Header>
               <p>

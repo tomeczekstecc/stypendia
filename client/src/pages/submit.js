@@ -50,7 +50,7 @@ const Submit = () => {
   };
 
   return (
-    <Wrapper submitMode={submitMode}>
+    <Wrapper submitMode={submitMode} className='wrapperek'>
       <Errors />
 
       <Grid >

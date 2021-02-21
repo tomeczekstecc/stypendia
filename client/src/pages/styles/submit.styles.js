@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   }
 
   .sub-header {
-  color: red !important;
+
     margin-top: 2rem !important;
   }
 

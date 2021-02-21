@@ -16,7 +16,7 @@ const SubALayout = ({ children, leadHeader }) => {
           <Segment placeholder size='large'>
 
             <Grid
-              className='container'
+              className='container-ener'
               centered
               columns={2}
               relaxed='very'

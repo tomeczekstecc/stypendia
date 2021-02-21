@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   return (
     <Wrapper>
       <MainMenu />
-      <Grid centered verticalAlign='middle' className='gridziol'>
+      <Grid centered verticalAlign='middle' className='gridziol' style={{marginTop:'3rem'}}>
         {children}
         {isLoggedIn && <Timer />}
       </Grid>

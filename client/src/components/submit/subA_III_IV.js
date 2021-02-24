@@ -79,6 +79,7 @@ const SubA_III_IV = () => {
           <Form.Group grouped>
             <Form.Input
               className='input'
+              required
               label='Pełna nazwa szkoły'
               name='schoolName'
               icon='building outline'
@@ -224,6 +225,7 @@ const SubA_III_IV = () => {
           <Form.Group grouped>
             <Form.Input
               className='input'
+              required
               icon='user'
               iconPosition='left'
               label='Imię doradcy'
@@ -239,6 +241,7 @@ const SubA_III_IV = () => {
             )}
             <Form.Input
               icon='user'
+              required
               iconPosition='left'
               className='input'
               label='Nazwisko doradcy'

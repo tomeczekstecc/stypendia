@@ -75,12 +75,14 @@ submitMode === '' && history.push('/');
               label='Imię wnioskodawcy'
               name='firstName'
               icon='user'
+              required
               iconPosition='left'
               value={user?.firstName || ''} //
             />
             <Form.Input
               icon='user'
               iconPosition='left'
+              required
               className='input'
               label='Nazwisko wnioskodawcy'
               name='lastName'
@@ -88,9 +90,9 @@ submitMode === '' && history.push('/');
             />
 
             <Form.Input
-
               className='input'
               label='Email wnioskodawcy'
+              required
               icon='at'
               iconPosition='left'
               placeholder='Podaj email wnioskodawcy'
@@ -151,6 +153,7 @@ submitMode === '' && history.push('/');
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               className='input'
+              required
               placeholder='Podaj PESEL ucznia'
               label='PESEL ucznia'
               name='pupilPesel'
@@ -165,6 +168,7 @@ submitMode === '' && history.push('/');
             )}
             <Form.Input
               onChange={(e) => handleOnChange(e)}
+              required
               className='input'
               icon='user'
               iconPosition='left'
@@ -186,6 +190,7 @@ submitMode === '' && history.push('/');
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               icon='user'
+              required
               iconPosition='left'
               className='input'
               label='Nazwisko ucznia'
@@ -205,6 +210,7 @@ submitMode === '' && history.push('/');
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               icon='at'
+          
               iconPosition='left'
               className='input'
               label='Email ucznia'

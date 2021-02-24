@@ -19,3 +19,4 @@ export { default as Timer } from './Timer';
 export { default as Errors } from './Errors';
 export { default as Title } from './Title';
 export { default as Confirm } from './ConfirmModal';
+export { default as Required } from './RequiredLegend';

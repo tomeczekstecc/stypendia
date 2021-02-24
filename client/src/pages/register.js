@@ -13,9 +13,10 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/register.styles';
-import {Rodo,Title}  from '../components';
+import { Rodo, Title,Required } from '../components';
 import { registerInputs } from '../parts/inputs';
-import {AlertContext, AppContext,AuthContext } from '../context';
+import { AlertContext, AppContext, AuthContext } from '../context';
+
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -35,7 +36,7 @@ const Register = (props) => {
 
   useEffect(() => {
     checkIsAuthenticated();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOnClick = async (e) => {
@@ -161,7 +162,8 @@ const Register = (props) => {
             </Grid.Column>
           </Grid>
 
-          <Divider className='divider' content='Oraz'vertical/>
+          <Divider className='divider' content='Oraz' vertical />
+          <Required />
         </Segment>
       </div>
     </Wrapper>

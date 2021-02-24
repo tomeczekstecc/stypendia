@@ -4,6 +4,7 @@ import {
   Grid,
   Segment,
 } from 'semantic-ui-react';
+import Required from './RequiredLegend';
 
 import Title from './Title';
 
@@ -24,6 +25,7 @@ const SubALayout = ({ children, leadHeader }) => {
             >
               {children}
             </Grid>
+            <Required/>
           </Segment>
 
       </Container>

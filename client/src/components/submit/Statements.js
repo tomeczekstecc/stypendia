@@ -311,7 +311,7 @@ const Statements = () => {
             label={
               <label>
                 Potwierdzam powyższe oświadczenia i przyjęcie informacji
-                <span> *</span>
+                <span style={{color: 'red'}} className='star'> *</span>
               </label>
             }
           />{' '}

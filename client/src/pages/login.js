@@ -12,7 +12,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/login.styles';
-import { Title } from '../components';
+import { Required, Title } from '../components';
 import { AlertContext, AppContext, AuthContext } from '../context';
 import { loginInputs } from '../parts/inputs';
 
@@ -143,6 +143,7 @@ const Login = () => {
           </Grid>
 
           <Divider className='divider' content='lub' vertical />
+          <Required/>
         </Segment>
       </Container>
     </Wrapper>

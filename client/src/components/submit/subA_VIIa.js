@@ -255,6 +255,7 @@ const SubA_VIIa = () => {
                 >
                   <Form className='form-vii'>
                     <TextArea
+                    
                       value={
                         (curDocument &&
                           curDocument[acc.areaName] &&

@@ -2,21 +2,24 @@ import React, { useContext } from 'react';
 import { Grid } from 'semantic-ui-react';
 import CookieConsent from 'react-cookie-consent';
 import MainMenu from './MainMenu';
+import {Wrapper} from '../styles/layout.styles'
 import Timer from '../Timer';
 import AuthContext from '../../context/auth/authContext';
 
 const Layout = ({ children }) => {
-
-    const authContext = useContext(AuthContext);
-    const { isLoggedIn } = authContext;
+  const authContext = useContext(AuthContext);
+  const { isLoggedIn } = authContext;
   return (
-    <>
+    <Wrapper>
       <MainMenu />
-      <Grid centered verticalAlign='middle' style={{marginTop:'40px' }}>
+      <Grid
+        centered
+        verticalAlign='middle'
+        style={{ marginTop: '40px', boxSizing: 'border-box' }}
+      >
         {children}
         {isLoggedIn && <Timer />}
       </Grid>
-
 
       <CookieConsent
         location='bottom'
@@ -38,7 +41,6 @@ const Layout = ({ children }) => {
         poprawienia jej dostępności, personalizacji, obsługi kont użytkowników.
         Każdy może sam decydować o tym czy dopuszcza pliki cookies, ustawiając
         odpowiednio swoją przeglądarkę. Dowiedz się więcej na stronie{' '}
-
         <a
           className='cookies-link'
           href='https://pl.wikipedia.org/wiki/HTTP_cookie'
@@ -47,7 +49,7 @@ const Layout = ({ children }) => {
         </a>
         <span style={{ fontSize: '10px' }}></span>
       </CookieConsent>
-    </>
+    </Wrapper>
   );
 };
 

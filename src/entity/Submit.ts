@@ -122,6 +122,7 @@ export class Submit extends Model {
   @Column({ comment: 'Telefon ucznia', nullable: true })
   pupilPhone: string;
 
+  @ValidateIf(o=>o.pupilEmail)
   @IsEmail(undefined, { message: 'Email musi mieć poprawny format' })
   @Column({ nullable: true, comment: 'Email ucznia' })
   pupilEmail: string;

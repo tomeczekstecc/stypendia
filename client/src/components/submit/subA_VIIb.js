@@ -173,7 +173,7 @@ const SubA_VIIb = () => {
         <Message className='msg' info size='small' floating>
           <Message.Header>
             Planowane rezultaty - przedmiot kluczowy. Wybierz maksymalnie 3
-            rezultaty.
+            rezultaty. <span className='star'> *</span>
           </Message.Header>
           <p>
             Uczeń/uczennica w czasie trwania projektu jest zobowiązany do

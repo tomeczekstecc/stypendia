@@ -95,9 +95,12 @@ const SubA_III_IV = () => {
               </Label>
             )}
             <div className='select-wrapper'>
-              <Header className='select-header' as='h5'>
-                Rodzaj szkoły
-              </Header>
+              <div className='labeler'>
+                <label>
+                  Rodzaj szkoły <span className='star'>*</span>
+                </label>
+              </div>
+
               <Dropdown
                 fluid
                 selection
@@ -116,9 +119,11 @@ const SubA_III_IV = () => {
             </div>
 
             <div className='adress-wrapper'>
-              <Header as='h4'>Adres szkoły</Header>
+              <Header as='h4'>Adres szkoły:</Header>
               <Segment>
                 <Form.Input
+                  required
+                  label='Ulica'
                   className='input'
                   icon='user'
                   iconPosition='left'
@@ -127,6 +132,7 @@ const SubA_III_IV = () => {
                   value={curDocument?.schoolStreetName || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
+
                 {submitErrors?.schoolStreetName && (
                   <Label
                     basic
@@ -137,9 +143,11 @@ const SubA_III_IV = () => {
                     {submitErrors?.schoolStreetName}
                   </Label>
                 )}
+
                 <Form.Input
+                  required
                   className='input'
-                  // label='Adres szkoły (numer domu)'
+                  label='Numer domu'
                   icon='phone'
                   iconPosition='left'
                   placeholder='Podaj numer domu'
@@ -158,6 +166,8 @@ const SubA_III_IV = () => {
                   </Label>
                 )}
                 <Form.Input
+                  label='Kod pocztowy'
+                  required
                   className='input'
                   icon='zip'
                   iconPosition='left'
@@ -180,7 +190,8 @@ const SubA_III_IV = () => {
                   className='input'
                   icon='zip'
                   iconPosition='left'
-                  // label='Adres szkoły (miejscowość)'
+                  label='Miejscowość'
+                  required
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
                   value={curDocument?.schoolTown || ''}
@@ -196,7 +207,11 @@ const SubA_III_IV = () => {
                     {submitErrors?.schoolTown}
                   </Label>
                 )}
-
+                <div className='labeler'>
+                  <label>
+                    Status wnioskodawcy <span className='star'>*</span>
+                  </label>
+                </div>
                 <Dropdown
                   fluid
                   selection
@@ -256,11 +271,14 @@ const SubA_III_IV = () => {
               </Label>
             )}
             <div className='select-wrapper'>
-              <Header className='select-header' as='h5'>
-                Profil doradcy
-              </Header>
+              <div className='labeler'>
+                <label>
+                  Profil doradcy <span className='star'>*</span>
+                </label>
+              </div>
               <Dropdown
                 fluid
+                required
                 selection
                 floating
                 className='dropdown'

@@ -159,7 +159,7 @@ const SubA_VIIa = () => {
             className='inline-position header'
             as='h4'
           >
-            Przedmiot kierunkowy:
+            Przedmiot kierunkowy: <span className='star'> *</span>
           </Header>
 
           <Dropdown
@@ -194,7 +194,7 @@ const SubA_VIIa = () => {
         <Message className='msg' info size='small' floating>
           <Message.Header>
             Planowane rezultaty - przedmiot kierunkowy. Wybierz maksymalnie 3
-            rezultaty.
+            rezultaty. <span className='star'> *</span>
           </Message.Header>
           <p>
             Uczeń/uczennica w czasie trwania projektu jest zobowiązany do
@@ -255,7 +255,6 @@ const SubA_VIIa = () => {
                 >
                   <Form className='form-vii'>
                     <TextArea
-                    
                       value={
                         (curDocument &&
                           curDocument[acc.areaName] &&

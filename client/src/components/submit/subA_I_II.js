@@ -7,7 +7,7 @@ import { AuthContext, SubmitContext } from '../../context';
 import { optionsAttachment } from '../../parts/options';
 
 const SubA_I_II = () => {
-    const history = useHistory();
+  const history = useHistory();
   const authContext = useContext(AuthContext);
   const { user, resetTimeLeft } = authContext;
 
@@ -22,11 +22,10 @@ const SubA_I_II = () => {
     submitErrors,
     tempUuid,
   } = submitContext;
-submitMode === '' && history.push('/');
+  submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
-
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
@@ -120,12 +119,16 @@ submitMode === '' && history.push('/');
               className='input'
               icon='box'
               iconPosition='left'
-              label='Adres skrzynki ePuap (opcjonalnie)'
-              placeholder='Podaj adres ePuap (opcjonalnie)'
+              label='Adres skrzynki ePuap'
+              placeholder='Podaj adres ePuap'
               name='epuapAdr'
               value={curDocument?.epuapAdr || ''}
             />
-
+            <div className='labeler'>
+              <label>
+                Status wnioskodawcy <span className='star'>*</span>
+              </label>
+            </div>
             <Dropdown
               fluid
               selection
@@ -210,7 +213,6 @@ submitMode === '' && history.push('/');
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               icon='at'
-          
               iconPosition='left'
               className='input'
               label='Email ucznia'

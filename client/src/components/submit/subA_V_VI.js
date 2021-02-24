@@ -96,7 +96,8 @@ const SubA_V_VI = () => {
               </Header>
 
               <Form.Input
-         
+                label='Ocena z matematyki'
+                required
                 action={
                   <Dropdown
                     button
@@ -127,6 +128,8 @@ const SubA_V_VI = () => {
                 </Label>
               )}
               <Form.Input
+                label='Język nowożytny i ocena'
+                required
                 action={
                   <Dropdown
                     button
@@ -157,6 +160,7 @@ const SubA_V_VI = () => {
               )}
               {!submitErrors?.priLang && submitErrors?.priLangGrade && (
                 <Label
+                  required
                   basic
                   color='red'
                   pointing='above'
@@ -166,6 +170,8 @@ const SubA_V_VI = () => {
                 </Label>
               )}
               <Form.Input
+                label='Inny przedmiot i ocena'
+                required
                 action={
                   <Dropdown
                     button
@@ -222,9 +228,11 @@ const SubA_V_VI = () => {
                 </Label>
               )}
               <div className='dropdown-wrapper'>
-                <Header className='select-header' as='h5'>
-                  Średnia wszystkich ocen
-                </Header>
+                <div className='labeler'>
+                  <label>
+                    Średnia wszystkich ocen <span className='star'>*</span>
+                  </label>
+                </div>
                 <Dropdown
                   fluid
                   selection
@@ -256,7 +264,9 @@ const SubA_V_VI = () => {
                 Uczeń/uczennica w roku szkolnym 2019/2020 uzyskał tytułu
                 laureata lub finalisty konkursu o zasięgu co najmniej
                 wojewódzkim lub olimpiady/turnieju co najmniej II stopnia
+                <span className='star'> *</span>
               </Header>
+
               <Dropdown
                 options={optionsYesNo}
                 fluid
@@ -278,6 +288,7 @@ const SubA_V_VI = () => {
                 Uczeń/uczennica posiada w roku szkolnym 2019/2020 zezwolenie na
                 uczestnictwo, ze względu na szczególne uzdolnienia w
                 indywidualnym programie nauczania lub toku nauki
+                <span className='star'> *</span>
               </Header>
               <Dropdown
                 options={optionsYesNo}
@@ -300,7 +311,7 @@ const SubA_V_VI = () => {
                 Uczeń/uczennica posiada aktualne na dzień składania wniosku
                 orzeczenie o niepełnosprawności lub orzeczenie o stopniu
                 niepełnosprawności lub orzeczenie o potrzebie kształcenia
-                specjalnego
+                specjalnego <span className='star'> *</span>
               </Header>
               <Dropdown
                 options={optionsYesNo}

@@ -111,6 +111,7 @@ const Budget = () => {
         <Message className='msg' info size='small'>
           <Message.Header>
             Lista planowanych wydatków na realizację ścieżki rozwoju{' '}
+            <span className='star'> *</span>
           </Message.Header>
           <div>
             <ol>

@@ -181,4 +181,24 @@ export const Wrapper = styled.div`
   [data-name='tab1Subj'] {
     min-width: 400px !important;
   }
+  .labeler {
+    color: rgba(0, 0, 0, 0.87) !important;
+    line-height: 1.4285em !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    padding-bottom: 5px !important;
+  }
+  .addTop{
+    padding-top: 5px !important;
+  }
+
+  .star {
+    color: red !important;
+  }
+  .lower-label {
+    padding-bottom: 0 !important;
+  }
+  label {
+    font-size: 13px !important;
+  }
 `;

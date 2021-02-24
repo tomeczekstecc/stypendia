@@ -88,9 +88,16 @@ export const addSubmit = async (req: any, res: Response) => {
 
     await submit.save();
 
+    await getRepository(File)
+      .createQueryBuilder('file')
+      .update()
+      .set({ submitId: submit.id })
+      .where('tempSubmitId = :submitId', { submitId: req.body.tempUuid })
+      .execute();
+
     const submitFiles = await File.find({ submitId: submit.id });
 
-    const data = {
+     const data = {
       submit,
       files: submitFiles,
       tabs1: mapTabs(submit, '1'),
@@ -104,12 +111,10 @@ export const addSubmit = async (req: any, res: Response) => {
 
     await generatePdf(data, 'submit');
 
-    await getRepository(File)
-      .createQueryBuilder('file')
-      .update()
-      .set({ submitId: submit.id })
-      .where('tempSubmitId = :submitId', { submitId: req.body.tempUuid })
-      .execute();
+
+
+
+
 
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subCreated;
@@ -215,7 +220,7 @@ export const editSubmit = async (req: any, res: Response) => {
     makeLog(OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
     const submitFiles = await File.find({ submitId: tempSubmit.id });
-    console.log(submitFiles)
+    console.log(submitFiles);
     const data = {
       submit: { ...tempSubmit },
       files: submitFiles,

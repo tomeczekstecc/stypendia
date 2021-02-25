@@ -42,7 +42,7 @@ const AllUsersSubmits = () => {
 
   return !isLoading ? (
     <>
-      <Card.Group itemsPerRow={5} stackable className='cards'>
+      <Card.Group itemsPerRow={5} stackable className='cards-wrapper'>
         {data.length > 0 ? (
           data.map((s) => (
             <Card key={s.id} className='card' raised>
@@ -78,6 +78,7 @@ const AllUsersSubmits = () => {
                     <Button
                       primary
                       onClick={() => handleOnClick(s.uuid, 'edit')}
+                      className='edit-btn'
                     >
                       Popraw
                     </Button>

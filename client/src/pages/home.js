@@ -43,7 +43,7 @@ const Home = () => {
           />
         </Menu>
 
-        <Segment className='segment'>
+        <Segment className='segment-item'>
           <Grid stackable columns={1}>
             {renderActive()}
           </Grid>

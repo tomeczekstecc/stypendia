@@ -2,7 +2,17 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
-  /* margin-top: 5% !important; */
+  padding-top: 80px !important;
+  .disabled-item,
+  .disabled-item label,
+  .labeler .disabled-item ,
+  .disabled-item .input,
+
+  .disabled-item .dropdown {
+    color: rgba(0, 0, 0, 1) !important;
+    opacity: 0.9 !important;
+    cursor: not-allowed !important;
+  }
 
   .lead-header {
     position: absolute !important;
@@ -188,7 +198,7 @@ export const Wrapper = styled.div`
     font-size: 13px !important;
     padding-bottom: 5px !important;
   }
-  .addTop{
+  .addTop {
     padding-top: 5px !important;
   }
 

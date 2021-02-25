@@ -70,7 +70,10 @@ const SubA_I_II = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               label='Imię wnioskodawcy'
               name='firstName'
               icon='user'
@@ -79,17 +82,23 @@ const SubA_I_II = () => {
               value={user?.firstName || ''} //
             />
             <Form.Input
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               icon='user'
               iconPosition='left'
               required
-              className='input'
               label='Nazwisko wnioskodawcy'
               name='lastName'
               value={user?.lastName || ''}
             />
 
             <Form.Input
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               label='Email wnioskodawcy'
               required
               icon='at'
@@ -99,7 +108,10 @@ const SubA_I_II = () => {
               value={user?.email || ''}
             />
             <Form.Input
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               label='Numer telefonu wnioskodawcy'
               icon='phone'
               iconPosition='left'
@@ -116,7 +128,10 @@ const SubA_I_II = () => {
 
             <Form.Input
               onChange={(e) => handleOnChange(e)}
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               icon='box'
               iconPosition='left'
               label='Adres skrzynki ePuap'
@@ -124,7 +139,11 @@ const SubA_I_II = () => {
               name='epuapAdr'
               value={curDocument?.epuapAdr || ''}
             />
-            <div className='labeler'>
+            <div
+              className={`${
+                submitMode === 'watch' ? 'disabled-item labeler ' : 'labeler'
+              }`}
+            >
               <label>
                 Status wnioskodawcy <span className='star'>*</span>
               </label>
@@ -133,7 +152,10 @@ const SubA_I_II = () => {
               fluid
               selection
               floating
-              className='dropdown'
+              className={`${
+                submitMode === 'watch' ? 'disabled-item dropdown ' : 'dropdown'
+              }`}
+              disabled={submitMode === 'watch'}
               data-name='isSelf'
               onChange={(e) => handleOnChange(e)}
               value={curDocument?.isSelf || 'default'}
@@ -155,7 +177,10 @@ const SubA_I_II = () => {
           <Form.Group grouped>
             <Form.Input
               onChange={(e) => handleOnChange(e)}
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               required
               placeholder='Podaj PESEL ucznia'
               label='PESEL ucznia'
@@ -172,7 +197,10 @@ const SubA_I_II = () => {
             <Form.Input
               onChange={(e) => handleOnChange(e)}
               required
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               icon='user'
               iconPosition='left'
               label='Imię ucznia'
@@ -195,7 +223,10 @@ const SubA_I_II = () => {
               icon='user'
               required
               iconPosition='left'
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               label='Nazwisko ucznia'
               name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
@@ -214,7 +245,10 @@ const SubA_I_II = () => {
               onChange={(e) => handleOnChange(e)}
               icon='at'
               iconPosition='left'
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               label='Email ucznia'
               type='email'
               name='pupilEmail'
@@ -232,7 +266,11 @@ const SubA_I_II = () => {
             )}
             <Form.Input
               onChange={(e) => handleOnChange(e)}
-              className='input'
+              c
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               label='Numer telefonu ucznia'
               icon='phone'
               iconPosition='left'

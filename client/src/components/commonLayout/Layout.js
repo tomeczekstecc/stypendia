@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
       <Grid
         centered
         verticalAlign='middle'
-        style={{ marginTop: '40px', boxSizing: 'border-box' }}
+        style={{boxSizing: 'border-box' }}
       >
         {children}
         {isLoggedIn && <Timer />}

@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-
-
-
-
   min-width: 50% !important;
+padding-top: 50px;
 
   .card {
     margin: 20px 25px !important;
@@ -16,7 +13,7 @@ export const Wrapper = styled.div`
     text-align: 'left' !important;
   }
 
-  .cards {
+  .cards-wrapper {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
   }
@@ -26,7 +23,7 @@ export const Wrapper = styled.div`
     right: 10px;
     top: -11px;
   }
-  .segment {
+  .segment-item {
     /* padding: 40px 0 !important; */
     min-height: 220px;
   }

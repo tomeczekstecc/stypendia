@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,  useHistory} from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
+
 import { leftMenuItems, rightMenuItems } from '../../parts/items';
 import { AuthContext, SubmitContext } from '../../context';
 
 const MainMenu = () => {
+  const history = useHistory();
   const submitContext = useContext(SubmitContext);
   const { setSubmitMode } = submitContext;
 
@@ -16,7 +18,7 @@ const MainMenu = () => {
   const { isLoggedIn, logOut } = authContext;
 
   const handleClick = (name) => {
-    if (name === 'logout') {logOut()}
+    if (name === 'logout') {logOut() && history.push('/login');}
     else if (name === 'submit') {setSubmitMode('new'); setActiveItem(name)}
     else setActiveItem(name);
   };

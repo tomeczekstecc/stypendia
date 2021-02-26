@@ -156,6 +156,9 @@ const SubA_VIIa = () => {
           <Header
             textAlign='left'
             floated='left'
+            className={`${
+              submitMode === 'watch' ? 'disabled-item inline-position header' : 'inline-position header'    }`}
+            disabled={submitMode === 'watch'}
             className='inline-position header'
             as='h4'
           >

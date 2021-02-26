@@ -78,7 +78,10 @@ const SubA_III_IV = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'disabled-item input ' : 'input'
+              }`}
+              disabled={submitMode === 'watch'}
               required
               label='Pełna nazwa szkoły'
               name='schoolName'
@@ -95,7 +98,11 @@ const SubA_III_IV = () => {
               </Label>
             )}
             <div className='select-wrapper'>
-              <div className='labeler'>
+              <div
+                className={`${
+                  submitMode === 'watch' ? 'disabled-item labeler ' : 'labeler'
+                }`}
+              >
                 <label>
                   Rodzaj szkoły <span className='star'>*</span>
                 </label>
@@ -105,7 +112,12 @@ const SubA_III_IV = () => {
                 fluid
                 selection
                 floating
-                className='dropdown'
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item dropdown '
+                    : 'dropdown'
+                }`}
+                disabled={submitMode === 'watch'}
                 data-name='schoolType'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.schoolType || 'default'}
@@ -124,7 +136,10 @@ const SubA_III_IV = () => {
                 <Form.Input
                   required
                   label='Ulica'
-                  className='input'
+                  className={`${
+                    submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  }`}
+                  disabled={submitMode === 'watch'}
                   icon='user'
                   iconPosition='left'
                   placeholder='Podaj ulicę'
@@ -146,7 +161,10 @@ const SubA_III_IV = () => {
 
                 <Form.Input
                   required
-                  className='input'
+                  className={`${
+                    submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  }`}
+                  disabled={submitMode === 'watch'}
                   label='Numer domu'
                   icon='phone'
                   iconPosition='left'
@@ -168,7 +186,10 @@ const SubA_III_IV = () => {
                 <Form.Input
                   label='Kod pocztowy'
                   required
-                  className='input'
+                  className={`${
+                    submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  }`}
+                  disabled={submitMode === 'watch'}
                   icon='zip'
                   iconPosition='left'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
@@ -187,7 +208,10 @@ const SubA_III_IV = () => {
                   </Label>
                 )}
                 <Form.Input
-                  className='input'
+                  className={`${
+                    submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  }`}
+                  disabled={submitMode === 'watch'}
                   icon='zip'
                   iconPosition='left'
                   label='Miejscowość'
@@ -207,16 +231,27 @@ const SubA_III_IV = () => {
                     {submitErrors?.schoolTown}
                   </Label>
                 )}
-                <div className='labeler'>
+                <div
+                  className={`${
+                    submitMode === 'watch'
+                      ? 'disabled-item labeler '
+                      : 'labeler'
+                  }`}
+                >
                   <label>
-                    Status wnioskodawcy <span className='star'>*</span>
+                    Województwo <span className='star'>*</span>
                   </label>
                 </div>
                 <Dropdown
                   fluid
                   selection
                   floating
-                  className='dropdown'
+                  className={`${
+                    submitMode === 'watch'
+                      ? 'disabled-item dropdown '
+                      : 'dropdown'
+                  }`}
+                  disabled={submitMode === 'watch'}
                   data-name='schoolVoyev'
                   onChange={(e) => handleOnChange(e)}
                   value={curDocument?.schoolVoyev || 'default'}
@@ -239,7 +274,9 @@ const SubA_III_IV = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
               required
               icon='user'
               iconPosition='left'
@@ -258,7 +295,9 @@ const SubA_III_IV = () => {
               icon='user'
               required
               iconPosition='left'
-              className='input'
+              className={`${
+                submitMode === 'watch' ? 'input disabled-item' : 'input'
+              }`}
               label='Nazwisko doradcy'
               name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
@@ -271,7 +310,11 @@ const SubA_III_IV = () => {
               </Label>
             )}
             <div className='select-wrapper'>
-              <div className='labeler'>
+              <div
+                className={`${
+                  submitMode === 'watch' ? 'disabled-item labeler ' : 'labeler'
+                }`}
+              >
                 <label>
                   Profil doradcy <span className='star'>*</span>
                 </label>
@@ -281,7 +324,10 @@ const SubA_III_IV = () => {
                 required
                 selection
                 floating
-                className='dropdown'
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.counselorProfile || 'default'}

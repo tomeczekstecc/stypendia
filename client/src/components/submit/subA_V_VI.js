@@ -98,6 +98,8 @@ const SubA_V_VI = () => {
               <Form.Input
                 label='Ocena z matematyki'
                 required
+                className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
+                disabled={submitMode === 'watch'}
                 action={
                   <Dropdown
                     button
@@ -130,6 +132,8 @@ const SubA_V_VI = () => {
               <Form.Input
                 label='Język nowożytny i ocena'
                 required
+                className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
+                disabled={submitMode === 'watch'}
                 action={
                   <Dropdown
                     button
@@ -172,6 +176,8 @@ const SubA_V_VI = () => {
               <Form.Input
                 label='Inny przedmiot i ocena'
                 required
+                className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
+                disabled={submitMode === 'watch'}
                 action={
                   <Dropdown
                     button
@@ -228,16 +234,25 @@ const SubA_V_VI = () => {
                 </Label>
               )}
               <div className='dropdown-wrapper'>
-                <div className='labeler'>
+                <div
+                  className={`${
+                    submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  }`}
+                >
                   <label>
                     Średnia wszystkich ocen <span className='star'>*</span>
                   </label>
                 </div>
                 <Dropdown
+                  className={`${
+                    submitMode === 'watch'
+                      ? 'disabled-item dropdown'
+                      : 'dropdown'
+                  }`}
+                  disabled={submitMode === 'watch'}
                   fluid
                   selection
                   floating
-                  className='dropdown'
                   data-name='allTotalAver'
                   onChange={(e) => handleOnChange(e)}
                   value={curDocument?.allTotalAver || 'default'}
@@ -260,7 +275,14 @@ const SubA_V_VI = () => {
         <Form className='form'>
           <Form.Group grouped>
             <div className='dropdown-wrapper'>
-              <Header className='select-header' as='h4'>
+              <Header
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item select-header '
+                    : 'select-header'
+                }`}
+                as='h4'
+              >
                 Uczeń/uczennica w roku szkolnym 2019/2020 uzyskał tytułu
                 laureata lub finalisty konkursu o zasięgu co najmniej
                 wojewódzkim lub olimpiady/turnieju co najmniej II stopnia
@@ -272,7 +294,12 @@ const SubA_V_VI = () => {
                 fluid
                 selection
                 floating
-                className='dropdown'
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item dropdown '
+                    : 'dropdown'
+                }`}
+                disabled={submitMode === 'watch'}
                 data-name='isFinalist'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.isFinalist || 'default'}
@@ -284,7 +311,14 @@ const SubA_V_VI = () => {
               )}
             </div>
             <div className='dropdown-wrapper'>
-              <Header className='select-header' as='h4'>
+              <Header
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item select-header '
+                    : 'select-header'
+                }`}
+                as='h4'
+              >
                 Uczeń/uczennica posiada w roku szkolnym 2019/2020 zezwolenie na
                 uczestnictwo, ze względu na szczególne uzdolnienia w
                 indywidualnym programie nauczania lub toku nauki
@@ -295,7 +329,12 @@ const SubA_V_VI = () => {
                 fluid
                 selection
                 floating
-                className='dropdown'
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item dropdown '
+                    : 'dropdown'
+                }`}
+                disabled={submitMode === 'watch'}
                 data-name='isAllowed'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.isAllowed || 'default'}
@@ -307,7 +346,14 @@ const SubA_V_VI = () => {
               )}
             </div>
             <div className='dropdown-wrapper'>
-              <Header className='select-header' as='h4'>
+              <Header
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item select-header'
+                    : 'select-header'
+                }`}
+                as='h4'
+              >
                 Uczeń/uczennica posiada aktualne na dzień składania wniosku
                 orzeczenie o niepełnosprawności lub orzeczenie o stopniu
                 niepełnosprawności lub orzeczenie o potrzebie kształcenia
@@ -318,7 +364,12 @@ const SubA_V_VI = () => {
                 fluid
                 selection
                 floating
-                className='dropdown'
+                className={`${
+                  submitMode === 'watch'
+                    ? 'disabled-item dropdown '
+                    : 'dropdown'
+                }`}
+                disabled={submitMode === 'watch'}
                 data-name='isHandicap'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.isHandicap || 'default'}

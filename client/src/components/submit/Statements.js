@@ -302,6 +302,7 @@ const Statements = () => {
             </Label>
           )}
           <Checkbox
+            className={submitMode === 'watch' && 'acc-dimmed'}
             onChange={(e) => handleOnChange(e)}
             as='h3'
             name='isStatementsChecked'
@@ -311,7 +312,10 @@ const Statements = () => {
             label={
               <label>
                 Potwierdzam powyższe oświadczenia i przyjęcie informacji
-                <span style={{color: 'red'}} className='star'> *</span>
+                <span style={{ color: 'red' }} className='star'>
+                  {' '}
+                  *
+                </span>
               </label>
             }
           />{' '}

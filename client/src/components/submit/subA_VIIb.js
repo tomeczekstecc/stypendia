@@ -119,14 +119,20 @@ const SubA_VIIb = () => {
           <Header
             textAlign='left'
             floated='left'
-            className='inline-position header'
+            className={`${
+              submitMode === 'watch'
+                ? 'disabled-item inline-position header'
+                : 'inline-position header'
+            }`}
+            disabled={submitMode === 'watch'}
             as='h4'
           >
-            Przedmiot kluczowy:
+            Przedmiot kluczowy: <span className='star'> *</span>
           </Header>
 
           <Dropdown
             floating
+            disabled={submitMode === 'watch'}
             fluid
             className='inline-position drop'
             selection
@@ -146,7 +152,10 @@ const SubA_VIIb = () => {
               name='tab2SubjName'
               data-name='tab2SubjName'
               placeholder='wpisz nazwę przedmiotu'
-              className='inputVIIb'
+              className={`${
+                submitMode === 'watch' ? 'disabled-item inputVIIb ' : 'inputVIIb'
+              }`}
+        
             />
           )}
         </Segment>
@@ -199,7 +208,11 @@ const SubA_VIIb = () => {
             {submitErrors?.tab2Results}
           </Label>
         )}
-        <Accordion fluid styled>
+        <Accordion
+          className={submitMode === 'watch' && 'acc-dimmed'}
+          fluid
+          styled
+        >
           {accordionsVIIb.map((acc) => (
             <div key={acc.id}>
               <Accordion.Title>

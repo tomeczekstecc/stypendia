@@ -157,23 +157,26 @@ const SubA_VIIa = () => {
             textAlign='left'
             floated='left'
             className={`${
-              submitMode === 'watch' ? 'disabled-item inline-position header' : 'inline-position header'    }`}
+              submitMode === 'watch'
+                ? 'disabled-item inline-position header'
+                : 'inline-position header'
+            }`}
             disabled={submitMode === 'watch'}
-            className='inline-position header'
             as='h4'
           >
             Przedmiot kierunkowy: <span className='star'> *</span>
           </Header>
 
           <Dropdown
-            disabled={!curDocument?.priLang || !curDocument?.priOtherSubj}
-            // floating
-            // fluid
+            disabled={
+              !curDocument?.priLang ||
+              !curDocument?.priOtherSubj ||
+              submitMode === 'watch'
+            }
             className='inline-position drop'
             selection
             data-name='tab1Subj'
             value={curDocument?.tab1Subj}
-            // basic
             options={options}
             defaultValue='default'
             onChange={(e) => handleOnChange(e)}
@@ -223,7 +226,9 @@ const SubA_VIIa = () => {
             {submitErrors?.tab1Results}
           </Label>
         )}
-        <Accordion fluid styled>
+        <Accordion
+className={submitMode==='watch' && 'acc-dimmed'}
+        fluid styled>
           {accordionsVIIa.map((acc) => (
             <div key={acc.id}>
               <Accordion.Title>

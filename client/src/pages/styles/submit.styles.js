@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   .disabled-item .input,
   .disabled-item .dropdown {
     color: rgba(0, 0, 0, 1) !important;
-    opacity: 0.9 !important;
+    opacity: 0.8 !important;
     cursor: not-allowed !important;
   }
 
@@ -82,10 +82,9 @@ export const Wrapper = styled.div`
       props.submitMode === 'watch' ? 'not-allowed' : ''} !important;
   }
   .small-text {
-    font-size: 0.9rem !important;
     text-align: center !important;
     transform: translateY(-35px) !important;
-    font-size: 1rem !important;
+    font-size: 0.85rem !important;
   }
 
   .small-text.text-selector {
@@ -214,5 +213,16 @@ export const Wrapper = styled.div`
   }
   label {
     font-size: 13px !important;
+  }
+
+  .inline-position.drop {
+    opacity: 0.75 !important;
+    cursor: not-allowed;
+  }
+
+  .acc-dimmed,
+  .table-disabled {
+    opacity: 0.75 !important;
+    cursor: not-allowed !important;
   }
 `;

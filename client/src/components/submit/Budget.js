@@ -143,7 +143,13 @@ const Budget = () => {
         </Message>
       </Container>
       <Container textAlign='left' fluid>
-        <Table className='table' sortable celled>
+        <Table
+          className={`${
+            submitMode === 'watch' ? 'table-disabled table ' : 'table'
+          }`}
+          sortable
+          celled
+        >
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>LP</Table.HeaderCell>
@@ -221,7 +227,11 @@ const Budget = () => {
             </Table.Row>
           </Table.Footer>
         </Table>
-        <Accordion fluid styled>
+        <Accordion
+          className={submitMode === 'watch' && 'acc-dimmed'}
+          fluid
+          styled
+        >
           <Accordion.Title active>
             Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu
             wskazanym w § 8 ust. 5 Regulaminu - jeśli dotyczy

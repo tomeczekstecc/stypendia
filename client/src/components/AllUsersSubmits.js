@@ -30,13 +30,11 @@ const AllUsersSubmits = () => {
 
     if (mode === 'edit') {
       setCurSubmit(uuid);
-      history.push('/submit')
+      history.push('/submit');
     } else if (mode === 'watch') {
       setSubmitToWatch(uuid);
       history.push('/submit');
     }
-
-
   };
 
   useEffect(() => {
@@ -89,7 +87,8 @@ const AllUsersSubmits = () => {
                     color='blue'
                     onClick={() => fetchPdf(s.numer)}
                   >
-                    <strong> PDF</strong>
+                    <Icon name='download'/>
+                    <strong>PDF</strong>
                   </Button>
                 </div>
               </Card.Content>

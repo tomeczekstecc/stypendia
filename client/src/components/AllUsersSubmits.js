@@ -72,19 +72,30 @@ const AllUsersSubmits = () => {
                     <Button
                       color='green'
                       onClick={() => handleOnClick(s.uuid, 'watch')}
+                      className='watch-btn'
                     >
                       Zobacz
-                    </Button>
+                    </Button>{' '}
+                  </Link>
+                  <Link to='/submit'>
                     <Button
                       primary
                       onClick={() => handleOnClick(s.uuid, 'edit')}
                     >
+                      Popraw
                     </Button>
                   </Link>
-                  <Button basic color='blue' onClick={() => fetchPdf(s.numer)}>
-                    <Icon name='download' />
-                    <strong> PDF</strong>
-                  </Button>
+                  <Link to='/submit'>
+                    <Button
+                      className='pdf-btn'
+                      basic
+                      color='blue'
+                      onClick={() => fetchPdf(s.numer)}
+                    >
+                      <Icon name='download' />
+                      <strong> PDF</strong>
+                    </Button>
+                  </Link>
                 </div>
               </Card.Content>
             </Card>

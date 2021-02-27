@@ -215,11 +215,6 @@ export const Wrapper = styled.div`
     font-size: 13px !important;
   }
 
-  /* .inline-position.drop {
-    opacity: 0.75 !important;
-    cursor: not-allowed;
-  } */
-
   .acc-dimmed,
   .table-disabled {
     opacity: 0.75 !important;

@@ -67,7 +67,7 @@ const AllUsersSubmits = () => {
                 <Card.Description>Nuner wniosku: {s.numer}</Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <div className='ui three buttons'>
+                <div className='ui two buttons'>
                   <Link to='/submit'>
                     <Button
                       color='green'

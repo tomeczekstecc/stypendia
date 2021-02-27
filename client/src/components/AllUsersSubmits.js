@@ -30,9 +30,13 @@ const AllUsersSubmits = () => {
 
     if (mode === 'edit') {
       setCurSubmit(uuid);
+      history.push('/submit')
     } else if (mode === 'watch') {
       setSubmitToWatch(uuid);
+      history.push('/submit');
     }
+
+
   };
 
   useEffect(() => {
@@ -67,35 +71,26 @@ const AllUsersSubmits = () => {
                 <Card.Description>Nuner wniosku: {s.numer}</Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <div className='ui two buttons'>
-                  <Link to='/submit' className='link-btn'>
-                    <Button
-                      color='green'
-                      onClick={() => handleOnClick(s.uuid, 'watch')}
-                      className='watch-btn'
-                    >
-                      Zobacz
-                    </Button>{' '}
-                  </Link>
-                  <Link to='/submit' className='link-btn'>
-                    <Button
-                      primary
-                      onClick={() => handleOnClick(s.uuid, 'edit')}
-                    >
-                      Popraw
-                    </Button>
-                  </Link>
-                  <Link to='/submit' className='link-btn'>
-                    <Button
-                      className='pdf-btn'
-                      basic
-                      color='blue'
-                      onClick={() => fetchPdf(s.numer)}
-                    >
-                      <Icon name='download' />
-                      <strong> PDF</strong>
-                    </Button>
-                  </Link>
+                <div className='ui three buttons'>
+                  <Button
+                    color='green'
+                    onClick={() => handleOnClick(s.uuid, 'watch')}
+                    className='watch-btn'
+                  >
+                    Zobacz
+                  </Button>{' '}
+                  <Button primary onClick={() => handleOnClick(s.uuid, 'edit')}>
+                    Popraw
+                  </Button>
+                  <Button
+
+                    className='pdf-btn'
+                    basic
+                    color='blue'
+                    onClick={() => fetchPdf(s.numer)}
+                  >
+                    <strong> PDF</strong>
+                  </Button>
                 </div>
               </Card.Content>
             </Card>

@@ -124,7 +124,12 @@ const SubA_III_IV = () => {
                 options={optionsSchoolType}
               />
               {submitErrors?.schoolType && (
-                <Label basic color='red' pointing='above' className='select'>
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text text-selector'
+                >
                   {submitErrors?.schoolType}
                 </Label>
               )}
@@ -258,7 +263,12 @@ const SubA_III_IV = () => {
                   options={optionsVoyev}
                 />
                 {submitErrors?.schoolVoyev && (
-                  <Label basic color='red' pointing='above' className='select'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text text-selector'
+                  >
                     {submitErrors?.schoolVoyev}
                   </Label>
                 )}
@@ -330,11 +340,16 @@ const SubA_III_IV = () => {
                 disabled={submitMode === 'watch'}
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.counselorProfile || 'default'}
+                value={curDocument?.counselorProfile|| 'default'}
                 options={optionsProfile}
               />
               {submitErrors?.counselorProfile && (
-                <Label basic color='red' pointing='above' className='select'>
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text text-selector upper'
+                >
                   {submitErrors?.counselorProfile}
                 </Label>
               )}

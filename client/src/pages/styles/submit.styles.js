@@ -5,9 +5,8 @@ export const Wrapper = styled.div`
   padding-top: 80px !important;
   .disabled-item,
   .disabled-item label,
-  .labeler .disabled-item ,
+  .labeler .disabled-item,
   .disabled-item .input,
-
   .disabled-item .dropdown {
     color: rgba(0, 0, 0, 1) !important;
     opacity: 0.9 !important;
@@ -85,17 +84,22 @@ export const Wrapper = styled.div`
   .small-text {
     font-size: 0.9rem !important;
     text-align: center !important;
-    /* margin-left:15% !important; */
     transform: translateY(-35px) !important;
-    color: red;
+    font-size: 1rem !important;
   }
-  .select {
-    font-size: 0.8rem !important;
-    text-align: center;
-    /* margin-left:15% !important; */
-    transform: translateY(0) !important;
-    color: red !important;
+
+  .small-text.text-selector {
+    transform: translateY(0px) !important;
   }
+
+  .small-text.text-selector.upper {
+    transform: translateY(-28px) !important;
+  }
+
+  .small-text.text-selector.upper2 {
+    transform: translateY(-55px) !important;
+  }
+
   .inline-position {
     /* width:30vw !important; */
     display: inline !important;

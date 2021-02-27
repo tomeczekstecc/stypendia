@@ -228,7 +228,7 @@ const SubA_V_VI = () => {
                   basic
                   color='red'
                   pointing='above'
-                  className='calculatePriAver'
+                  className='small-text text-selector upper2'
                 >
                   {submitErrors?.priTotalAver}
                 </Label>
@@ -236,7 +236,7 @@ const SubA_V_VI = () => {
               <div className='dropdown-wrapper'>
                 <div
                   className={`${
-                    submitMode === 'watch' ? 'input disabled-item' : 'input'
+                    submitMode === 'watch' ? 'dropdown disabled-item' : 'dropdown'
                   }`}
                 >
                   <label>
@@ -259,7 +259,12 @@ const SubA_V_VI = () => {
                   options={optionsTotalGrades}
                 />
                 {submitErrors?.allTotalAver && (
-                  <Label basic color='red' pointing='above' className='select'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text text-selector'
+                  >
                     {submitErrors?.allTotalAver}
                   </Label>
                 )}
@@ -305,7 +310,12 @@ const SubA_V_VI = () => {
                 value={curDocument?.isFinalist || 'default'}
               />
               {submitErrors?.isFinalist && (
-                <Label basic color='red' pointing='above' className='select'>
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text text-selector'
+                >
                   {submitErrors?.isFinalist}
                 </Label>
               )}
@@ -340,7 +350,12 @@ const SubA_V_VI = () => {
                 value={curDocument?.isAllowed || 'default'}
               />
               {submitErrors?.isAllowed && (
-                <Label basic color='red' pointing='above' className='select'>
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text text-selector'
+                >
                   {submitErrors?.isAllowed}
                 </Label>
               )}
@@ -375,7 +390,12 @@ const SubA_V_VI = () => {
                 value={curDocument?.isHandicap || 'default'}
               />
               {submitErrors?.isHandicap && (
-                <Label basic color='red' pointing='above' className='select'>
+                <Label
+                  basic
+                  color='red'
+                  pointing='above'
+                  className='small-text text-selector'
+                >
                   {submitErrors?.isHandicap}
                 </Label>
               )}

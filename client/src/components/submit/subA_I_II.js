@@ -162,7 +162,12 @@ const SubA_I_II = () => {
               options={optionsAttachment}
             />
             {submitErrors?.isSelf && (
-              <Label basic color='red' pointing='above' className='select'>
+              <Label
+                basic
+                color='red'
+                pointing='above'
+                className='small-text text-selector'
+              >
                 {submitErrors?.isSelf}
               </Label>
             )}

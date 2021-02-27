@@ -47,7 +47,7 @@ export const Wrapper = styled.div`
     border-bottom-right-radius: 3px !important;
   }
 
-  .ui .two .buttons {
+  .ui.two.buttons {
     min-width: 100% !important;
   }
 `;

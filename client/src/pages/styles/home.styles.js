@@ -49,5 +49,7 @@ export const Wrapper = styled.div`
 
   .extra.content {
     min-width: 100% !important;
+    margin: 0 auto !important;
+    padding: auto !important;
   }
 `;

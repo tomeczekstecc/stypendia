@@ -68,7 +68,7 @@ const AllUsersSubmits = () => {
               </Card.Content>
               <Card.Content extra>
                 <div className='ui two buttons'>
-                  <Link to='/submit'>
+                  <Link to='/submit' className='link-btn'>
                     <Button
                       color='green'
                       onClick={() => handleOnClick(s.uuid, 'watch')}
@@ -77,7 +77,7 @@ const AllUsersSubmits = () => {
                       Zobacz
                     </Button>{' '}
                   </Link>
-                  <Link to='/submit'>
+                  <Link to='/submit' className='link-btn'>
                     <Button
                       primary
                       onClick={() => handleOnClick(s.uuid, 'edit')}
@@ -85,7 +85,7 @@ const AllUsersSubmits = () => {
                       Popraw
                     </Button>
                   </Link>
-                  <Link to='/submit'>
+                  <Link to='/submit' className='link-btn'>
                     <Button
                       className='pdf-btn'
                       basic

@@ -83,7 +83,12 @@ const AllUsersSubmits = () => {
                       Popraw
                     </Button>
                   </Link>
-                  <Button basic color='blue' onClick={() => fetchPdf(s.numer)}>
+                  <Button
+                    className='pdf-btn'
+                    basic
+                    color='blue'
+                    onClick={() => fetchPdf(s.numer)}
+                  >
                     <Icon name='download' />
                     <strong> PDF</strong>
                   </Button>

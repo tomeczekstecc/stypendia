@@ -78,17 +78,10 @@ const AllUsersSubmits = () => {
                     <Button
                       primary
                       onClick={() => handleOnClick(s.uuid, 'edit')}
-                      className='edit-btn'
                     >
-                      Popraw
                     </Button>
                   </Link>
-                  <Button
-                    className='pdf-btn'
-                    basic
-                    color='blue'
-                    onClick={() => fetchPdf(s.numer)}
-                  >
+                  <Button basic color='blue' onClick={() => fetchPdf(s.numer)}>
                     <Icon name='download' />
                     <strong> PDF</strong>
                   </Button>

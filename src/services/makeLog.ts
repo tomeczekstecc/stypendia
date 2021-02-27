@@ -1,4 +1,4 @@
-import * as ip from 'ip';
+import ipReq from 'request-ip';
 // import browser from 'browser-detect';
 import { Log } from '../MongoModel/Log';
 import { User } from '../entity';
@@ -29,7 +29,9 @@ export const makeLog = async (
     req.socket.remoteAddress ||
     (req.connection.socket ? req.connection.socket.remoteAddress : null);
 
-  const user = await User.findOne(req?.session?.userId) || undefined;
+  const ip2 = ipReq.getClientIp(req);
+  console.log(ip2)
+  const user = (await User.findOne(req?.session?.userId)) || undefined;
 
   try {
     const log = new Log({
@@ -37,7 +39,7 @@ export const makeLog = async (
       login: user?.login || undefined,
       object,
       objectId,
-      ip,
+      ip: ip2,
       browser: req.useragent.browser + ' ' + req.useragent.version,
       action,
       controller,

@@ -32,24 +32,5 @@ export const Wrapper = styled.div`
     position: relative !important;
   }
 
-  button {
-    /* max-width: 100%; */
-    border-radius: 0 !important;
-  }
 
-  .watch-btn {
-    border-top-left-radius: 3px !important;
-    border-bottom-left-radius: 3px !important;
-  }
-
-  .pdf-btn {
-    border-top-right-radius: 3px !important;
-    border-bottom-right-radius: 3px !important;
-  }
-
-  .ui.two.buttons {
-    min-width: 100% !important;
-    margin: 0 auto !important;
-    padding: auto !important;
-  }
 `;

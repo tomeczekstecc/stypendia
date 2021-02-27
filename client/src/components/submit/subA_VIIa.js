@@ -170,10 +170,10 @@ const SubA_VIIa = () => {
           </Header>
 
           <Dropdown
-            disabled={
+            disabled={ submitMode === 'watch' ||
               !curDocument?.priLang ||
-              !curDocument?.priOtherSubj ||
-              submitMode === 'watch'
+              !curDocument?.priOtherSubj
+
             }
             className='inline-position drop'
             selection

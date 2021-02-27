@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   .edit-btn {
-    border-radius: 0 !important  ;
+    border-radius: 0 !important;
+    max-width: 33%;
   }
   .required-legend {
     position: absolute;

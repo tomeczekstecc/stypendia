@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 
+
+
 import { useHistory } from 'react-router-dom';
 import {
   AlertContext,
@@ -10,6 +12,9 @@ import {
   SubmitContext,
 } from '../context';
 import { Wrapper } from './styles/nav.styles';
+
+
+
 
 const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();
@@ -83,12 +88,14 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
 
   useEffect(() => {
     resetTimeLeft();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+
   }, []);
 
   return (
     <Wrapper mode={submitMode}>
-      <Button.Group size='medium'>
+      <Button.Group size='medium' >
         <Button
           onClick={() => setActiveItem(activeItem - 1)}
           className='nav-button'

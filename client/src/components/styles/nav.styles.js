@@ -19,4 +19,6 @@ export const Wrapper = styled.div`
     display: ${(props) => (props.mode === 'watch' ? 'none !important' : null)};
   }
 
+.sticky {}
+
 `;

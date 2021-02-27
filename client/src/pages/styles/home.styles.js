@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  min-width: 50% !important;
+  width: 67% !important;
   padding-top: 50px;
 
   .card {
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
     top: -11px;
   }
   .segment-item {
-    /* padding: 40px 0 !important; */
+    padding: 30px !important;
     min-height: 220px;
   }
 

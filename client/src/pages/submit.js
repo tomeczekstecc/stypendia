@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Grid, Menu } from 'semantic-ui-react';
 
 import {
@@ -16,13 +16,13 @@ import {
 } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
-import ModeLabel from '../components/ModeLabel';
 
 const Submit = () => {
   const submitContext = useContext(SubmitContext);
   const { submitMode } = submitContext;
 
   const [activeItem, setActiveItem] = useState(1);
+  const [bottomOffset, setBottomOffset] = useState(window.pageYOffset);
 
   const renderComponent = () => {
     if (activeItem > 8) setActiveItem(1);
@@ -49,6 +49,11 @@ const Submit = () => {
         return <SubA_VIIa />;
     }
   };
+
+  useEffect(()=>{
+ setBottomOffset(window.pageYOffset);
+ console.log(window.innerHeight);
+  },[window.pageYOffset])
 
   return (
     <Wrapper submitMode={submitMode} className='wrapperek'>
@@ -117,8 +122,8 @@ const Submit = () => {
         </Grid.Column>
 
         <Grid.Column stretched width={12}>
-          
           {renderComponent()}
+
           <Nav activeItem={activeItem} setActiveItem={setActiveItem} />
         </Grid.Column>
       </Grid>

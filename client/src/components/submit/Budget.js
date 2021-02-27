@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import {
   Accordion,
   Container,
@@ -16,8 +16,7 @@ import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
 
 const Budget = () => {
-
-  const history = useHistory()
+  const history = useHistory();
   const authContext = useContext(AuthContext);
   const { resetTimeLeft } = authContext;
 
@@ -33,10 +32,16 @@ const Budget = () => {
     tempUuid,
   } = submitContext;
 
-  submitMode === ''&& history.push('/')
+  submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+    if (
+      submitMode === 'watch' ||
+      isNaN(e.target.value) ||
+      isNaN(e.target.innerText)
+    )
+      return;
     if (submitMode === 'watch') return;
 
     if (submitMode === 'edit') {
@@ -54,7 +59,11 @@ const Budget = () => {
     }
   };
   const handleOnChange2 = async (e) => {
-    if (submitMode === 'watch') return;
+    if (
+      submitMode === 'watch' ||
+      isNaN(e.target.value) ||
+      isNaN(e.target.innerText)
+    )return;
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,

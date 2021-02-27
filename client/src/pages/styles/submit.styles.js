@@ -225,4 +225,7 @@ export const Wrapper = styled.div`
     opacity: 0.75 !important;
     cursor: not-allowed !important;
   }
+  .disabled{
+   cursor: not-allowed !important;
+  }
 `;

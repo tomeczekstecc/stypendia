@@ -16,6 +16,7 @@ import {
 } from '../components';
 import { Wrapper } from './styles/submit.styles';
 import { SubmitContext } from '../context';
+import ModeLabel from '../components/ModeLabel';
 
 const Submit = () => {
   const submitContext = useContext(SubmitContext);
@@ -53,7 +54,7 @@ const Submit = () => {
     <Wrapper submitMode={submitMode} className='wrapperek'>
       <Errors />
 
-      <Grid >
+      <Grid>
         <Grid.Column width={4}>
           <Menu fluid vertical tabular className='menu-topper'>
             <Menu.Item
@@ -116,6 +117,7 @@ const Submit = () => {
         </Grid.Column>
 
         <Grid.Column stretched width={12}>
+          
           {renderComponent()}
           <Nav activeItem={activeItem} setActiveItem={setActiveItem} />
         </Grid.Column>

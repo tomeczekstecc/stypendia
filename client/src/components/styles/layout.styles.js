@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
     border-radius: 0 !important;
   }
   .pdf-btn{
-
+width: 33% !important;
   }
   .required-legend {
     position: absolute;

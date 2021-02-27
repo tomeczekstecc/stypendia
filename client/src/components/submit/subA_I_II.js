@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { AuthContext, SubmitContext } from '../../context';
 import { optionsAttachment } from '../../parts/options';
+import Title from '../Title';
 
 const SubA_I_II = () => {
   const history = useHistory();
@@ -63,6 +64,7 @@ const SubA_I_II = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
+      <Title content='Informacje dotyczące ucznia/uczennicy' />
       <Grid.Column className='column'>
         <Header className='sub-header' floated='left' as='h4'>
           I. DANE OSOBOWE WNIOSKODAWCY:
@@ -271,7 +273,6 @@ const SubA_I_II = () => {
             )}
             <Form.Input
               onChange={(e) => handleOnChange(e)}
-              c
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
               }`}

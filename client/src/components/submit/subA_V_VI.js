@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsTotalGrades, optionsGrades, optionsYesNo } from '../../parts';
+import Title from '../Title';
 
 const SubA_V_VI = () => {
   const history = useHistory();
@@ -84,6 +85,7 @@ const SubA_V_VI = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
+      <Title content='Krytaria oceny - podstawowe i dodatkowe' />
       <Grid.Column className='column'>
         <Header className='sub-header' floated='left' as='h4'>
           V. PODSTAWOWE KRYTERIA:
@@ -236,7 +238,9 @@ const SubA_V_VI = () => {
               <div className='dropdown-wrapper'>
                 <div
                   className={`${
-                    submitMode === 'watch' ? 'dropdown disabled-item' : 'dropdown'
+                    submitMode === 'watch'
+                      ? 'dropdown disabled-item'
+                      : 'dropdown'
                   }`}
                 >
                   <label>

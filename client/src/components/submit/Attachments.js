@@ -15,6 +15,7 @@ import {
 import SubALayout from '../subALayout';
 import { toLocaleDate } from '../../utils';
 import RandomAtt from './RandomAtt';
+import Title from '../Title';
 
 const Attachments = () => {
   const getUsersFiles = async () => {
@@ -180,7 +181,7 @@ const Attachments = () => {
       setCurDocument(submitToWatch);
     }
     getUsersFiles();
-    console.log(statement, report_card, allowance, attestation);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
@@ -199,6 +200,7 @@ const Attachments = () => {
           ref={fileInputRef}
           onChange={uploadImage}
         />
+        <Title content='Załącznki do wniosku' />
         <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>

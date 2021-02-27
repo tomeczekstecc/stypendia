@@ -15,6 +15,7 @@ import {
 import { accordionsVIIa } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
+import Title from '../Title';
 
 const SubA_VIIa = () => {
   const history = useHistory();
@@ -145,6 +146,7 @@ const SubA_VIIa = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
+      <Title content='Ścieżka rozwoju ucznia - tabela 1' />
       <Header className='sub-header' floated='left' as='h4'>
         VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY - Przedmiot
         kierunkowy
@@ -227,8 +229,10 @@ const SubA_VIIa = () => {
           </Label>
         )}
         <Accordion
-className={submitMode==='watch' && 'acc-dimmed'}
-        fluid styled>
+          className={submitMode === 'watch' ? 'acc-dimmed' : ''}
+          fluid
+          styled
+        >
           {accordionsVIIa.map((acc) => (
             <div key={acc.id}>
               <Accordion.Title>

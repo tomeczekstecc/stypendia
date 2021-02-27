@@ -15,10 +15,8 @@ const RandomAtt = () => {
     const res = await axios.get(`/api/v1/files/info`, { submitMode });
     if (submitMode === 'new') {
       setFiles(res.data.files.filter((f) => !f.submitId));
-      console.log(res.data.files.filter((f) => !f.submitId));
     } else {
       setFiles(res.data.files.filter((f) => f.submitId));
-      console.log(res.data.files.filter((f) => f.submitId));
     }
   };
 

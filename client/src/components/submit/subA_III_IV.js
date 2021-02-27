@@ -11,6 +11,7 @@ import {
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsVoyev, optionsSchoolType, optionsProfile } from '../../parts';
+import Title from '../Title';
 
 const SubA_III_IV = () => {
   const history = useHistory();
@@ -71,6 +72,7 @@ const SubA_III_IV = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
+      <Title content='Informacje dotyczące szkoły i opiekuna' />
       <Grid.Column className='column'>
         <Header className='sub-header' floated='left' as='h4'>
           III. DANE SZKOŁY:
@@ -340,7 +342,7 @@ const SubA_III_IV = () => {
                 disabled={submitMode === 'watch'}
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.counselorProfile|| 'default'}
+                value={curDocument?.counselorProfile || 'default'}
                 options={optionsProfile}
               />
               {submitErrors?.counselorProfile && (

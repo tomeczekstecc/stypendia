@@ -4,30 +4,24 @@ import { Icon, Label } from 'semantic-ui-react';
 import { Wrapper } from './styles/modelabel.styles';
 
 const ModeLabel = ({ mode }) => {
-
-const [color, setColor] = useState('grey')
-const [text, setText] = useState('TRYB PODGLĄDU WNIOSKU');
-const [icon, setIcon] = useState('eye')
-
+  const [color, setColor] = useState('grey');
+  const [text, setText] = useState('TRYB PODGLĄDU WNIOSKU');
+  const [icon, setIcon] = useState('eye');
 
   useEffect(() => {
-
-if(mode === 'watch'){
-  setColor('grey')
-  setText('TRYB PODGLĄDU WNIOSKU')
-  setIcon('eye')
-}else if (mode === 'edit') {
-  setColor('blue');
-  setText('TRYB EDYTOWANIA WNIOSKU');
-  setIcon('edit');
-}
-else if (mode === 'new') {
-  setColor('green');
-  setText('TRYB DODAWANIA WNIOSKU');
-  setIcon('plus');
-}
-
-
+    if (mode === 'watch') {
+      setColor('grey');
+      setText('TRYB PODGLĄDU WNIOSKU');
+      setIcon('eye');
+    } else if (mode === 'edit') {
+      setColor('blue');
+      setText('TRYB EDYTOWANIA WNIOSKU');
+      setIcon('edit');
+    } else if (mode === 'new') {
+      setColor('green');
+      setText('TRYB DODAWANIA WNIOSKU');
+      setIcon('plus');
+    }
   }, [mode]);
 
   return (

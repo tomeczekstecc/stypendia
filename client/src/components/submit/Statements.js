@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Wrapper } from '../styles/statements.styles';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
+import Title from '../Title';
 
 const Statements = () => {
   const history = useHistory();
@@ -58,6 +59,7 @@ const Statements = () => {
 
   return (
     <SubALayout>
+      <Title content='Oświadczenia' />
       <Wrapper>
         <Header className='sub-header' floated='left' as='h4'>
           Oświadczenie rodzica/opiekuna prawnego niepełnoletniego ucznia /
@@ -281,11 +283,11 @@ const Statements = () => {
                 RODO.
               </li>
             </ol>
-            <li>
-              Udostępnię informację o swojej sytuacji na rynku pracy firmom
-              badawczym realizującym ewaluacje/analizy/ekspertyzy na zlecenie
-              Beneficjenta oraz Instytucji Zarządzającej.
-            </li>
+          </li>
+          <li>
+            Udostępnię informację o swojej sytuacji na rynku pracy firmom
+            badawczym realizującym ewaluacje/analizy/ekspertyzy na zlecenie
+            Beneficjenta oraz Instytucji Zarządzającej.
           </li>
         </ol>
 
@@ -302,7 +304,7 @@ const Statements = () => {
             </Label>
           )}
           <Checkbox
-            className={submitMode === 'watch' && 'acc-dimmed'}
+            className={submitMode === 'watch' ? 'acc-dimmed' : ''}
             onChange={(e) => handleOnChange(e)}
             as='h3'
             name='isStatementsChecked'

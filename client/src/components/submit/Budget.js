@@ -13,6 +13,7 @@ import {
 import { budgetRows } from '../../parts';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
+import Title from '../Title';
 
 const Budget = () => {
 
@@ -104,6 +105,7 @@ const Budget = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
+      <Title content='Plan wydatków na ścieżkę rozwoju ucznia' />
       <Header className='sub-header' floated='left' as='h4'>
         VIII. PLAN WYDATKÓW
       </Header>
@@ -228,7 +230,7 @@ const Budget = () => {
           </Table.Footer>
         </Table>
         <Accordion
-          className={submitMode === 'watch' && 'acc-dimmed'}
+          className={submitMode === 'watch' ? 'acc-dimmed' : ''}
           fluid
           styled
         >

@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <>
       <Wrapper>
-        <Title content='Strona statowa' />
+        <Title content='Strona startowa' />
 
         <Menu pointing secondary>
           <Menu.Item

@@ -16,6 +16,7 @@ import {
 import { accordionsVIIb, keySubjects } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
+import Title from '../Title';
 
 const SubA_VIIb = () => {
   const history = useHistory();
@@ -109,11 +110,11 @@ const SubA_VIIb = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
+      <Title content='Ścieżka rozwoju ucznia - tabela 2' />
       <Header className='sub-header' floated='left' as='h4'>
         VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY - Przedmiot
         kluczowy
       </Header>
-
       <Container textAlign='left' fluid>
         <Segment className='segment-vii'>
           <Header
@@ -153,9 +154,10 @@ const SubA_VIIb = () => {
               data-name='tab2SubjName'
               placeholder='wpisz nazwę przedmiotu'
               className={`${
-                submitMode === 'watch' ? 'disabled-item inputVIIb ' : 'inputVIIb'
+                submitMode === 'watch'
+                  ? 'disabled-item inputVIIb '
+                  : 'inputVIIb'
               }`}
-        
             />
           )}
         </Segment>
@@ -209,7 +211,7 @@ const SubA_VIIb = () => {
           </Label>
         )}
         <Accordion
-          className={submitMode === 'watch' && 'acc-dimmed'}
+          className={submitMode === 'watch' ? 'acc-dimmed' : ''}
           fluid
           styled
         >

@@ -23,7 +23,7 @@ const Timer = () => {
     timeLeft < +process.env.REACT_APP_SESSION_ALERT && setSize(null);
     timeLeft > +process.env.REACT_APP_SESSION_ALERT && setColor(null);
     timeLeft > +process.env.REACT_APP_SESSION_ALERT && setSize('tiny');
-    timeLeft === 0 && logOut() && history.push('/login');
+    timeLeft === 0  && logOut('non-active')  && history.push('/login')
     const timer =
       timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
     return () => clearInterval(timer);

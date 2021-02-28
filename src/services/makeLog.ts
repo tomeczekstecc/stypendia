@@ -28,7 +28,7 @@ export const makeLog = async (
 
 
   const ip2 = ipReq.getClientIp(req);
-console.log(req.useragent, 'useragent')
+
   const user = (await User.findOne(req?.session?.userId)) || undefined;
 
   try {

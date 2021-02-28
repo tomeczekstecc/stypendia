@@ -59,13 +59,13 @@ const AuthState = ({ children }) => {
   };
 
   const getIP = async () => {
-    const ipClient = await axios.get('https://api.myip.com');
+    const ipClient = await axios.get('https://api.my-ip.io/ip.json');
 
-    console.log(ipClient);
+    console.log(ipClient.data.ip);
 
     dispatch({
       type: SET_IP,
-      payload: ipClient.data.IPv4,
+      payload: ipClient.data.ip,
     });
   };
 
@@ -82,15 +82,15 @@ const AuthState = ({ children }) => {
     });
   };
 
-  const logOut = () => {
-    axios
+  const logOut = async (cause = undefined) => {
+    await axios
       .get('/api/v1/users/logout')
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           history.push('/login');
         }
-
+        cause === 'non-active' && alert('Wylogowano z powodu braku aktywności');
         dispatch({
           type: LOGOUT_USER,
         });

@@ -1,7 +1,6 @@
-import { resultEnum } from "../entity/types";
+import { resultEnum } from '../entity/types';
 
 const mongoose = require('mongoose');
-
 
 const LogSchema = new mongoose.Schema(
   {
@@ -25,7 +24,6 @@ const LogSchema = new mongoose.Schema(
     },
     ip: {
       type: String,
-      required: [true, 'LOG MODEL: pole ip jest wymagane'],
     },
     browser: {
       type: String,
@@ -53,4 +51,3 @@ const LogSchema = new mongoose.Schema(
 );
 
 export const Log = mongoose.model('Log', LogSchema);
-

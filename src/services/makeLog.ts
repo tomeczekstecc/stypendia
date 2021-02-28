@@ -20,7 +20,7 @@ export const makeLog = async (
       login: user?.login || undefined,
       object,
       objectId,
-      ip: req.clientIp ?? 'IP jak logowanie',
+      ip: req.clientIp,
       browser: req.useragent.browser + ' ' + req.useragent.version,
       action,
       controller,

@@ -40,9 +40,10 @@ export const createApp = (store: Store) => {
 
   app.use(expressip().getIpInfoMiddleware);
 
-  app.use((req: any, res) => {
+  app.use((req: any, res, next) => {
     const ipInfo = req.ipInfo;
     console.log(ipInfo);
+    next()
   });
 
   app.use(cors());

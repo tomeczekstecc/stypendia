@@ -66,10 +66,10 @@ const compile = async function (templateName, data) {
 };
 
 export async function generatePdf(data, type) {
-  console.log(data, 'pdf data');
+  // console.log(data, 'pdf data');
   const hash = hashedToken(new Date().getTime().toString());
   const fileName = data.submit?.numer || data.tempSubmit?.numer; // inne przypadki też dorobić
-  // console.log(fileName);
+
 
   const calculateChecksum = async (type) => {
     const file = path.join(process.cwd(), 'pdfs', `${type}`, `${fileName}.pdf`);

@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 import userAgent from 'express-useragent';
-import unirest from 'unirest';
+
 
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
 import { active, notFound, serverError, limiter, clientIp } from './middleware';
@@ -24,7 +24,7 @@ import {
 } from './routes';
 
 import Rollbar from 'rollbar';
-
+import expressip from 'express-ip';
 
 
 
@@ -39,6 +39,16 @@ dotenv.config();
 export const createApp = (store: Store) => {
   const app = express();
 
+  app.set('trust proxy', 1);
+
+app.use(expressip().getIpInfoMiddleware);
+
+app.get('/test', function (req: any, res) {
+  const ipInfo = req.ipInfo;
+  console.log(ipInfo);
+  var message = `Hey, you are browsing from ${ipInfo.city}, ${ipInfo.country}`;
+  res.send(message);
+});
   app.use(cors());
   app.use(rollbar.errorHandler());
   app.use(clientIp);
@@ -55,7 +65,6 @@ export const createApp = (store: Store) => {
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
     res.json({ csrfToken: req.csrfToken() });
   });
-  app.set('trust proxy', 1);
   // app.use(limiter);
   app.use(express.json());
 

@@ -4,23 +4,24 @@ export const Wrapper = styled.div`
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  /* align-self: center; */
-  height: 100vh !important;
+
+  height: 80vh !important;
 
   .items-container {
-    max-width: 600px !important;
+    max-width: 800px !important;
+    display: flex;
+
+    & :first-child {
+      padding-right: 2rem;
+    }
   }
 
-  .btn {
-    margin-top: 1rem;
-  }
   .header {
-    margin-bottom: 20px !important;
+    margin-bottom: 5px !important;
   }
-  button {
-    margin-bottom: 20px !important;
-  }
+
   .link {
-    transform: translateY(-50%) !important;
+    transform: translateY(-60%) !important;
+    margin-right: 0 !important;
   }
 `;

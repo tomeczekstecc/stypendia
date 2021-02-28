@@ -28,13 +28,7 @@ export const makeLog = async (
   const ip3 = req.connection.remoteAddress;
   const ip4 = req.socket.remoteAddress;
   const ip5 = req.connection.socket.remoteAddress;
-  console.log(
-    req.headers['x-forwarded-for'],
-    ipReq.getClientIp(req),
-    req.connection.remoteAddress,
-    req.socket.remoteAddress,
-    req.connection.socket.remoteAddress,'ipis'
-  );
+
 
   const user = (await User.findOne(req?.session?.userId)) || undefined;
 
@@ -52,6 +46,14 @@ export const makeLog = async (
       info,
     });
     await log.save();
+      console.log(
+        req.headers['x-forwarded-for'],
+        ipReq.getClientIp(req),
+        req.connection.remoteAddress,
+        req.socket.remoteAddress,
+        req.connection.socket.remoteAddress,
+        'ipis'
+      );
   } catch (err) {
     console.log(err.message);
     saveRollbar('makeLog', err.message, 'error');

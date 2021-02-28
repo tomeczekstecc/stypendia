@@ -59,12 +59,9 @@ const AuthState = ({ children }) => {
   };
 
   const getIP = async () => {
-    const ipClient = await axios.get(
-      'https://geolocation-db.com/json/c0593a60-4159-11eb-80cd-db15f946225f'
-    );
+    const ipClient = await axios.get('https://api.myip.com');
 
-
-
+    console.log(ipClient);
 
     dispatch({
       type: SET_IP,
@@ -112,7 +109,7 @@ const AuthState = ({ children }) => {
   useEffect(() => {
     checkIsAuthenticated();
     getIP();
-    localStorage.setItem('styp--ip',state.ip);
+    localStorage.setItem('styp--ip', state.ip);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -127,7 +124,7 @@ const AuthState = ({ children }) => {
         timeLeft: state.timeLeft,
         resetTimeLeft,
         setTimeLeft,
-        ip: state.ip
+        ip: state.ip,
       }}
     >
       {children}

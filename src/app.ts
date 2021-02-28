@@ -33,6 +33,7 @@ const rollbar = new Rollbar({
 dotenv.config();
 export const createApp = (store: Store) => {
   const app = express();
+
   app.use(cors());
   app.use(rollbar.errorHandler());
   app.use(clientIp);

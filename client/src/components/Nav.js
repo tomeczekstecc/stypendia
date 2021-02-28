@@ -20,7 +20,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();
 
   const authContext = useContext(AuthContext);
-  const { resetTimeLeft } = authContext;
+  const { resetTimeLeft} = authContext;
 
   const submitContext = useContext(SubmitContext);
   const { newSubmit, submitMode, curSubmit, setSubmitErrors, tempUuid } = submitContext;
@@ -36,6 +36,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   const addNewSubmit = async (submit) => {
     setIsLoading(true);
     setSubmitErrors('');
+
     const csrfData = await axios.get('/api/v1/csrf');
     axios
       .post('/api/v1/submits', {

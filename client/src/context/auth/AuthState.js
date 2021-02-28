@@ -11,6 +11,7 @@ import {
   LOGOUT_USER,
   RESET_TIME_LEFT,
   SET_TIME,
+  SET_IP,
 } from '../types';
 
 const AuthState = ({ children }) => {
@@ -23,6 +24,7 @@ const AuthState = ({ children }) => {
     user: null,
     timeLeft: +process.env.REACT_APP_SESSION_TIMEOUT,
     isLoggedIn: false,
+    ip: null,
   };
 
   const checkIsAuthenticated = async () => {
@@ -53,6 +55,20 @@ const AuthState = ({ children }) => {
     dispatch({
       type: CHECK_IS_LOGGED_IN,
       payload: is,
+    });
+  };
+
+  const getIP = async () => {
+    const ipClient = await axios.get(
+      'https://geolocation-db.com/json/c0593a60-4159-11eb-80cd-db15f946225f'
+    );
+
+
+
+
+    dispatch({
+      type: SET_IP,
+      payload: ipClient.data.IPv4,
     });
   };
 
@@ -95,7 +111,9 @@ const AuthState = ({ children }) => {
 
   useEffect(() => {
     checkIsAuthenticated();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    getIP();
+    localStorage.setItem('styp--ip',state.ip);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -109,6 +127,7 @@ const AuthState = ({ children }) => {
         timeLeft: state.timeLeft,
         resetTimeLeft,
         setTimeLeft,
+        ip: state.ip
       }}
     >
       {children}

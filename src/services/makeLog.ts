@@ -23,14 +23,13 @@ export const makeLog = async (
     status,
     'MakeLoG'
   );
-  const ip =
-    req.headers['x-forwarded-for'] ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    (req.connection.socket ? req.connection.socket.remoteAddress : null);
-
+  const ip = req.headers['x-forwarded-for'];
+  const ip3 = req.connection.remoteAddress;
+  const ip4 = req.socket.remoteAddress;
+  const ip5 = req.connection.socket.remoteAddress;
   const ip2 = ipReq.getClientIp(req);
-  console.log(ip2)
+  console.log(ip, ip2, ip3, ip4, ip5);
+
   const user = (await User.findOne(req?.session?.userId)) || undefined;
 
   try {

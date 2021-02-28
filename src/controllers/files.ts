@@ -27,7 +27,11 @@ const calculateChecksum = async (fileToShow) => {
 export const uploadFile = async (req: any, res: Response) => {
   CONTROLLER = 'uploadFile';
   ACTION = 'dodawanie pliku';
-  const { type, submitTempId, submitId } = req.body;
+
+  const { type, submitTempId, submitId, clientIp } = req.body;
+
+  req.clientIp = clientIp;
+
 
   try {
     if (!fileTypeAllowed.includes(type)) {
@@ -126,6 +130,8 @@ export const uploadFile = async (req: any, res: Response) => {
 export const downloadFile = async (req: any, res: Response) => {
   CONTROLLER = 'downloadFile';
   ACTION = 'pobieranie pliku';
+
+  req.clientIp = req.body.clientIp;
   const { id } = req.params;
 
   const file = await File.findOneOrFail({
@@ -167,8 +173,11 @@ export const downloadFile = async (req: any, res: Response) => {
   }
 };
 
-export const getFileInfo = async (req: Request, res: Response) => {
+export const getFileInfo = async (req: any, res: Response) => {
   CONTROLLER = 'getFileInfo';
+
+  req.clientIp = req.body.clientIp;
+
   const { id } = req.params;
   try {
     const file = await File.findOne({
@@ -199,9 +208,11 @@ export const getFileInfo = async (req: Request, res: Response) => {
   }
 };
 
-
-export const getUsersFiles = async (req:any, res: Response) => {
+export const getUsersFiles = async (req: any, res: Response) => {
   CONTROLLER = 'getUsersFiles';
+
+  req.clientIp = req.body.clientIp;
+
   const { userId } = req.session;
   try {
     const files = await File.find({
@@ -234,6 +245,9 @@ export const getUsersFiles = async (req:any, res: Response) => {
 export const deleteFile = async (req: any, res: Response) => {
   CONTROLLER = 'deleteFile';
   ACTION = 'usuwanie pliku';
+
+ req.clientIp = req.body.clientIp;
+
   const { id } = req.params;
   try {
     const fileToDelete = await File.findOneOrFail(id);

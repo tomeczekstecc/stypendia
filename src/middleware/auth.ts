@@ -46,6 +46,7 @@ export const logIn = async (req: any, userId: any) => {
   INFO = 'pomyślnie zalogowano';
   STATUS = 'success';
 
+
   req.session!.userId = userId;
   req.session!.createdAt = Date.now();
 

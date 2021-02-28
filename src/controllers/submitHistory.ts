@@ -13,6 +13,9 @@ let ACTION, INFO, STATUS, CONTROLLER;
 //
 
 export const addSubmitHistory = async (req: any, res: Response) => {
+
+ req.clientIp = req.body.clientIp;
+
   CONTROLLER = 'addSubmitHistory';
   ACTION = 'dodawanie';
   try {
@@ -72,7 +75,11 @@ export const addSubmitHistory = async (req: any, res: Response) => {
 //
 //get all submits
 //
-export const getAllSubmitsHistory = async (req: Request, res: Response) => {
+export const getAllSubmitsHistory = async (req: any, res: Response) => {
+
+ req.clientIp = req.body.clientIp;
+
+
   try {
     const submitHistory = await SubmitHistory.find({
       relations: ['submits'],

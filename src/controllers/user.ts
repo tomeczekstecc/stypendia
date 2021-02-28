@@ -21,12 +21,16 @@ import { LessThan } from 'typeorm';
 const OBJECT = 'User';
 let CONTROLLER, ACTION, INFO, STATUS;
 
+let clientIPG = '';
+
 //
 //create a user
 //
 export const register = async (req, res: Response) => {
   CONTROLLER = 'register';
   ACTION = 'utworzenie użytkownika';
+
+  req.clientIp = req.body.clientIp;
 
   const {
     login,
@@ -117,6 +121,9 @@ export const login = async (req: any, res: Response) => {
   CONTROLLER = 'login';
   ACTION = 'logowanie';
 
+  req.clientIp = req.body.clientIp;
+  clientIPG = req.body.clientIp;
+
   const { login, password } = req.body;
 
   try {
@@ -127,7 +134,7 @@ export const login = async (req: any, res: Response) => {
     if (Object.keys(errors).length > 0) {
       STATUS = 'error';
       INFO = msg.client.fail.empty;
-      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS,req);
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json(errors);
     }
 
@@ -137,13 +144,13 @@ export const login = async (req: any, res: Response) => {
       STATUS = 'error';
       INFO = msg.client.fail.wrongCreds;
       makeLog(
-
         OBJECT,
         undefined,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.unoUserOrUserNotVer,
-        STATUS, req
+        STATUS,
+        req
       );
 
       return res.status(400).json({
@@ -157,13 +164,13 @@ export const login = async (req: any, res: Response) => {
       STATUS = 'error';
       INFO = msg.client.fail.wrongCreds;
       makeLog(
-
         OBJECT,
         user.id,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.userRemovedOrBanned,
-        STATUS, req
+        STATUS,
+        req
       );
 
       return res.status(400).json({
@@ -294,16 +301,10 @@ export const logout = async (req: any, res: Response) => {
   STATUS = 'success';
   INFO = msg.client.ok.loggedOut;
 
-  try {
-    makeLog(
+  req.clientIp = clientIPG;
 
-      OBJECT,
-      req.session.userId,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS, req
-    );
+  try {
+    makeLog(OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS, req);
     new Promise<void>((resolve, reject) => {
       req.session!.destroy((err: Error) => {
         if (err) reject(err);
@@ -339,6 +340,9 @@ export const logout = async (req: any, res: Response) => {
 export const me = async (req: any, res: Response) => {
   CONTROLLER = 'me';
   ACTION = 'pobieranie danych o użytkowniku';
+
+  req.clientIp = req.body.clientIp;
+
   try {
     const user = await User.findOne({
       where: { id: req.session.userId },
@@ -374,9 +378,12 @@ export const me = async (req: any, res: Response) => {
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Get all users
 //
-export const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (req: any, res: Response) => {
   CONTROLLER = 'getAllUsers';
   ACTION = 'pobieranie danych o użytkowniku';
+
+  req.clientIp = req.body.clientIp;
+
   try {
     const users = await User.find({ relations: ['submits'] });
     INFO = msg.dev.usersFetched;
@@ -402,9 +409,11 @@ export const getAllUsers = async (req: Request, res: Response) => {
 //
 //Get one user
 //
-export const getOneUser = async (req: Request, res: Response) => {
+export const getOneUser = async (req: any, res: Response) => {
   CONTROLLER = 'getOneUser';
   ACTION = 'pobieranie danych użytkownika';
+
+  req.clientIp = req.body.clientIp;
 
   const { uuid } = req.params;
 
@@ -441,9 +450,12 @@ export const getOneUser = async (req: Request, res: Response) => {
 //
 //update a user
 //
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: any, res: Response) => {
   CONTROLLER = 'updateUser';
   ACTION = 'aktualizowanie użytkownika';
+
+  req.clientIp = req.body.clientIp;
+
   const { uuid } = req.params;
   const { firstName, lastName } = req.body;
 
@@ -489,6 +501,9 @@ export const updateUser = async (req: Request, res: Response) => {
 export const deleteUser = async (req: any, res: Response) => {
   CONTROLLER = 'deleteUser';
   ACTION = 'usuwanie użytkownika';
+
+  req.clientIp = req.body.clientIp;
+
   const { uuid } = req.params;
 
   try {
@@ -521,13 +536,13 @@ export const deleteUser = async (req: any, res: Response) => {
       INFO = msg.client.fail.delUser;
 
       makeLog(
-
         OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO + msg.dev.delUser + user.activeSubmitsCount,
-        STATUS, req
+        STATUS,
+        req
       );
 
       return res.status(400).json({
@@ -545,15 +560,7 @@ export const deleteUser = async (req: any, res: Response) => {
     await user.save();
     STATUS = 'success';
     INFO = msg.dev.userDeleted;
-    makeLog(
-
-      OBJECT,
-      req.session.userId,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS, req
-    );
+    makeLog(OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS, req);
     return res.status(201).json({
       resStatus: STATUS,
       msg: INFO,

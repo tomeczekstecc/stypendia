@@ -10,6 +10,9 @@ let ACTION, INFO, STATUS, CONTROLLER;
 export const addSubmitPdf = async (req: any, res: Response) => {
   CONTROLLER = 'addSubmitPdf';
   ACTION = 'generowanie pdf';
+
+ req.clientIp = req.body.clientIp;
+
   const { uuid } = req.body;
 
   try {
@@ -53,6 +56,8 @@ generatePdf(data, 'submit');
 export const fetchPdf = async (req: any, res: Response) => {
   CONTROLLER = 'fetchPdf';
   ACTION = 'pobieranie pdf';
+
+ req.clientIp = req.body.clientIp;
 
   const { numer, type } = req.params;
   const fileName = `${numer}.pdf`;

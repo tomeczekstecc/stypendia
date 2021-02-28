@@ -30,10 +30,13 @@ const Profile = () => {
   const handleDelete = async () => {
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
+ 
     axios
       .put(`/api/v1/users/${user.uuid}`, { _csrf: csrfData.data.csrfToken })
       .then(async (data) => {
-        console.log(data);
+
         if (data.data.resStatus || data.data.resStatus === 'success') {
           setOpenConfirm(false);
           setIsLoading(false);
@@ -118,7 +121,7 @@ const Profile = () => {
               <Header.Subheader>
                 Ostatnia zmiana hasła{' '}
                 <Link to='/changepass'>
-                  <Button className='link' primary floated='right' >
+                  <Button className='link' primary floated='right'>
                     <Icon name='exchange' />
                     Zmień hasło
                   </Button>

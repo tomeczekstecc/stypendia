@@ -39,11 +39,13 @@ const Reset = ({ location, history }) => {
     setErrors('');
     e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
 
     axios
       .post(`/api/v1/password/reset${location.search}`, {
         ...body,
-        _csrf: csrfData.data.csrfToken,
+        _csrf: csrfData.data.csrfToken, clientIp
       })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {

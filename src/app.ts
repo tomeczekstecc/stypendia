@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import userAgent from 'express-useragent';
 
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
-import { active, notFound, serverError, limiter, clientIp } from './middleware';
+import { active, notFound, serverError, limiter} from './middleware';
 import {
   changePassRouter,
   userRouter,
@@ -23,7 +23,6 @@ import {
 } from './routes';
 
 import Rollbar from 'rollbar';
-import expressip from 'express-ip';
 
 const rollbar = new Rollbar({
   accessToken: '8cfa68afd5104efb9192067f3eb1786a',
@@ -38,17 +37,8 @@ export const createApp = (store: Store) => {
 
   app.set('trust proxy', 1);
 
-  app.use(expressip().getIpInfoMiddleware);
-
-  app.use((req: any, res, next) => {
-    const ipInfo = req.ipInfo;
-    console.log(ipInfo);
-    next()
-  });
-
   app.use(cors());
   app.use(rollbar.errorHandler());
-  app.use(clientIp);
   app.use(cookieParser());
   app.use(userAgent.express());
   app.use(

@@ -17,11 +17,11 @@ const LogSchema = new mongoose.Schema(
 
     object: {
       type: String,
-      defaul: 'undefined',
+      default: 'undefined',
     },
     objectId: {
       type: String,
-      defaul: 'undefined',
+      default: 'undefined',
     },
     ip: {
       type: String,

@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { User,UserHistory  } from '../entity';
 import { validate } from 'class-validator';
 import { makeLog } from '../services/makeLog';
@@ -14,6 +14,9 @@ let ACTION, INFO, STATUS, CONTROLLER;
 export const addUserHistory = async (req: any, res: Response) => {
   CONTROLLER = 'addUserHistory';
   ACTION = 'dodawanie historii użytkownika';
+
+ req.clientIp = req.body.clientIp;
+
   let newFailedLogins; // z params albo query
   const { uuid } = req.params;
 

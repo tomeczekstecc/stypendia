@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import {AlertContext,AuthContext, AppContext} from '../context';
+import { AlertContext, AuthContext, AppContext } from '../context';
 import { Link } from 'react-router-dom';
 import { verItems } from '../parts/items';
 import {
@@ -14,7 +14,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
-import {Wrapper} from './styles/verify.styles'
+import { Wrapper } from './styles/verify.styles';
 import Title from '../components/Title';
 
 const Verify = ({ location: { search }, history }) => {
@@ -32,12 +32,23 @@ const Verify = ({ location: { search }, history }) => {
 
   // eslint-disable-next-line no-unused-vars
   const [query, setQuery] = useState(search);
+  const [ip, setIp] = useState('');
+
+  const getIp = async () => {
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    setIp(client.data.ip);
+  };
 
   useEffect(() => {
+    getIp();
     checkIsAuthenticated();
 
-    axios
-      .post(`/api/v1/email/verify${query}`)
+    const body = {
+      clientIp: ip,
+    };
+
+   ip && axios
+      .post(`/api/v1/email/verify${query}`, { ...body })
       .then((data) => {
         setIsLoading(false);
         setIsSuccess(true);
@@ -47,8 +58,8 @@ const Verify = ({ location: { search }, history }) => {
         setIsLoading(false);
         addAlert(err.response.data);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn,ip]);
 
   return (
     <Wrapper>
@@ -125,6 +136,5 @@ const Verify = ({ location: { search }, history }) => {
     </Wrapper>
   );
 };
-
 
 export default Verify;

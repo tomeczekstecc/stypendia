@@ -14,6 +14,11 @@ let ACTION, INFO, STATUS, CONTROLLER;
 export const verify = async (req: any, res: Response) => {
   CONTROLLER = 'verify';
   ACTION = 'weryfikowanie konta (maila)';
+
+  console.log(req.body)
+
+req.clientIp = req.body.clientIp;
+
   const { id } = req.query;
 
   const user = await User.findOne(id);
@@ -108,6 +113,9 @@ export const verify = async (req: any, res: Response) => {
 export const resend = async (req: any, res: Response) => {
   CONTROLLER = 'resend';
   ACTION = 'ponowne wysyłanie linka do potwierdzenia konta (maila)';
+
+
+req.clientIp = req.body.clientIp;
 
   let errors: any = {};
 

@@ -38,25 +38,32 @@ const Resend = ({ history }) => {
     e.preventDefault();
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');
+       const client = await axios.get('https://api.my-ip.io/ip.json');
+       const clientIp = client.data.ip;
+ 
      axios
-      .post(`/api/v1/email/resend`, { email, _csrf: csrfData.data.csrfToken })
-      .then(async (data) => {
-        if (data.data.resStatus || data.data.resStatus === 'success') {
-          addAlert(data.data);
-          setUser(data.data.user);
-          await setIsLoading(false);
-          history.push('/');
-        }
-      })
-      .catch((err) => {
-        if (err.response.data.alertTitle) {
-          setIsLoading(false);
-          addAlert(err.response.data);
-        }
+       .post(`/api/v1/email/resend`, {
+         email,
+         _csrf: csrfData.data.csrfToken,
+         clientIp,
+       })
+       .then(async (data) => {
+         if (data.data.resStatus || data.data.resStatus === 'success') {
+           addAlert(data.data);
+           setUser(data.data.user);
+           await setIsLoading(false);
+           history.push('/');
+         }
+       })
+       .catch((err) => {
+         if (err.response.data.alertTitle) {
+           setIsLoading(false);
+           addAlert(err.response.data);
+         }
 
-        setErrors(err.response.data);
-        setIsLoading(false);
-      });
+         setErrors(err.response.data);
+         setIsLoading(false);
+       });
   };
 
   return (

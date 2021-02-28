@@ -20,6 +20,9 @@ export const addSubmit = async (req: any, res: Response) => {
   let errors: any = {};
   CONTROLLER = 'addSubmit';
   ACTION = 'dodawanie';
+
+   req.clientIp = req.body.clientIp;
+
   try {
     const user = await User.findOne({ id: req.session.userId });
 
@@ -148,6 +151,9 @@ export const addSubmit = async (req: any, res: Response) => {
 export const editSubmit = async (req: any, res: Response) => {
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
+
+ req.clientIp = req.body.clientIp;
+
   try {
     const user = await User.findOne({ id: req.session.userId });
 
@@ -220,7 +226,7 @@ export const editSubmit = async (req: any, res: Response) => {
     makeLog(OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
     const submitFiles = await File.find({ submitId: tempSubmit.id });
-  
+
     const data = {
       submit: { ...tempSubmit },
       files: submitFiles,
@@ -255,6 +261,9 @@ export const editSubmit = async (req: any, res: Response) => {
 //get all submits
 //
 export const getAllSubmits = async (req: any, res: Response) => {
+
+   req.clientIp = req.body.clientIp;
+
   try {
     const submits = await Submit.find({ relations: ['user'] });
 
@@ -277,6 +286,9 @@ export const getAllSubmits = async (req: any, res: Response) => {
 };
 
 export const getAllUsersSubmits = async (req: any, res: Response) => {
+
+ req.clientIp = req.body.clientIp;
+
   try {
     const submits = await Submit.find({
       where: { userId: req.session.userId },
@@ -301,6 +313,10 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
 };
 
 export const getOneUserSubmit = async (req: any, res: Response) => {
+
+
+ req.clientIp = req.body.clientIp;
+
   const { uuid } = req.params;
 
   try {

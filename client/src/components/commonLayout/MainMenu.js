@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link,  useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 import { leftMenuItems, rightMenuItems } from '../../parts/items';
@@ -18,9 +18,12 @@ const MainMenu = () => {
   const { isLoggedIn, logOut } = authContext;
 
   const handleClick = (name) => {
-    if (name === 'logout') {logOut() && history.push('/login');}
-    else if (name === 'submit') {setSubmitMode('new'); setActiveItem(name)}
-    else setActiveItem(name);
+    if (name === 'logout') {
+      logOut() && history.push('/login');
+    } else if (name === 'submit') {
+      setSubmitMode('new');
+      setActiveItem(name);
+    } else setActiveItem(name);
   };
 
   return (

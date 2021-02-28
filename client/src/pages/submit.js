@@ -51,9 +51,9 @@ const Submit = () => {
   };
 
   useEffect(()=>{
- setBottomOffset(window.pageYOffset);
- console.log(window.innerHeight);
-  },[window.pageYOffset])
+//  setBottomOffset(window.pageYOffset);
+//  console.log(window.innerHeight);
+  },[])
 
   return (
     <Wrapper submitMode={submitMode} className='wrapperek'>

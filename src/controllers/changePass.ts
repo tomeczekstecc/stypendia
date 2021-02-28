@@ -16,6 +16,8 @@ export const changePass = async (req: any, res: Response) => {
   INFO = msg.client.fail.passChange;
   STATUS = 'error';
 
+  req.clientIp = req.body.clientIp;
+
   const { oldPassword, password, passwordConfirm } = req.body;
 
   let errors: any = {};

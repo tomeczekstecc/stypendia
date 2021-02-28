@@ -30,10 +30,17 @@ const ChangePass = ({ history }) => {
   const handleOnClick = async (e) => {
     e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
+        const client = await axios.get('https://api.my-ip.io/ip.json');
+        const clientIp = client.data.ip;
+      
     setIsLoading(true);
 
     axios
-      .post(`/api/v1/changepass`, { ...body, _csrf: csrfData.data.csrfToken })
+      .post(`/api/v1/changepass`, {
+        ...body,
+        _csrf: csrfData.data.csrfToken,
+        clientIp,
+      })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);

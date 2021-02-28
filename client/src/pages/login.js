@@ -34,7 +34,6 @@ const Login = () => {
     checkIsAuthenticated();
     isLoggedIn && history.push('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
   }, [isLoggedIn]);
 
   const handleOnClick = async (e) => {
@@ -42,7 +41,10 @@ const Login = () => {
 
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');
-    const newBody = { ...body, _csrf: csrfData.data.csrfToken };
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
+   
+    const newBody = { ...body, _csrf: csrfData.data.csrfToken, clientIp };
 
     axios
       .post(`/api/v1/users/login`, newBody)
@@ -144,7 +146,7 @@ const Login = () => {
           </Grid>
 
           <Divider className='divider' content='lub' vertical />
-          <Required/>
+          <Required />
         </Segment>
       </Container>
     </Wrapper>

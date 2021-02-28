@@ -2,8 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 
-
-
 import { useHistory } from 'react-router-dom';
 import {
   AlertContext,
@@ -13,17 +11,20 @@ import {
 } from '../context';
 import { Wrapper } from './styles/nav.styles';
 
-
-
-
 const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();
 
   const authContext = useContext(AuthContext);
-  const { resetTimeLeft} = authContext;
+  const { resetTimeLeft } = authContext;
 
   const submitContext = useContext(SubmitContext);
-  const { newSubmit, submitMode, curSubmit, setSubmitErrors, tempUuid } = submitContext;
+  const {
+    newSubmit,
+    submitMode,
+    curSubmit,
+    setSubmitErrors,
+    tempUuid,
+  } = submitContext;
 
   const appContext = useContext(AppContext);
   const { setIsLoading, isLoading } = appContext;
@@ -38,11 +39,15 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
     setSubmitErrors('');
 
     const csrfData = await axios.get('/api/v1/csrf');
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
+
     axios
       .post('/api/v1/submits', {
         ...submit,
         _csrf: csrfData.data.csrfToken,
         tempUuid,
+        clientIp,
       })
       .then((data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
@@ -90,13 +95,11 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
   useEffect(() => {
     resetTimeLeft();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
-
   }, []);
 
   return (
     <Wrapper mode={submitMode}>
-      <Button.Group size='medium' >
+      <Button.Group size='medium'>
         <Button
           onClick={() => setActiveItem(activeItem - 1)}
           className='nav-button'

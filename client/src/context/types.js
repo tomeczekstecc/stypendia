@@ -1,8 +1,6 @@
 export const SET_USER = 'SET_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const CHECK_IS_LOGGED_IN = 'CHECK_IS_LOGGED_IN';
-export const SET_IP = 'SET_IP';
-
 
 export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION';
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';

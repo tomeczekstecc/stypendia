@@ -14,6 +14,7 @@ let ACTION: any, INFO, STATUS, CONTROLLER:any;
 export const addDraft = async (req: any, res: Response) => {
   CONTROLLER = 'addDraft';
   ACTION = 'dodawanie';
+  req.clientIp = req.body.clientIp;
   try {
     const user = await User.findOne({ id: req.session.userId });
 
@@ -74,6 +75,9 @@ export const editDraft = async (req: any, res: Response) => {
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
 
+ req.clientIp = req.body.clientIp;
+
+
   const { id } = req.params;
   try {
     const user = await User.findOne({ id: req.session.userId });
@@ -120,6 +124,7 @@ export const editDraft = async (req: any, res: Response) => {
 //get all post
 //
 export const getAllDrafts = async (req: any, res: Response) => {
+   req.clientIp = req.body.clientIp;
   try {
     //find posts,  include users data
     const drafts = await Draft.find({ relations: ['user'] });
@@ -145,6 +150,7 @@ export const getAllDrafts = async (req: any, res: Response) => {
 };
 
 export const getAllUsersDrafts = async (req: any, res: Response) => {
+   req.clientIp = req.body.clientIp;
   CONTROLLER = 'getAllUsersDrafts';
   ACTION = 'pobieranie danych draftów';
   try {

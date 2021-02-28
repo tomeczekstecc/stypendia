@@ -13,10 +13,9 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/register.styles';
-import { Rodo, Title,Required } from '../components';
+import { Rodo, Title, Required } from '../components';
 import { registerInputs } from '../parts/inputs';
 import { AlertContext, AppContext, AuthContext } from '../context';
-
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -43,12 +42,19 @@ const Register = (props) => {
     setErrors('');
     e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
+
     setIsLoading(true);
 
     axios
-      .post(`/api/v1/users`, { ...body, _csrf: csrfData.data.csrfToken })
+      .post(`/api/v1/users`, {
+        ...body,
+        _csrf: csrfData.data.csrfToken,
+        clientIp,
+      })
       .then((data) => {
-        console.log(data.data);
+
         if (data.data.resStatus || data.data.resStatus === 'success') {
           setIsLoading(false);
           setTimeout(() => props.history.push('/login'), 1500);

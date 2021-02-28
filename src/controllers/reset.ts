@@ -16,6 +16,8 @@ export const sendResetMail = async (req: any, res: Response) => {
   CONTROLLER = 'sendResetMail';
   ACTION = 'generowanie maila resetu hasła';
 
+   req.clientIp = req.body.clientIp;
+
   const { email, login } = req.body;
 
   try {
@@ -91,6 +93,8 @@ export const sendResetMail = async (req: any, res: Response) => {
 export const passwordReset = async (req:any, res: Response) => {
   CONTROLLER = 'passwordReset';
   ACTION = 'resetowanie hasła';
+
+   req.clientIp = req.body.clientIp;
 
   const { id, token} = req.query;
   const { password, passwordConfirm } = req.body;

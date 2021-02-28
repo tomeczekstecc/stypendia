@@ -11,7 +11,7 @@ import {
   LOGOUT_USER,
   RESET_TIME_LEFT,
   SET_TIME,
-  SET_IP,
+
 } from '../types';
 
 const AuthState = ({ children }) => {
@@ -24,7 +24,7 @@ const AuthState = ({ children }) => {
     user: null,
     timeLeft: +process.env.REACT_APP_SESSION_TIMEOUT,
     isLoggedIn: false,
-    ip: null,
+
   };
 
   const checkIsAuthenticated = async () => {
@@ -58,16 +58,6 @@ const AuthState = ({ children }) => {
     });
   };
 
-  const getIP = async () => {
-    const ipClient = await axios.get('https://api.my-ip.io/ip.json');
-
-    console.log(ipClient.data.ip);
-
-    dispatch({
-      type: SET_IP,
-      payload: ipClient.data.ip,
-    });
-  };
 
   const resetTimeLeft = () => {
     dispatch({
@@ -108,8 +98,8 @@ const AuthState = ({ children }) => {
 
   useEffect(() => {
     checkIsAuthenticated();
-    getIP();
-    localStorage.setItem('styp--ip', state.ip);
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -124,7 +114,7 @@ const AuthState = ({ children }) => {
         timeLeft: state.timeLeft,
         resetTimeLeft,
         setTimeLeft,
-        ip: state.ip,
+
       }}
     >
       {children}

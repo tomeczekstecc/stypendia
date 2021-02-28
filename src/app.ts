@@ -7,7 +7,6 @@ import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 import userAgent from 'express-useragent';
 
-
 import { CLIENT_URI, SESSION_OPTIONS } from './config';
 import { active, notFound, serverError, limiter, clientIp } from './middleware';
 import {
@@ -26,8 +25,6 @@ import {
 import Rollbar from 'rollbar';
 import expressip from 'express-ip';
 
-
-
 const rollbar = new Rollbar({
   accessToken: '8cfa68afd5104efb9192067f3eb1786a',
   captureUncaught: true,
@@ -41,14 +38,13 @@ export const createApp = (store: Store) => {
 
   app.set('trust proxy', 1);
 
-app.use(expressip().getIpInfoMiddleware);
+  app.use(expressip().getIpInfoMiddleware);
 
-app.get('/test', function (req: any, res) {
-  const ipInfo = req.ipInfo;
-  console.log(ipInfo);
-  var message = `Hey, you are browsing from ${ipInfo.city}, ${ipInfo.country}`;
-  res.send(message);
-});
+  app.use((req: any, res) => {
+    const ipInfo = req.ipInfo;
+    console.log(ipInfo);
+  });
+
   app.use(cors());
   app.use(rollbar.errorHandler());
   app.use(clientIp);

@@ -23,12 +23,11 @@ export const makeLog = async (
     status,
     'MakeLoG'
   );
-  const ip = req.headers['x-forwarded-for'];
+  // const ip = req.headers['x-forwarded-for'];
   const ip2 = ipReq.getClientIp(req);
-  const ip3 = req.connection.remoteAddress;
-  const ip4 = req.socket.remoteAddress;
-  const ip5 = req.connection.socket.remoteAddress;
-
+  // const ip3 = req.connection.remoteAddress;
+  // const ip4 = req.socket.remoteAddress;
+  // const ip5 = req.connection.socket.remoteAddress;
 
   const user = (await User.findOne(req?.session?.userId)) || undefined;
 
@@ -38,22 +37,23 @@ export const makeLog = async (
       login: user?.login || undefined,
       object,
       objectId,
-      ip: ip2,
+      ip:ip2,
       browser: req.useragent.browser + ' ' + req.useragent.version,
       action,
       controller,
       result: status,
       info,
     });
+    console.log(
+      req.headers['x-forwarded-for'],
+      ipReq.getClientIp(req),
+      req.connection?.remoteAddress,
+      req.socket?.remoteAddress,
+      req.connection?.socket?.remoteAddress,
+      'ipis'
+    );
+    console.log(log)
     await log.save();
-      console.log(
-        req.headers['x-forwarded-for'],
-        ipReq.getClientIp(req),
-        req.connection.remoteAddress,
-        req.socket.remoteAddress,
-        req.connection.socket.remoteAddress,
-        'ipis'
-      );
   } catch (err) {
     console.log(err.message);
     saveRollbar('makeLog', err.message, 'error');

@@ -220,7 +220,7 @@ export const editSubmit = async (req: any, res: Response) => {
     makeLog(OBJECT, tempSubmit.id, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
     const submitFiles = await File.find({ submitId: tempSubmit.id });
-    console.log(submitFiles);
+  
     const data = {
       submit: { ...tempSubmit },
       files: submitFiles,

@@ -41,7 +41,7 @@ export const msg = {
       mime: 'Niedozwolony typ pliku. Dozwolone pliki: .JPG, .PNG, .PDF',
       delUser: 'Nie możemy usunąć Twojego konta jeżeli masz aktywne wnioski',
       noStatement:
-        'Nie dodano załącznika - oświadczenia opiekuna dydaktytcznego',
+        'Nie dodano załącznika - oświadczenia opiekuna dydaktycznego',
       noReportCard: 'Nie dodano załącznika - świadectwa szkolnego',
       noRandoms:
         'Nie dodano żadnego załącznika potwierdzającego tytuł laureta/finalisty',

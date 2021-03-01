@@ -58,7 +58,7 @@ export const optionsSchoolType = [
 ];
 
 export const optionsGrades = [
-  { key: 'a', text: 'Wybierz ocenę', value: 'default', disabled: true },
+  { key: 'a', text: 'Ocena', value: 'default', disabled: true },
   { key: 'n', text: '5', value: '5', disabled: false },
   { key: 'p', text: '6', value: '6', disabled: false },
 ];

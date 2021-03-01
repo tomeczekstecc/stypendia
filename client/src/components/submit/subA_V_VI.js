@@ -24,7 +24,6 @@ const SubA_V_VI = () => {
   } = submitContext;
   submitMode === '' && history.push('/');
 
-
   const handleOnChange = async (e) => {
     if (submitMode === 'watch') return;
 
@@ -32,19 +31,27 @@ const SubA_V_VI = () => {
       await updateCurSubmit({
         ...curSubmit,
         tempUuid,
-        [e.target.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name]:
-          e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
         tempUuid,
-        [e.target.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name]:
-          e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     }
   };
@@ -62,14 +69,15 @@ const SubA_V_VI = () => {
     }
 
     if (curDocument) {
-      curDocument.priTotalAver =
-        (Math.round(
+      curDocument.priTotalAver = (
+        Math.round(
           ((+curDocument?.priMathGrade +
             +curDocument?.priLangGrade +
             +curDocument?.priOtherSubjGrade) /
             3) *
             100
-        ) / 100 || 0).toString();
+        ) / 100 || 0
+      ).toString();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,6 +123,7 @@ const SubA_V_VI = () => {
                 }
                 icon='calculator'
                 name='priMath'
+                data-name='priMath'
                 iconPosition='left'
                 placeholder='MAtematyka'
                 value='Matematyka'
@@ -149,6 +158,7 @@ const SubA_V_VI = () => {
                 }
                 icon='language'
                 name='priLang'
+                data-name='priLang'
                 iconPosition='left'
                 placeholder='Wpisz język obcy'
                 value={curDocument?.priLang}
@@ -193,6 +203,7 @@ const SubA_V_VI = () => {
                 }
                 icon='calendar check'
                 name='priOtherSubj'
+                data-name='priOtherSubj'
                 iconPosition='left'
                 placeholder='Wpisz inny przedmiot'
                 value={curDocument?.priOtherSubj}

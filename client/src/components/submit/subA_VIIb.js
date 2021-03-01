@@ -45,10 +45,10 @@ const SubA_VIIb = () => {
       }
     }
 
-    if (e.nativeEvent.path[1].dataset.type === 'checkbox') {
-      if (e.nativeEvent.path[1].children[0].checked) {
+    if (e.target.offsetParent.firstChild.type === 'checkbox') {
+      if (e.target.offsetParent.firstChild.checked) {
         curDocument.tab2Results -= 1;
-      } else if (!e.nativeEvent.path[1].children[0].checked) {
+      } else if (!e.target.offsetParent.firstChild.checked) {
         curDocument.tab2Results += 1;
       }
 
@@ -56,33 +56,41 @@ const SubA_VIIb = () => {
         await updateCurSubmit({
           ...curSubmit,
           tempUuid,
-          [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
-            .children[0].checked,
+          [e.target.offsetParent.dataset.name]: !e.target.offsetParent
+            .firstChild.checked,
         });
       } else if (submitMode === 'new') {
         await updateNewSubmit({
           ...newSubmit,
           tempUuid,
-          [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1]
-            .children[0].checked,
+          [e.target.offsetParent.dataset.name]: !e.target.offsetParent
+            .firstChild.checked,
         });
       }
     } else {
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
-          [e.nativeEvent.path[1].dataset.name ||
-          e.nativeEvent.path[2].dataset.name ||
-          e.nativeEvent.path[3].dataset.name ||
-          e.target.dataset.name]: e.target.value || e.target.innerText,
+          [e.target.dataset.name ||
+          e.target.offsetParent.dataset.name ||
+          e.target.parentElement.name ||
+          e.target.parentElement.dataset.name ||
+          e.target.parentElement.parentElement.dataset.name ||
+          e.target.parentElement.parentElement.parentElement.dataset.name ||
+          e.target.parentElement.parentElement.parentElement.parentElement
+            .dataset.name]: e.target.innerText || e.target.value,
         });
       } else if (submitMode === 'new') {
         await updateNewSubmit({
           ...newSubmit,
-          [e.nativeEvent.path[1].dataset.name ||
-          e.nativeEvent.path[2].dataset.name ||
-          e.nativeEvent.path[3].dataset.name ||
-          e.target.dataset.name]: e.target.value || e.target.innerText,
+          [e.target.dataset.name ||
+          e.target.offsetParent.dataset.name ||
+          e.target.parentElement.name ||
+          e.target.parentElement.dataset.name ||
+          e.target.parentElement.parentElement.dataset.name ||
+          e.target.parentElement.parentElement.parentElement.dataset.name ||
+          e.target.parentElement.parentElement.parentElement.parentElement
+            .dataset.name]: e.target.innerText || e.target.value,
         });
       }
     }

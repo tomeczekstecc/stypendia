@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Dropdown, Form, Grid, Header, Label } from 'semantic-ui-react';
 import SubALayout from '../subALayout';
 import { useHistory } from 'react-router-dom';
@@ -9,6 +9,7 @@ import Title from '../Title';
 
 const SubA_I_II = () => {
   const history = useHistory();
+  const statusRef = useRef();
   const authContext = useContext(AuthContext);
   const { user, resetTimeLeft } = authContext;
 
@@ -27,25 +28,32 @@ const SubA_I_II = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
         tempUuid,
-        [e.target.name ||
-        e.nativeEvent.path[1].dataset.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name ||
-        e.target.dataset.name]: e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
         tempUuid,
-        [e.target.name ||
-        e.nativeEvent.path[1].dataset.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name ||
-        e.target.dataset.name]: e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     }
   };
@@ -78,6 +86,7 @@ const SubA_I_II = () => {
               disabled={submitMode === 'watch'}
               label='Imię wnioskodawcy'
               name='firstName'
+              data-name='firstName'
               icon='user'
               required
               iconPosition='left'
@@ -93,6 +102,7 @@ const SubA_I_II = () => {
               required
               label='Nazwisko wnioskodawcy'
               name='lastName'
+              data-name='lastName'
               value={user?.lastName || ''}
             />
 
@@ -107,6 +117,7 @@ const SubA_I_II = () => {
               iconPosition='left'
               placeholder='Podaj email wnioskodawcy'
               name='phone'
+              data-name='phone'
               value={user?.email || ''}
             />
             <Form.Input
@@ -119,6 +130,7 @@ const SubA_I_II = () => {
               iconPosition='left'
               placeholder='Podaj numer telefonu wnioskodawcy'
               name='phone'
+              data-name='phone'
               onChange={(e) => handleOnChange(e)}
               value={curDocument?.phone || ''}
             />
@@ -139,6 +151,7 @@ const SubA_I_II = () => {
               label='Adres skrzynki ePuap'
               placeholder='Podaj adres ePuap'
               name='epuapAdr'
+              data-name='epuapAdr'
               value={curDocument?.epuapAdr || ''}
             />
             <div
@@ -151,6 +164,9 @@ const SubA_I_II = () => {
               </label>
             </div>
             <Dropdown
+              data-name='isSelf'
+              name='isSelf'
+              ref={statusRef}
               fluid
               selection
               floating
@@ -158,7 +174,6 @@ const SubA_I_II = () => {
                 submitMode === 'watch' ? 'disabled-item dropdown ' : 'dropdown'
               }`}
               disabled={submitMode === 'watch'}
-              data-name='isSelf'
               onChange={(e) => handleOnChange(e)}
               value={curDocument?.isSelf || 'default'}
               options={optionsAttachment}
@@ -192,6 +207,7 @@ const SubA_I_II = () => {
               placeholder='Podaj PESEL ucznia'
               label='PESEL ucznia'
               name='pupilPesel'
+              data-name='pupilPesel'
               icon='id card outline'
               iconPosition='left'
               value={curDocument?.pupilPesel || ''}
@@ -212,6 +228,7 @@ const SubA_I_II = () => {
               iconPosition='left'
               label='Imię ucznia'
               name='pupilFirstName'
+              data-name='pupilFirstName'
               placeholder='Podaj imię ucznia'
               value={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
@@ -236,6 +253,7 @@ const SubA_I_II = () => {
               disabled={submitMode === 'watch'}
               label='Nazwisko ucznia'
               name='pupilLastName'
+              data-name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
               value={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
@@ -259,6 +277,7 @@ const SubA_I_II = () => {
               label='Email ucznia'
               type='email'
               name='pupilEmail'
+              data-name='pupilEmail'
               placeholder='Podaj adres email ucznia'
               value={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
@@ -283,6 +302,7 @@ const SubA_I_II = () => {
               placeholder='Podaj numer telefonu ucznia'
               type='phone'
               name='pupilPhone'
+              data-name='pupilPhone'
               value={curDocument?.pupilPhone || ''}
             />
             {submitErrors?.pupilPhone && (

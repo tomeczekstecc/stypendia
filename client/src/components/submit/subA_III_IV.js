@@ -38,21 +38,27 @@ const SubA_III_IV = () => {
       await updateCurSubmit({
         ...curSubmit,
         tempUuid,
-        [e.target.name ||
-        e.nativeEvent.path[1].dataset.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name ||
-        e.target.dataset.name]: e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
         tempUuid,
-        [e.target.name ||
-        e.nativeEvent.path[1].dataset.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name ||
-        e.target.dataset.name]: e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     }
   };
@@ -87,6 +93,7 @@ const SubA_III_IV = () => {
               required
               label='Pełna nazwa szkoły'
               name='schoolName'
+              data-name='schoolName'
               icon='building outline'
               placeholder='Podaj pełną nazwę szkoły'
               iconPosition='left'
@@ -121,6 +128,7 @@ const SubA_III_IV = () => {
                 }`}
                 disabled={submitMode === 'watch'}
                 data-name='schoolType'
+                name='schoolType'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.schoolType || 'default'}
                 options={optionsSchoolType}
@@ -151,6 +159,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
+                  data-name='schoolStreetName'
                   value={curDocument?.schoolStreetName || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -177,6 +186,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
+                  data-name='schoolStreetNr'
                   value={curDocument?.schoolStreetNr || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -201,6 +211,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
+                  data-name='schoolZip'
                   value={curDocument?.schoolZip || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -225,6 +236,7 @@ const SubA_III_IV = () => {
                   required
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
+                  data-name='schoolTown'
                   value={curDocument?.schoolTown || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
@@ -260,6 +272,7 @@ const SubA_III_IV = () => {
                   }`}
                   disabled={submitMode === 'watch'}
                   data-name='schoolVoyev'
+                  name='schoolVoyev'
                   onChange={(e) => handleOnChange(e)}
                   value={curDocument?.schoolVoyev || 'default'}
                   options={optionsVoyev}
@@ -294,6 +307,7 @@ const SubA_III_IV = () => {
               iconPosition='left'
               label='Imię doradcy'
               name='counselorFirstName'
+              data-name='counselorFirstName'
               placeholder='Podaj imię doradcy'
               value={curDocument?.counselorFirstName || ''}
               onChange={(e) => handleOnChange(e)}
@@ -312,6 +326,7 @@ const SubA_III_IV = () => {
               }`}
               label='Nazwisko doradcy'
               name='counselorLastName'
+              data-name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
               value={curDocument?.counselorLastName || ''}
               onChange={(e) => handleOnChange(e)}
@@ -340,6 +355,7 @@ const SubA_III_IV = () => {
                   submitMode === 'watch' ? 'input disabled-item' : 'input'
                 }`}
                 disabled={submitMode === 'watch'}
+                name='counselorProfile'
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
                 value={curDocument?.counselorProfile || 'default'}

@@ -31,14 +31,14 @@ const Statements = () => {
       await updateCurSubmit({
         ...curSubmit,
         tempUuid,
-        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
+        [e.target.offsetParent.dataset.name]: !e.target.offsetParent.firstChild
           .checked,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
         tempUuid,
-        [e.nativeEvent.path[1].dataset.name]: !e.nativeEvent.path[1].children[0]
+        [e.target.offsetParent.dataset.name]: !e.target.offsetParent.firstChild
           .checked,
       });
     }

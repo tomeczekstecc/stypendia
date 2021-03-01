@@ -58,27 +58,32 @@ const Budget = () => {
       });
     }
   };
+
   const handleOnChange2 = async (e) => {
-    if (
-      submitMode === 'watch' ||
-      isNaN(e.target.value) ||
-      isNaN(e.target.innerText)
-    )return;
+    if (submitMode === 'watch') return;
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,
-        [e.nativeEvent.path[1].dataset.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name ||
-        e.target.dataset.name]: e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     } else if (submitMode === 'new') {
       await updateNewSubmit({
         ...newSubmit,
-        [e.nativeEvent.path[1].dataset.name ||
-        e.nativeEvent.path[2].dataset.name ||
-        e.nativeEvent.path[3].dataset.name ||
-        e.target.dataset.name]: e.target.value || e.target.innerText,
+        [e.target.dataset.name ||
+        e.target.offsetParent.dataset.name ||
+        e.target.parentElement.name ||
+        e.target.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.dataset.name ||
+        e.target.parentElement.parentElement.parentElement.parentElement.dataset
+          .name]: e.target.innerText || e.target.value,
       });
     }
   };

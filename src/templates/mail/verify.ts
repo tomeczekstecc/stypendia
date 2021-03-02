@@ -778,9 +778,9 @@ export const prepareTempleVerify = (link) => {
 </head>
 
 <body>
-  <!--*|IF:MC_PREVIEW_TEXT|*-->
+Weryfikacja konta
   <!--[if !gte mso 9]><!----><span class="mcnPreviewText"
-    style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">*|MC_PREVIEW_TEXT|*</span>
+    style="display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;"></span>
   <!--<![endif]-->
   <!--*|END:IF|*-->
   <center style="max-width: 800px; margin: 0 auto;">

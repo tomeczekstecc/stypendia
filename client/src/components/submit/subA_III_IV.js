@@ -155,7 +155,7 @@ const SubA_III_IV = () => {
                     submitMode === 'watch' ? 'input disabled-item' : 'input'
                   }`}
                   disabled={submitMode === 'watch'}
-                  icon='user'
+                  icon='road'
                   iconPosition='left'
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
@@ -182,7 +182,7 @@ const SubA_III_IV = () => {
                   }`}
                   disabled={submitMode === 'watch'}
                   label='Numer domu'
-                  icon='phone'
+                  icon='building'
                   iconPosition='left'
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
@@ -230,7 +230,7 @@ const SubA_III_IV = () => {
                     submitMode === 'watch' ? 'input disabled-item' : 'input'
                   }`}
                   disabled={submitMode === 'watch'}
-                  icon='zip'
+                  icon='map marker alternate'
                   iconPosition='left'
                   label='Miejscowość'
                   required

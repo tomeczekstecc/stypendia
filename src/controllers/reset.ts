@@ -8,31 +8,31 @@ import { makeLog } from '../services/makeLog';
 import { mapErrors } from '../utils';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
+import { prepareTempleVerify } from '../templates/mail';
+import { prepareTempleResetPass } from '../templates/mail/resetPass';
 
 const OBJECT: any = 'User';
-let ACTION: any, INFO: string, STATUS:string, CONTROLLER:any;
+let ACTION: any, INFO: string, STATUS: string, CONTROLLER: any;
 
 export const sendResetMail = async (req: any, res: Response) => {
   CONTROLLER = 'sendResetMail';
   ACTION = 'generowanie maila resetu hasła';
 
-   req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   const { email, login } = req.body;
 
   try {
     let errors: any = {};
 
-    if (isEmpty(email) || !email)
-      errors.email = msg.client.fail.emailErr;
-    if (isEmpty(login) || !login)
-      errors.login = msg.client.fail.userErr;
+    if (isEmpty(email) || !email) errors.email = msg.client.fail.emailErr;
+    if (isEmpty(login) || !login) errors.login = msg.client.fail.userErr;
     if (!isEmail(email)) errors.email = msg.client.fail.emailErr;
 
     // ****************************** LOG *********************************//
-    INFO =msg.client.fail.emailErr;
+    INFO = msg.client.fail.emailErr;
     STATUS = 'error';
-    makeLog( OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+    makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
 
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
@@ -40,8 +40,8 @@ export const sendResetMail = async (req: any, res: Response) => {
     const user = await User.findOne({ email, login });
 
     if (!user) {
-      STATUS = 'error'
-      INFO = msg.client.fail.linkNoSend
+      STATUS = 'error';
+      INFO = msg.client.fail.linkNoSend;
 
       return res.status(401).json({
         resStatus: STATUS,
@@ -57,10 +57,12 @@ export const sendResetMail = async (req: any, res: Response) => {
 
       await reset.save();
 
+      const templ = await prepareTempleResetPass(reset.url(token));
+
       await sendMail({
         to: email,
         subject: msg.subjects.resetPass,
-        text: reset.url(token),
+        html: templ,
       });
       // ****************************** LOG *********************************//
 
@@ -77,7 +79,7 @@ export const sendResetMail = async (req: any, res: Response) => {
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
-        alertTitle: 'Poszło!',
+      alertTitle: 'Poszło!',
     });
   } catch (err) {
     STATUS = 'error';
@@ -90,13 +92,13 @@ export const sendResetMail = async (req: any, res: Response) => {
   }
 };
 
-export const passwordReset = async (req:any, res: Response) => {
+export const passwordReset = async (req: any, res: Response) => {
   CONTROLLER = 'passwordReset';
   ACTION = 'resetowanie hasła';
 
-   req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
-  const { id, token} = req.query;
+  const { id, token } = req.query;
   const { password, passwordConfirm } = req.body;
 
   let errors: any = {};
@@ -115,49 +117,30 @@ export const passwordReset = async (req:any, res: Response) => {
     const reset: any = await PasswordReset.findOne(id);
 
     if (!reset) {
-
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.invalidToken;
       STATUS = 'error';
-      makeLog(
-        undefined,
-        OBJECT,
-        undefined,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS
-      );
+      makeLog(undefined, OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS);
       // ********************************************************************//
       return res.status(400).json({
         resStatus: 'error',
         msgPL: INFO,
-        alertTitle:'Błąd'
+        alertTitle: 'Błąd',
       });
     }
 
     const user = await User.findOne(reset.userId);
 
-
     if (!user || !reset.isValid(token)) {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.invalidToken;
       STATUS = 'error';
-      makeLog(
-
-        OBJECT,
-        reset.userId,
-        ACTION,
-        CONTROLLER,
-        INFO,
-        STATUS,
-        req
-      );
+      makeLog(OBJECT, reset.userId, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        alertTitle: 'Błąd!'
+        alertTitle: 'Błąd!',
       });
     }
 
@@ -166,30 +149,26 @@ export const passwordReset = async (req:any, res: Response) => {
     errors = await validate(user);
 
     if (errors.length > 0) {
-      makeLog(OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS, req);
+      makeLog(
+        OBJECT,
+        req.session.userId,
+        ACTION,
+        CONTROLLER,
+        INFO,
+        STATUS,
+        req
+      );
       return res.status(400).json(mapErrors(errors));
     }
 
-
-
-
     await Promise.all([
-      resetPassword(user.id, password,req),
+      resetPassword(user.id, password, req),
       PasswordReset.delete({ userId: reset.userId }),
     ]);
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.passChange;
     STATUS = 'success';
-    makeLog(
-
-      OBJECT,
-      reset.userId,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS,
-      req
-    );
+    makeLog(OBJECT, reset.userId, ACTION, CONTROLLER, INFO, STATUS, req);
     // ********************************************************************//
     return res.status(201).json({
       resStatus: STATUS,

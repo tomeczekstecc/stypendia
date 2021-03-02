@@ -7,6 +7,7 @@ import { markAsVerified } from '../middleware/auth';
 import { makeLog } from '../services/makeLog';
 import { saveRollbar } from '../services/saveRollbar';
 import { msg } from '../parts/messages';
+import { prepareTempleVerify } from '../templates/mail';
 
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -15,9 +16,9 @@ export const verify = async (req: any, res: Response) => {
   CONTROLLER = 'verify';
   ACTION = 'weryfikowanie konta (maila)';
 
-  console.log(req.body)
+  console.log(req.body);
 
-req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   const { id } = req.query;
 
@@ -28,13 +29,13 @@ req.clientIp = req.body.clientIp;
       INFO = msg.client.fail.noUser;
 
       makeLog(
-
         OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS, req
+        STATUS,
+        req
       );
       return res.status(401).json({
         resStatus: STATUS,
@@ -45,13 +46,15 @@ req.clientIp = req.body.clientIp;
 
     if (!User.hasValidVerificationUrl(req.originalUrl, req.query)) {
       STATUS = 'warning';
-      INFO =msg.client.fail.confirmToolate;
-         makeLog(OBJECT,
+      INFO = msg.client.fail.confirmToolate;
+      makeLog(
+        OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS, req
+        STATUS,
+        req
       );
 
       return res.status(400).json({
@@ -65,12 +68,13 @@ req.clientIp = req.body.clientIp;
       STATUS = 'warning';
       INFO = msg.client.fail.alreadyConfirmed;
       makeLog(
-             OBJECT,
+        OBJECT,
         req.session.userId,
         ACTION,
         CONTROLLER,
         INFO,
-        STATUS, req
+        STATUS,
+        req
       );
 
       return res.status(400).json({
@@ -83,20 +87,12 @@ req.clientIp = req.body.clientIp;
     await markAsVerified(user, req);
     STATUS = 'success';
     INFO = msg.client.ok.confirmed;
-    makeLog(
-
-      OBJECT,
-      req.session.userId,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS, req
-    );
+    makeLog(OBJECT, req.session.userId, ACTION, CONTROLLER, INFO, STATUS, req);
 
     return res.status(200).json({
       resStatus: STATUS,
       msgPL: INFO,
-       alertTitle: 'Sukces!',
+      alertTitle: 'Sukces!',
     });
   } catch (err) {
     STATUS = 'error';
@@ -114,15 +110,13 @@ export const resend = async (req: any, res: Response) => {
   CONTROLLER = 'resend';
   ACTION = 'ponowne wysyłanie linka do potwierdzenia konta (maila)';
 
-
-req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   let errors: any = {};
 
   const { email } = req.body;
 
-  if (!isEmail(email))
-    errors.email =msg.client.fail.empty;
+  if (!isEmail(email)) errors.email = msg.client.fail.empty;
 
   if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
@@ -131,15 +125,7 @@ req.clientIp = req.body.clientIp;
   if (!user) {
     STATUS = 'error';
     INFO = msg.client.fail.linkNoSend;
-    makeLog(
-
-      OBJECT,
-      undefined,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS, req
-    );
+    makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
 
     return res.status(401).json({
       resStatus: STATUS,
@@ -151,15 +137,7 @@ req.clientIp = req.body.clientIp;
   if (user?.verifiedAt) {
     STATUS = 'info';
     INFO = msg.client.fail.alreadyConfirmed;
-    makeLog(
-
-      OBJECT,
-      user.id,
-      ACTION,
-      CONTROLLER,
-      INFO,
-      STATUS, req
-    );
+    makeLog(OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS, req);
 
     return res.status(401).json({
       resStatus: STATUS,
@@ -171,13 +149,13 @@ req.clientIp = req.body.clientIp;
   if (!user?.verifiedAt) {
     const link = user.verificationUrl();
 
-    const templ = `${link}`;
+    const templ = await prepareTempleVerify(link);
 
     try {
       await sendMail({
         to: email,
-        subject: 'Zweryfikuj swój adres email',
-        text: templ,
+        subject: msg.subjects.verify,
+        html: templ,
       });
       user.lastSendEmailAt = new Date();
       await user.save();

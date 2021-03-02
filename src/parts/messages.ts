@@ -80,6 +80,7 @@ export const msg = {
   },
   subjects: {
     resetPass: 'Zresetuj hasło',
+    verify: 'Zweryfikuj swój adres email'
   },
   dev: {
     usersFetched: 'Pomyślnie pobrano dane o użytkownikach',

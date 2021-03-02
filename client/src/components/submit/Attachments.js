@@ -215,8 +215,7 @@ const Attachments = () => {
             każdego z plików (załączników) to 20MB. Dopuszatne formaty plików
             to: <strong> .pdf, .jpg. </strong>
             oraz <strong>.png.</strong> Kliknij w odpowiednie pole, aby dodać
-            dokument właściwego typu. Jeśli chcesz zamienić plik, klikniej
-            ponownie we włąściwą część.
+            dokument właściwego typu.
           </p>
         </Message>
         <Card.Group itemsPerRow={4} stackable>

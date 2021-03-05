@@ -1,0 +1,10 @@
+.dockerignore
+build
+client
+files
+pdfs
+node_modules
+.git
+.gitignore
+docker-compose*
+Dockerfile

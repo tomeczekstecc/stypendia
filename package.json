@@ -81,7 +81,7 @@
     "build": "tsc",
     "up": "docker-compose up -d",
     "postup": "npm run dev",
-    "down": "docker-compose down",
+    "down": "docker-compose down -v",
     "client": "npm start --prefix client",
     "clientinstall": "npm install -prefix client",
     "dev": "concurrently \"npm run devStart\" \"npm run client\" -n server,client"

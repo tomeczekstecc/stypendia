@@ -276,7 +276,7 @@ export class Submit extends Model {
 
   @IsEnum(['Tak', 'Nie'], {
     message:
-      'Należy wybrać odpowiedź. czy uczeń/uczennica uzyskał/a tytuł finalisty',
+      'Należy wybrać odpowiedź, czy uczeń/uczennica uzyskał/a tytuł finalisty',
   })
   @Column({
     type: 'enum',
@@ -286,7 +286,7 @@ export class Submit extends Model {
   isFinalist: boolean;
 
   @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź, czy uczeniń posiada zgodę',
+    message: 'Należy wybrać odpowiedź, czy uczeń posiada zgodę',
   })
   @Column({
     type: 'enum',
@@ -804,7 +804,7 @@ export class Submit extends Model {
 
   @Equals(true, {
     message:
-      'Należy zpoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',
+      'Należy zapoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',
   })
   @Column({
     comment: 'Potwierdzenie oświadczeń i informacji',

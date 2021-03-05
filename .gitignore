@@ -9,3 +9,4 @@ temp/
 /logs/**
 pdfs/submit/**
 files/**
+.env.backup

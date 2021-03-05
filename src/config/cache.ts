@@ -1,8 +1,8 @@
 import { RedisOptions } from 'ioredis';
 
 const {
-  REDIS_PORT = 6380,
-  REDIS_HOST = 'localhost',
+  REDIS_PORT = 6379,
+  REDIS_HOST = 'locahost',
   REDIS_PASSWORD = 'secret',
 } = process.env;
 

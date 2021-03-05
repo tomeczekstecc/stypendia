@@ -49,6 +49,7 @@ export const sendResetMail = async (req: any, res: Response) => {
         alertTitle: 'Błąd',
       });
     }
+    
 
     if (user) {
       const token = await PasswordReset.plaintextToken();

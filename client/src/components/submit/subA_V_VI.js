@@ -303,8 +303,8 @@ const SubA_V_VI = () => {
                 }`}
                 as='h4'
               >
-                Uczeń/uczennica w roku szkolnym 2019/2020 uzyskał tytułu
-                laureata lub finalisty konkursu o zasięgu co najmniej
+                Uczeń/uczennica w roku szkolnym 2019/2020 uzyskał/a tytułu
+                laureatki/ta lub finalistki/ty konkursu o zasięgu co najmniej
                 wojewódzkim lub olimpiady/turnieju co najmniej II stopnia
                 <span className='star'> *</span>
               </Header>

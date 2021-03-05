@@ -201,7 +201,7 @@ const SubA_VIIb = () => {
             kandydatem na opiekuna dydaktycznego Stypendysty/opiekunem
             dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu{' '}
             <strong>trzy planowane</strong> do osiągnięcia rezultaty, które
-            uczeń zamierza osiągnąć w roku szkolnym 2020/2021.
+            uczeń/uczennica zamierza osiągnąć w roku szkolnym 2020/2021.
           </p>
           <Label size='large' basic color='teal'>
             Liczba wybranych rezultatów:

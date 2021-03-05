@@ -286,7 +286,7 @@ export class Submit extends Model {
   isFinalist: boolean;
 
   @IsEnum(['Tak', 'Nie'], {
-    message: 'Należy wybrać odpowiedź, czy uczeń posiada zgodę',
+    message: 'Należy wybrać odpowiedź, czy uczeń/uczennica posiada zgodę',
   })
   @Column({
     type: 'enum',

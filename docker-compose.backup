@@ -45,18 +45,12 @@ services:
   redis_stypendia:
     image: redis:alpine
     restart: always
-    env_file:
-      - ./.env
-    ports:
-      - 6379:6379
+
 
   mongo_logs:
     image: mongo
     restart: always
-    env_file:
-      - ./.env
-    ports:
-      - 27017:27017
+
     environment:
       - MONGO_INITDB_ROOT_USERNAME=kfcekwrjf
       - MONGO_INITDB_ROOT_PASSWORD=kjwklfe

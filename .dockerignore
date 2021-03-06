@@ -1,5 +1,5 @@
 .dockerignore
-builds
+build
 client
 files
 pdfs

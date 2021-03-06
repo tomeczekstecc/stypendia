@@ -1,20 +1,19 @@
 version: '3'
-
 services:
-  #   stypendia-server:
-  #     build:
-  #       context: .
-  #       args:
-  #         NODE_ENV: development
-  #     volumes:
-  #       - ./:/app
-  #       - /app/node_modules
-  #     environment:
-  #       - NODE_ENV=development
-  #     command: npm run devStart
-  #     depends_on:
-  #       - db_stypendia
-  #       - redis_stypendia
+  # stypendia-server:
+  #   build:
+  #     context: .
+  #     args:
+  #       NODE_ENV: development
+  #   volumes:
+  #     - ./:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run devStart
+  #   depends_on:
+  #     - db_stypendia
+  #     - redis_stypendia
 
   db_stypendia:
     image: mysql
@@ -48,7 +47,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - 5555:6379
+      - ${REDIS_PORT}:6379
 
   mongo_logs:
     image: mongo
@@ -56,7 +55,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - 44444:27017
+      - ${MONGO_PORT}:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}

@@ -2,11 +2,11 @@ const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'build';
 
 module.exports = {
   type: process.env.DB_DIALECT,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  host: process.env.MYSQL_HOSt,
+  port: process.env.MYSQL_PORT,
+  username: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   // synchronize: process.env.NODE_ENV === 'development',
   synchronize: true,
   // logging: process.env.NODE_ENV === 'development',

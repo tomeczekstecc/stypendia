@@ -1,59 +1,62 @@
 version: '3'
 
 services:
-  stypendia-server:
-    build:
-      context: .
-      args:
-        NODE_ENV: development
-    volumes:
-      - ./:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    command: npm run devStart
-    depends_on:
-      - mysql
-      - redis
+  #   stypendia-server:
+  #     build:
+  #       context: .
+  #       args:
+  #         NODE_ENV: development
+  #     volumes:
+  #       - ./:/app
+  #       - /app/node_modules
+  #     environment:
+  #       - NODE_ENV=development
+  #     command: npm run devStart
+  #     depends_on:
+  #       - db_stypendia
+  #       - redis_stypendia
 
-  mysql:
+  db_stypendia:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - 3306:3306
+      - ${MYSQL_PORT}:3306
     env_file:
       - ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=8XV4f+dk+MxQD_Qd
-      - MYSQL_DATABASE=stypendia_dev
-      - MYSQL_USER=tomek
-      - MYSQL_PASSWORD=zFh8e^x8Pqxc6b4Q
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ./data:/data/mysql_typeorm_stypendia_dev
 
-  adminer:
+  adminer_stypendia:
     image: adminer
     restart: always
     env_file:
       - ./.env
     ports:
-      - 8085:8085
+      - ${ADMINER_PORT}:8080
+    depends_on:
+      - db_stypendia
 
-  redis:
+  redis_stypendia:
     image: redis:alpine
-    hostname: stypendia-server
-    restart: always
-    ports:
-      - 6379:6379
-
-  mongo_logs:
-    image: mongo
-    ports:
-      - 27019:27019
     restart: always
     env_file:
       - ./.env
+    ports:
+      - ${REDIS_PORT}:6379
+
+  mongo_logs:
+    image: mongo
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - ${MONGO_PORT}:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
@@ -76,7 +79,7 @@ services:
       - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_USERNAME}
       - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_PASSWORD}
     ports:
-      - 8084:8081
+      - ${MONGOWEB_PORT}:8081
     depends_on:
       - mongo_logs
 

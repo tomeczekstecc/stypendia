@@ -6,5 +6,4 @@ pdfs
 node_modules
 .git
 .gitignore
-docker-compose*
 Dockerfile

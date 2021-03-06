@@ -78,7 +78,7 @@ services:
       - ME_CONFIG_BASICAUTH_USERNAME=adminowski
       - ME_CONFIG_BASICAUTH_PASSWORD=XPy4hPZt%B7?tjRr
     ports:
-      - ${MONGOWEB_PORT}:8081
+      - 8084:8081
     depends_on:
       - mongo_logs
 

@@ -19,15 +19,15 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=8XV4f+dk+MxQD_Qd
+      - MYSQL_DATABASE=stypendia_dev
+      - MYSQL_USER=tomek
+      - MYSQL_PASSWORD=zFh8e^x8Pqxc6b4Q
     ports:
-      - ${MYSQL_PORT}:3306
+      - 3308:3306
     volumes:
       - ./data:/data/mysql_typeorm_stypendia_dev
 
@@ -37,7 +37,7 @@ services:
     env_file:
       - .env
     ports:
-      - ${ADMINER_PORT}:8080
+      - 8083:8080
     depends_on:
       - db_stypendia
 
@@ -73,10 +73,10 @@ services:
       - .env
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo_logs
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USERNAME}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASSWORD}
-      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_USERNAME}
-      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_PASSWORD}
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootowski
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=A4P!umWaqSVj8^S&
+      - ME_CONFIG_BASICAUTH_USERNAME=adminowski
+      - ME_CONFIG_BASICAUTH_PASSWORD=XPy4hPZt%B7?tjRr
     ports:
       - ${MONGOWEB_PORT}:8081
     depends_on:

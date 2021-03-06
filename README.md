@@ -16,7 +16,7 @@ Logger (zainstalowany, skonfigurowany)?
 add tailwindcss (https://www.youtube.com/watch?v=gOQ31Kc8H5E&t=78s)?
 
 
- 
+
 
 # FIXES
   secure: false, //TODO - update when SSL implemented

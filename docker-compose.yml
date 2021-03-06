@@ -55,10 +55,10 @@ services:
     env_file:
       - .env
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootowski
+      MONGO_INITDB_ROOT_USERNAME: rootowski
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
-      - MONGO_USERNAME=adminowski
+      MONGO_USERNAME: adminowski
       - MONGO_PASSWORD=${MONGO_PASSWORD}
     ports:
       - ${MONGO_PORT}:27017

@@ -22,7 +22,7 @@ services:
     ports:
       - ${MYSQL_PORT}:3306
     env_file:
-      - ./.env
+      - .env
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -35,7 +35,7 @@ services:
     image: adminer
     restart: always
     env_file:
-      - ./.env
+      - .env
     ports:
       - ${ADMINER_PORT}:8080
     depends_on:
@@ -45,7 +45,7 @@ services:
     image: redis:alpine
     restart: always
     env_file:
-      - ./.env
+      - .env
     ports:
       - ${REDIS_PORT}:6379
 
@@ -53,7 +53,7 @@ services:
     image: mongo
     restart: always
     env_file:
-      - ./.env
+      - .env
     ports:
       - ${MONGO_PORT}:27017
     environment:
@@ -70,7 +70,7 @@ services:
     image: mongo-express
     restart: always
     env_file:
-      - ./.env
+      - .env
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo_logs
       - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USERNAME}

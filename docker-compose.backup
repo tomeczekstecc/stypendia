@@ -21,14 +21,14 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - 3306:3306
+      - ${MYSQL_PORT}:3306
     env_file:
       - ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=adminer
-      - MYSQL_DATABASE=adminer_stypendia
-      - MYSQL_USER=a
-      - MYSQL_PASSWORD=a
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ./data:/data/mysql_typeorm_stypendia_dev
 
@@ -38,25 +38,31 @@ services:
     env_file:
       - ./.env
     ports:
-      - 8180:8080
+      - ${ADMINER_PORT}:8080
     depends_on:
       - db_stypendia
 
   redis_stypendia:
     image: redis:alpine
     restart: always
-
+    env_file:
+      - ./.env
+    ports:
+      - ${REDIS_PORT}:6379
 
   mongo_logs:
     image: mongo
     restart: always
-
+    env_file:
+      - ./.env
+    ports:
+      - ${MONGO_PORT}:27017
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=kfcekwrjf
-      - MONGO_INITDB_ROOT_PASSWORD=kjwklfe
-      - MONGO_INITDB_DATABASE=dwqflk
-      - MONGO_USERNAME=wefwefef
-      - MONGO_PASSWORD=fwefewf
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
     volumes:
       - ./data:/data/mongo_logs_stypendia_dev
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
@@ -68,12 +74,12 @@ services:
       - ./.env
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo_logs
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=kfcekwrjf
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=kjwklfe
-      - ME_CONFIG_BASICAUTH_USERNAME=wefewfwe
-      - ME_CONFIG_BASICAUTH_PASSWORD=wefwefwef
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_PASSWORD}
     ports:
-      - 8080:8081
+      - ${MONGOWEB_PORT}:8081
     depends_on:
       - mongo_logs
 

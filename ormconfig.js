@@ -13,7 +13,7 @@ module.exports = {
   // logging: process.env.NODE_ENV === 'development',
   logging: false,
   // entities: [rootDir + '/entity/**/*.{ts,js}'],
-  entities: [rootDir + '/entity/**/*.js}'],
+  entities: ['build/entity/**/*.js}'],
   migrations: [rootDir + '/migration/**/*.{ts,js}'],
   //   subscribers: rootDir + ['/subscriber/**/*.{.ts,.js}'],
 

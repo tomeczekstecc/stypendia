@@ -12,6 +12,6 @@
     "sourceMap": true,
 
   },
-  "include": ["src/**/*", "ormconfig.js"],
+  "include": ["src/**/*", "ormconfig.js", "src/ormconfig.js"],
   "exclude": ["node_modules", "client"]
 }

@@ -15,6 +15,7 @@ module.exports = {
   migrations: [rootDir + '/migration/**/*.{ts,js}'],
   //   subscribers: rootDir + ['/subscriber/**/*.{.ts,.js}'],
 
+
   cli: {
     entitiesDir: rootDir + '/entity',
     migrationsDir: rootDir + '/migration',

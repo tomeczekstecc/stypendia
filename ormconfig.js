@@ -12,14 +12,15 @@ module.exports = {
   synchronize: true,
   // logging: process.env.NODE_ENV === 'development',
   logging: false,
-  entities: [rootDir + '/entity/**/*.{ts,js}'],
+  // entities: [rootDir + '/entity/**/*.{ts,js}'],
+  entities: [__dirname + '/entity/**/*.{ts,js}'],
   migrations: [rootDir + '/migration/**/*.{ts,js}'],
   //   subscribers: rootDir + ['/subscriber/**/*.{.ts,.js}'],
 
-
   cli: {
-    entitiesDir: rootDir + '/entity',
     migrationsDir: rootDir + '/migration',
+    // entitiesDir: rootDir + '/entity',
+    entitiesDir: __dirname + '/entity',
     //  subscribersDir: rootDir + '/subscriber',
   },
 };

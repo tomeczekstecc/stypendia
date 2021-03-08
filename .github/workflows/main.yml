@@ -18,7 +18,7 @@ jobs:
             cd client
             rm -rf build
             NODE_ENV=production npm run build
-            pm2 restart serv
+            pm2 restart stypendia-backend
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}

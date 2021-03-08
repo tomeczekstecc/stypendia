@@ -1,13 +1,11 @@
 import React, { createRef, useContext, useEffect, useState } from 'react';
-import { Button, Card, Icon, Image, Label, Message } from 'semantic-ui-react';
+import { Button, Card, Icon, Image, Label} from 'semantic-ui-react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
-import { Wrapper } from '../styles/attachments.styles';
 
 import addedImg from '../../assets/img/wireframe.png';
-import { prizeImg, medalsImg, wireframeImg } from '../../assets/img';
-import SubALayout from '../subALayout';
+import { medalsImg, wireframeImg } from '../../assets/img';
 import { toLocaleDate } from '../../utils';
 
 const RandomAtt = () => {
@@ -51,7 +49,7 @@ const RandomAtt = () => {
 
   const deleteFile = async (e, id) => {
     e.stopPropagation();
-    const res = await axios.delete(`/api/v1/files/${id}`);
+    await axios.delete(`/api/v1/files/${id}`);
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,

@@ -105,7 +105,7 @@ const Attachments = () => {
 
   const deleteFile = async (e, id) => {
     e.stopPropagation();
-    const res = await axios.delete(`/api/v1/files/${id}`);
+    await axios.delete(`/api/v1/files/${id}`);
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,

@@ -22,7 +22,6 @@ const Submit = () => {
   const { submitMode } = submitContext;
 
   const [activeItem, setActiveItem] = useState(1);
-  const [bottomOffset, setBottomOffset] = useState(window.pageYOffset);
 
   const renderComponent = () => {
     if (activeItem > 8) setActiveItem(1);

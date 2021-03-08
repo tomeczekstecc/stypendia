@@ -30,9 +30,8 @@ const Profile = () => {
   const handleDelete = async () => {
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');
-    const client = await axios.get('https://api.my-ip.io/ip.json');
-    const clientIp = client.data.ip;
- 
+
+
     axios
       .put(`/api/v1/users/${user.uuid}`, { _csrf: csrfData.data.csrfToken })
       .then(async (data) => {

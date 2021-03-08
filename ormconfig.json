@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3308,
+  "username": "tomek",
+  "password": "zFh8e^x8Pqxc6b4Q",
+  "database": "stypendia_dev",
+  "entities": ["build/entity/**/*.js"],
+  "micrations": ["build/migration/**/*.js"]
+}

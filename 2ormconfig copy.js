@@ -1,5 +1,5 @@
-// const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'build';
-const rootDir = 'src';
+const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'build';
+// const rootDir = 'src';
 
 module.exports = {
   type: process.env.DB_DIALECT,
@@ -8,8 +8,8 @@ module.exports = {
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  // synchronize: process.env.NODE_ENV === 'development',
-  synchronize: true,
+  synchronize: process.env.NODE_ENV === 'development',
+  // synchronize: true,
   // logging: process.env.NODE_ENV === 'development',
   logging: false,
   entities: [rootDir + '/entity/**/*.{ts,js}'],

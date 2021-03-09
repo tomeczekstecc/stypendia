@@ -2,12 +2,12 @@
 const rootDir = 'src';
 
 module.exports = {
-  type: process.env.DB_DIALECT,
-  host: process.env.MYSQL_HOST,
-  port: process.env.MYSQL_PORT,
-  username: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  type: 'mysql',
+  host: 'db_stypendia',
+  port: 3306,
+  username: 'tomek',
+  password: 'zFh8e^x8Pqxc6b4Q',
+  database: 'stypendia_dev',
   // synchronize: process.env.NODE_ENV === 'development',
   synchronize: true,
   // logging: process.env.NODE_ENV === 'development',

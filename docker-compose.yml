@@ -1,41 +1,45 @@
 version: '3'
 services:
-  # stypendia-server:
-  #   build:
-  #     context: .
-  #     args:
-  #       NODE_ENV: development
-  #   volumes:
-  #     - ./:/app
-  #     - /app/node_modules
-  #   environment:
-  #     - NODE_ENV=development
-  #   command: npm run devStart
-  #   depends_on:
-  #     - db_stypendia
-  #     - redis_stypendia
+  stypendia-server:
+    container_name: stypendia_server_dev
+    restart: always
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 5003:5003
+    environment:
+      - NODE_ENV=development
+    command: npm run devStart
+    depends_on:
+      db_stypendia:
+        condition: service_healthy
+
 
   db_stypendia:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    # env_file:
-    #   - .env
-    environment:
-      - MYSQL_ROOT_PASSWORD=8XV4f+dk+MxQD_Qd
-      - MYSQL_DATABASE=stypendia_dev
-      - MYSQL_USER=tomek
-      - MYSQL_PASSWORD=zFh8e^x8Pqxc6b4Q
+    env_file:
+      - ./.env
     ports:
       - 3308:3306
     volumes:
       - ./data:/data/mysql_typeorm_stypendia_dev
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 3
 
   adminer_stypendia:
     image: adminer
     restart: always
     env_file:
-      - .env
+      - ./.env
     ports:
       - 8083:8080
     depends_on:
@@ -44,22 +48,15 @@ services:
   redis_stypendia:
     image: redis:alpine
     restart: always
-    # env_file:
-    #   - .env
     ports:
       - 6380:6379
+
 
   mongo_logs:
     image: mongo
     restart: always
-    # env_file:
-    #   - .env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootowski
-      - MONGO_INITDB_ROOT_PASSWORD=A4P!umWaqSVj8^S&
-      - MONGO_INITDB_DATABASE=logs
-      - MONGO_USERNAME=adminowski
-      - MONGO_PASSWORD=XPy4hPZt%B7?tjRr
+    env_file:
+      - ./.env
     ports:
       - 27019:27017
     volumes:
@@ -70,13 +67,7 @@ services:
     image: mongo-express
     restart: always
     env_file:
-      - .env
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo_logs
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootowski
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=A4P!umWaqSVj8^S&
-      - ME_CONFIG_BASICAUTH_USERNAME=adminowski
-      - ME_CONFIG_BASICAUTH_PASSWORD=XPy4hPZt%B7?tjRr
+      - ./.env
     ports:
       - 8084:8081
     depends_on:

@@ -14,10 +14,10 @@ services:
       - 5003:5003
     environment:
       - NODE_ENV=development
-    command: npm run devStart
-    depends_on:
-      db_stypendia:
-        condition: service_healthy
+    # command: npm run devStart
+    # depends_on:
+    #   db_stypendia:
+    #     condition: service_healthy
 
 
   db_stypendia:

@@ -79,6 +79,7 @@ services:
     depends_on:
       - mongo_logs
 
+
   # av:
   #debian: image: mkodockx/docker-clamav
   # image: mkodockx/docker-clamav:alpine

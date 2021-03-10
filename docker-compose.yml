@@ -55,8 +55,16 @@ services:
   mongo_logs:
     image: mongo
     restart: always
-    env_file:
-      - ./.env
+    # env_file:
+    #   - ./.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME = rootowski
+      - MONGO_INITDB_ROOT_PASSWORD = A4P!umWaqSVj8^S&
+      - MONGO_USERNAME = adminowski
+      - MONGO_PASSWORD = XPy4hPZt%B7?tjRr
+      - MONGO_HOST = localhost
+      - MONGO_PORT = 27019
+      - MONGO_INITDB_DATABASE = logs
     ports:
       - 27019:27017
     volumes:
@@ -66,19 +74,18 @@ services:
   mongoweb_logs:
     image: mongo-express
     restart: always
-    # env_file:
-    #   - ./.env
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo_logs
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootowski
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=A4P!umWaqSVj8^S&
-      - ME_CONFIG_BASICAUTH_USERNAME=adminowski
-      - ME_CONFIG_BASICAUTH_PASSWORD=XPy4hPZt%B7?tjRr
+    env_file:
+      - ./.env
+    # environment:
+    #   - ME_CONFIG_MONGODB_SERVER=mongo_logs
+      # - ME_CONFIG_MONGODB_ADMINUSERNAME=rootowski
+      # - ME_CONFIG_MONGODB_ADMINPASSWORD=A4P!umWaqSVj8^S&
+      # - ME_CONFIG_BASICAUTH_USERNAME=adminowski
+      # - ME_CONFIG_BASICAUTH_PASSWORD=XPy4hPZt%B7?tjRr
     ports:
       - 8084:8081
     depends_on:
       - mongo_logs
-
 
   # av:
   #debian: image: mkodockx/docker-clamav

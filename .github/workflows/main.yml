@@ -11,11 +11,11 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command:
-            docker-compose down -v --remove-orphans
-            docker-compose up --build
             cd apps/stypendia
             git pull
             npm install
+            docker-compose down -v --remove-orphans
+            docker-compose up --build
             NODE_ENV=production npx tsc
             cd client
             rm -rf build

@@ -15,9 +15,9 @@ services:
     environment:
       - NODE_ENV=development
     command: npm run devStart
-    depends_on:
-      db_stypendia:
-        condition: service_healthy
+    # depends_on:
+    #   db_stypendia:
+    #     condition: service_healthy
 
 
   db_stypendia:

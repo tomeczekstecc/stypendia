@@ -63,6 +63,7 @@ services:
       - ./data:/data/mongo_logs_stypendia_dev
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
 
+
   mongoweb_logs:
     image: mongo-express
     restart: always

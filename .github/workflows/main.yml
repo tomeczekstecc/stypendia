@@ -10,7 +10,9 @@ jobs:
       - name: Rebuild server
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: |
+          command:
+            docker-compose down -v
+            docker-compose up --build
             cd apps/stypendia
             git pull
             npm install
@@ -18,7 +20,6 @@ jobs:
             cd client
             rm -rf build
             NODE_ENV=production npm run build
-            pm2 restart stypendia-backend
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}

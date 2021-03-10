@@ -14,7 +14,7 @@ services:
       - 5003:5003
     environment:
       - NODE_ENV=development
-    command: npm run devStart
+    # command: npm run devStart
     # depends_on:
     #   db_stypendia:
     #     condition: service_healthy
@@ -55,18 +55,10 @@ services:
   mongo_logs:
     image: mongo
     restart: always
-    # env_file:
-    #   - ./.env
+    env_file:
+      - ./.env
     ports:
       - 27019:27017
-    environment:
-     - MONGO_INITDB_ROOT_USERNAME = rootowski
-     - MONGO_INITDB_ROOT_PASSWORD = A4P!umWaqSVj8^S&
-     - MONGO_USERNAME = adminowski
-     - MONGO_PASSWORD = XPy4hPZt%B7?tjRr
-     - MONGO_HOST = localhost
-     - MONGO_PORT = 27017
-     - MONGO_INITDB_DATABASE = logs
     volumes:
       - ./data:/data/mongo_logs_stypendia_dev
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro

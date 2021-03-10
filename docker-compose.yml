@@ -55,8 +55,8 @@ services:
   mongo_logs:
     image: mongo
     restart: always
-    env_file:
-      - ./.env
+    # env_file:
+    #   - ./.env
     ports:
       - 27019:27017
     environment:

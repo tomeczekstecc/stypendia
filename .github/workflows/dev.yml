@@ -1,0 +1,26 @@
+name: Pull code, rebuild, restart
+
+on:
+  push:
+    branches: [develop]
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rebuild server
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: |
+            cd apps/stypendia-develop
+            git pull
+            npm install
+            NODE_ENV=production npx tsc
+            cd client
+            rm -rf build
+            NODE_ENV=production npm run build
+            pm2 restart stypendia-server-develop
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
+      - name: Confirm
+        run: echo 'deployed'

@@ -224,6 +224,7 @@ export const login = async (req: any, res: Response) => {
         });
       }
 
+      
       if (user.failedLogins >= +FAILED_LOGINS_MAX) {
         user.isBlocked = 1;
         user.blockedAt = new Date();

@@ -162,7 +162,7 @@ export const login = async (req: any, res: Response) => {
 
     if (user.isRemoved === 1 || user.isBlocked === 1 || user.isBanned === 1) {
       STATUS = 'error';
-      INFO = msg.client.fail.wrongCreds;
+      INFO = msg.client.fail.blocked;
       makeLog(
         OBJECT,
         user.id,
@@ -176,7 +176,7 @@ export const login = async (req: any, res: Response) => {
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        alertTitle: 'Błąd logowania',
+        alertTitle: 'Tymczasowa blokada',
       });
     }
 
@@ -234,7 +234,7 @@ export const login = async (req: any, res: Response) => {
         return res.status(403).json({
           resStatus: 'error',
           msgPL: INFO,
-          alertTitle: 'Błąd',
+          alertTitle: 'Tymczasowa blokada',
         });
       }
 

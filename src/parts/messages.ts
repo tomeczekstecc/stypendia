@@ -31,7 +31,7 @@ export const msg = {
       nextBlock:
         'Kolejna nieudana próba zablokuje użytkownika i uniemożliwi dalsze logowania na 20 minut',
       blocked:
-        'Odnotowano zbyt dużą liczbe nieudanych logowań. Użytkownik został zablokowany na 20 minut',
+        'Odnotowano zbyt dużą liczbe nieudanych logowań. Użytkownik jest zablokowany. Spróbuj za 20 minut',
       forcedChangePass:
         'Od ostatniej zmiany hasła minęło 90 dni. Należy je zmienić',
       confirmToolate:

@@ -81,9 +81,9 @@ export class Submit extends Model {
   })
   isSelf: string;
 
-  @Matches(/^[0-9\-\+]{9,15}$/, {
+  @Matches(/^(?:[0-9\-\+]{9,15}|)$/, {
     message:
-      'Numer telefonu musi mieć poprawny format (dozwolone cyfty,"+" oraz "-")',
+      'Numer telefonu musi mieć poprawny format (dozwolone cyfty,"+" oraz "-", od 9 do 15 znaków)',
   })
   @Column({
     nullable: true,

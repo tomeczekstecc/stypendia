@@ -160,7 +160,8 @@ export const login = async (req: any, res: Response) => {
       });
     }
 
-    if (user.isRemoved === 1 || user.isBlocked === 1 || user.isBanned === 1) {
+    if (user.isRemoved === 1 || user.isBanned === 1) {
+
       STATUS = 'error';
       INFO = msg.client.fail.blocked;
       makeLog(
@@ -181,6 +182,7 @@ export const login = async (req: any, res: Response) => {
     }
 
     if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
+      console.log('11111111111111111111111111111111111');
       STATUS = 'error';
       INFO = msg.client.fail.stillBlocked;
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
@@ -194,6 +196,7 @@ export const login = async (req: any, res: Response) => {
       user.isBlocked &&
       UNBLOCK_TIMEOUT + +user.blockedAt < Date.now()
     ) {
+      console.log('2222222222222222222222222222222222222222');
       user.failedLogins = 0;
       user.isBlocked = 0;
       user.blockedAt = null;
@@ -224,7 +227,6 @@ export const login = async (req: any, res: Response) => {
         });
       }
 
-      
       if (user.failedLogins >= +FAILED_LOGINS_MAX) {
         user.isBlocked = 1;
         user.blockedAt = new Date();

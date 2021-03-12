@@ -94,6 +94,6 @@ export const msg = {
       ' - admin msg: użytkownik nie istnieje, lub konto niejest potwierdzone.',
 
     userRemovedOrBanned:
-      ' - admin msg: użytkownik jest usnięty lub zastrzeżony lub zablokowany (isBanned lub isRemoved lub isBlocked)',
+      ' - admin msg: użytkownik jest usnięty lub zastrzeżony (isBanned lub isRemoved)',
   },
 };

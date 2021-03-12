@@ -117,6 +117,10 @@ export class Submit extends Model {
   @Column({ comment: 'PESEL ucznia' })
   pupilPesel: string;
 
+  @Matches(/^(?:[0-9\-\+]{9,15}|)$/, {
+    message:
+      'Numer telefonu musi mieć poprawny format (dozwolone cyfty,"+" oraz "-", od 9 do 15 znaków)',
+  })
   @Column({ comment: 'Telefon ucznia', nullable: true })
   pupilPhone: string;
 

@@ -9,13 +9,7 @@ import {
   MinLength,
   ValidateIf,
 } from 'class-validator';
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import Model from './Model';
 import { User } from './User';
@@ -87,6 +81,10 @@ export class Submit extends Model {
   })
   isSelf: string;
 
+  @Matches(/^[0-9\-\+]{9,15}$/, {
+    message:
+      'Numer telefonu musi mieć poprawny format (dozwolone cyfty,"+" oraz "-")',
+  })
   @Column({
     nullable: true,
     comment: 'Telefon wniskodawcy',
@@ -122,7 +120,7 @@ export class Submit extends Model {
   @Column({ comment: 'Telefon ucznia', nullable: true })
   pupilPhone: string;
 
-  @ValidateIf(o=>o.pupilEmail)
+  @ValidateIf((o) => o.pupilEmail)
   @IsEmail(undefined, { message: 'Email musi mieć poprawny format' })
   @Column({ nullable: true, comment: 'Email ucznia' })
   pupilEmail: string;

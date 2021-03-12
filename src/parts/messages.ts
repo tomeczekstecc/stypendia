@@ -92,7 +92,6 @@ export const msg = {
     delUser: ' - admin msg: liczba wnisosków o statusie większym niż 1: ',
     unoUserOrUserNotVer:
       ' - admin msg: użytkownik nie istnieje, lub konto niejest potwierdzone.',
-
     userRemovedOrBanned:
       ' - admin msg: użytkownik jest usnięty lub zastrzeżony (isBanned lub isRemoved)',
   },

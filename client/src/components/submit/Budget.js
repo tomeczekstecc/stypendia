@@ -39,7 +39,9 @@ const Budget = () => {
     if (
       submitMode === 'watch' ||
       isNaN(e.target.value) ||
-      isNaN(e.target.innerText)
+      isNaN(e.target.innerText) ||
+      +e.target.value > 999999 ||
+      +e.target.innerText > 999999
     )
       return;
     if (submitMode === 'watch') return;

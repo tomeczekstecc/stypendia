@@ -23,7 +23,7 @@ export const optionsVoyev = [
   { key: 'e', text: 'łódzkie', value: 'łódzkie' },
   { key: 'k', text: 'małopolskie', value: 'małopolskie' },
   { key: 'w', text: 'mazowieckie', value: 'mazowieckie' },
-  { key: 'o', text: 'opolskie', value: 'mazowieckie' },
+  { key: 'o', text: 'opolskie', value: 'opolskie' },
   { key: 'r', text: 'podkarpackie', value: 'podkarpackie' },
   { key: 'b', text: 'podlaskie', value: 'podlaskie' },
   { key: 'g', text: 'pomorskie', value: 'pomorskie' },
@@ -31,7 +31,6 @@ export const optionsVoyev = [
   { key: 'n', text: 'warmińsko-mazurskie', value: 'warmińsko-mazurskie' },
   { key: 'p', text: 'wielkopolskie', value: 'wielkopolskie' },
   { key: 'z', text: 'zachodniopomorskie', value: 'zachodniopomorskie' },
-
 ];
 
 export const optionsProfile = [

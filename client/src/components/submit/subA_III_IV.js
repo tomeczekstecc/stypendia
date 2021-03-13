@@ -277,7 +277,7 @@ const SubA_III_IV = () => {
                   data-name='schoolVoyev'
                   name='schoolVoyev'
                   onChange={(e) => handleOnChange(e)}
-                  defaultValue={curDocument?.schoolVoyev || 'default'}
+                  value={curDocument?.schoolVoyev || 'default'}
                   options={optionsVoyev}
                 />
                 {submitErrors?.schoolVoyev && (

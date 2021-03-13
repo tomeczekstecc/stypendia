@@ -29,9 +29,9 @@ export const optionsVoyev = [
   { key: 'g', text: 'pomorskie', value: 'pomorskie' },
   { key: 't', text: 'świętokrzyskie', value: 'świętokrzyskie' },
   { key: 'n', text: 'warmińsko-mazurskie', value: 'warmińsko-mazurskie' },
-  { key: 'p', text: 'wielkopolskie', value: 'zachodniopomorskie' },
+  { key: 'p', text: 'wielkopolskie', value: 'wielkopolskie' },
   { key: 'z', text: 'zachodniopomorskie', value: 'zachodniopomorskie' },
-  { key: 'B', text: 'podlaskie', value: 'podlaskie' },
+
 ];
 
 export const optionsProfile = [

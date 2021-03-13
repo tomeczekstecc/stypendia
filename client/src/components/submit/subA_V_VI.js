@@ -5,6 +5,7 @@ import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsTotalGrades, optionsGrades, optionsYesNo } from '../../parts';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const SubA_V_VI = () => {
   const history = useHistory();
@@ -25,6 +26,8 @@ const SubA_V_VI = () => {
   submitMode === '' && history.push('/');
 
   const handleOnChange = async (e) => {
+clearValidation(e, submitErrors);
+
     if (submitMode === 'watch') return;
 
     if (submitMode === 'edit') {

@@ -14,6 +14,7 @@ import { budgetRows } from '../../parts';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const Budget = () => {
   const history = useHistory();
@@ -62,6 +63,7 @@ const Budget = () => {
   };
 
   const handleOnChange2 = async (e) => {
+    clearValidation(e, submitErrors);
     if (submitMode === 'watch') return;
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -222,7 +224,7 @@ const Budget = () => {
                       })}
                   </strong>
                 </div>
-                {submitErrors?.totalCosts && (
+                {/* {submitErrors?.totalCosts && (
                   <Label
                     basic
                     color='red'
@@ -231,7 +233,7 @@ const Budget = () => {
                   >
                     {submitErrors?.totalCosts}
                   </Label>
-                )}
+                )} */}
                 <div
                   className={
                     curDocument?.totalCosts < 5000 && !submitErrors?.totalCosts

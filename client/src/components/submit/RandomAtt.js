@@ -7,6 +7,7 @@ import { AuthContext, SubmitContext, AlertContext } from '../../context';
 import addedImg from '../../assets/img/wireframe.png';
 import { medalsImg, wireframeImg } from '../../assets/img';
 import { toLocaleDate } from '../../utils';
+import { clearValidation } from '../../utils/clearValidation';
 
 const RandomAtt = () => {
   const getUsersFiles = async () => {
@@ -49,6 +50,7 @@ const RandomAtt = () => {
 
   const deleteFile = async (e, id) => {
     e.stopPropagation();
+    clearValidation(e, submitErrors);
     await axios.delete(`/api/v1/files/${id}`);
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -65,6 +67,7 @@ const RandomAtt = () => {
 
   const callFetch = async (e, id) => {
     e.stopPropagation();
+    clearValidation(e, submitErrors);
     const res = await axios.get(`/api/v1/files/info/${id}`);
 
     axios
@@ -86,6 +89,8 @@ const RandomAtt = () => {
   };
 
   const uploadImage = async (e) => {
+
+    clearValidation(e, submitErrors);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);

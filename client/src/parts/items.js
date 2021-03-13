@@ -69,14 +69,14 @@ export const rightMenuItems = [
     url: '/profile',
     isLoggedInDisplay: true,
   },
-  // {
-  //   id: uuidv4(),
-  //   icon: 'settings',
-  //   name: 'settings',
-  //   title: 'Ustawienia',
-  //   url: '/settings',
-  //   isLoggedInDisplay: true,
-  // },
+  {
+    id: uuidv4(),
+    icon: 'settings',
+    name: 'settings',
+    title: 'Ustawienia',
+    url: '/settings',
+    isLoggedInDisplay: true,
+  },
   {
     id: uuidv4(),
     icon: 'settings',

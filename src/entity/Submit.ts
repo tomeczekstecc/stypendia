@@ -336,12 +336,12 @@ export class Submit extends Model {
   isTab1b: boolean;
 
   @ValidateIf((o) => o.isTab1b === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot.pracy badawczej może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot.pracy badawczej musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane pracy badawczej - opis',
     nullable: true,
   })
@@ -355,12 +355,12 @@ export class Submit extends Model {
   isTab1c: boolean;
 
   @ValidateIf((o) => o.isTab1c === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. referatu/prezentacji może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. referatu/prezentacji musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment:
       'Ścieżka rozwoju - tabela 1 - przygotowane referatu/prezentacji - opis',
     nullable: true,
@@ -375,12 +375,12 @@ export class Submit extends Model {
   isTab1d: boolean;
 
   @ValidateIf((o) => o.isTab1d === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. publikacji może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. publikacji musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane publikacji - opis',
     nullable: true,
   })
@@ -394,12 +394,12 @@ export class Submit extends Model {
   isTab1e: boolean;
 
   @ValidateIf((o) => o.isTab1e === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. wystawy może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. wystawy musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowane wystawy - opis',
     nullable: true,
   })
@@ -413,12 +413,12 @@ export class Submit extends Model {
   isTab1f: boolean;
 
   @ValidateIf((o) => o.isTab1f === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. filmu może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. filmu musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie filmu - opis',
     nullable: true,
   })
@@ -432,12 +432,12 @@ export class Submit extends Model {
   isTab1g: boolean;
 
   @ValidateIf((o) => o.isTab1g === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. programu komputerowego/aplikacji może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. programu komputerowego/aplikacji musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - przygotowanie aplikacji - opis',
     nullable: true,
   })
@@ -451,12 +451,12 @@ export class Submit extends Model {
   isTab1h: boolean;
 
   @ValidateIf((o) => o.isTab1h === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. certyfikatu może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. certyfikatu musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment:
       'Ścieżka rozwoju - tabela 1 - uzyskanie certyfikatu językowego - opis',
     nullable: true,
@@ -478,12 +478,12 @@ export class Submit extends Model {
   isTab1j: boolean;
 
   @ValidateIf((o) => o.isTab1j === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. strony internetowej może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. strony internetowej musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - własna strona internetowa - opis',
     nullable: true,
   })
@@ -497,12 +497,12 @@ export class Submit extends Model {
   isTab1k: boolean;
 
   @ValidateIf((o) => o.isTab1k === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. innych rezultatów może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. innych rezultatów musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 1 - inne - opis',
     nullable: true,
   })
@@ -555,12 +555,12 @@ export class Submit extends Model {
   isTab2b: boolean;
 
   @ValidateIf((o) => o.isTab2b === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot.pracy badawczej może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot.pracy badawczej musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - przygotowane pracy badawczej - opis',
     nullable: true,
   })
@@ -574,11 +574,12 @@ export class Submit extends Model {
   isTab2c: boolean;
 
   @ValidateIf((o) => o.isTab2c === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. referatu/prezentacji może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. referatu/prezentacji musi zawierać co nakmniej 10 znaków',
   })
   @Column({
+    type: 'text',
     comment:
       'Ścieżka rozwoju - tabela 2 - przygotowane referatu/prezentacji - opis',
     nullable: true,
@@ -593,12 +594,12 @@ export class Submit extends Model {
   isTab2d: boolean;
 
   @ValidateIf((o) => o.isTab2d === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. publikacji może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. publikacji musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - przygotowane publikacji - opis',
     nullable: true,
   })
@@ -612,12 +613,12 @@ export class Submit extends Model {
   isTab2e: boolean;
 
   @ValidateIf((o) => o.isTab2e === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. wystawy może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. wystawy musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - przygotowane wystawy - opis',
     nullable: true,
   })
@@ -631,12 +632,12 @@ export class Submit extends Model {
   isTab2f: boolean;
 
   @ValidateIf((o) => o.isTab2f === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. filmu może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. filmu musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - przygotowanie filmu - opis',
     nullable: true,
   })
@@ -650,12 +651,12 @@ export class Submit extends Model {
   isTab2g: boolean;
 
   @ValidateIf((o) => o.isTab2g === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. programu komputerowego/aplikacji może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. programu komputerowego/aplikacji musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - przygotowanie aplikacji - opis',
     nullable: true,
   })
@@ -669,12 +670,12 @@ export class Submit extends Model {
   isTab2h: boolean;
 
   @ValidateIf((o) => o.isTab2h === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. certyfikatu może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. certyfikatu musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment:
       'Ścieżka rozwoju - tabela 2 - uzyskanie certyfikatu językowego - opis',
     nullable: true,
@@ -696,12 +697,12 @@ export class Submit extends Model {
   isTab2j: boolean;
 
   @ValidateIf((o) => o.isTab2j === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. strony internetowej może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. strony internetowej musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - własna strona internetowa - opis',
     nullable: true,
   })
@@ -715,12 +716,12 @@ export class Submit extends Model {
   isTab2k: boolean;
 
   @ValidateIf((o) => o.isTab2k === true)
-  @Length(10,250, {
+  @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. innych rezultatów może zawierać od 10 do 200 znaków',
+      'Zacznij wpisywać tekst / Pole dot. innych rezultatów musi zawierać co nakmniej 10 znaków',
   })
   @Column({
-    
+    type: 'text',
     comment: 'Ścieżka rozwoju - tabela 2 - inne - opis',
     nullable: true,
   })
@@ -822,7 +823,7 @@ export class Submit extends Model {
   totalCosts: number;
 
   @Column({
-    
+    type: 'text',
     comment:
       'Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu wskazanym w § 8 ust. 5 Regulaminu',
     nullable: true,
@@ -830,7 +831,7 @@ export class Submit extends Model {
   substantion1: string;
 
   @Column({
-    
+    type: 'text',
     comment:
       'Uzasadnienie zakupu sprzętu tożsamego z już zakupionym sprzętem ze środków stypendialnych',
     nullable: true,

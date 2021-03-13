@@ -37,13 +37,19 @@ const SubA_VIIb = () => {
   } = submitContext;
   submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
+  const [counter, setCounter] = useState(1);
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     clearValidation(e, submitErrors);
+
+
     if (submitMode === 'watch') return;
     if (parent && name) {
-      if (curDocument && curDocument[parent] && curDocument[parent] === true) {
+      console.log(parent, name);
+      if (curDocument && curDocument[parent] ) {
+
         curDocument[name] = '';
+        setCounter(prev=>prev +1)
       }
     }
 
@@ -99,6 +105,7 @@ const SubA_VIIb = () => {
   };
 
   useEffect(() => {
+    console.log(counter);
     resetTimeLeft();
     if (curDocument.tab2Results === 3) {
       if (submitErrors) submitErrors.tab2Results = null;
@@ -124,7 +131,7 @@ const SubA_VIIb = () => {
       curDocument.tab2SubjName = '';
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
+  }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument,counter]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -156,10 +163,9 @@ const SubA_VIIb = () => {
             className='inline-position drop'
             selection
             data-name='tab2Subj'
-            value={curDocument?.tab2Subj}
+            value={curDocument?.tab2Subj || 'default'}
             basic
             options={keySubjects}
-            defaultValue='default'
             onChange={(e) => handleOnChange(e)}
           />
 
@@ -167,7 +173,7 @@ const SubA_VIIb = () => {
             curDocument?.tab2Subj === 'przedmiot ICT') && (
             <Input
               onChange={(e) => handleOnChange(e)}
-              value={curDocument?.tab2SubjName}
+              defaultValue={curDocument?.tab2SubjName}
               name='tab2SubjName'
               data-name='tab2SubjName'
               placeholder='wpisz nazwę przedmiotu'
@@ -267,7 +273,8 @@ const SubA_VIIb = () => {
                 >
                   <Form className='form-vii'>
                     <TextArea
-                      value={
+
+                      defaultValue={
                         (curDocument &&
                           curDocument[acc.areaName] &&
                           curDocument[acc.areaName]) ||

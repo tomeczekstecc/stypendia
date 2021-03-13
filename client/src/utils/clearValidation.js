@@ -1,7 +1,7 @@
 export const clearValidation = (e, submitErrors) => {
   let atts = ['allowance', 'attestation', 'random'];
 
-  console.log(e?.target?.name);
+
   if (
     submitErrors &&
     (submitErrors[e?.target?.name] ||

@@ -125,7 +125,7 @@ const SubA_V_VI = () => {
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priMathGrade || 'default'}
+                    defaultValue={curDocument?.priMathGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -160,7 +160,7 @@ const SubA_V_VI = () => {
                     className='priLangGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priLangGrade || 'default'}
+                    defaultValue={curDocument?.priLangGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -169,7 +169,7 @@ const SubA_V_VI = () => {
                 data-name='priLang'
                 iconPosition='left'
                 placeholder='Wpisz język obcy'
-                value={curDocument?.priLang}
+                defaultValue={curDocument?.priLang}
                 onChange={(e) => handleOnChange(e)}
               />
               {submitErrors?.priLang && (
@@ -205,7 +205,7 @@ const SubA_V_VI = () => {
                     className='priOtherSubjGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priOtherSubjGrade || 'default'}
+                    defaultValue={curDocument?.priOtherSubjGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -214,7 +214,7 @@ const SubA_V_VI = () => {
                 data-name='priOtherSubj'
                 iconPosition='left'
                 placeholder='Wpisz inny przedmiot'
-                value={curDocument?.priOtherSubj}
+                defaultValue={curDocument?.priOtherSubj}
                 onChange={(e) => handleOnChange(e)}
               />
               {submitErrors?.priOtherSubj && (
@@ -278,7 +278,7 @@ const SubA_V_VI = () => {
                   floating
                   data-name='allTotalAver'
                   onChange={(e) => handleOnChange(e)}
-                  value={curDocument?.allTotalAver || 'default'}
+                  defaultValue={curDocument?.allTotalAver || 'default'}
                   options={optionsTotalGrades}
                 />
                 {submitErrors?.allTotalAver && (
@@ -330,7 +330,7 @@ const SubA_V_VI = () => {
                 disabled={submitMode === 'watch'}
                 data-name='isFinalist'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.isFinalist || 'default'}
+                defaultValue={curDocument?.isFinalist || 'default'}
               />
               {submitErrors?.isFinalist && (
                 <Label
@@ -370,7 +370,7 @@ const SubA_V_VI = () => {
                 disabled={submitMode === 'watch'}
                 data-name='isAllowed'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.isAllowed || 'default'}
+                defaultValue={curDocument?.isAllowed || 'default'}
               />
               {submitErrors?.isAllowed && (
                 <Label
@@ -410,7 +410,7 @@ const SubA_V_VI = () => {
                 disabled={submitMode === 'watch'}
                 data-name='isHandicap'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.isHandicap || 'default'}
+                defaultValue={curDocument?.isHandicap || 'default'}
               />
               {submitErrors?.isHandicap && (
                 <Label

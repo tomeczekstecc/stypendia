@@ -101,7 +101,7 @@ const SubA_III_IV = () => {
               placeholder='Podaj pełną nazwę szkoły'
               iconPosition='left'
               onChange={(e) => handleOnChange(e)}
-              value={curDocument?.schoolName || ''}
+              defaultValue={curDocument?.schoolName || ''}
             />
 
             {submitErrors?.schoolName && (
@@ -133,7 +133,7 @@ const SubA_III_IV = () => {
                 data-name='schoolType'
                 name='schoolType'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.schoolType || 'default'}
+                defaultValue={curDocument?.schoolType || 'default'}
                 options={optionsSchoolType}
               />
               {submitErrors?.schoolType && (
@@ -163,7 +163,7 @@ const SubA_III_IV = () => {
                   placeholder='Podaj ulicę'
                   name='schoolStreetName'
                   data-name='schoolStreetName'
-                  value={curDocument?.schoolStreetName || ''}
+                  defaultValue={curDocument?.schoolStreetName || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
 
@@ -190,7 +190,7 @@ const SubA_III_IV = () => {
                   placeholder='Podaj numer domu'
                   name='schoolStreetNr'
                   data-name='schoolStreetNr'
-                  value={curDocument?.schoolStreetNr || ''}
+                  defaultValue={curDocument?.schoolStreetNr || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolStreetNr && (
@@ -215,7 +215,7 @@ const SubA_III_IV = () => {
                   placeholder='Podaj kod pocztowy w formacie XX-XXX'
                   name='schoolZip'
                   data-name='schoolZip'
-                  value={curDocument?.schoolZip || ''}
+                  defaultValue={curDocument?.schoolZip || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolZip && (
@@ -240,7 +240,7 @@ const SubA_III_IV = () => {
                   placeholder='Podaj miejscowość'
                   name='schoolTown'
                   data-name='schoolTown'
-                  value={curDocument?.schoolTown || ''}
+                  defaultValue={curDocument?.schoolTown || ''}
                   onChange={(e) => handleOnChange(e)}
                 />
                 {submitErrors?.schoolTown && (
@@ -277,7 +277,7 @@ const SubA_III_IV = () => {
                   data-name='schoolVoyev'
                   name='schoolVoyev'
                   onChange={(e) => handleOnChange(e)}
-                  value={curDocument?.schoolVoyev || 'default'}
+                  defaultValue={curDocument?.schoolVoyev || 'default'}
                   options={optionsVoyev}
                 />
                 {submitErrors?.schoolVoyev && (
@@ -312,7 +312,7 @@ const SubA_III_IV = () => {
               name='counselorFirstName'
               data-name='counselorFirstName'
               placeholder='Podaj imię doradcy'
-              value={curDocument?.counselorFirstName || ''}
+              defaultValue={curDocument?.counselorFirstName || ''}
               onChange={(e) => handleOnChange(e)}
             />
             {submitErrors?.counselorFirstName && (
@@ -331,7 +331,7 @@ const SubA_III_IV = () => {
               name='counselorLastName'
               data-name='counselorLastName'
               placeholder='Podaj nazwisko doradcy'
-              value={curDocument?.counselorLastName || ''}
+              defaultValue={curDocument?.counselorLastName || ''}
               onChange={(e) => handleOnChange(e)}
             />
             {submitErrors?.counselorLastName && (
@@ -361,7 +361,7 @@ const SubA_III_IV = () => {
                 name='counselorProfile'
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-                value={curDocument?.counselorProfile || 'default'}
+                defaultValue={curDocument?.counselorProfile || 'default'}
                 options={optionsProfile}
               />
               {submitErrors?.counselorProfile && (

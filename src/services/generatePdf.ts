@@ -22,7 +22,7 @@ hbs.registerHelper('inc', function (value, options) {
 });
 
 hbs.registerHelper('toMB', function (value, options) {
-  return Math.floor((value / 1024 / 1024) * 100) / 100 + 'MB';
+  return Math.ceil((value / 1024 / 1024) * 1000) / 1000 + 'MB';
 });
 
 hbs.registerHelper('mime', function (value, options) {

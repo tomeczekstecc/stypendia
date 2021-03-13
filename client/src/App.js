@@ -19,7 +19,7 @@ import {
 } from './pages';
 import { AuthState, AlertState, AppState, SubmitState } from './context';
 import { Alert } from './components';
-import { Beforeunload } from 'react-beforeunload';
+// import { Beforeunload } from 'react-beforeunload';
 
 // axios.defaults.baseURL = 'http://localhost:5003';
 // axios.defaults.withCredentials = true;
@@ -32,11 +32,11 @@ function App() {
           <AuthState>
             <SubmitState>
               <Layout>
-                  <Beforeunload
+                  {/* <Beforeunload
                     onBeforeunload={(event) =>
                       'Możliwa utrata niezapisanych danych!!!'
                     }
-                  />
+                  /> */}
                 <Switch>
                   <Route exact path='/register' component={Register} />
                   <Route exact path='/verify' component={Verify} />

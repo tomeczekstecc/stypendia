@@ -6,9 +6,9 @@ import { Beforeunload } from 'react-beforeunload';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Beforeunload onBeforeunload={() => "Czy na pewn? Odświeżenie strony może spowodować utratę danych"}>
+    {/* <Beforeunload onBeforeunload={() => "Czy na pewn? Odświeżenie strony może spowodować utratę danych"}> */}
       <App />
-    </Beforeunload>
+    {/* </Beforeunload> */}
   </React.StrictMode>,
 
   document.getElementById('root')

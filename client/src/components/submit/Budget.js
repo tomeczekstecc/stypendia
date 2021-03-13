@@ -224,7 +224,7 @@ const Budget = () => {
                       })}
                   </strong>
                 </div>
-                {/* {submitErrors?.totalCosts && (
+                {curDocument?.totalCosts < 5000 && submitErrors?.totalCosts && (
                   <Label
                     basic
                     color='red'
@@ -233,7 +233,7 @@ const Budget = () => {
                   >
                     {submitErrors?.totalCosts}
                   </Label>
-                )} */}
+                )}
                 <div
                   className={
                     curDocument?.totalCosts < 5000 && !submitErrors?.totalCosts

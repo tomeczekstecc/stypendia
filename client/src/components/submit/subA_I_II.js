@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext } from '../../context';
 import { optionsAttachment } from '../../parts/options';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const SubA_I_II = () => {
   const history = useHistory();
@@ -28,6 +29,40 @@ const SubA_I_II = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+
+clearValidation(e, submitErrors)
+
+    // if (
+    //   submitErrors &&
+    //   (submitErrors[e.target.dataset.name] ||
+    //     submitErrors[e.target.offsetParent.dataset.name] ||
+    //     submitErrors[e.target.parentElement.name] ||
+    //     submitErrors[e.target.parentElement.dataset.name] ||
+    //     submitErrors[e.target.parentElement.parentElement.dataset.name] ||
+    //     submitErrors[
+    //       e.target.parentElement.parentElement.parentElement.dataset.name
+    //     ] ||
+    //     submitErrors[
+    //       e.target.parentElement.parentElement.parentElement.parentElement
+    //         .dataset.name
+    //     ])
+    // ) {
+    //   submitErrors[e.target.dataset.name] = null;
+
+    //   submitErrors[e.target.offsetParent.dataset.name] = null;
+    //   submitErrors[e.target.parentElement.name] = null;
+    //   submitErrors[e.target.parentElement.dataset.name] = null;
+    //   submitErrors[e.target.parentElement.parentElement.dataset.name] = null;
+    //   submitErrors[
+    //     e.target.parentElement.parentElement.parentElement.dataset.name
+    //   ] = null;
+    //   submitErrors[
+    //     e.target.parentElement.parentElement.parentElement.parentElement.dataset.name
+    //   ] = null;
+    // }
+
+    if (submitErrors && submitErrors[e.target.offsetParent.dataset.name])
+      submitErrors[e.target.offsetParent.dataset.name] = null;
 
     if (submitMode === 'edit') {
       await updateCurSubmit({

@@ -12,6 +12,7 @@ import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsVoyev, optionsSchoolType, optionsProfile } from '../../parts';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const SubA_III_IV = () => {
   const history = useHistory();
@@ -34,6 +35,8 @@ const SubA_III_IV = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+    clearValidation(e, submitErrors);
+
     if (submitMode === 'edit') {
       await updateCurSubmit({
         ...curSubmit,

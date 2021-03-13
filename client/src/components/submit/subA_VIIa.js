@@ -16,6 +16,7 @@ import { accordionsVIIa } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const SubA_VIIa = () => {
   const history = useHistory();
@@ -37,6 +38,7 @@ const SubA_VIIa = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
+    clearValidation(e, submitErrors);
 
     if (submitMode === 'watch') return;
     if (parent && name) {
@@ -118,7 +120,16 @@ const SubA_VIIa = () => {
   ]);
 
   useEffect(() => {
-    resetTimeLeft();
+        resetTimeLeft();
+        if (curDocument.tab2Results === 3) {
+          if (submitErrors) submitErrors.tab2Results = null;
+        }
+        if (curDocument.tab2Results !== 3) {
+          if (submitErrors)
+            submitErrors.tab2Results =
+              'Liczba wybranych rezultatów w tabeli 2 musi wynosić dokładnie 3';
+        }
+
     if (submitMode === 'new') {
       setCurDocument(newSubmit);
     } else if (submitMode === 'edit') {

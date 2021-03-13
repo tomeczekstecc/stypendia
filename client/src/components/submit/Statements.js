@@ -5,6 +5,7 @@ import { Wrapper } from '../styles/statements.styles';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const Statements = () => {
   const history = useHistory();
@@ -26,6 +27,7 @@ const Statements = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+       clearValidation(e, submitErrors);
     if (submitMode === 'watch') return;
     if (submitMode === 'edit') {
       await updateCurSubmit({

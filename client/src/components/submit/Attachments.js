@@ -16,6 +16,7 @@ import SubALayout from '../subALayout';
 import { toLocaleDate } from '../../utils';
 import RandomAtt from './RandomAtt';
 import Title from '../Title';
+import { clearValidation } from '../../utils/clearValidation';
 
 const Attachments = () => {
   const getUsersFiles = async () => {
@@ -105,6 +106,7 @@ const Attachments = () => {
 
   const deleteFile = async (e, id) => {
     e.stopPropagation();
+    clearValidation(e, submitErrors);
     await axios.delete(`/api/v1/files/${id}`);
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -121,6 +123,7 @@ const Attachments = () => {
 
   const callFetch = async (e, id) => {
     e.stopPropagation();
+    clearValidation(e, submitErrors);
     const res = await axios.get(`/api/v1/files/info/${id}`);
 
     axios
@@ -142,6 +145,7 @@ const Attachments = () => {
   };
 
   const uploadImage = async (e) => {
+    clearValidation(e, submitErrors);
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);

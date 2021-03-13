@@ -260,7 +260,7 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <TextArea
-                value={
+                defaultValue={
                   (curDocument &&
                     curDocument.substantion1 &&
                     curDocument.substantion1) ||
@@ -294,7 +294,7 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <TextArea
-                value={
+                defaultValue={
                   (curDocument &&
                     curDocument.substantion2 &&
                     curDocument.substantion2) ||

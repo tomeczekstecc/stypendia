@@ -200,9 +200,8 @@ const SubA_VIIa = () => {
             className='inline-position drop'
             selection
             data-name='tab1Subj'
-            value={curDocument?.tab1Subj}
+            value={curDocument?.tab1Subj || 'default'}
             options={options}
-            defaultValue='default'
             onChange={(e) => handleOnChange(e)}
           />
           {(!curDocument?.priLang || !curDocument?.priOtherSubj) && (
@@ -289,7 +288,7 @@ const SubA_VIIa = () => {
                 >
                   <Form className='form-vii'>
                     <TextArea
-                      value={
+                      defaultValue={
                         (curDocument &&
                           curDocument[acc.areaName] &&
                           curDocument[acc.areaName]) ||

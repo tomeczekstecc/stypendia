@@ -41,17 +41,18 @@ function App() {
                     <Route exact path='/reset' component={Reset} />
                     <Route exact path='/resetsend' component={ResetSend} />
                     <Route exact path='/resend' component={Resend} />
-                    <Route exact path='/resend' component={Resend} />
-
                     <ProtectedRoute
                       exact
                       path='/changepass'
                       component={ChangePass}
                     />
+                    <Route exact path='/submit' component={Submit} />
                     <Route exact path='/login' component={Login} />
+
+
+
                     <ProtectedRoute exact path='/logout' component={Logout} />
 
-                    <Route exact path='/submit' component={Submit} />
 
                     <ProtectedRoute exact path='/' component={Home} />
 

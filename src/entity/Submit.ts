@@ -313,6 +313,7 @@ export class Submit extends Model {
   //
   // VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY tab1
   //
+  @MinLength(3)
   @IsString({
     message: 'Należy wskazać przedmiot (lista z części V)',
   })

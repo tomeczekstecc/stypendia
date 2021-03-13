@@ -39,6 +39,7 @@ const SubA_VIIa = () => {
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     clearValidation(e, submitErrors);
+    if (e.target.dataset.name !== undefined) return;
 
     if (submitMode === 'watch') return;
     if (parent && name) {
@@ -46,8 +47,6 @@ const SubA_VIIa = () => {
         curDocument[name] = '';
       }
     }
-    // e.target.offsetParent.dataset.name,
-    //               e.target.offsetParent.firstChild.checked
 
     if (e.target.offsetParent.firstChild.type === 'checkbox') {
       if (e.target.offsetParent.firstChild.checked) {
@@ -75,8 +74,7 @@ const SubA_VIIa = () => {
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
-          [e.target.dataset.name ||
-          e.target.offsetParent.dataset.name ||
+          [e.target.offsetParent.dataset.name ||
           e.target.parentElement.name ||
           e.target.parentElement.dataset.name ||
           e.target.parentElement.parentElement.dataset.name ||
@@ -87,8 +85,7 @@ const SubA_VIIa = () => {
       } else if (submitMode === 'new') {
         await updateNewSubmit({
           ...newSubmit,
-          [e.target.dataset.name ||
-          e.target.offsetParent.dataset.name ||
+          [e.target.offsetParent.dataset.name ||
           e.target.parentElement.name ||
           e.target.parentElement.dataset.name ||
           e.target.parentElement.parentElement.dataset.name ||
@@ -120,15 +117,15 @@ const SubA_VIIa = () => {
   ]);
 
   useEffect(() => {
-        resetTimeLeft();
-        if (curDocument.tab1Results === 3) {
-          if (submitErrors) submitErrors.tab1Results = null;
-        }
-        if (curDocument.tab1Results !== 3) {
-          if (submitErrors)
-            submitErrors.tab12Results =
-              'Liczba wybranych rezultatów w tabeli 1 musi wynosić dokładnie 3';
-        }
+    resetTimeLeft();
+    if (curDocument.tab1Results === 3) {
+      if (submitErrors) submitErrors.tab1Results = null;
+    }
+    if (curDocument.tab1Results !== 3) {
+      if (submitErrors)
+        submitErrors.tab12Results =
+          'Liczba wybranych rezultatów w tabeli 1 musi wynosić dokładnie 3';
+    }
 
     if (submitMode === 'new') {
       setCurDocument(newSubmit);

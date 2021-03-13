@@ -63,7 +63,7 @@ const SubA_V_VI = () => {
 
   useEffect(() => {
     resetTimeLeft();
-    console.log(curDocument && curDocument.priTotalAver);
+
     if (curDocument?.priTotalAver !== '5') {
       if (submitErrors) submitErrors.priTotalAver = null;
     }

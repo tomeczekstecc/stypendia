@@ -41,7 +41,7 @@ const SubA_VIIb = () => {
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     clearValidation(e, submitErrors);
-
+if (e.target.dataset.name !== undefined) return;
 
     if (submitMode === 'watch') return;
     if (parent && name) {

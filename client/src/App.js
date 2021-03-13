@@ -63,7 +63,7 @@ function App() {
               </SubmitState>
             </AuthState>
 
-            <Alert position={'bottom-right'} autoDeleteInterval={10000} />
+            <Alert position={'bottom-right'} autoDeleteInterval={5000} />
           </Router>
         </AppState>
       </AlertState>

@@ -16,6 +16,7 @@ jobs:
             npm install
             NODE_ENV=production npx tsc
             cd client
+            npm install
             rm -rf build
             NODE_ENV=production npm run build
             pm2 restart stypendia-server

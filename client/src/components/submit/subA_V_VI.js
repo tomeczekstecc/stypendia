@@ -26,7 +26,7 @@ const SubA_V_VI = () => {
   submitMode === '' && history.push('/');
 
   const handleOnChange = async (e) => {
-clearValidation(e, submitErrors);
+    clearValidation(e, submitErrors);
 
     if (submitMode === 'watch') return;
 
@@ -63,6 +63,10 @@ clearValidation(e, submitErrors);
 
   useEffect(() => {
     resetTimeLeft();
+    console.log(curDocument && curDocument.priTotalAver);
+    if (curDocument?.priTotalAver !== '5') {
+      if (submitErrors) submitErrors.priTotalAver = null;
+    }
     if (submitMode === 'new') {
       setCurDocument(newSubmit);
     } else if (submitMode === 'edit') {
@@ -86,6 +90,7 @@ clearValidation(e, submitErrors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     submitMode,
+    submitErrors,
     submitToWatch,
     newSubmit,
     curSubmit,
@@ -239,7 +244,7 @@ clearValidation(e, submitErrors);
                   {+curDocument?.priTotalAver || '0.00'}
                 </Label>
               </Label>
-              {submitErrors?.priTotalAver && (
+              {curDocument?.priTotalAver ==='5'&& submitErrors?.priTotalAver && (
                 <Label
                   basic
                   color='red'

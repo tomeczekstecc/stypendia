@@ -121,13 +121,13 @@ const SubA_VIIa = () => {
 
   useEffect(() => {
         resetTimeLeft();
-        if (curDocument.tab2Results === 3) {
-          if (submitErrors) submitErrors.tab2Results = null;
+        if (curDocument.tab1Results === 3) {
+          if (submitErrors) submitErrors.tab1Results = null;
         }
-        if (curDocument.tab2Results !== 3) {
+        if (curDocument.tab1Results !== 3) {
           if (submitErrors)
-            submitErrors.tab2Results =
-              'Liczba wybranych rezultatów w tabeli 2 musi wynosić dokładnie 3';
+            submitErrors.tab12Results =
+              'Liczba wybranych rezultatów w tabeli 1 musi wynosić dokładnie 3';
         }
 
     if (submitMode === 'new') {

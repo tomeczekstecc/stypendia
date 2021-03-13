@@ -38,7 +38,7 @@ const Errors = () => {
                   style={{ color: 'red', fontWeight: 'bold' }}
                   key={e}
                 >
-                  {i + 1 + '. '} {e}
+                  {e && i + 1 + '. '} {e}
                 </div>
               ))}
           </div>

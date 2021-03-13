@@ -163,7 +163,7 @@ export const login = async (req: any, res: Response) => {
     if (user.isRemoved === 1 || user.isBanned === 1) {
 
       STATUS = 'error';
-      INFO = msg.client.fail.blocked;
+      INFO = msg.client.fail.logInFailed;
       makeLog(
         OBJECT,
         user.id,
@@ -177,12 +177,14 @@ export const login = async (req: any, res: Response) => {
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        alertTitle: 'Tymczasowa blokada',
+        alertTitle: 'Błąd',
       });
     }
 
+
+
     if (user.isBlocked && UNBLOCK_TIMEOUT + +user.blockedAt > Date.now()) {
-      console.log('11111111111111111111111111111111111');
+
       STATUS = 'error';
       INFO = msg.client.fail.stillBlocked;
       makeLog(user.id, OBJECT, user.id, ACTION, CONTROLLER, INFO, STATUS);
@@ -196,7 +198,7 @@ export const login = async (req: any, res: Response) => {
       user.isBlocked &&
       UNBLOCK_TIMEOUT + +user.blockedAt < Date.now()
     ) {
-      console.log('2222222222222222222222222222222222222222');
+
       user.failedLogins = 0;
       user.isBlocked = 0;
       user.blockedAt = null;

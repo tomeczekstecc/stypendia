@@ -66,11 +66,11 @@ const Profile = () => {
           openConfirm={openConfirm}
           setOpenConfirm={setOpenConfirm}
           greenButton='Nie, rezygnuję'
-          redButton={'Tak, usuń konto'}
+          redButton={'Tak, dezaktywuj konto'}
           greenAction={() => setOpenConfirm(false)}
           redAction={handleDelete}
-          title='Usuwanie konta'
-          content='Zamierzasz usunąć konto. Pamiętaj, że usunięcie konta oznacza usunięcie użytkownika, jego wniosków, kopii roboczych. Usunięcie konta nie jest możliwe, jeżeli złożyłaś/eś już wniosek. Czy jesteś pewna/y?'
+          title='Dezaktywacja konta'
+          content='Zamierzasz dezaktywować konto. Pamiętaj, że oznacza to brak dostępu do danych użytkownika, jego wniosków, kopii roboczych. Dezaktywacja nie jest możliwa, jeżeli złożyłaś/eś już wniosek. Czy jesteś pewna/y?'
         />
         <div className='items-container'>
           <div>
@@ -129,9 +129,9 @@ const Profile = () => {
             </Header>
 
             <Header className='header' textAlign='left' as='h4' dividing>
-              Usuwanie konta
+              Dezaktywacja konta
               <Header.Subheader>
-                Usuń konto (jeśli brak złożonych wniosków)
+                Dezaktywuj konto (jeśli brak złożonych wniosków)
                 <Button
                   onClick={() => setOpenConfirm(true)}
                   className='link'
@@ -140,7 +140,7 @@ const Profile = () => {
                   size='tiny'
                 >
                   <Icon name='trash' />
-                  Usuń konto
+                  Dezaktywuj konto
                 </Button>
               </Header.Subheader>
             </Header>

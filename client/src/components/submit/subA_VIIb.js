@@ -17,7 +17,7 @@ import { accordionsVIIb, keySubjects } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
-import { clearValidation } from '../../utils/clearValidation';
+import { placeCursorBack, clearValidation, clearContent } from '../../utils';
 
 const SubA_VIIb = () => {
   const history = useHistory();
@@ -37,21 +37,13 @@ const SubA_VIIb = () => {
   } = submitContext;
   submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
-  const [counter, setCounter] = useState(1);
+
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
-    clearValidation(e, submitErrors);
-if (e.target.dataset.name !== undefined) return;
-
     if (submitMode === 'watch') return;
-    if (parent && name) {
-      console.log(parent, name);
-      if (curDocument && curDocument[parent] ) {
-
-        curDocument[name] = '';
-        setCounter(prev=>prev +1)
-      }
-    }
+    placeCursorBack(e);
+    clearValidation(e, submitErrors);
+    clearContent(parent, name, curDocument);
 
     if (e.target.offsetParent.firstChild.type === 'checkbox') {
       if (e.target.offsetParent.firstChild.checked) {
@@ -105,7 +97,7 @@ if (e.target.dataset.name !== undefined) return;
   };
 
   useEffect(() => {
-    console.log(counter);
+
     resetTimeLeft();
     if (curDocument.tab2Results === 3) {
       if (submitErrors) submitErrors.tab2Results = null;
@@ -131,7 +123,7 @@ if (e.target.dataset.name !== undefined) return;
       curDocument.tab2SubjName = '';
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument,counter]);
+  }, [submitMode, submitToWatch, newSubmit, curSubmit, curDocument]);
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
@@ -272,9 +264,9 @@ if (e.target.dataset.name !== undefined) return;
                   }
                 >
                   <Form className='form-vii'>
-                    <TextArea
-
-                      defaultValue={
+                    <textarea
+rows={5}
+                      value={
                         (curDocument &&
                           curDocument[acc.areaName] &&
                           curDocument[acc.areaName]) ||
@@ -285,7 +277,7 @@ if (e.target.dataset.name !== undefined) return;
                       data-name={acc.areaName}
                       placeholder={acc.placeholder}
                       className='form-textArea'
-                    ></TextArea>
+                    ></textarea>
                   </Form>
                   {submitErrors && submitErrors[acc.areaName] && (
                     <Label

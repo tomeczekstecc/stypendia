@@ -14,7 +14,7 @@ import { budgetRows } from '../../parts';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
-import { clearValidation } from '../../utils/clearValidation';
+import { placeCursorBack, clearValidation } from '../../utils';
 
 const Budget = () => {
   const history = useHistory();
@@ -37,6 +37,7 @@ const Budget = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+    if (submitMode === 'watch') return;
     if (
       submitMode === 'watch' ||
       isNaN(e.target.value) ||
@@ -45,7 +46,6 @@ const Budget = () => {
       +e.target.innerText > 999999
     )
       return;
-    if (submitMode === 'watch') return;
 
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -63,7 +63,10 @@ const Budget = () => {
   };
 
   const handleOnChange2 = async (e) => {
+
+    placeCursorBack(e);
     clearValidation(e, submitErrors);
+
     if (submitMode === 'watch') return;
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -259,7 +262,8 @@ const Budget = () => {
 
           <Accordion.Content active={true}>
             <Form className='form-vii'>
-              <TextArea
+              <textarea
+              rows={5}
                 defaultValue={
                   (curDocument &&
                     curDocument.substantion1 &&
@@ -271,7 +275,7 @@ const Budget = () => {
                 data-name='substantion1'
                 placeholder='Wpisz uzasadnienie'
                 className='form-textArea substantion'
-              ></TextArea>
+              ></textarea>
             </Form>
             {submitErrors && submitErrors.substantion1 && (
               <Label
@@ -294,7 +298,8 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <TextArea
-                defaultValue={
+              rows={5}
+                value={
                   (curDocument &&
                     curDocument.substantion2 &&
                     curDocument.substantion2) ||

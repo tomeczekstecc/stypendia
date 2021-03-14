@@ -10,13 +10,12 @@ import {
   Label,
   Message,
   Segment,
-  TextArea,
 } from 'semantic-ui-react';
 import { accordionsVIIa } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
-import { clearValidation } from '../../utils/clearValidation';
+import { placeCursorBack, clearValidation, clearContent } from '../../utils';
 
 const SubA_VIIa = () => {
   const history = useHistory();
@@ -38,15 +37,11 @@ const SubA_VIIa = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
-    clearValidation(e, submitErrors);
-    if (e.target.dataset.name !== undefined) return;
-
     if (submitMode === 'watch') return;
-    if (parent && name) {
-      if (curDocument && curDocument[parent] && curDocument[parent] === true) {
-        curDocument[name] = '';
-      }
-    }
+
+    placeCursorBack(e);
+    clearValidation(e, submitErrors);
+    clearContent(parent, name, curDocument);
 
     if (e.target.offsetParent.firstChild.type === 'checkbox') {
       if (e.target.offsetParent.firstChild.checked) {
@@ -74,7 +69,8 @@ const SubA_VIIa = () => {
       if (submitMode === 'edit') {
         await updateCurSubmit({
           ...curSubmit,
-          [e.target.offsetParent.dataset.name ||
+          [e.target.dataset.name ||
+          e.target.offsetParent.dataset.name ||
           e.target.parentElement.name ||
           e.target.parentElement.dataset.name ||
           e.target.parentElement.parentElement.dataset.name ||
@@ -85,7 +81,8 @@ const SubA_VIIa = () => {
       } else if (submitMode === 'new') {
         await updateNewSubmit({
           ...newSubmit,
-          [e.target.offsetParent.dataset.name ||
+          [e.target.dataset.name ||
+          e.target.offsetParent.dataset.name ||
           e.target.parentElement.name ||
           e.target.parentElement.dataset.name ||
           e.target.parentElement.parentElement.dataset.name ||
@@ -284,8 +281,9 @@ const SubA_VIIa = () => {
                   }
                 >
                   <Form className='form-vii'>
-                    <TextArea
-                      defaultValue={
+                    <textarea
+                      rows={5}
+                      value={
                         (curDocument &&
                           curDocument[acc.areaName] &&
                           curDocument[acc.areaName]) ||
@@ -296,7 +294,7 @@ const SubA_VIIa = () => {
                       data-name={acc.areaName}
                       placeholder={acc.placeholder}
                       className='form-textArea'
-                    ></TextArea>
+                    ></textarea>
                   </Form>
                   {submitErrors && submitErrors[acc.areaName] && (
                     <Label

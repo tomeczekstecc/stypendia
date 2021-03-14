@@ -41,6 +41,8 @@ const SubA_VIIb = () => {
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     if (submitMode === 'watch') return;
+    if (e.target.dataset.name !== undefined) return;
+
     placeCursorBack(e);
     clearValidation(e, submitErrors);
     clearContent(parent, name, curDocument);

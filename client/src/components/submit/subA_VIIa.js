@@ -38,8 +38,11 @@ const SubA_VIIa = () => {
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     if (submitMode === 'watch') return;
-    if (e.target.dataset.name !== undefined) return;
-
+    if (
+      e.target.dataset.type !== 'textarea' &&
+      e.target.dataset.name !== undefined
+    )
+      return;
 
     placeCursorBack(e);
     clearValidation(e, submitErrors);
@@ -293,6 +296,7 @@ const SubA_VIIa = () => {
                       }
                       onChange={(e) => handleOnChange(e)}
                       name={acc.areaName}
+                      data-type='textarea'
                       data-name={acc.areaName}
                       placeholder={acc.placeholder}
                       className='form-textArea'

@@ -38,10 +38,10 @@ const SubA_VIIb = () => {
   submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState({});
 
-
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     if (submitMode === 'watch') return;
-    if (e.target.dataset.name !== undefined) return;
+    console.log(e.target.dataset.type);
+if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined) return;
 
     placeCursorBack(e);
     clearValidation(e, submitErrors);
@@ -99,7 +99,6 @@ const SubA_VIIb = () => {
   };
 
   useEffect(() => {
-
     resetTimeLeft();
     if (curDocument.tab2Results === 3) {
       if (submitErrors) submitErrors.tab2Results = null;
@@ -267,7 +266,7 @@ const SubA_VIIb = () => {
                 >
                   <Form className='form-vii'>
                     <textarea
-rows={5}
+                      rows={5}
                       value={
                         (curDocument &&
                           curDocument[acc.areaName] &&
@@ -277,6 +276,7 @@ rows={5}
                       onChange={(e) => handleOnChange(e)}
                       name={acc.areaName}
                       data-name={acc.areaName}
+                      data-type='textarea'
                       placeholder={acc.placeholder}
                       className='form-textArea'
                     ></textarea>

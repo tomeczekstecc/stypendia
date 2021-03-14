@@ -29,37 +29,7 @@ const SubA_I_II = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
-
-clearValidation(e, submitErrors)
-
-    // if (
-    //   submitErrors &&
-    //   (submitErrors[e.target.dataset.name] ||
-    //     submitErrors[e.target.offsetParent.dataset.name] ||
-    //     submitErrors[e.target.parentElement.name] ||
-    //     submitErrors[e.target.parentElement.dataset.name] ||
-    //     submitErrors[e.target.parentElement.parentElement.dataset.name] ||
-    //     submitErrors[
-    //       e.target.parentElement.parentElement.parentElement.dataset.name
-    //     ] ||
-    //     submitErrors[
-    //       e.target.parentElement.parentElement.parentElement.parentElement
-    //         .dataset.name
-    //     ])
-    // ) {
-    //   submitErrors[e.target.dataset.name] = null;
-
-    //   submitErrors[e.target.offsetParent.dataset.name] = null;
-    //   submitErrors[e.target.parentElement.name] = null;
-    //   submitErrors[e.target.parentElement.dataset.name] = null;
-    //   submitErrors[e.target.parentElement.parentElement.dataset.name] = null;
-    //   submitErrors[
-    //     e.target.parentElement.parentElement.parentElement.dataset.name
-    //   ] = null;
-    //   submitErrors[
-    //     e.target.parentElement.parentElement.parentElement.parentElement.dataset.name
-    //   ] = null;
-    // }
+    clearValidation(e, submitErrors);
 
     if (submitErrors && submitErrors[e.target.offsetParent.dataset.name])
       submitErrors[e.target.offsetParent.dataset.name] = null;
@@ -165,9 +135,10 @@ clearValidation(e, submitErrors)
               iconPosition='left'
               placeholder='Podaj numer telefonu wnioskodawcy'
               name='phone'
+              autoFocus='autofocus'
               data-name='phone'
               onChange={(e) => handleOnChange(e)}
-              value={curDocument?.phone || ''}
+              defaultValue={curDocument?.phone || ''}
             />
             {submitErrors?.phone && (
               <Label basic color='red' pointing='above' className='small-text'>
@@ -187,7 +158,7 @@ clearValidation(e, submitErrors)
               placeholder='Podaj adres ePuap'
               name='epuapAdr'
               data-name='epuapAdr'
-              value={curDocument?.epuapAdr || ''}
+              defaultValue={curDocument?.epuapAdr || ''}
             />
             <div
               className={`${
@@ -245,7 +216,7 @@ clearValidation(e, submitErrors)
               data-name='pupilPesel'
               icon='id card outline'
               iconPosition='left'
-              value={curDocument?.pupilPesel || ''}
+              defaultValue={curDocument?.pupilPesel || ''}
             />
             {submitErrors?.pupilPesel && (
               <Label basic color='red' pointing='above' className='small-text'>
@@ -265,7 +236,7 @@ clearValidation(e, submitErrors)
               name='pupilFirstName'
               data-name='pupilFirstName'
               placeholder='Podaj imię ucznia'
-              value={
+              defaultValue={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.firstName
                   : curDocument.pupilFirstName) || ''
@@ -290,7 +261,7 @@ clearValidation(e, submitErrors)
               name='pupilLastName'
               data-name='pupilLastName'
               placeholder='Podaj nazwisko ucznia'
-              value={
+              defaultValue={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.lastName
                   : curDocument.pupilLastName) || ''
@@ -314,7 +285,7 @@ clearValidation(e, submitErrors)
               name='pupilEmail'
               data-name='pupilEmail'
               placeholder='Podaj adres email ucznia'
-              value={
+              defaultValue={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.email
                   : curDocument.pupilEmail) || ''
@@ -338,7 +309,7 @@ clearValidation(e, submitErrors)
               type='phone'
               name='pupilPhone'
               data-name='pupilPhone'
-              value={curDocument?.pupilPhone || ''}
+              defaultValue={curDocument?.pupilPhone || ''}
             />
             {submitErrors?.pupilPhone && (
               <Label basic color='red' pointing='above' className='small-text'>

@@ -278,7 +278,7 @@ const SubA_V_VI = () => {
                   floating
                   data-name='allTotalAver'
                   onChange={(e) => handleOnChange(e)}
-                  defaultValue={curDocument?.allTotalAver || 'default'}
+                  value={curDocument?.allTotalAver || 'default'}
                   options={optionsTotalGrades}
                 />
                 {submitErrors?.allTotalAver && (
@@ -330,7 +330,7 @@ const SubA_V_VI = () => {
                 disabled={submitMode === 'watch'}
                 data-name='isFinalist'
                 onChange={(e) => handleOnChange(e)}
-                defaultValue={curDocument?.isFinalist || 'default'}
+                value={curDocument?.isFinalist || 'default'}
               />
               {submitErrors?.isFinalist && (
                 <Label
@@ -370,7 +370,7 @@ const SubA_V_VI = () => {
                 disabled={submitMode === 'watch'}
                 data-name='isAllowed'
                 onChange={(e) => handleOnChange(e)}
-                defaultValue={curDocument?.isAllowed || 'default'}
+                value={curDocument?.isAllowed || 'default'}
               />
               {submitErrors?.isAllowed && (
                 <Label
@@ -410,7 +410,7 @@ const SubA_V_VI = () => {
                 disabled={submitMode === 'watch'}
                 data-name='isHandicap'
                 onChange={(e) => handleOnChange(e)}
-                defaultValue={curDocument?.isHandicap || 'default'}
+                value={curDocument?.isHandicap || 'default'}
               />
               {submitErrors?.isHandicap && (
                 <Label

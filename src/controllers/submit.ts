@@ -21,7 +21,7 @@ export const addSubmit = async (req: any, res: Response) => {
   CONTROLLER = 'addSubmit';
   ACTION = 'dodawanie';
 
-   req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   try {
     const user = await User.findOne({ id: req.session.userId });
@@ -38,24 +38,9 @@ export const addSubmit = async (req: any, res: Response) => {
     }
 
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
+    if (peselExists.length > 0) errors.pupilPesel = msg.client.fail.peselExists;
 
-    if (peselExists.length > 0) {
-      errors.pupilPesel = msg.client.fail.peselExists;
-      // ****************************** LOG *********************************//
-      INFO = msg.client.fail.peselExists;
-      STATUS = 'error';
-      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      // ********************************************************************//
-    }
-
-    const allErrors = await checkForAtt(req, errors, 'new');
-
-    if (Object.keys(allErrors).length > 0) {
-      STATUS = 'error';
-      INFO = msg.client.fail.attGeneralERR;
-      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(400).json(allErrors);
-    }
+    const attErrors = await checkForAtt(req, errors, 'new');
 
     const num = (await (await Submit.find()).length) + 10000;
 
@@ -78,15 +63,17 @@ export const addSubmit = async (req: any, res: Response) => {
       user,
     });
 
-    errors = await validate(submit);
+    const classErrors = mapErrors(await validate(submit));
 
-    if (errors.length > 0) {
+    let allErrors = { ...errors, ...classErrors, ...attErrors };
+
+    if (Object.keys(allErrors).length > 0) {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
-      return res.status(400).json(mapErrors(errors));
+      return res.status(400).json(allErrors);
     }
 
     await submit.save();
@@ -100,7 +87,7 @@ export const addSubmit = async (req: any, res: Response) => {
 
     const submitFiles = await File.find({ submitId: submit.id });
 
-     const data = {
+    const data = {
       submit,
       files: submitFiles,
       tabs1: mapTabs(submit, '1'),
@@ -113,11 +100,6 @@ export const addSubmit = async (req: any, res: Response) => {
     };
 
     await generatePdf(data, 'submit');
-
-
-
-
-
 
     // ****************************** LOG *********************************//
     INFO = msg.client.ok.subCreated;
@@ -152,7 +134,7 @@ export const editSubmit = async (req: any, res: Response) => {
   CONTROLLER = 'editSubmit';
   ACTION = 'edytowanie';
 
- req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   try {
     const user = await User.findOne({ id: req.session.userId });
@@ -172,36 +154,28 @@ export const editSubmit = async (req: any, res: Response) => {
     let errors: any = {};
     const peselExists = await Submit.find({ pupilPesel: req.body.pupilPesel });
 
-    if (peselExists.length > 0 && peselExists[0].id !== req.body.id) {
+    if (peselExists.length > 0 && peselExists[0].id !== req.body.id)
       errors.pupilPesel = msg.client.fail.peselExists;
-      // ****************************** LOG *********************************//
-      INFO = msg.client.fail.peselExists;
-      STATUS = 'error';
-      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      // ********************************************************************//
-    }
 
-    const allErrors = await checkForAtt(req, errors, 'edit');
+    const attErrors = await checkForAtt(req, errors, 'edit');
 
-    if (Object.keys(allErrors).length > 0) {
-      STATUS = 'error';
-      INFO = msg.client.fail.attGeneralERR;
-      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(400).json(allErrors);
-    }
 
     const tempSubmit = await new Submit({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
 
-    errors = await validate(tempSubmit);
+  const classErrors = mapErrors(await validate(tempSubmit));
+let allErrors = { ...errors, ...classErrors, ...attErrors };
 
-    if (errors.length > 0) {
+
+
+
+    if (Object.keys(allErrors).length > 0)  {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       // ********************************************************************//
 
-      return res.status(400).json(mapErrors(errors));
+      return res.status(400).json(allErrors);
     }
 
     await Submit.update(
@@ -261,8 +235,7 @@ export const editSubmit = async (req: any, res: Response) => {
 //get all submits
 //
 export const getAllSubmits = async (req: any, res: Response) => {
-
-   req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   try {
     const submits = await Submit.find({ relations: ['user'] });
@@ -286,8 +259,7 @@ export const getAllSubmits = async (req: any, res: Response) => {
 };
 
 export const getAllUsersSubmits = async (req: any, res: Response) => {
-
- req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   try {
     const submits = await Submit.find({
@@ -313,9 +285,7 @@ export const getAllUsersSubmits = async (req: any, res: Response) => {
 };
 
 export const getOneUserSubmit = async (req: any, res: Response) => {
-
-
- req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   const { uuid } = req.params;
 

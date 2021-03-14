@@ -11,7 +11,7 @@ module.exports = {
   // synchronize: process.env.NODE_ENV === 'development',
   synchronize: true,
   // logging: process.env.NODE_ENV === 'development',
-  logging: true,
+  logging: false,
   entities: [rootDir + '/entity/**/*.{ts,js}'],
   migrations: [rootDir + '/migration/**/*.{ts,js}'],
   //   subscribers: rootDir + ['/subscriber/**/*.{.ts,.js}'],

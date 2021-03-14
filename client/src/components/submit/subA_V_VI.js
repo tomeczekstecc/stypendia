@@ -125,7 +125,7 @@ const SubA_V_VI = () => {
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
-                    defaultValue={curDocument?.priMathGrade || 'default'}
+                    value={curDocument?.priMathGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -160,7 +160,7 @@ const SubA_V_VI = () => {
                     className='priLangGrade'
                     basic
                     options={optionsGrades}
-                    defaultValue={curDocument?.priLangGrade || 'default'}
+                    value={curDocument?.priLangGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }
@@ -205,7 +205,7 @@ const SubA_V_VI = () => {
                     className='priOtherSubjGrade'
                     basic
                     options={optionsGrades}
-                    defaultValue={curDocument?.priOtherSubjGrade || 'default'}
+                    value={curDocument?.priOtherSubjGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }

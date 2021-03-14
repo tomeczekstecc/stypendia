@@ -238,6 +238,7 @@ const SubA_V_VI = () => {
                 </Label>
               )}
 
+
               <Label size='large' className='aver-label'>
                 Średnia ocen przedmiotów kierunkowych :{' '}
                 <Label color='grey' size='large'>

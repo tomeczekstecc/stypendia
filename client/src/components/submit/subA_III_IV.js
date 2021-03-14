@@ -133,7 +133,7 @@ const SubA_III_IV = () => {
                 data-name='schoolType'
                 name='schoolType'
                 onChange={(e) => handleOnChange(e)}
-                defaultValue={curDocument?.schoolType || 'default'}
+                value={curDocument?.schoolType || 'default'}
                 options={optionsSchoolType}
               />
               {submitErrors?.schoolType && (
@@ -361,7 +361,7 @@ const SubA_III_IV = () => {
                 name='counselorProfile'
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-                defaultValue={curDocument?.counselorProfile || 'default'}
+            value={curDocument?.counselorProfile || 'default'}
                 options={optionsProfile}
               />
               {submitErrors?.counselorProfile && (

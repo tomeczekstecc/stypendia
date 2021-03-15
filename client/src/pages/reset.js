@@ -13,6 +13,7 @@ import {Wrapper} from './styles/reset.styles'
 import {Title} from '../components';
 import {AlertContext,AuthContext , AppContext}from '../context';
 import { resetInputs } from '../parts/inputs';
+import { clearValidation } from '../utils';
 
 const Reset = ({ location, history }) => {
   const alertContext = useContext(AlertContext);
@@ -67,6 +68,7 @@ const Reset = ({ location, history }) => {
   };
   const handleOnChange = (e) => {
     e.preventDefault();
+      clearValidation(e, errors);
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 

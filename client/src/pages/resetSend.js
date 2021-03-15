@@ -68,6 +68,7 @@ const ResetSend = ({ history }) => {
         setIsLoading(false);
       });
   };
+  
   const handleOnChange = (e) => {
     e.preventDefault();
       clearValidation(e, errors);

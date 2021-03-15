@@ -116,7 +116,7 @@ export const resend = async (req: any, res: Response) => {
 
   const { email } = req.body;
 
-  if (!isEmail(email)) errors.email = msg.client.fail.empty;
+  if (!isEmail(email)) errors.email = msg.client.fail.emailErr;
 
   if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
@@ -130,7 +130,6 @@ export const resend = async (req: any, res: Response) => {
     return res.status(401).json({
       resStatus: STATUS,
       msgPL: INFO,
-      msg: 'Couldnt send',
       alertTitle: 'Błąd',
     });
   }

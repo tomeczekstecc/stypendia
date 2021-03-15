@@ -16,6 +16,7 @@ import { Wrapper } from './styles/register.styles';
 import { Rodo, Title, Required } from '../components';
 import { registerInputs } from '../parts/inputs';
 import { AlertContext, AppContext, AuthContext } from '../context';
+import { clearValidation } from '../utils';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -39,8 +40,10 @@ const Register = (props) => {
   }, []);
 
   const handleOnClick = async (e) => {
-    setErrors('');
     e.preventDefault();
+
+    setErrors('');
+
     const csrfData = await axios.get('/api/v1/csrf');
     const client = await axios.get('https://api.my-ip.io/ip.json');
     const clientIp = client.data.ip;
@@ -54,7 +57,6 @@ const Register = (props) => {
         clientIp,
       })
       .then((data) => {
-
         if (data.data.resStatus || data.data.resStatus === 'success') {
           setIsLoading(false);
           setTimeout(() => props.history.push('/login'), 1500);
@@ -70,6 +72,7 @@ const Register = (props) => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
+    clearValidation(e, errors);
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 

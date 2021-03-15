@@ -13,6 +13,7 @@ import {
 import { Wrapper } from './styles/resend.styles';
 import { Title } from '../components';
 import { AlertContext, AuthContext, AppContext } from '../context';
+import { clearValidation } from '../utils';
 
 const Resend = ({ history }) => {
   const alertContext = useContext(AlertContext);
@@ -33,37 +34,39 @@ const Resend = ({ history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
+  const handleOnChange = (e) => {};
+
   const handleOnClick = async (e) => {
     setErrors('');
     e.preventDefault();
     setIsLoading(true);
     const csrfData = await axios.get('/api/v1/csrf');
-       const client = await axios.get('https://api.my-ip.io/ip.json');
-       const clientIp = client.data.ip;
- 
-     axios
-       .post(`/api/v1/email/resend`, {
-         email,
-         _csrf: csrfData.data.csrfToken,
-         clientIp,
-       })
-       .then(async (data) => {
-         if (data.data.resStatus || data.data.resStatus === 'success') {
-           addAlert(data.data);
-           setUser(data.data.user);
-           await setIsLoading(false);
-           history.push('/');
-         }
-       })
-       .catch((err) => {
-         if (err.response.data.alertTitle) {
-           setIsLoading(false);
-           addAlert(err.response.data);
-         }
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
 
-         setErrors(err.response.data);
-         setIsLoading(false);
-       });
+    axios
+      .post(`/api/v1/email/resend`, {
+        email,
+        _csrf: csrfData.data.csrfToken,
+        clientIp,
+      })
+      .then(async (data) => {
+        if (data.data.resStatus || data.data.resStatus === 'success') {
+          addAlert(data.data);
+          setUser(data.data.user);
+          await setIsLoading(false);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        if (err.response.data.alertTitle) {
+          setIsLoading(false);
+          addAlert(err.response.data);
+        }
+
+        setErrors(err.response.data);
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -89,7 +92,10 @@ const Resend = ({ history }) => {
               <Form>
                 <input type='hidden' name='_csrf' value=''></input>
                 <Form.Input
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    clearValidation(e, errors);
+                  }}
                   required
                   className='input'
                   icon='mail'
@@ -101,7 +107,12 @@ const Resend = ({ history }) => {
                 />
 
                 {errors && errors.email && (
-                  <Label basic color='red' pointing='above' className='small-text'>
+                  <Label
+                    basic
+                    color='red'
+                    pointing='above'
+                    className='small-text'
+                  >
                     {errors.email}
                   </Label>
                 )}

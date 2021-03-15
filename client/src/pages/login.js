@@ -15,6 +15,7 @@ import { Wrapper } from './styles/login.styles';
 import { Required, Title } from '../components';
 import { AlertContext, AppContext, AuthContext } from '../context';
 import { loginInputs } from '../parts/inputs';
+import { clearValidation } from '../utils';
 
 const Login = () => {
   const history = useHistory();
@@ -79,8 +80,11 @@ const Login = () => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
+    clearValidation(e, errors)
+
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
+
 
   return (
     <Wrapper>

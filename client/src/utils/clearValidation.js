@@ -2,7 +2,7 @@ export const clearValidation = (e, submitErrors) => {
   let atts = ['allowance', 'attestation', 'random'];
 
 
-  if (
+    if (
     submitErrors &&
     (submitErrors[e?.target?.name] ||
       submitErrors[e?.target?.dataset?.name] ||

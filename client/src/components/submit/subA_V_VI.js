@@ -101,7 +101,7 @@ const SubA_V_VI = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
-      <Title content='Krytaria oceny - podstawowe i dodatkowe' />
+      <Title content='Kryteria oceny - podstawowe i dodatkowe' />
       <Grid.Column className='column'>
         <Header className='sub-header' floated='left' as='h4'>
           V. PODSTAWOWE KRYTERIA:

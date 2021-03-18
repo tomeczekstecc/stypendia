@@ -263,7 +263,7 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <textarea
-              rows={5}
+                rows={5}
                 defaultValue={
                   (curDocument &&
                     curDocument.substantion1 &&
@@ -273,7 +273,7 @@ const Budget = () => {
                 onChange={(e) => handleOnChange2(e)}
                 name='substantion1'
                 data-name='substantion1'
-                placeholder='Wpisz uzasadnienie'
+                placeholder='Wpisz uzasadnienie (co najmniej 10 znaków)'
                 className='form-textArea substantion'
               ></textarea>
             </Form>
@@ -284,7 +284,7 @@ const Budget = () => {
                 pointing='above'
                 className='small-text area-err'
               >
-                {curDocument?.substantion1}
+                {submitErrors.substantion1}
               </Label>
             )}
           </Accordion.Content>
@@ -298,7 +298,7 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <TextArea
-              rows={5}
+                rows={5}
                 value={
                   (curDocument &&
                     curDocument.substantion2 &&
@@ -308,7 +308,7 @@ const Budget = () => {
                 onChange={(e) => handleOnChange2(e)}
                 name='substantion2'
                 data-name='substantion2'
-                placeholder='Wpisz uzasadnienie'
+                placeholder='Wpisz uzasadnienie (co najmniej 10 znaków)'
                 className='form-textArea substantion'
               ></TextArea>
             </Form>
@@ -319,7 +319,7 @@ const Budget = () => {
                 pointing='above'
                 className='small-text area-err'
               >
-                {curDocument?.substantion2}
+                {submitErrors.substantion2}
               </Label>
             )}
           </Accordion.Content>

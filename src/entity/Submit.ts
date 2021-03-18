@@ -102,12 +102,12 @@ export class Submit extends Model {
   //
   //  II. DANE OSOBOWE UCZNIA
   //
-  @Length(1, 254, { message: 'Imię ucznia musi zawierać od 1 do 254 znaków' })
+  @Length(2, 254, { message: 'Imię ucznia musi zawierać od 2 do 254 znaków' })
   @Column({ comment: 'Imię ucznia' })
   pupilFirstName: string;
 
-  @Length(1, 254, {
-    message: 'Nazwisko ucznia musi zawierać od 1 do 254 znaków',
+  @Length(2, 254, {
+    message: 'Nazwisko ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Nazwisko ucznia' })
   pupilLastName: string;
@@ -135,26 +135,26 @@ export class Submit extends Model {
   //  III. DANE DOTYCZĄCE SZKOŁY PONADPODSTAWOWEJ ZNAJDUJĄCEJ SIĘ NA TERENIE
   //
 
-  @Length(1, 254, {
-    message: 'Nazwa szkoły ucznia musi zawierać od 1 do 254 znaków',
+  @Length(2, 254, {
+    message: 'Nazwa szkoły ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Nazwa szkoły ucznia' })
   schoolName: string;
 
-  @Length(1, 254, {
-    message: 'Ulica szkoły ucznia musi zawierać od 1 do 254 znaków',
+  @Length(2, 254, {
+    message: 'Ulica szkoły ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Ulica szkoły ucznia' })
   schoolStreetName: string;
 
-  @Length(1, 254, {
-    message: 'Numer ulicy szkoły ucznia musi zawierać od 1 do 254 znaków',
+  @Length(2, 254, {
+    message: 'Numer ulicy szkoły ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Numer ulicy szkoły ucznia' })
   schoolStreetNr: string;
 
-  @Length(1, 254, {
-    message: 'Miejscowość szkoły ucznia musi zawierać od 1 do 254 znaków',
+  @Length(2, 254, {
+    message: 'Miejscowość szkoły ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Miejscowość szkoły ucznia' })
   schoolTown: string;
@@ -184,16 +184,16 @@ export class Submit extends Model {
   //
   //  IV. DANE KANDYDATA NA OPIEKUNA DYDAKTYCZNEGO STYPENDYSTY
   //
-  @Length(1, 254, {
+  @Length(2, 254, {
     message:
-      'Imię opiekuna dydaktycznego ucznia musi zawierać od 1 do 254 znaków',
+      'Imię opiekuna dydaktycznego ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Imię opiekuna dydaktycznego ucznia' })
   counselorFirstName: string;
 
-  @Length(1, 254, {
+  @Length(2, 254, {
     message:
-      'Nazwisko opiekuna dydaktycznego ucznia musi zawierać od 1 do 254 znaków',
+      'Nazwisko opiekuna dydaktycznego ucznia musi zawierać od 2 do 254 znaków',
   })
   @Column({ comment: 'Nazwisko opiekuna dydaktycznego ucznia' })
   counselorLastName: string;
@@ -208,7 +208,7 @@ export class Submit extends Model {
   })
   counselorProfile: string;
 
-  //
+  //11
   // V.  PODSTAWOWE KRYTERIA OCENY
   //
   @IsEnum(priGradesEnums, { message: 'Należy wybrać ocenę dla matematyki' })
@@ -219,7 +219,7 @@ export class Submit extends Model {
   })
   priMathGrade: number;
 
-  @Length(1, 254, {
+  @Length(2, 254, {
     message: 'Należy wskazać język obcy',
   })
   @Column({ comment: 'Podstawowe kryteria oceny - nazwa języka obcego' })
@@ -235,7 +235,7 @@ export class Submit extends Model {
   })
   priLangGrade: number;
 
-  @Length(1, 254, {
+  @Length(2, 254, {
     message: 'Należy wskazać inny przedmiot',
   })
   @Column({
@@ -823,6 +823,10 @@ export class Submit extends Model {
   })
   totalCosts: number;
 
+  @ValidateIf((o) => o.substantion1)
+  @MinLength(10, {
+    message: 'Pole uzasadnienia musi zawierać co nakmniej 10 znaków',
+  })
   @Column({
     type: 'text',
     comment:
@@ -831,6 +835,10 @@ export class Submit extends Model {
   })
   substantion1: string;
 
+  @ValidateIf((o) => o.substantion2)
+  @MinLength(10, {
+    message: 'Pole uzasadnienia musi zawierać co nakmniej 10 znaków',
+  })
   @Column({
     type: 'text',
     comment:

@@ -809,6 +809,12 @@ export class Submit extends Model {
   })
   cost11: number;
 
+  @Column({
+    comment: 'Inne koszty',
+    default: 0,
+  })
+  cost12: number;
+
   @Min(0.1, {
     message:
       'Wartość całkowita planu wydatków nie może być mniejsza niż 5000,00 PLN',
@@ -823,7 +829,7 @@ export class Submit extends Model {
   })
   totalCosts: number;
 
-  @ValidateIf((o) => o.substantion1)
+  @ValidateIf((o) => o.cost12 > 0)
   @MinLength(10, {
     message: 'Pole uzasadnienia musi zawierać co najmniej 10 znaków',
   })

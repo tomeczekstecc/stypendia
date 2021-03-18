@@ -271,9 +271,9 @@ const Budget = () => {
                   ''
                 }
                 onChange={(e) => handleOnChange2(e)}
+                placeholder='Wpisz uzasadnienie (co najmniej 10 znaków)'
                 name='substantion1'
                 data-name='substantion1'
-                placeholder='Wpisz uzasadnienie (co najmniej 10 znaków)'
                 className='form-textArea substantion'
               ></textarea>
             </Form>

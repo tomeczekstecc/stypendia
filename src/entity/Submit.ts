@@ -147,10 +147,10 @@ export class Submit extends Model {
   @Column({ comment: 'Ulica szkoły ucznia' })
   schoolStreetName: string;
 
-  @Length(2, 254, {
-    message: 'Numer ulicy szkoły ucznia musi zawierać od 2 do 254 znaków',
+  @Length(1, 254, {
+    message: 'Numer budynku szkoły ucznia musi zawierać od 1 do 254 znaków',
   })
-  @Column({ comment: 'Numer ulicy szkoły ucznia' })
+  @Column({ comment: 'Numer budynku szkoły ucznia' })
   schoolStreetNr: string;
 
   @Length(2, 254, {

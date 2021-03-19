@@ -187,7 +187,7 @@ const SubA_III_IV = () => {
                   label='Numer domu'
                   icon='building'
                   iconPosition='left'
-                  placeholder='Podaj numer domu (2 do 254 znaków)'
+                  placeholder='Podaj numer domu (1 do 254 znaków)'
                   name='schoolStreetNr'
                   data-name='schoolStreetNr'
                   defaultValue={curDocument?.schoolStreetNr || ''}

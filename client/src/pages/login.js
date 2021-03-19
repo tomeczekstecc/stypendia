@@ -44,7 +44,7 @@ const Login = () => {
     const csrfData = await axios.get('/api/v1/csrf');
     const client = await axios.get('https://api.my-ip.io/ip.json');
     const clientIp = client.data.ip;
-   
+
     const newBody = { ...body, _csrf: csrfData.data.csrfToken, clientIp };
 
     axios

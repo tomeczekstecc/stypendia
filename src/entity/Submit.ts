@@ -878,6 +878,14 @@ export class Submit extends Model {
   @Column({ comment: 'Csrf' })
   _csrf: string;
 
+  @Column({
+    type: 'enum',
+    comment: 'Gotowość do pobrania pdf',
+    enum: [0, 1],
+    default: 1,
+  })
+  pdfReady: number;
+
   @Column({ comment: 'UuuidV4 użytkownika' })
   userUuid: string;
 

@@ -5,11 +5,15 @@ import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
 import useFetch from '../hooks/useFetch';
 import { fetchPdf } from '../services';
+import {Wrapper} from './styles/allUsersSubmits'
+
+import { updatePdfReady } from '../utils';
+
 
 const AllUsersSubmits = () => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
-  const { resetTimeLeft} = authContext;
+  const { resetTimeLeft } = authContext;
 
   const appContext = useContext(AppContext);
   const { isLoading } = appContext;
@@ -20,13 +24,16 @@ const AllUsersSubmits = () => {
     setSubmitMode,
     setCurSubmit,
     setSubmitToWatch,
+    curSubmit,
   } = submitContext;
 
   const { data } = useFetch('submits/usersubmits');
 
-  const handleOnClick = (uuid, mode) => {
+  const handleOnClick = async (uuid, mode) => {
     setSubmitMode(mode);
     setSubmitUuid(uuid);
+   updatePdfReady(uuid, 'down');
+
 
     if (mode === 'edit') {
       setCurSubmit(uuid);
@@ -39,11 +46,12 @@ const AllUsersSubmits = () => {
 
   useEffect(() => {
     resetTimeLeft();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, curSubmit.mode]);
 
   return !isLoading ? (
-    <>
+    <Wrapper>
       <Card.Group itemsPerRow={5} stackable className='cards-wrapper'>
         {data.length > 0 ? (
           data.map((s) => (
@@ -81,17 +89,20 @@ const AllUsersSubmits = () => {
                     Popraw
                   </Button>
                   <Button
-
+                    disabled={s.pdfReady === 0}
                     className='pdf-btn'
                     basic
                     color='blue'
                     onClick={() => fetchPdf(s.numer)}
                   >
-                    <Icon name='download'/>
+                    <Icon name='download' />
                     <strong>PDF</strong>
                   </Button>
                 </div>
               </Card.Content>
+              {
+                s.pdfReady === 0 && <span className='ausWarning'>Wniosek nie został poprawnie zwalidowany. Wejdź w tryb edycji ("Popraw") i ponownie zapisz wniosek</span>
+              }
             </Card>
           ))
         ) : (
@@ -100,7 +111,7 @@ const AllUsersSubmits = () => {
           </>
         )}
       </Card.Group>
-    </>
+    </Wrapper>
   ) : (
     <h2>Pobieramy dane...</h2>
   );

@@ -5,10 +5,9 @@ import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import NewCallToAction from './NewCallToAction';
 import useFetch from '../hooks/useFetch';
 import { fetchPdf } from '../services';
-import {Wrapper} from './styles/allUsersSubmits'
+import { Wrapper } from './styles/allUsersSubmits';
 
 import { updatePdfReady } from '../utils';
-
 
 const AllUsersSubmits = () => {
   const history = useHistory();
@@ -32,8 +31,7 @@ const AllUsersSubmits = () => {
   const handleOnClick = async (uuid, mode) => {
     setSubmitMode(mode);
     setSubmitUuid(uuid);
-   updatePdfReady(uuid, 'down');
-
+    mode === 'edit' && updatePdfReady(uuid, 'down');
 
     if (mode === 'edit') {
       setCurSubmit(uuid);
@@ -100,9 +98,12 @@ const AllUsersSubmits = () => {
                   </Button>
                 </div>
               </Card.Content>
-              {
-                s.pdfReady === 0 && <span className='ausWarning'>Wniosek nie został poprawnie zwalidowany. Wejdź w tryb edycji ("Popraw") i ponownie zapisz wniosek</span>
-              }
+              {s.pdfReady === 0 && (
+                <span className='ausWarning'>
+                  Wniosek nie został poprawnie zwalidowany. Wejdź w tryb edycji
+                  ("Popraw") i ponownie zapisz wniosek
+                </span>
+              )}
             </Card>
           ))
         ) : (

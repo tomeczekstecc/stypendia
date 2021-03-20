@@ -12,11 +12,13 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
+import logo from '../assets/img/logo.png';
 import { Wrapper } from './styles/register.styles';
 import { Rodo, Title, Required } from '../components';
 import { registerInputs } from '../parts/inputs';
 import { AlertContext, AppContext, AuthContext } from '../context';
 import { clearValidation } from '../utils';
+import ImportantLinks from '../components/ImportantLinks';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -77,8 +79,8 @@ const Register = (props) => {
   };
 
   return (
-    <Wrapper>
-      <div className='main'>
+    <Wrapper className='top-wrapper'>
+      <div className='main top-wrappere'>
         <Title content='Dodawanie konta' />
         <Segment placeholder size='large'>
           <Grid columns={2} relaxed='very' stackable>
@@ -173,8 +175,18 @@ const Register = (props) => {
 
           <Divider className='divider' content='Oraz' vertical />
           <Required />
+          <ImportantLinks />
         </Segment>
+        {/* <div className='logo'>
+          <img src={logo} alt='logo UE' />
+          <p>
+            Projekt współfinansowany przez Unię Europejską ze środków
+            Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
+            Operacyjnego Województwa Śląskiego na lata 2014-2020
+          </p>
+        </div> */}
       </div>
+      {/* <div className='spacer'></div> */}
     </Wrapper>
   );
 };

@@ -20,6 +20,9 @@ import {
 import { AuthState, AlertState, AppState, SubmitState } from './context';
 import { Alert } from './components';
 import { Beforeunload } from 'react-beforeunload';
+import Privacy from './pages/Privacy';
+import Aviability from './pages/Aviability';
+import Regulations from './pages/regulations';
 
 // axios.defaults.baseURL = 'http://localhost:5003';
 // axios.defaults.withCredentials = true;
@@ -48,6 +51,9 @@ function App() {
                     />
                     <Route exact path='/submit' component={Submit} />
                     <Route exact path='/login' component={Login} />
+                    <Route exact path='/privacy' component={Privacy} />
+                    <Route exact path='/aviability' component={Aviability} />
+                    <Route exact path='/Regulations' component={Regulations} />
 
 
 

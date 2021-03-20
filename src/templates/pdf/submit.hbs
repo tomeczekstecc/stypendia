@@ -314,6 +314,12 @@
       margin-top: 30px;
     }
 
+    .labeledChar {
+      background-color: #bbb;
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
+
     @media screen {
       .next-page {
         page-break-after: always;
@@ -789,14 +795,23 @@
             <span> {{format submit.cost11}} zł</span>
           </td>
         </tr>
+
+
+        <tr>
+          <td>12
+          </td>
+          <td>
+            Inne (wymień i uzasadnij w części A )
+          </td>
+          <td class="cost">
+            <span> {{format submit.cost12}} zł</span>
+          </td>
+        </tr>
+
+
       </tbody>
 
-
-
       <tfoot>
-
-
-
         <tr>
           <td class="sum" colspan="2"> Razem
 
@@ -810,26 +825,31 @@
 
 
         <tr>
-          <td class="text" colspan="3"> Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu wskazanym w
-            § 8 ust. 5 Regulaminu - jeśli dotyczy:
+          <td class="text" colspan="3"><strong class='labeledChar'>A</strong> Wpisz wszystkie kategorie oraz
+            uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu wskazanym w § 8 ust. 5 Regulaminu -
+            jeśli dotyczy i w wierszu 12 zaplanowano kwotę:
         </tr>
 
         <tr>
           <td colspan="3">
-            <div>{{submit.substantion1}}
+            <div name="name" class="normal-input">{{submit.substantion1}}</div>
+
+            {{!-- <div>{{submit.substantion1}} --}}
             </div>
         </tr>
 
 
         <tr>
-          <td class="text" colspan="3">Uzasadnienie zakupu sprzętu tożsamego z już zakupionym sprzętem ze środków
-            stypendialnych
-            otrzymanych w ramach projektu „Śląskie. Inwestujemy w talenty – V edycja” - jeśli dotyczy:
+          <td class="text" colspan="3"> <strong class='labeledChar'>B</strong> Uzasadnienie zakupu sprzętu tożsamego z
+            już zakupionym sprzętem ze środków stypendialnych otrzymanych w ramach projektu „Śląskie. Inwestujemy w
+            talenty – V edycja” - jeśli dotyczy:
         </tr>
 
         <tr>
           <td colspan="3">
-            <div> {{submit.substantion2}}
+            <div name="name" class="normal-input">{{submit.substantion2}}</div>
+        
+            {{!-- <div>{{submit.substantion2}} --}}
             </div>
         </tr>
       </tfoot>
@@ -888,32 +908,6 @@
 
 
     </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

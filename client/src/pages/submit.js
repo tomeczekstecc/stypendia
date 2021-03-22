@@ -56,7 +56,7 @@ const Submit = () => {
 
   return (
     <Wrapper submitMode={submitMode} className='wrapperek'>
-      <Errors />
+      <Errors setActiveItem={setActiveItem} />
 
       <Grid>
         <Grid.Column width={4}>

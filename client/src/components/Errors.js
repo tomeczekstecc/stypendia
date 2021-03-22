@@ -3,12 +3,19 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import { mapErrors } from '../utils/mapErrors';
 import { SubmitContext } from '../context';
 import { Wrapper } from './styles/errors.style';
+import { Link } from 'react-router-dom';
+import { mapLink } from '../utils/mapLink';
 
-const Errors = () => {
+const Errors = ({ setActiveItem }) => {
   const submitContext = useContext(SubmitContext);
   const { submitErrors } = submitContext;
 
   const [open, setOpen] = useState(!!submitErrors);
+
+  const handleClick = (link) => {
+    setOpen(false);
+    setActiveItem(link);
+  };
   useEffect(() => {
     setOpen(!!submitErrors);
   }, [submitErrors]);
@@ -16,7 +23,8 @@ const Errors = () => {
   const mapped = mapErrors(submitErrors);
   const content =
     submitErrors &&
-    `W formularzu należy poprawić błędnie wprowadzone dane. Liczba błędów: ${mapped.length}`;
+    `W formularzu należy poprawić błędnie wprowadzone dane. Liczba błędów: ${mapped.length}.
+    Kliknij w błąd, aby przejść do dpowiedniej strony`;
 
   return (
     <Wrapper>
@@ -29,18 +37,25 @@ const Errors = () => {
         <Header icon='exclamation circle' content='Wykryto niepoprawne dane' />
         <Modal.Content>
           <Header size='small' content={content} />
-          {/* <strong>Dane ucznia:</strong> */}
+
           <div>
             {mapped &&
-              mapped.map((e, i) => (
-                <div
-                  className='error'
-                  style={{ color: 'red', fontWeight: 'bold' }}
-                  key={e}
-                >
-                  {e && i + 1 + '. '} {e}
-                </div>
-              ))}
+              mapped.map((e, i) => {
+                console.log(e);
+                const link = mapLink(e);
+                return (
+                  <div
+                    onClick={() => handleClick(link)}
+                    className='errorek'
+                    style={{ color: 'red', fontWeight: 'bold' }}
+                    key={e}
+                  >
+                    <Link style={{ color: 'red' }} to='/submit'>
+                      {e && i + 1 + '. '} {e}{' '}
+                    </Link>
+                  </div>
+                );
+              })}
           </div>
         </Modal.Content>
         <Modal.Actions>

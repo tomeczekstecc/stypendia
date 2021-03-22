@@ -8,11 +8,8 @@ import {
   Divider,
   Form,
   Grid,
-  Header,
-  Icon,
   Label,
   Segment,
-  Table,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/login.styles';
 import { Required, Title } from '../components';

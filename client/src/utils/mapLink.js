@@ -70,8 +70,8 @@ export const mapLink = (error) => {
     [
       'Wartość całkowita planu wydatków nie może być mniejsza niż 5000,00 PLN',
       'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000 PLN',
-      'Pole uzasadnienia w polu A. musi zawierać co najmniej 10 znaków',
-      'Pole uzasadnienia w polu B. musi zawierać co najmniej 10 znaków',
+      'Pole uzasadnienia w części A. musi zawierać co najmniej 10 znaków',
+      'Pole uzasadnienia w części B. musi zawierać co najmniej 10 znaków',
     ],
     [
       'Należy zapoznać się z treścią oświadczeń i informacji oraz potwierdzić zapoznanie się z nimi',

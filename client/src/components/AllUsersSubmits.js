@@ -72,7 +72,7 @@ const AllUsersSubmits = () => {
                   {s.pupilFirstName} {s.pupilLastName}
                 </Card.Header>
                 <Card.Meta>{s.schoolType}</Card.Meta>
-                <Card.Description>Nuner wniosku: {s.numer}</Card.Description>
+                <Card.Description>Numer wniosku: {s.numer}</Card.Description>
               </Card.Content>
               <Card.Content extra>
                 <div className='ui three buttons'>

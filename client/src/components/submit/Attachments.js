@@ -204,7 +204,7 @@ const Attachments = () => {
           ref={fileInputRef}
           onChange={uploadImage}
         />
-        <Title content='Załącznki do wniosku' />
+        <Title content='Załączniki do wniosku' />
         <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>

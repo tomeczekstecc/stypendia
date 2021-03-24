@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext } from '../../context';
 import { optionsAttachment } from '../../parts/options';
 import Title from '../Title';
-import { clearValidation } from '../../utils/clearValidation';
+import { clearValidation, handleSpecialDelete } from '../../utils';
 
 const SubA_I_II = () => {
   const history = useHistory();
@@ -85,6 +85,7 @@ const SubA_I_II = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
               }`}
@@ -98,6 +99,7 @@ const SubA_I_II = () => {
               value={user?.firstName || ''} //
             />
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
               }`}
@@ -112,6 +114,7 @@ const SubA_I_II = () => {
             />
 
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
               }`}
@@ -126,6 +129,7 @@ const SubA_I_II = () => {
               value={user?.email || ''}
             />
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
               }`}
@@ -147,6 +151,7 @@ const SubA_I_II = () => {
             )}
 
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
@@ -204,6 +209,7 @@ const SubA_I_II = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
@@ -224,6 +230,7 @@ const SubA_I_II = () => {
               </Label>
             )}
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               required
               className={`${
@@ -249,6 +256,7 @@ const SubA_I_II = () => {
             )}
 
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               icon='user'
               required
@@ -273,6 +281,7 @@ const SubA_I_II = () => {
               </Label>
             )}
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               icon='at'
               iconPosition='left'
@@ -297,6 +306,7 @@ const SubA_I_II = () => {
               </Label>
             )}
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'

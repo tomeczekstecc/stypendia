@@ -12,7 +12,7 @@ import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsVoyev, optionsSchoolType, optionsProfile } from '../../parts';
 import Title from '../Title';
-import { clearValidation } from '../../utils/clearValidation';
+import { clearValidation, handleSpecialDelete } from '../../utils';
 
 const SubA_III_IV = () => {
   const history = useHistory();
@@ -89,6 +89,7 @@ const SubA_III_IV = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               className={`${
                 submitMode === 'watch' ? 'disabled-item input ' : 'input'
               }`}
@@ -152,6 +153,7 @@ const SubA_III_IV = () => {
               <Header as='h4'>Adres szkoły:</Header>
               <Segment>
                 <Form.Input
+                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                   required
                   label='Ulica'
                   className={`${
@@ -179,6 +181,7 @@ const SubA_III_IV = () => {
                 )}
 
                 <Form.Input
+                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                   required
                   className={`${
                     submitMode === 'watch' ? 'input disabled-item' : 'input'
@@ -204,6 +207,7 @@ const SubA_III_IV = () => {
                   </Label>
                 )}
                 <Form.Input
+                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                   label='Kod pocztowy'
                   required
                   className={`${
@@ -229,6 +233,7 @@ const SubA_III_IV = () => {
                   </Label>
                 )}
                 <Form.Input
+                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                   className={`${
                     submitMode === 'watch' ? 'input disabled-item' : 'input'
                   }`}
@@ -302,6 +307,7 @@ const SubA_III_IV = () => {
         <Form className='form'>
           <Form.Group grouped>
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               className={`${
                 submitMode === 'watch' ? 'input disabled-item' : 'input'
               }`}
@@ -321,6 +327,7 @@ const SubA_III_IV = () => {
               </Label>
             )}
             <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               icon='user'
               required
               iconPosition='left'

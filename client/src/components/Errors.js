@@ -41,7 +41,7 @@ const Errors = ({ setActiveItem }) => {
           <div>
             {mapped &&
               mapped.map((e, i) => {
-                console.log(e);
+
                 const link = mapLink(e);
                 return (
                   <div

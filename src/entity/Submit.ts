@@ -805,11 +805,11 @@ export class Submit extends Model {
 
   @Min(0.1, {
     message:
-      'Wartość całkowita planu wydatków nie może być mniejsza niż 5000,00 PLN',
+      'Wartość całkowita planu wydatków nie może być mniejsza niż 5 000,00 PLN',
   })
   @Min(5000, {
     message:
-      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000 PLN',
+      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5 000 PLN',
   })
   @Column({
     comment: 'Koszty uczestnictwa w kulturze wysokiej',

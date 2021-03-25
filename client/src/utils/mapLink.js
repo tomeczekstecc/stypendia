@@ -68,8 +68,8 @@ export const mapLink = (error) => {
       'Liczba wybranych rezultatów w tabeli 2 musi wynosić dokładnie 3',
     ],
     [
-      'Wartość całkowita planu wydatków nie może być mniejsza niż 5000,00 PLN',
-      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000 PLN',
+      'Wartość całkowita planu wydatków nie może być mniejsza niż 5 000,00 PLN',
+      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5 000 PLN',
       'Pole uzasadnienia w części A. musi zawierać co najmniej 10 znaków',
       'Pole uzasadnienia w części B. musi zawierać co najmniej 10 znaków',
     ],

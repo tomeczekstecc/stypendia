@@ -31,11 +31,11 @@ const Home = () => {
             active={activeItem === 'wnioski'}
             onClick={() => setActiveItem('wnioski')}
           />
-          <Menu.Item
+          {/* <Menu.Item
             content='Wersja robocza'
             active={activeItem === 'robocza'}
             onClick={() => setActiveItem('robocza')}
-          />
+          /> */}
           <Menu.Item
             content='Złóż wniosek'
             active={activeItem === 'new'}

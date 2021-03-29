@@ -10,6 +10,7 @@ import {
   SubmitContext,
 } from '../context';
 import { Wrapper } from './styles/nav.styles';
+import { updatePdfReady } from '../utils';
 
 const Nav = ({ activeItem, setActiveItem, ...props }) => {
   let history = useHistory();
@@ -74,10 +75,11 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         ...submit,
         _csrf: csrfData.data.csrfToken,
       })
-      .then((data) => {
+      .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
           addAlert(data.data);
           setIsLoading(false);
+          await updatePdfReady(submit.uuid, 'up');
           history.push('/');
         }
       })

@@ -159,16 +159,12 @@ export const editSubmit = async (req: any, res: Response) => {
 
     const attErrors = await checkForAtt(req, errors, 'edit');
 
-
     const tempSubmit = await new Submit({ ...req.body }); // jako tymczasowy bo update nie ma save() i nie można walidować przed zapisem do bazy
 
-  const classErrors = mapErrors(await validate(tempSubmit));
-let allErrors = { ...errors, ...classErrors, ...attErrors };
+    const classErrors = mapErrors(await validate(tempSubmit));
+    let allErrors = { ...errors, ...classErrors, ...attErrors };
 
-
-
-
-    if (Object.keys(allErrors).length > 0)  {
+    if (Object.keys(allErrors).length > 0) {
       // ****************************** LOG *********************************//
       INFO = msg.client.fail.unvalidated;
       STATUS = 'error';
@@ -219,6 +215,41 @@ let allErrors = { ...errors, ...classErrors, ...attErrors };
       msgPL: INFO,
       alertTitle: 'Zaktualizowano!',
     });
+  } catch (err) {
+    STATUS = 'error';
+    saveRollbar(CONTROLLER, err.message, STATUS);
+    return res.status(500).json({
+      resStatus: STATUS,
+      msgPL: msg._500,
+      msg: err.message,
+      alertTitle: 'Błąd',
+    });
+  }
+};
+
+//
+//update pdfReady
+//
+export const updatePdfReady = async (req: any, res: Response) => {
+  const { uuid, direction } = req.body;
+  CONTROLLER = 'updatePdfReady';
+  ACTION = 'edytowanie';
+  INFO = `Kierunek: ${direction}`;
+  STATUS = 'success';
+
+  try {
+    await getRepository(Submit)
+      .createQueryBuilder('submit')
+      .update()
+      .set({ pdfReady: direction === 'up' ? 1 : 0 })
+      .where('uuid = :submitUuid', {submitUuid: uuid })
+      .execute();
+          return res.status(201).json({
+            resStatus: STATUS,
+            msgPL: INFO,
+            alertTitle: 'Zaktualizowano!',
+          });
+
   } catch (err) {
     STATUS = 'error';
     saveRollbar(CONTROLLER, err.message, STATUS);

@@ -13,6 +13,7 @@ import { Wrapper } from './styles/changePass.styles';
 import Title from '../components/Title';
 import { AlertContext, AppContext, AuthContext } from '../context';
 import { changePassInputs } from '../parts/inputs';
+import { clearValidation } from '../utils';
 
 const ChangePass = ({ history }) => {
   const authContext = useContext(AuthContext);
@@ -30,9 +31,9 @@ const ChangePass = ({ history }) => {
   const handleOnClick = async (e) => {
     e.preventDefault();
     const csrfData = await axios.get('/api/v1/csrf');
-        const client = await axios.get('https://api.my-ip.io/ip.json');
-        const clientIp = client.data.ip;
-      
+    const client = await axios.get('https://api.my-ip.io/ip.json');
+    const clientIp = client.data.ip;
+
     setIsLoading(true);
 
     axios
@@ -60,6 +61,7 @@ const ChangePass = ({ history }) => {
   };
   const handleOnChange = (e) => {
     e.preventDefault();
+    clearValidation(e, errors);
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 

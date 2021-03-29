@@ -12,10 +12,13 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
+import logo from '../assets/img/logo.png';
 import { Wrapper } from './styles/register.styles';
 import { Rodo, Title, Required } from '../components';
 import { registerInputs } from '../parts/inputs';
 import { AlertContext, AppContext, AuthContext } from '../context';
+import { clearValidation } from '../utils';
+import ImportantLinks from '../components/ImportantLinks';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -39,8 +42,10 @@ const Register = (props) => {
   }, []);
 
   const handleOnClick = async (e) => {
-    setErrors('');
     e.preventDefault();
+
+    setErrors('');
+
     const csrfData = await axios.get('/api/v1/csrf');
     const client = await axios.get('https://api.my-ip.io/ip.json');
     const clientIp = client.data.ip;
@@ -54,7 +59,6 @@ const Register = (props) => {
         clientIp,
       })
       .then((data) => {
-
         if (data.data.resStatus || data.data.resStatus === 'success') {
           setIsLoading(false);
           setTimeout(() => props.history.push('/login'), 1500);
@@ -70,12 +74,13 @@ const Register = (props) => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
+    clearValidation(e, errors);
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 
   return (
-    <Wrapper>
-      <div className='main'>
+    <Wrapper className='top-wrapper'>
+      <div className='main top-wrappere'>
         <Title content='Dodawanie konta' />
         <Segment placeholder size='large'>
           <Grid columns={2} relaxed='very' stackable>
@@ -170,8 +175,18 @@ const Register = (props) => {
 
           <Divider className='divider' content='Oraz' vertical />
           <Required />
+          <ImportantLinks />
         </Segment>
+        {/* <div className='logo'>
+          <img src={logo} alt='logo UE' />
+          <p>
+            Projekt współfinansowany przez Unię Europejską ze środków
+            Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
+            Operacyjnego Województwa Śląskiego na lata 2014-2020
+          </p>
+        </div> */}
       </div>
+      {/* <div className='spacer'></div> */}
     </Wrapper>
   );
 };

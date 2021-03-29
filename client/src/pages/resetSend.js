@@ -13,6 +13,7 @@ import { Wrapper } from './styles/resetSend.styles';
 import { Title } from '../components';
 import { AlertContext, AuthContext, AppContext } from '../context';
 import { resetReqInputs } from '../parts/inputs';
+import { clearValidation } from '../utils';
 
 const ResetSend = ({ history }) => {
   const appContext = useContext(AppContext);
@@ -35,6 +36,7 @@ const ResetSend = ({ history }) => {
 
   const handleOnClick = async (e) => {
     setIsLoading(true);
+    clearValidation(e, errors);
     setErrors('');
     e.preventDefault();
 
@@ -45,7 +47,8 @@ const ResetSend = ({ history }) => {
     axios
       .post(`/api/v1/password/email`, {
         ...body,
-        _csrf: csrfData.data.csrfToken,clientIp
+        _csrf: csrfData.data.csrfToken,
+        clientIp,
       })
       .then(async (data) => {
         if (data.data.resStatus || data.data.resStatus === 'success') {
@@ -65,8 +68,10 @@ const ResetSend = ({ history }) => {
         setIsLoading(false);
       });
   };
+  
   const handleOnChange = (e) => {
     e.preventDefault();
+      clearValidation(e, errors);
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 

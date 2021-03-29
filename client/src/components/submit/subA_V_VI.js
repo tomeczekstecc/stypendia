@@ -101,7 +101,7 @@ const SubA_V_VI = () => {
 
   return (
     <SubALayout leadHeader='CZĘŚĆ A – INFORMACJE DOTYCZĄCE UCZNIA/UCZENNICY'>
-      <Title content='Krytaria oceny - podstawowe i dodatkowe' />
+      <Title content='Kryteria oceny - podstawowe i dodatkowe' />
       <Grid.Column className='column'>
         <Header className='sub-header' floated='left' as='h4'>
           V. PODSTAWOWE KRYTERIA:
@@ -133,7 +133,7 @@ const SubA_V_VI = () => {
                 name='priMath'
                 data-name='priMath'
                 iconPosition='left'
-                placeholder='MAtematyka'
+                placeholder='Matematyka'
                 value='Matematyka'
                 onChange={(e) => handleOnChange(e)}
               />
@@ -168,7 +168,7 @@ const SubA_V_VI = () => {
                 name='priLang'
                 data-name='priLang'
                 iconPosition='left'
-                placeholder='Wpisz język obcy'
+                placeholder='Nazwa (2 do 254 znaków)'
                 defaultValue={curDocument?.priLang}
                 onChange={(e) => handleOnChange(e)}
               />
@@ -213,7 +213,7 @@ const SubA_V_VI = () => {
                 name='priOtherSubj'
                 data-name='priOtherSubj'
                 iconPosition='left'
-                placeholder='Wpisz inny przedmiot'
+                placeholder='Nazwa (2 do 254 znaków)'
                 defaultValue={curDocument?.priOtherSubj}
                 onChange={(e) => handleOnChange(e)}
               />
@@ -238,14 +238,13 @@ const SubA_V_VI = () => {
                 </Label>
               )}
 
-
               <Label size='large' className='aver-label'>
                 Średnia ocen przedmiotów kierunkowych :{' '}
                 <Label color='grey' size='large'>
                   {+curDocument?.priTotalAver || '0.00'}
                 </Label>
               </Label>
-              {curDocument?.priTotalAver ==='5'&& submitErrors?.priTotalAver && (
+              {curDocument?.priTotalAver === '5' && submitErrors?.priTotalAver && (
                 <Label
                   basic
                   color='red'

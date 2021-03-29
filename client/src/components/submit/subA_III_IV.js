@@ -98,7 +98,7 @@ const SubA_III_IV = () => {
               name='schoolName'
               data-name='schoolName'
               icon='building outline'
-              placeholder='Podaj pełną nazwę szkoły'
+              placeholder='Podaj pełną nazwę (2 do 254 znaków)'
               iconPosition='left'
               onChange={(e) => handleOnChange(e)}
               defaultValue={curDocument?.schoolName || ''}
@@ -160,7 +160,7 @@ const SubA_III_IV = () => {
                   disabled={submitMode === 'watch'}
                   icon='road'
                   iconPosition='left'
-                  placeholder='Podaj ulicę'
+                  placeholder='Podaj ulicę  (2 do 254 znaków)'
                   name='schoolStreetName'
                   data-name='schoolStreetName'
                   defaultValue={curDocument?.schoolStreetName || ''}
@@ -187,7 +187,7 @@ const SubA_III_IV = () => {
                   label='Numer domu'
                   icon='building'
                   iconPosition='left'
-                  placeholder='Podaj numer domu'
+                  placeholder='Podaj numer domu (1 do 254 znaków)'
                   name='schoolStreetNr'
                   data-name='schoolStreetNr'
                   defaultValue={curDocument?.schoolStreetNr || ''}
@@ -237,7 +237,7 @@ const SubA_III_IV = () => {
                   iconPosition='left'
                   label='Miejscowość'
                   required
-                  placeholder='Podaj miejscowość'
+                  placeholder='Podaj miejscowość (2 do 254 znaków)'
                   name='schoolTown'
                   data-name='schoolTown'
                   defaultValue={curDocument?.schoolTown || ''}
@@ -311,7 +311,7 @@ const SubA_III_IV = () => {
               label='Imię doradcy'
               name='counselorFirstName'
               data-name='counselorFirstName'
-              placeholder='Podaj imię doradcy'
+              placeholder='Podaj imię (2 do 254 znaków)'
               defaultValue={curDocument?.counselorFirstName || ''}
               onChange={(e) => handleOnChange(e)}
             />
@@ -330,7 +330,7 @@ const SubA_III_IV = () => {
               label='Nazwisko doradcy'
               name='counselorLastName'
               data-name='counselorLastName'
-              placeholder='Podaj nazwisko doradcy'
+              placeholder='Podaj nazwisko (2 do 254 znaków)'
               defaultValue={curDocument?.counselorLastName || ''}
               onChange={(e) => handleOnChange(e)}
             />
@@ -361,7 +361,7 @@ const SubA_III_IV = () => {
                 name='counselorProfile'
                 data-name='counselorProfile'
                 onChange={(e) => handleOnChange(e)}
-            value={curDocument?.counselorProfile || 'default'}
+                value={curDocument?.counselorProfile || 'default'}
                 options={optionsProfile}
               />
               {submitErrors?.counselorProfile && (

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-
+import logo from '../assets/img/logo.png';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -8,13 +8,18 @@ import {
   Divider,
   Form,
   Grid,
+  Header,
+  Icon,
   Label,
   Segment,
+  Table,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/login.styles';
 import { Required, Title } from '../components';
 import { AlertContext, AppContext, AuthContext } from '../context';
 import { loginInputs } from '../parts/inputs';
+import { clearValidation } from '../utils';
+import ImportantLinks from '../components/ImportantLinks';
 
 const Login = () => {
   const history = useHistory();
@@ -43,7 +48,7 @@ const Login = () => {
     const csrfData = await axios.get('/api/v1/csrf');
     const client = await axios.get('https://api.my-ip.io/ip.json');
     const clientIp = client.data.ip;
-   
+
     const newBody = { ...body, _csrf: csrfData.data.csrfToken, clientIp };
 
     axios
@@ -79,6 +84,8 @@ const Login = () => {
 
   const handleOnChange = (e) => {
     e.preventDefault();
+    clearValidation(e, errors);
+
     setBody((prevBody) => ({ ...prevBody, [e.target.name]: e.target.value }));
   };
 
@@ -148,7 +155,17 @@ const Login = () => {
           <Divider className='divider' content='lub' vertical />
           <Required />
         </Segment>
+
+        <ImportantLinks />
       </Container>
+      <div className='logo'>
+        <img src={logo} alt='logo UE' />
+        <p>
+          Projekt współfinansowany przez Unię Europejską ze środków
+          Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
+          Operacyjnego Województwa Śląskiego na lata 2014-2020
+        </p>
+      </div>
     </Wrapper>
   );
 };

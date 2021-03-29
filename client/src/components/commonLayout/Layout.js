@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Label } from 'semantic-ui-react';
 import CookieConsent from 'react-cookie-consent';
 import MainMenu from './MainMenu';
 import {Wrapper} from '../styles/layout.styles'
@@ -12,11 +12,7 @@ const Layout = ({ children }) => {
   return (
     <Wrapper>
       <MainMenu />
-      <Grid
-        centered
-        verticalAlign='middle'
-        style={{boxSizing: 'border-box' }}
-      >
+      <Grid centered verticalAlign='middle' style={{ boxSizing: 'border-box' }}>
         {children}
         {isLoggedIn && <Timer />}
       </Grid>
@@ -25,7 +21,13 @@ const Layout = ({ children }) => {
         location='bottom'
         buttonText='Ok, rozumiem'
         cookieName='styp_cookies_consest'
-        style={{ background: '#1578c2', fontSize: '16px' }}
+        style={{
+          background: '#1578c2',
+          fontSize: '16px',
+          lineHeight: '28px',
+          paddingLeft: '150px',
+          paddingRight: '150px',
+        }}
         buttonStyle={{
           color: '#4e503b',
           borderRadius: '3px',
@@ -45,7 +47,7 @@ const Layout = ({ children }) => {
           className='cookies-link'
           href='https://pl.wikipedia.org/wiki/HTTP_cookie'
         >
-          https://pl.wikipedia.org/wiki/HTTP_cookie
+          <Label basic> https://pl.wikipedia.org/wiki/HTTP_cookie</Label>
         </a>
         <span style={{ fontSize: '10px' }}></span>
       </CookieConsent>

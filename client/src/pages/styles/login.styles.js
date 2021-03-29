@@ -24,9 +24,17 @@ export const Wrapper = styled.div`
   .buttonWrapper {
     margin-top: 10px !important;
   }
+
   @media (max-width: 767px) {
     .divider {
       display: none !important;
     }
+  }
+ .logo {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+    bottom: 10px !important;
   }
 `;

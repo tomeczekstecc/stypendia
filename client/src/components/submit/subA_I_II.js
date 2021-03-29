@@ -133,7 +133,7 @@ const SubA_I_II = () => {
               label='Numer telefonu wnioskodawcy'
               icon='phone'
               iconPosition='left'
-              placeholder='Podaj numer telefonu wnioskodawcy'
+              placeholder='Podaj numer telefonu (9 do 15 znaków)'
               name='phone'
               autoFocus='autofocus'
               data-name='phone'
@@ -210,7 +210,7 @@ const SubA_I_II = () => {
               }`}
               disabled={submitMode === 'watch'}
               required
-              placeholder='Podaj PESEL ucznia'
+              placeholder='Podaj PESEL (11 znaków)'
               label='PESEL ucznia'
               name='pupilPesel'
               data-name='pupilPesel'
@@ -235,7 +235,7 @@ const SubA_I_II = () => {
               label='Imię ucznia'
               name='pupilFirstName'
               data-name='pupilFirstName'
-              placeholder='Podaj imię ucznia'
+              placeholder='Podaj imię ucznia (2 do 254 znaków)'
               defaultValue={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.firstName
@@ -260,7 +260,7 @@ const SubA_I_II = () => {
               label='Nazwisko ucznia'
               name='pupilLastName'
               data-name='pupilLastName'
-              placeholder='Podaj nazwisko ucznia'
+              placeholder='Podaj nazwisko ucznia (2 do 254 znaków)'
               defaultValue={
                 (newSubmit.isSelf === 'Pełnoletni uczeń'
                   ? user.lastName
@@ -305,7 +305,7 @@ const SubA_I_II = () => {
               label='Numer telefonu ucznia'
               icon='phone'
               iconPosition='left'
-              placeholder='Podaj numer telefonu ucznia'
+              placeholder='Podaj numer telefonu (9 do 15 znaków)'
               type='phone'
               name='pupilPhone'
               data-name='pupilPhone'

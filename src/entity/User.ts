@@ -42,7 +42,7 @@ export class User extends Model {
   firstName: string;
 
   @Column({ comment: 'Nazwisko użytkownika' })
-  @Length(1, 254, {
+  @Length(2, 254, {
     message: 'Nazwisko użytkownika musi zawierać od 2 do 254 znaków',
   })
   lastName: string;

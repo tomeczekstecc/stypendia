@@ -256,14 +256,18 @@ const Budget = () => {
           styled
         >
           <Accordion.Title active>
-            Uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu
-            wskazanym w § 8 ust. 5 Regulaminu - jeśli dotyczy
+            <Label size='large'>
+              <strong> A.</strong>
+            </Label>{' '}
+            Wpisz wszystkie kategorie oraz uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu
+            wskazanym w § 8 ust. 5 Regulaminu - jeśli dotyczy i w wierszu 12 zaplanowano kwotę
           </Accordion.Title>
 
-          <Accordion.Content active={true}>
+          <Accordion.Content disabled={!curDocument.cost12>0} active={true}>
             <Form className='form-vii'>
               <textarea
-              rows={5}
+              disabled={!curDocument.cost12>0}
+                rows={5}
                 defaultValue={
                   (curDocument &&
                     curDocument.substantion1 &&
@@ -271,9 +275,9 @@ const Budget = () => {
                   ''
                 }
                 onChange={(e) => handleOnChange2(e)}
+                placeholder='Wpisz uzasadnienie (co najmniej 10 znaków)'
                 name='substantion1'
                 data-name='substantion1'
-                placeholder='Wpisz uzasadnienie'
                 className='form-textArea substantion'
               ></textarea>
             </Form>
@@ -284,12 +288,15 @@ const Budget = () => {
                 pointing='above'
                 className='small-text area-err'
               >
-                {curDocument?.substantion1}
+                {submitErrors.substantion1}
               </Label>
             )}
           </Accordion.Content>
 
           <Accordion.Title active>
+            <Label size='large'>
+              <strong> B.</strong>
+            </Label>{' '}
             Uzasadnienie zakupu sprzętu tożsamego z już zakupionym sprzętem ze
             środków stypendialnych otrzymanych w ramach projektu „Śląskie.
             Inwestujemy w talenty – V edycja” - jeśli dotyczy
@@ -298,7 +305,7 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <TextArea
-              rows={5}
+                rows={5}
                 value={
                   (curDocument &&
                     curDocument.substantion2 &&
@@ -308,7 +315,7 @@ const Budget = () => {
                 onChange={(e) => handleOnChange2(e)}
                 name='substantion2'
                 data-name='substantion2'
-                placeholder='Wpisz uzasadnienie'
+                placeholder='Wpisz uzasadnienie (co najmniej 10 znaków)'
                 className='form-textArea substantion'
               ></TextArea>
             </Form>
@@ -319,7 +326,7 @@ const Budget = () => {
                 pointing='above'
                 className='small-text area-err'
               >
-                {curDocument?.substantion2}
+                {submitErrors.substantion2}
               </Label>
             )}
           </Accordion.Content>

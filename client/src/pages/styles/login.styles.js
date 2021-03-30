@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-margin-bottom:15rem;
+  margin-bottom: 10rem;
   .main-segment {
     padding-top: 2rem !important;
     margin-top: 7rem !important;
@@ -31,11 +31,28 @@ margin-bottom:15rem;
       display: none !important;
     }
   }
- .logo {
+
+  .logo {
     position: fixed;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* min-width: 100%; */
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 10px;
+    margin-top:2rem;
+  }
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    min-width: 500px;
+  }
 
-    bottom: 10px !important;
+  .logo p{
+    background-color:#fff;
   }
 `;

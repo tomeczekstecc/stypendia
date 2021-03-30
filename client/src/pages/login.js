@@ -154,7 +154,6 @@ const Login = () => {
         </Segment>
 
         <ImportantLinks />
-      </Container>
       <div className='logo'>
         <img src={logo} alt='logo UE' />
         <p>
@@ -163,6 +162,7 @@ const Login = () => {
           Operacyjnego Województwa Śląskiego na lata 2014-2020
         </p>
       </div>
+      </Container>
     </Wrapper>
   );
 };

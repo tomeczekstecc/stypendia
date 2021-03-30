@@ -5,7 +5,7 @@ import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import { optionsTotalGrades, optionsGrades, optionsYesNo } from '../../parts';
 import Title from '../Title';
-import { clearValidation } from '../../utils/clearValidation';
+import { clearValidation, handleSpecialDelete } from '../../utils';
 
 const SubA_V_VI = () => {
   const history = useHistory();
@@ -114,6 +114,7 @@ const SubA_V_VI = () => {
               </Header>
 
               <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Ocena z matematyki'
                 required
                 className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
@@ -149,6 +150,7 @@ const SubA_V_VI = () => {
                 </Label>
               )}
               <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Język nowożytny i ocena'
                 required
                 className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
@@ -194,6 +196,7 @@ const SubA_V_VI = () => {
                 </Label>
               )}
               <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Inny przedmiot i ocena'
                 required
                 className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}

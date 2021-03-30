@@ -160,7 +160,7 @@ export class Submit extends Model {
   schoolTown: string;
 
   @Matches(/\d{2}-\d{3}/, {
-    message: 'Kod pocztowy należy podać w formacie: 00-000',
+    message: 'Kod pocztowy należy podać w formacie: XX-XXX',
   })
   @Column({ comment: 'Kod pocztowy szkoły ucznia' })
   schoolZip: string;
@@ -275,7 +275,7 @@ export class Submit extends Model {
   allTotalAver: string;
 
   //
-  // V.  DDODATKOWE KRYTERIA OCENY
+  // VI.  DDODATKOWE KRYTERIA OCENY
   //
 
   @IsEnum(['Tak', 'Nie'], {
@@ -338,8 +338,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab1b === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot.pracy badawczej musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. pracy badawczej musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -358,7 +357,7 @@ export class Submit extends Model {
   @ValidateIf((o) => o.isTab1c === true)
   @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. referatu/prezentacji musi zawierać co najmniej 10 znaków',
+      'Pole dot. referatu/prezentacji musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -377,8 +376,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab1d === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. publikacji musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. publikacji musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -396,8 +394,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab1e === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. wystawy musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. wystawy musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -415,8 +412,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab1f === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. filmu musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. filmu musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -435,7 +431,7 @@ export class Submit extends Model {
   @ValidateIf((o) => o.isTab1g === true)
   @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. programu komputerowego/aplikacji musi zawierać co najmniej 10 znaków',
+      'Pole dot. programu komputerowego/aplikacji musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -453,8 +449,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab1h === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. certyfikatu musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. certyfikatu musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -481,7 +476,7 @@ export class Submit extends Model {
   @ValidateIf((o) => o.isTab1j === true)
   @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. strony internetowej musi zawierać co najmniej 10 znaków',
+      'Pole dot. strony internetowej musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -499,8 +494,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab1k === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. innych rezultatów musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. innych rezultatów musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -557,8 +551,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab2b === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot.pracy badawczej musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot.pracy badawczej musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -577,7 +570,7 @@ export class Submit extends Model {
   @ValidateIf((o) => o.isTab2c === true)
   @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. referatu/prezentacji musi zawierać co najmniej 10 znaków',
+      'Pole dot. referatu/prezentacji musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -596,8 +589,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab2d === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. publikacji musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. publikacji musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -615,8 +607,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab2e === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. wystawy musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. wystawy musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -634,8 +625,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab2f === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. filmu musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. filmu musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -654,7 +644,7 @@ export class Submit extends Model {
   @ValidateIf((o) => o.isTab2g === true)
   @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. programu komputerowego/aplikacji musi zawierać co najmniej 10 znaków',
+      'Pole dot. programu komputerowego/aplikacji musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -672,8 +662,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab2h === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. certyfikatu musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. certyfikatu musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -700,7 +689,7 @@ export class Submit extends Model {
   @ValidateIf((o) => o.isTab2j === true)
   @MinLength(10, {
     message:
-      'Zacznij wpisywać tekst / Pole dot. strony internetowej musi zawierać co najmniej 10 znaków',
+      'Pole dot. strony internetowej musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -718,8 +707,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.isTab2k === true)
   @MinLength(10, {
-    message:
-      'Zacznij wpisywać tekst / Pole dot. innych rezultatów musi zawierać co najmniej 10 znaków',
+    message: 'Pole dot. innych rezultatów musi zawierać co najmniej 10 znaków ',
   })
   @Column({
     type: 'text',
@@ -817,11 +805,11 @@ export class Submit extends Model {
 
   @Min(0.1, {
     message:
-      'Wartość całkowita planu wydatków nie może być mniejsza niż 5000,00 PLN',
+      'Wartość całkowita planu wydatków nie może być mniejsza niż 5 000,00 PLN',
   })
   @Min(5000, {
     message:
-      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5000',
+      'Wartość całkowita planu wydatków nie może być mniejsza lub równa zeru i przewyższać 5 000 PLN',
   })
   @Column({
     comment: 'Koszty uczestnictwa w kulturze wysokiej',
@@ -831,7 +819,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.cost12 > 0)
   @MinLength(10, {
-    message: 'Pole uzasadnienia musi zawierać co najmniej 10 znaków',
+    message: 'Pole uzasadnienia w części A. musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',
@@ -843,7 +831,7 @@ export class Submit extends Model {
 
   @ValidateIf((o) => o.substantion2)
   @MinLength(10, {
-    message: 'Pole uzasadnienia musi zawierać co najmniej 10 znaków',
+    message: 'Pole uzasadnienia w części B. musi zawierać co najmniej 10 znaków',
   })
   @Column({
     type: 'text',

@@ -85,7 +85,6 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err.response.data);
           setSubmitErrors(err.response?.data);
           setIsLoading(false);
 

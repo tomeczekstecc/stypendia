@@ -268,7 +268,7 @@ const Budget = () => {
               <textarea
               disabled={!curDocument.cost12>0}
                 rows={5}
-                defaultValue={
+                value={
                   (curDocument &&
                     curDocument.substantion1 &&
                     curDocument.substantion1) ||

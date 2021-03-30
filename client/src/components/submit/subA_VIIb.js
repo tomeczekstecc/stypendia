@@ -17,7 +17,12 @@ import { accordionsVIIb, keySubjects } from '../../parts/index';
 import SubALayout from '../subALayout';
 import { SubmitContext, AuthContext } from '../../context';
 import Title from '../Title';
-import { placeCursorBack, clearValidation, clearContent } from '../../utils';
+import {
+  placeCursorBack,
+  clearValidation,
+  clearContent,
+  handleSpecialDelete,
+} from '../../utils';
 
 const SubA_VIIb = () => {
   const history = useHistory();
@@ -40,7 +45,7 @@ const SubA_VIIb = () => {
 
   const handleOnChange = async (e, parent = undefined, name = undefined) => {
     if (submitMode === 'watch') return;
-    console.log(e.target.dataset.type);
+
 if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined) return;
 
     placeCursorBack(e);
@@ -164,7 +169,7 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
 
           {(curDocument?.tab2Subj === 'język obcy nowożytny' ||
             curDocument?.tab2Subj === 'przedmiot ICT') && (
-            <Input
+            <Input onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               defaultValue={curDocument?.tab2SubjName}
               name='tab2SubjName'

@@ -1,8 +1,9 @@
 /* eslint-disable array-callback-return */
 import React, { useContext } from 'react';
 import { Message } from 'semantic-ui-react';
-import { Wrapper } from '../styles/alert.styles';
-// import './Alert.css';
+import { FaTimes } from 'react-icons/fa';
+
+import { Close, Wrapper } from '../styles/alert.styles';
 import AlertContext from '../../context/alert/alertContext';
 
 const Alert = (props) => {
@@ -23,6 +24,12 @@ const Alert = (props) => {
             case 'error':
               return (
                 <div key={alert.id} className={`${props.position}`}>
+                  <Close color={'#9c0000'}>
+                    <FaTimes
+                      className='close-button'
+                      onClick={() => deleteAlert(alert.id)}
+                    />
+                  </Close>
                   <Message error className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
@@ -36,6 +43,12 @@ const Alert = (props) => {
             case 'info':
               return (
                 <div key={alert.id} className={`${props.position}`}>
+                  <Close color={'#00586e'}>
+                    <FaTimes
+                      className='close-button'
+                      onClick={() => deleteAlert(alert.id)}
+                    />
+                  </Close>
                   <Message info className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
@@ -50,6 +63,12 @@ const Alert = (props) => {
             case 'warning':
               return (
                 <div key={alert.id} className={`${props.position}`}>
+                  <Close color={'#5c3f00'}>
+                    <FaTimes
+                      className='close-button'
+                      onClick={() => deleteAlert(alert.id)}
+                    />
+                  </Close>
                   <Message warning className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}
@@ -64,6 +83,12 @@ const Alert = (props) => {
             case 'success':
               return (
                 <div key={alert.id} className={`${props.position}`}>
+                  <Close color={'#002e0c'}>
+                    <FaTimes
+                      className='close-button'
+                      onClick={() => deleteAlert(alert.id)}
+                    />
+                  </Close>
                   <Message success className='notification'>
                     <Message.Header className='notification-title'>
                       {alert.alertTitle}

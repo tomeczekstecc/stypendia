@@ -32,7 +32,8 @@ export const Wrapper = styled.div`
   }
   .notification {
     min-width: 350px !important;
-    margin-top:5px !important;
+    margin-top: 5px !important;
+    z-index: -1 !important;
   }
 
   .notification-title {
@@ -58,11 +59,18 @@ export const Wrapper = styled.div`
       translate: translateX(0) !important;
     }
   }
+`;
 
+export const Close = styled.div`
+  position: relative;
   .close-button {
     position: absolute !important;
-    top: 8px !important;
+    /* transform: translate(488px, 30px) !important; */
+    top: 9px !important;
     right: 8px !important;
-    font-size: 18px !important;
+    font-size: 16px !important;
+    z-index: 99909999999 !important;
+    color: ${(props) => props.color};
+    opacity: 0.9 !important;
   }
 `;

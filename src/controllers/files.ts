@@ -11,6 +11,8 @@ import { makeLog, saveRollbar } from '../services';
 import { fileTypeAllowed, mimeTypeAllowed } from '../entity/types';
 // import { scanFile } from '../services/scanFile';
 import { msg } from '../parts/messages';
+import { getRepository } from 'typeorm';
+import { CLIENT_RENEG_WINDOW } from 'tls';
 
 const OBJECT = 'Files';
 let ACTION, INFO, STATUS, CONTROLLER;
@@ -31,7 +33,6 @@ export const uploadFile = async (req: any, res: Response) => {
   const { type, submitTempId, submitId, clientIp } = req.body;
 
   req.clientIp = clientIp;
-
 
   try {
     if (!fileTypeAllowed.includes(type)) {
@@ -84,6 +85,31 @@ export const uploadFile = async (req: any, res: Response) => {
 
     const checksum = await calculateChecksum(req.file);
 
+    const sames = await getRepository(File)
+      .createQueryBuilder()
+      .select()
+      .where(
+        '(tempSubmitId = :tempSubmitId1 OR submitId = :submitId1) AND checksum = :checksum1',
+        {
+          tempSubmitId1: submitTempId,
+          submitId1: submitId,
+          checksum1: checksum,
+        }
+      )
+      .getCount();
+
+    if (sames > 0) {
+      fs.unlinkSync(req.file.path);
+      STATUS = 'error';
+      INFO = msg.client.fail.attSame;
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+      return res.status(200).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd załącznika',
+      });
+    }
+
     const file = await new File({
       ...fileBody,
       type,
@@ -109,6 +135,7 @@ export const uploadFile = async (req: any, res: Response) => {
     STATUS = 'success';
     INFO = msg.client.fail.attCreated;
     makeLog(OBJECT, fileToShow.id, ACTION, CONTROLLER, INFO, STATUS, req);
+
     return res.status(201).json({
       resStatus: STATUS,
       msgPL: INFO,
@@ -246,7 +273,7 @@ export const deleteFile = async (req: any, res: Response) => {
   CONTROLLER = 'deleteFile';
   ACTION = 'usuwanie pliku';
 
- req.clientIp = req.body.clientIp;
+  req.clientIp = req.body.clientIp;
 
   const { id } = req.params;
   try {

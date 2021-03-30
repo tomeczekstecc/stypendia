@@ -146,8 +146,9 @@ const Attachments = () => {
 
   const uploadImage = async (e) => {
     clearValidation(e, submitErrors);
-    const file = e.target.files[0];
-    const formData = new FormData();
+    console.log(e);
+    let file = e.target.files[0];
+    let formData = new FormData();
     formData.append('file', file);
     formData.append('type', fileInputRef.current.name);
     if (submitMode === 'new') {
@@ -170,9 +171,12 @@ const Attachments = () => {
           ...newSubmit,
         });
       }
+
     } catch (err) {
       console.log(err);
     }
+    file = null
+    formData = null
   };
 
   useEffect(() => {

@@ -11,6 +11,7 @@ export const msg = {
       noUser: 'Nie znaleziono użytkownika',
       wrongAttType: 'Nieprawidłowty typ załącznika',
       attToBig: 'Nieprawidłowa wielkość pliku - plik nie może przekroczyć 20MB',
+      attSame: 'Plik już był wykorzystany we wniosku. Sprawdź czy dołączyłeś poprawne pliki',
       attCreated: 'Pomyślnie utworzono załącznik',
       emailErr: 'Musisz podać poprawny adres email',
       userErr: 'Musisz podać poprawną nazwę użytkownika',

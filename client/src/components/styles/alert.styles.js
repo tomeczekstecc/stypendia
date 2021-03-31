@@ -17,7 +17,13 @@ export const Wrapper = styled.div`
   .bottom-right {
     bottom: 12px !important;
     right: 12px !important;
-    animation: toast-in-right 0.5s !important;
+    animation: toast-in-right 0.5s ease-in-out !important;
+  }
+  .top-center {
+    top: 12px !important;
+    position: absolute;
+    margin: auto;
+    animation: toast-in-top 0.3s ease-in-out !important;
   }
 
   .bottom-left {
@@ -34,8 +40,17 @@ export const Wrapper = styled.div`
     min-width: 350px !important;
     margin-top: 5px !important;
     z-index: -1 !important;
+    border-width: 3px !important;
   }
 
+  .alert-icon {
+    margin-bottom: -5px;
+    font-size: 1.8rem;
+  }
+
+  .notification-message {
+    word-break: break-all !important;
+  }
   .notification-title {
     font-weight: 700 !important;
     font-size: 16px !important;
@@ -43,20 +58,29 @@ export const Wrapper = styled.div`
     margin-bottom: 6px !important;
   }
 
-  @keyframes toast-in-right {
+  @keyframes toast-in-top {
     from {
-      transform: translateX(100%) !important;
+      transform: translateY(-100%);
     }
     to {
-      translate: translateX(0) !important;
+      transform: translateY(0);
     }
   }
+  @keyframes toast-in-right {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
   @keyframes toast-in-left {
     from {
       transform: translateX(-100%) !important;
     }
     to {
-      translate: translateX(0) !important;
+      transform: translateX(0) !important;
     }
   }
 `;

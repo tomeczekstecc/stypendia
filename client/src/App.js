@@ -55,10 +55,7 @@ function App() {
                     <Route exact path='/aviability' component={Aviability} />
                     <Route exact path='/Regulations' component={Regulations} />
 
-
-
                     <ProtectedRoute exact path='/logout' component={Logout} />
-
 
                     <ProtectedRoute exact path='/' component={Home} />
 
@@ -69,7 +66,7 @@ function App() {
               </SubmitState>
             </AuthState>
 
-            <Alert position={'bottom-right'} autoDeleteInterval={5000} />
+            <Alert position={'bottom-right'} autoDeleteInterval={7000} />
           </Router>
         </AppState>
       </AlertState>

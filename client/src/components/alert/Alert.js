@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import React, { useContext } from 'react';
 import { Message } from 'semantic-ui-react';
-import { FaTimes } from 'react-icons/fa';
+import { FaCheck, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
 import { Close, Wrapper } from '../styles/alert.styles';
 import AlertContext from '../../context/alert/alertContext';
@@ -32,6 +32,7 @@ const Alert = (props) => {
                   </Close>
                   <Message error className='notification'>
                     <Message.Header className='notification-title'>
+                      <FaExclamationCircle className='alert-icon' />{'  '}
                       {alert.alertTitle}
                     </Message.Header>
                     <Message.Content className='notification-message'>
@@ -51,6 +52,8 @@ const Alert = (props) => {
                   </Close>
                   <Message info className='notification'>
                     <Message.Header className='notification-title'>
+                      <FaInfoCircle className='alert-icon' />
+                      {'  '}
                       {alert.alertTitle}
                     </Message.Header>
                     <Message.Content className='notification-message'>
@@ -71,6 +74,8 @@ const Alert = (props) => {
                   </Close>
                   <Message warning className='notification'>
                     <Message.Header className='notification-title'>
+                      <FaExclamationTriangle className='alert-icon' />
+                      {'  '}
                       {alert.alertTitle}
                     </Message.Header>
                     <Message.Content className='notification-message'>
@@ -91,6 +96,8 @@ const Alert = (props) => {
                   </Close>
                   <Message success className='notification'>
                     <Message.Header className='notification-title'>
+                      <FaCheck className='alert-icon' />
+                      {'  '}
                       {alert.alertTitle}
                     </Message.Header>
                     <Message.Content className='notification-message'>

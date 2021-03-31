@@ -14,11 +14,13 @@ jobs:
             cd apps/stypendia
             git pull
             npm install
-            NODE_ENV=production npx tsc
+            rm -rf build
+            npx tsc
             cd client
             npm install
             rm -rf build
-            NODE_ENV=production npm run build
+            npm run build
+            pm2 restart stypendia-server
             pm2 restart stypendia-server
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}

@@ -95,7 +95,7 @@ const Login = () => {
             className='intro-warning'
             warning
             header='Uwaga. Wersja testowa'
-            content='Niniejsza wersja ma charakter testowy - rozwojowy. Kolejne funkcje są sukcesywnie wdrażane i dostosowywane, błedy obsługiwane. Zapisane
+            content='Niniejsza wersja ma charakter testowy - rozwojowy. Kolejne funkcje są sukcesywnie wdrażane i dostosowywane, błędy obsługiwane. Zapisane
                 dane są okesowo usuwane z bazy danych. Używaj tylko dane odpowiednie dla warunków testowych.'
           />
         <Segment placeholder className='main-segment' size='large'>

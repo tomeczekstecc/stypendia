@@ -42,7 +42,7 @@ export const Wrapper = styled.div`
     margin-left: auto;
     margin-right: auto;
     bottom: 10px;
-    margin-top:2rem;
+    margin-top: 2rem;
   }
   img {
     display: block;
@@ -51,8 +51,15 @@ export const Wrapper = styled.div`
     max-width: 95%;
     min-width: 500px;
   }
+  .intro-warning {
+    margin-bottom: -5rem;
+    margin-top: 5rem;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 
-  .logo p{
-    background-color:#fff;
+  }
+  .logo p {
+    background-color: #fff;
   }
 `;

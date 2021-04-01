@@ -9,6 +9,7 @@ import {
   Form,
   Grid,
   Label,
+  Message,
   Segment,
 } from 'semantic-ui-react';
 import { Wrapper } from './styles/login.styles';
@@ -90,6 +91,13 @@ const Login = () => {
     <Wrapper>
       <Container>
         <Title content='Logowanie' />
+          <Message
+            className='intro-warning'
+            warning
+            header='Uwaga. Wersja testowa'
+            content='Niniejsza wersja ma charakter testowy - rozwojowy. Kolejne funkcje są sukcesywnie wdrażane i dostosowywane, błedy obsługiwane. Zapisane
+                dane są okesowo usuwane z bazy danych. Używaj tylko dane odpowiednie dla warunków testowych.'
+          />
         <Segment placeholder className='main-segment' size='large'>
           <Grid columns={2} relaxed='very' stackable>
             <Grid.Column>
@@ -143,6 +151,7 @@ const Login = () => {
             </Grid.Column>
 
             <Grid.Column verticalAlign='middle'>
+              {' '}
               <Link to='/register'>
                 <Button content='Zarejestruj się' icon='user plus' size='big' />
               </Link>
@@ -152,16 +161,15 @@ const Login = () => {
           <Divider className='divider' content='lub' vertical />
           <Required />
         </Segment>
-
         <ImportantLinks />
-      <div className='logo'>
-        <img src={logo} alt='logo UE' />
-        <p>
-          Projekt współfinansowany przez Unię Europejską ze środków
-          Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
-          Operacyjnego Województwa Śląskiego na lata 2014-2020
-        </p>
-      </div>
+        <div className='logo'>
+          <img src={logo} alt='logo UE' />
+          <p>
+            Projekt współfinansowany przez Unię Europejską ze środków
+            Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
+            Operacyjnego Województwa Śląskiego na lata 2014-2020
+          </p>
+        </div>
       </Container>
     </Wrapper>
   );

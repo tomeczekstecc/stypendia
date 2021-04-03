@@ -9,7 +9,7 @@ import { File, User } from '../entity';
 import { mapFileBody } from '../utils';
 import { makeLog, saveRollbar } from '../services';
 import { fileTypeAllowed, mimeTypeAllowed } from '../entity/types';
-// import { scanFile } from '../services/scanFile';
+import { scanFile } from '../services/scanFile';
 import { msg } from '../parts/messages';
 import { getRepository } from 'typeorm';
 import { CLIENT_RENEG_WINDOW } from 'tls';
@@ -29,6 +29,8 @@ const calculateChecksum = async (fileToShow) => {
 export const uploadFile = async (req: any, res: Response) => {
   CONTROLLER = 'uploadFile';
   ACTION = 'dodawanie pliku';
+
+  scanFile(req.file.path);
 
   const { type, submitTempId, submitId, clientIp } = req.body;
 

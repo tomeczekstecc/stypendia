@@ -31,7 +31,7 @@ export const uploadFile = async (req: any, res: Response) => {
   ACTION = 'dodawanie pliku';
 
 
-  scanFile(req.file.path);
+ await scanFile(req.file.path);
 
   const { type, submitTempId, submitId, clientIp } = req.body;
 

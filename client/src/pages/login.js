@@ -156,19 +156,26 @@ const Login = () => {
           <Divider className='divider' content='lub' vertical />
           <Required />
         </Segment>
-        <ImportantLinks />
       </Container>
 
       <div className='right-container'>
+
         <Header>Ogłoszenia</Header>
         <Divider></Divider>
         <Message
+
           className='intro-warning'
-          warning
+          error
           header='Uwaga. Wersja testowa'
           content='Niniejsza wersja ma charakter testowy - rozwojowy. Kolejne funkcje są sukcesywnie wdrażane i dostosowywane, błędy obsługiwane. Zapisane
                 dane są okesowo usuwane z bazy danych. Używaj tylko dane odpowiednie dla warunków testowych.'
         />
+        <Message
+          className='intro-warning'
+          warning
+          header='Usunięto dane'
+          content='W związku z ważną przebudową 3 kwietnia usnięto wszystkie dane - w tym konta i wnioski :('
+        />    <ImportantLinks />
       </div>
       <div className='logo'>
         <img src={logo} alt='logo UE' />

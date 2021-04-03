@@ -12,7 +12,6 @@ import { fileTypeAllowed, mimeTypeAllowed } from '../entity/types';
 import { scanFile } from '../services/scanFile';
 import { msg } from '../parts/messages';
 import { getRepository } from 'typeorm';
-import { CLIENT_RENEG_WINDOW } from 'tls';
 
 const OBJECT = 'Files';
 let ACTION, INFO, STATUS, CONTROLLER;

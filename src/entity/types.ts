@@ -59,6 +59,5 @@ export const fileTypeAllowed = [
 export const mimeTypeAllowed = [
   'image/jpeg',
   'image/png',
-  'application/pdf',
-  'text/plain',
+  'application/pdf'
 ];

@@ -1,17 +1,21 @@
-import NodeClam from 'clamscan';
+import NodeClam from 'clamscan'
 
 // clamscan module configs
 const ClamScan = new NodeClam().init({
-  clamdscan: {
-    socket: '/var/run/clamav/clamd.sock',
-    host: '127.0.0.1',
-    port: 3310,
-  },
+    debug_mode: true,
+    scan_recursively: false,
+    clamdscan: {
+        socket: '/var/run/clamav/clamd.ctl',
+        timeout: 120000,
+        local_fallback: true,
+        path: '/var/lib/clamav',
+        config_file: '/etc/clamav/clamd.conf'
+    },
 });
 
 // Scan file using clamscan module
 export function scanFile(filePath) {
-  return ClamScan.then(async (clamscan) => {
+  return ClamScan.then(async clamscan => {
     const { is_infected, viruses } = await clamscan.scan_file(filePath);
 
     if (is_infected) {
@@ -20,7 +24,7 @@ export function scanFile(filePath) {
     } else {
       return 'CLEAN';
     }
-  }).catch((err) => {
+  }).catch(err => {
     throw new Error(err);
   });
 }

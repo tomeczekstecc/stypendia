@@ -28,7 +28,11 @@ export const voyevEnums = [
   'zachodniopomorskie',
 ];
 export const schoolTypeEnums = ['Liceum', 'Technikum'];
-export const counselorProfileTypeEnums = ['Nauczyciel', 'Pedagog szkolny', 'Doradca zawodowy'];
+export const counselorProfileTypeEnums = [
+  'Nauczyciel',
+  'Pedagog szkolny',
+  'Doradca zawodowy',
+];
 export const priGradesEnums = ['5', '6'];
 export const priGradesAvgEnums = [5.33, 5.67, 6];
 export const allTotalAvgEnums = [
@@ -52,5 +56,9 @@ export const fileTypeAllowed = [
   'attestation',
 ];
 
-
-export const mimeTypeAllowed = ['image/jpeg', 'image/png', 'application/pdf'];
+export const mimeTypeAllowed = [
+  'image/jpeg',
+  'image/png',
+  'application/pdf',
+  'text/plain',
+];

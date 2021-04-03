@@ -92,3 +92,5 @@ services:
       - 3310:3310
     volumes:
       - ./data/clamav:/var/lib/clamav
+
+# https://github.com/openbridge/clamav

@@ -21,9 +21,9 @@ export function scanFile(filePath) {
     if (is_infected) {
       console.log(`The file is INFECTED with ${viruses}`);
       throw new Error('ERR_FILE_SCAN_INFECTED');
-    } else {
-      return 'CLEAN';
     }
+
+
   }).catch(err => {
     throw new Error(err);
   });

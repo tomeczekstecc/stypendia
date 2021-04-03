@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+margin-left: 2rem;
+  display: grid;
+  grid-template-columns: 5fr 2fr;
   margin-bottom: 10rem;
   .main-segment {
     padding-top: 2rem !important;
@@ -38,7 +41,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* min-width: 100%; */
+    min-width: 100%;
     margin-left: auto;
     margin-right: auto;
     bottom: 10px;
@@ -52,14 +55,17 @@ export const Wrapper = styled.div`
     min-width: 500px;
   }
   .intro-warning {
-    margin-bottom: -5rem;
-    margin-top: 5rem;
-    max-width: 60%;
     margin-left: auto;
     margin-right: auto;
-
   }
   .logo p {
     background-color: #fff;
+  }
+
+  .right-container {
+    margin-top: 7rem;
+    justify-self: start;
+    margin-left: 1rem;
+    margin-right: 3vw;
   }
 `;

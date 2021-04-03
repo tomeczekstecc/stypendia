@@ -8,6 +8,7 @@ import {
   Divider,
   Form,
   Grid,
+  Header,
   Label,
   Message,
   Segment,
@@ -91,13 +92,7 @@ const Login = () => {
     <Wrapper>
       <Container>
         <Title content='Logowanie' />
-          <Message
-            className='intro-warning'
-            warning
-            header='Uwaga. Wersja testowa'
-            content='Niniejsza wersja ma charakter testowy - rozwojowy. Kolejne funkcje są sukcesywnie wdrażane i dostosowywane, błędy obsługiwane. Zapisane
-                dane są okesowo usuwane z bazy danych. Używaj tylko dane odpowiednie dla warunków testowych.'
-          />
+
         <Segment placeholder className='main-segment' size='large'>
           <Grid columns={2} relaxed='very' stackable>
             <Grid.Column>
@@ -162,15 +157,27 @@ const Login = () => {
           <Required />
         </Segment>
         <ImportantLinks />
-        <div className='logo'>
-          <img src={logo} alt='logo UE' />
-          <p>
-            Projekt współfinansowany przez Unię Europejską ze środków
-            Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
-            Operacyjnego Województwa Śląskiego na lata 2014-2020
-          </p>
-        </div>
       </Container>
+
+      <div className='right-container'>
+        <Header>Ogłoszenia</Header>
+        <Divider></Divider>
+        <Message
+          className='intro-warning'
+          warning
+          header='Uwaga. Wersja testowa'
+          content='Niniejsza wersja ma charakter testowy - rozwojowy. Kolejne funkcje są sukcesywnie wdrażane i dostosowywane, błędy obsługiwane. Zapisane
+                dane są okesowo usuwane z bazy danych. Używaj tylko dane odpowiednie dla warunków testowych.'
+        />
+      </div>
+      <div className='logo'>
+        <img src={logo} alt='logo UE' />
+        <p>
+          Projekt współfinansowany przez Unię Europejską ze środków
+          Europejskiego Funduszu Społecznego w ramach Regionalnego Programu
+          Operacyjnego Województwa Śląskiego na lata 2014-2020
+        </p>
+      </div>
     </Wrapper>
   );
 };

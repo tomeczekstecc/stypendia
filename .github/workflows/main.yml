@@ -14,7 +14,7 @@ jobs:
             cd apps/stypendia
             git pull
             npm install
-            rm -rf 
+            rm -rf build
             npx tsc
             cd client
             npm install

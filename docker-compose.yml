@@ -1,23 +1,22 @@
 version: '3'
 services:
-  # stypendia-server:
-  #   container_name: stypendia_server_dev
-  #   restart: always
-  #   build:
-  #     context: .
-  #     args:
-  #       NODE_ENV: development
-  #   volumes:
-  #     - ./:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - 5003:5003
-  #   environment:
-  #     - NODE_ENV=development
-  #   command: npm run devStart
-  #   depends_on:
-  #     db_stypendia:
-  #       condition: service_healthy
+  stypendia-server:
+    restart: always
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 5003:5003
+    environment:
+      - NODE_ENV=development
+    command: npm run devStart
+    # depends_on:
+    #   db_stypendia:
+    #     condition: service_healthy
 
 
   db_stypendia:
@@ -60,7 +59,7 @@ services:
       - MONGO_USERNAME=adminowski
       - MONGO_PASSWORD=XPy4hPZt%B7?tjRr
       - MONGO_HOST=localhost
-      - MONGO_PORT=27019
+      - MONGO_PORT=27017
       - MONGO_INITDB_DATABASE=logs
     ports:
       - 27019:27017

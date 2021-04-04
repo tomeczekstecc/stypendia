@@ -34,8 +34,6 @@ const Resend = ({ history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
-  const handleOnChange = (e) => {};
-
   const handleOnClick = async (e) => {
     setErrors('');
     e.preventDefault();

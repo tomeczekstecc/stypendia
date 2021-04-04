@@ -11,7 +11,6 @@ import {
   Label,
   Message,
   Segment,
-  TextArea,
 } from 'semantic-ui-react';
 import { accordionsVIIb, keySubjects } from '../../parts/index';
 import SubALayout from '../subALayout';

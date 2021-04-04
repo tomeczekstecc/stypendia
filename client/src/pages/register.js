@@ -12,7 +12,6 @@ import {
   Label,
   Segment,
 } from 'semantic-ui-react';
-import logo from '../assets/img/logo.png';
 import { Wrapper } from './styles/register.styles';
 import { Rodo, Title, Required } from '../components';
 import { registerInputs } from '../parts/inputs';

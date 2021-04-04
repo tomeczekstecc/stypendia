@@ -11,14 +11,17 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
-            cd apps/stypendia-develop
+            cd apps/stypendia
             git pull
             npm install
-            NODE_ENV=production npx tsc
-            cd client
             rm -rf build
-            NODE_ENV=production npm run build
-            pm2 restart stypendia-server-develop
+            npx tsc
+            cd client
+            npm install
+            rm -rf build
+            npm run build
+            pm2 restart stypendia-server
+            pm2 restart stypendia-server
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}

@@ -1,19 +1,19 @@
 version: '3'
 services:
-  stypendia-server:
-    restart: always
-    build:
-      context: .
-      args:
-        NODE_ENV: development
-    volumes:
-      - ./:/app
-      - /app/node_modules
-    ports:
-      - 5003:5003
-    environment:
-      - NODE_ENV=development
-    command: npm run devStart
+  # stypendia-server:
+  #   restart: always
+  #   build:
+  #     context: .
+  #     args:
+  #       NODE_ENV: development
+  #   volumes:
+  #     - ./:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - 5003:5003
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run devStart
     # depends_on:
     #   db_stypendia:
     #     condition: service_healthy

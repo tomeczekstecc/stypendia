@@ -1,23 +1,30 @@
 version: '3'
 services:
-  # stypendia-server:
-  #   restart: always
-  #   build:
-  #     context: .
-  #     args:
-  #       NODE_ENV: development
-  #   volumes:
-  #     - ./:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - 5003:5003
-  #   environment:
-  #     - NODE_ENV=development
-  #   command: npm run devStart
-    # depends_on:
-    #   db_stypendia:
-    #     condition: service_healthy
+  stypendia-server:
+    restart: always
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 5003:5003
+    environment:
+      - NODE_ENV=development
+    command: npm run devStart
 
+  client:
+    restart: always
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./app/node_modules
+      - ./client:/app
+    ports:
+      - 3000:3000
 
   db_stypendia:
     image: mysql
@@ -29,7 +36,6 @@ services:
       - 3308:3306
     volumes:
       - ./data/db:/var/lib/mysql
-
 
   adminer_stypendia:
     image: adminer
@@ -46,7 +52,6 @@ services:
     restart: always
     ports:
       - 6380:6379
-
 
   mongo_logs:
     image: mongo
@@ -66,7 +71,6 @@ services:
     volumes:
       - ./data/logs:/var/lib/logs
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
-
 
   mongoweb_logs:
     image: mongo-express
@@ -91,5 +95,4 @@ services:
   #     - 3310:3310
   #   volumes:
   #     - ./data/clamav:/var/lib/clamav
-
 # https://github.com/openbridge/clamav

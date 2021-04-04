@@ -11,7 +11,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
-            cd apps/stypendia
+            cd apps/stypendia-develop
             git pull
             npm install
             rm -rf build

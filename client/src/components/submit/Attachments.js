@@ -17,6 +17,7 @@ import { toLocaleDate } from '../../utils';
 import RandomAtt from './RandomAtt';
 import Title from '../Title';
 import { clearValidation } from '../../utils/clearValidation';
+import { add } from 'winston';
 
 const Attachments = () => {
   const getUsersFiles = async () => {
@@ -158,9 +159,18 @@ const Attachments = () => {
     }
 
     try {
-      const res = await axios.post('/api/v1/files/upload', formData);
+      axios
+        .post('/api/v1/files/upload', formData)
+        .then((res) => {
+          addAlert(res.data);
+        })
+        .catch((err) => {
+          addAlert(err.response.data);
+        });
 
-      res.data.resStatus !== 'success' && addAlert(res.data);
+      // res.data.resStatus !== 'success' && addAlert(res.data);
+      // console.log(res.data.resStatus);
+      // res.data.resStatus !== 'error' && addAlert(res.data);
 
       if (submitMode === 'edit') {
         await updateCurSubmit({
@@ -171,12 +181,11 @@ const Attachments = () => {
           ...newSubmit,
         });
       }
-
     } catch (err) {
       console.log(err);
     }
-    file = null
-    formData = null
+    file = null;
+    formData = null;
   };
 
   useEffect(() => {

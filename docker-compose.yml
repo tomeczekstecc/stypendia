@@ -81,11 +81,11 @@ services:
     depends_on:
       - mongo_logs
 
-  # clamAV:
-  #   image:  mkodockx/docker-clamav:alpine
-  #   restart: always
-  #   ports:
-  #     - 3310:3310
-  #   volumes:
-  #     - ./data/clamav:/var/lib/clamav
+  clamAV:
+    image:  mkodockx/docker-clamav:alpine
+    restart: always
+    ports:
+      - 3310:3310
+    volumes:
+      - ./data/clamav:/var/lib/clamav
 # https://github.com/openbridge/clamav

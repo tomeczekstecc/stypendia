@@ -29,14 +29,27 @@ export const uploadFile = async (req: any, res: Response) => {
   CONTROLLER = 'uploadFile';
   ACTION = 'dodawanie pliku';
 
-
-//  await scanFile(req.file.path);
-
   const { type, submitTempId, submitId, clientIp } = req.body;
 
   req.clientIp = clientIp;
 
   try {
+    const virus = await scanFile(req.file.path);
+    console.log(virus);
+
+    if (virus) {
+      fs.unlinkSync(req.file.path);
+      STATUS = 'error';
+      INFO = 'wirus Panie';
+
+      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+      return res.status(400).json({
+        resStatus: STATUS,
+        msgPL: INFO,
+        alertTitle: 'Błąd załącznika',
+      });
+    }
+
     if (!fileTypeAllowed.includes(type)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
@@ -45,20 +58,21 @@ export const uploadFile = async (req: any, res: Response) => {
         ` - dozwolone wartości to: ${fileTypeAllowed.join(', ')} `;
 
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(200).json({
+      return res.status(401).json({
         resStatus: STATUS,
         msgPL: INFO,
 
         alertTitle: 'Błąd załącznika',
       });
     }
+
     if (!mimeTypeAllowed.includes(req.file?.mimetype)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO = msg.client.fail.mime;
 
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(200).json({
+      return res.status(401).json({
         resStatus: STATUS,
         msgPL: INFO,
         alertTitle: 'Błąd załącznika',

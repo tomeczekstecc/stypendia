@@ -164,6 +164,7 @@ const Attachments = () => {
         .then((res) => {
           addAlert(res.data);
           getUsersFiles();
+          
         })
         .catch((err) => {
           addAlert(err.response.data);

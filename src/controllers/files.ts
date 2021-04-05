@@ -91,10 +91,6 @@ export const uploadFile = async (req: any, res: Response) => {
       });
     }
 
-    //TODO  chech  if file-type already exists - and delete old -https://www.youtube.com/watch?v=2Oov8miYK-g&t=1035s ???
-
-    //TODO scanFile(req.file.path);
-    // https://kainikhil.medium.com/installing-clamav-and-clam-f4d26d8150c4
 
     const user = await User.findOneOrFail(req.session.userId);
     const fileBody = mapFileBody(req.file);

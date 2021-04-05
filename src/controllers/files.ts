@@ -40,13 +40,13 @@ export const uploadFile = async (req: any, res: Response) => {
     if (virus) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
-      INFO = 'wirus Panie';
+      INFO = msg.client.fail.virusDet;
 
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
       return res.status(400).json({
         resStatus: STATUS,
         msgPL: INFO,
-        alertTitle: 'Błąd załącznika',
+        alertTitle: 'Wykryto niebezpieczny plik!',
       });
     }
 

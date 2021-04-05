@@ -163,6 +163,7 @@ const Attachments = () => {
         .post('/api/v1/files/upload', formData)
         .then((res) => {
           addAlert(res.data);
+          getUsersFiles();
         })
         .catch((err) => {
           addAlert(err.response.data);

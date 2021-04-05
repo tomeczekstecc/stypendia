@@ -136,6 +136,8 @@ const RandomAtt = () => {
   return (
     <>
       <input
+        aria-label='hidden'
+        aria-hidden='true'
         type='file'
         hidden={true}
         ref={fileInputRef}
@@ -162,6 +164,7 @@ const RandomAtt = () => {
                   <>
                     <div className='img-button'>
                       <Button
+                        title='pobierz'
                         onClick={(e) => callFetch(e, f.id)}
                         primary
                         icon
@@ -172,6 +175,7 @@ const RandomAtt = () => {
                       </Button>
 
                       <Button
+                        title='usuń'
                         onClick={(e) => deleteFile(e, f.id)}
                         className='trash-btn btn'
                         color='red'
@@ -182,6 +186,7 @@ const RandomAtt = () => {
                       </Button>
                     </div>
                     <Image
+                      alt='placeholder'
                       fluid
                       label={{
                         as: 'div',
@@ -195,6 +200,7 @@ const RandomAtt = () => {
                   </>
                 ) : (
                   <Image
+                    alt='placeholder'
                     fluid
                     label={{
                       as: 'div',
@@ -235,6 +241,7 @@ const RandomAtt = () => {
           onClick={() => openFileInput('random')}
         >
           <Image
+            alt='placeholder'
             fluid
             label={{
               as: 'div',
@@ -248,7 +255,12 @@ const RandomAtt = () => {
 
           <Card.Content>
             {submitErrors?.isFinalistAtt && (
-              <Label basic color='red' pointing='above' className='small-text att'>
+              <Label
+                basic
+                color='red'
+                pointing='above'
+                className='small-text att'
+              >
                 {submitErrors?.isFinalistAtt}
               </Label>
             )}

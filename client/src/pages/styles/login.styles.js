@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-margin-left: 2rem;
+  margin-left: 2rem;
   display: grid;
   grid-template-columns: 5fr 2fr;
   margin-bottom: 10rem;
@@ -23,6 +23,7 @@ margin-left: 2rem;
 
   .span {
     font-size: 1rem !important;
+    color: black !important;
   }
 
   .buttonWrapper {
@@ -67,5 +68,9 @@ margin-left: 2rem;
     justify-self: start;
     margin-left: 1rem;
     margin-right: 3vw;
+  }
+  .login-btn {
+    color: white!important;
+    font-size: 1.35rem !important;;
   }
 `;

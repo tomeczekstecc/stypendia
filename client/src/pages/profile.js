@@ -120,7 +120,7 @@ const Profile = () => {
               <Header.Subheader>
                 Ostatnia zmiana hasła{' '}
                 <Link to='/changepass'>
-                  <Button className='link' primary floated='right'>
+                  <Button className='link passw' primary floated='right'>
                     <Icon name='exchange' />
                     Zmień hasło
                   </Button>

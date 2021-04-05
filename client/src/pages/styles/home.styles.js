@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 
   .card {
     margin: 20px 25px !important;
-    min-width: 297px !important;
+    width: 297px !important;
   }
 
   .text-left {

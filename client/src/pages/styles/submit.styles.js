@@ -206,7 +206,7 @@ export const Wrapper = styled.div`
   }
 
   .star {
-    color: red !important;
+    color: #820000 !important;
   }
   .lower-label {
     padding-bottom: 0 !important;
@@ -220,7 +220,10 @@ export const Wrapper = styled.div`
     opacity: 0.75 !important;
     cursor: not-allowed !important;
   }
-  .disabled{
-   cursor: not-allowed !important;
+  .disabled {
+    cursor: not-allowed !important;
+  }
+  .results-counter {
+    color: #01827c !important;
   }
 `;

@@ -168,7 +168,8 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
 
           {(curDocument?.tab2Subj === 'język obcy nowożytny' ||
             curDocument?.tab2Subj === 'przedmiot ICT') && (
-            <Input onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+            <Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
               defaultValue={curDocument?.tab2SubjName}
               name='tab2SubjName'
@@ -216,7 +217,7 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
             <strong>trzy planowane</strong> do osiągnięcia rezultaty, które
             uczeń/uczennica zamierza osiągnąć w roku szkolnym 2020/2021.
           </p>
-          <Label size='large' basic color='teal'>
+          <Label className='results-counter' size='large' basic>
             Liczba wybranych rezultatów:
             {curDocument?.tab2Results} (brakuje: {3 - curDocument?.tab2Results})
           </Label>
@@ -240,6 +241,7 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
             <div key={acc.id}>
               <Accordion.Title>
                 <Checkbox
+                  aria-label='checkbox'
                   checked={
                     curDocument &&
                     curDocument[acc.checkeboxName] &&
@@ -270,6 +272,7 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
                 >
                   <Form className='form-vii'>
                     <textarea
+                      aria-label='textarea'
                       rows={5}
                       value={
                         (curDocument &&

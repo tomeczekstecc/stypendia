@@ -101,18 +101,19 @@ const Login = () => {
                 {loginInputs.map((input) => {
                   return (
                     <div key={input.id}>
-                      <Form.Input
-                        onChange={(e) => handleOnChange(e)}
-                        required
-                        className='input'
-                        icon={input.icon}
-                        iconPosition='left'
-                        label={input.label}
-                        placeholder={input.placeholder}
-                        type={input.type}
-                        name={input.name}
-                      />
-
+                      <label>
+                        <Form.Input
+                          onChange={(e) => handleOnChange(e)}
+                          required
+                          className='input'
+                          icon={input.icon}
+                          iconPosition='left'
+                          label={input.label}
+                          placeholder={input.placeholder}
+                          type={input.type}
+                          name={input.name}
+                        />
+                      </label>
                       {errors && errors[input.name] && (
                         <Label
                           basic
@@ -129,11 +130,12 @@ const Login = () => {
                 })}
                 <span>{}</span>
                 <Button
+                  className='login-btn'
                   loading={isLoading}
                   type='submit'
                   content='Zaloguj się !'
                   primary
-                  size='large'
+                  size='huge'
                   onClick={handleOnClick}
                 />
               </Form>
@@ -159,11 +161,9 @@ const Login = () => {
       </Container>
 
       <div className='right-container'>
-
         <Header>Ogłoszenia</Header>
         <Divider></Divider>
         <Message
-
           className='intro-warning'
           error
           header='Uwaga. Wersja testowa'
@@ -175,7 +175,8 @@ const Login = () => {
           warning
           header='Usunięto dane'
           content='W związku z ważną przebudową 3 kwietnia usnięto wszystkie dane - w tym konta i wnioski :('
-        />    <ImportantLinks />
+        />{' '}
+        <ImportantLinks />
       </div>
       <div className='logo'>
         <img src={logo} alt='logo UE' />

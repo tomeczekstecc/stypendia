@@ -87,55 +87,60 @@ const Register = (props) => {
               <Header textAlign='center'>
                 Potwierdź niezbędne oświadczenia
               </Header>
-
-              <Checkbox
-                onChange={() => setIsRegulationsChecked(!isRegulationsChecked)}
-                // value={isRegulationsChecked}
-                checked={isRegulationsChecked}
-                label={
-                  <label>
-                    Oświadczam, iż zapoznałam/em się z regulaminem i akceptuję
-                    jego postanowienia <span>*</span>
-                  </label>
-                }
-              />
+              <label>
+                <Checkbox
+                  onChange={() =>
+                    setIsRegulationsChecked(!isRegulationsChecked)
+                  }
+                  // value={isRegulationsChecked}
+                  checked={isRegulationsChecked}
+                  label={
+                    <label>
+                      Oświadczam, iż zapoznałam/em się z regulaminem i akceptuję
+                      jego postanowienia <span>*</span>
+                    </label>
+                  }
+                />
+              </label>
 
               <Rodo />
-
-              <Checkbox
-                onChange={() => setIsRodoChecked(!isRodoChecked)}
-                // value={isRodoChecked}
-                checked={isRodoChecked}
-                className='checkBox'
-                required
-                label={
-                  <label>
-                    Oświadczam, iż zapoznałam/em się z powyższą informacją.
-                    <span> *</span>
-                  </label>
-                }
-              />
+              <label>
+                <Checkbox
+                  onChange={() => setIsRodoChecked(!isRodoChecked)}
+                  // value={isRodoChecked}
+                  checked={isRodoChecked}
+                  className='checkBox'
+                  required
+                  label={
+                    <label>
+                      Oświadczam, iż zapoznałam/em się z powyższą informacją.
+                      <span> *</span>
+                    </label>
+                  }
+                />
+              </label>
             </Grid.Column>
             <Grid.Column>
               <Container>
                 <Header>... podaj swoje dane</Header>
                 <Form>
-                  <input type='hidden' name='_csrf' value='_csrf'></input>
                   {registerInputs.map((input) => {
                     return (
                       <div key={input.id}>
-                        <Form.Input
-                          loading={isLoading}
-                          onChange={(e) => handleOnChange(e)}
-                          required
-                          className='input'
-                          icon={input.icon}
-                          iconPosition='left'
-                          label={input.label}
-                          placeholder={input.placeholder}
-                          type={input.type}
-                          name={input.name}
-                        />
+                        <label>
+                          <Form.Input
+                            loading={isLoading}
+                            onChange={(e) => handleOnChange(e)}
+                            required
+                            className='input'
+                            icon={input.icon}
+                            iconPosition='left'
+                            label={input.label}
+                            placeholder={input.placeholder}
+                            type={input.type}
+                            name={input.name}
+                          />
+                        </label>
                         {errors && errors[input.name] && (
                           <Label
                             basic
@@ -174,7 +179,9 @@ const Register = (props) => {
 
           <Divider className='divider' content='Oraz' vertical />
           <Required />
-          <ImportantLinks />
+          <div className='important-links'>
+            <ImportantLinks />
+          </div>
         </Segment>
         {/* <div className='logo'>
           <img src={logo} alt='logo UE' />

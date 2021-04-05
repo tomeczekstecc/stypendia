@@ -8,7 +8,8 @@ export const Wrapper = styled.div`
     bottom: -25px;
 
     & .star {
-      color: red !important;
+      color: black !important;
+
     }
 
     & .star-text {

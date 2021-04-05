@@ -118,16 +118,16 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         />
 
         <Button
-          className='nav-button submit'
+          className='nav-button submit buttonik1'
           positive
           loading={isLoading}
           onClick={() => addNewSubmit(newSubmit)}
           icon='thumbs up'
-          content='Złóż'
+          content='Zapisz'
         />
         <Button
           onClick={() => setActiveItem(activeItem + 1)}
-          className='nav-button'
+          className='nav-button '
           labelPosition='right'
           icon='right chevron'
           content='Dalej'

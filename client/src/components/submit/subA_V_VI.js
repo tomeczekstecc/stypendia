@@ -112,32 +112,33 @@ const SubA_V_VI = () => {
               <Header as='h4'>
                 Średnia ocen z trzech wybranych przedmiotów kierunkowych
               </Header>
-
-              <Form.Input
-                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                label='Ocena z matematyki'
-                required
-                className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
-                disabled={submitMode === 'watch'}
-                action={
-                  <Dropdown
-                    button
-                    data-name='priMathGrade'
-                    className='priMathGrade'
-                    basic
-                    options={optionsGrades}
-                    value={curDocument?.priMathGrade || 'default'}
-                    onChange={(e) => handleOnChange(e)}
-                  />
-                }
-                icon='calculator'
-                name='priMath'
-                data-name='priMath'
-                iconPosition='left'
-                placeholder='Matematyka'
-                value='Matematyka'
-                onChange={(e) => handleOnChange(e)}
-              />
+              <label>
+                <Form.Input
+                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                  label='Ocena z matematyki'
+                  required
+                  className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
+                  disabled={submitMode === 'watch'}
+                  action={
+                    <Dropdown
+                      button
+                      data-name='priMathGrade'
+                      className='priMathGrade'
+                      basic
+                      options={optionsGrades}
+                      value={curDocument?.priMathGrade || 'default'}
+                      onChange={(e) => handleOnChange(e)}
+                    />
+                  }
+                  icon='calculator'
+                  name='priMath'
+                  data-name='priMath'
+                  iconPosition='left'
+                  placeholder='Matematyka'
+                  value='Matematyka'
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </label>
 
               {submitErrors?.priMathGrade && (
                 <Label
@@ -149,31 +150,33 @@ const SubA_V_VI = () => {
                   {submitErrors?.priMathGrade}
                 </Label>
               )}
-              <Form.Input
-                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                label='Język nowożytny i ocena'
-                required
-                className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
-                disabled={submitMode === 'watch'}
-                action={
-                  <Dropdown
-                    button
-                    data-name='priLangGrade'
-                    className='priLangGrade'
-                    basic
-                    options={optionsGrades}
-                    value={curDocument?.priLangGrade || 'default'}
-                    onChange={(e) => handleOnChange(e)}
-                  />
-                }
-                icon='language'
-                name='priLang'
-                data-name='priLang'
-                iconPosition='left'
-                placeholder='Nazwa (2 do 254 znaków)'
-                defaultValue={curDocument?.priLang}
-                onChange={(e) => handleOnChange(e)}
-              />
+              <label>
+                <Form.Input
+                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                  label='Język nowożytny i ocena'
+                  required
+                  className={`${submitMode === 'watch' ? 'disabled-item' : ''}`}
+                  disabled={submitMode === 'watch'}
+                  action={
+                    <Dropdown
+                      button
+                      data-name='priLangGrade'
+                      className='priLangGrade'
+                      basic
+                      options={optionsGrades}
+                      value={curDocument?.priLangGrade || 'default'}
+                      onChange={(e) => handleOnChange(e)}
+                    />
+                  }
+                  icon='language'
+                  name='priLang'
+                  data-name='priLang'
+                  iconPosition='left'
+                  placeholder='Nazwa (2 do 254 znaków)'
+                  defaultValue={curDocument?.priLang}
+                  onChange={(e) => handleOnChange(e)}
+                />
+              </label>
               {submitErrors?.priLang && (
                 <Label
                   basic
@@ -195,6 +198,8 @@ const SubA_V_VI = () => {
                   {submitErrors?.priLangGrade}
                 </Label>
               )}
+              <label>
+
               <Form.Input
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Inny przedmiot i ocena'
@@ -219,7 +224,7 @@ const SubA_V_VI = () => {
                 placeholder='Nazwa (2 do 254 znaków)'
                 defaultValue={curDocument?.priOtherSubj}
                 onChange={(e) => handleOnChange(e)}
-              />
+              /></label>
               {submitErrors?.priOtherSubj && (
                 <Label
                   basic

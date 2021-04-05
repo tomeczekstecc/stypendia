@@ -131,6 +131,7 @@ const ResetSend = ({ history }) => {
                   primary
                   size='large'
                   onClick={handleOnClick}
+                  className='login-btn'
                 />
               </Form>
             </Grid.Column>

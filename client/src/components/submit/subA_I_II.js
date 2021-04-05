@@ -84,87 +84,96 @@ const SubA_I_II = () => {
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              label='Imię wnioskodawcy'
-              name='firstName'
-              data-name='firstName'
-              icon='user'
-              required
-              iconPosition='left'
-              value={user?.firstName || ''} //
-            />
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              icon='user'
-              iconPosition='left'
-              required
-              label='Nazwisko wnioskodawcy'
-              name='lastName'
-              data-name='lastName'
-              value={user?.lastName || ''}
-            />
-
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              label='Email wnioskodawcy'
-              required
-              icon='at'
-              iconPosition='left'
-              placeholder='Podaj email wnioskodawcy'
-              name='phone'
-              data-name='phone'
-              value={user?.email || ''}
-            />
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              label='Numer telefonu wnioskodawcy'
-              icon='phone'
-              iconPosition='left'
-              placeholder='Podaj numer telefonu (9 do 15 znaków)'
-              name='phone'
-              autoFocus='autofocus'
-              data-name='phone'
-              onChange={(e) => handleOnChange(e)}
-              defaultValue={curDocument?.phone || ''}
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                label='Imię wnioskodawcy'
+                name='firstName'
+                data-name='firstName'
+                icon='user'
+                required
+                iconPosition='left'
+                value={user?.firstName || ''} //
+              />
+            </label>
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                icon='user'
+                iconPosition='left'
+                required
+                label='Nazwisko wnioskodawcy'
+                name='lastName'
+                data-name='lastName'
+                value={user?.lastName || ''}
+              />
+            </label>
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                label='Email wnioskodawcy'
+                required
+                icon='at'
+                iconPosition='left'
+                placeholder='Podaj email wnioskodawcy'
+                name='phone'
+                data-name='phone'
+                value={user?.email || ''}
+              />
+            </label>
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                label='Numer telefonu wnioskodawcy'
+                icon='phone'
+                iconPosition='left'
+                placeholder='Podaj numer telefonu (9 do 15 znaków)'
+                name='phone'
+                autoFocus='autofocus'
+                data-name='phone'
+                onChange={(e) => handleOnChange(e)}
+                defaultValue={curDocument?.phone || ''}
+              />
+            </label>
             {submitErrors?.phone && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.phone}
               </Label>
             )}
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                onChange={(e) => handleOnChange(e)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                icon='box'
+                iconPosition='left'
+                label='Adres skrzynki ePuap'
+                placeholder='Podaj adres ePuap'
+                name='epuapAdr'
+                data-name='epuapAdr'
+                defaultValue={curDocument?.epuapAdr || ''}
+              />
+            </label>
 
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              onChange={(e) => handleOnChange(e)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              icon='box'
-              iconPosition='left'
-              label='Adres skrzynki ePuap'
-              placeholder='Podaj adres ePuap'
-              name='epuapAdr'
-              data-name='epuapAdr'
-              defaultValue={curDocument?.epuapAdr || ''}
-            />
             <div
               className={`${
                 submitMode === 'watch' ? 'disabled-item labeler ' : 'labeler'
@@ -208,103 +217,112 @@ const SubA_I_II = () => {
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              onChange={(e) => handleOnChange(e)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              required
-              placeholder='Podaj PESEL (11 znaków)'
-              label='PESEL ucznia'
-              name='pupilPesel'
-              data-name='pupilPesel'
-              icon='id card outline'
-              iconPosition='left'
-              defaultValue={curDocument?.pupilPesel || ''}
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                onChange={(e) => handleOnChange(e)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                required
+                placeholder='Podaj PESEL (11 znaków)'
+                label='PESEL ucznia'
+                name='pupilPesel'
+                data-name='pupilPesel'
+                icon='id card outline'
+                iconPosition='left'
+                defaultValue={curDocument?.pupilPesel || ''}
+              />
+            </label>
             {submitErrors?.pupilPesel && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilPesel}
               </Label>
             )}
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              onChange={(e) => handleOnChange(e)}
-              required
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              icon='user'
-              iconPosition='left'
-              label='Imię ucznia'
-              name='pupilFirstName'
-              data-name='pupilFirstName'
-              placeholder='Podaj imię ucznia (2 do 254 znaków)'
-              defaultValue={
-                (newSubmit.isSelf === 'Pełnoletni uczeń'
-                  ? user.firstName
-                  : curDocument.pupilFirstName) || ''
-              }
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                onChange={(e) => handleOnChange(e)}
+                required
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                icon='user'
+                iconPosition='left'
+                label='Imię ucznia'
+                name='pupilFirstName'
+                data-name='pupilFirstName'
+                placeholder='Podaj imię ucznia (2 do 254 znaków)'
+                defaultValue={
+                  (newSubmit.isSelf === 'Pełnoletni uczeń'
+                    ? user.firstName
+                    : curDocument.pupilFirstName) || ''
+                }
+              />
+            </label>
             {submitErrors?.pupilFirstName && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilFirstName}
               </Label>
             )}
-
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              onChange={(e) => handleOnChange(e)}
-              icon='user'
-              required
-              iconPosition='left'
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              label='Nazwisko ucznia'
-              name='pupilLastName'
-              data-name='pupilLastName'
-              placeholder='Podaj nazwisko ucznia (2 do 254 znaków)'
-              defaultValue={
-                (newSubmit.isSelf === 'Pełnoletni uczeń'
-                  ? user.lastName
-                  : curDocument.pupilLastName) || ''
-              }
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                onChange={(e) => handleOnChange(e)}
+                icon='user'
+                required
+                iconPosition='left'
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                label='Nazwisko ucznia'
+                name='pupilLastName'
+                data-name='pupilLastName'
+                placeholder='Podaj nazwisko ucznia (2 do 254 znaków)'
+                defaultValue={
+                  (newSubmit.isSelf === 'Pełnoletni uczeń'
+                    ? user.lastName
+                    : curDocument.pupilLastName) || ''
+                }
+              />
+            </label>
             {submitErrors?.pupilLastName && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilLastName}
               </Label>
             )}
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              onChange={(e) => handleOnChange(e)}
-              icon='at'
-              iconPosition='left'
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              label='Email ucznia'
-              type='email'
-              name='pupilEmail'
-              data-name='pupilEmail'
-              placeholder='Podaj adres email ucznia'
-              defaultValue={
-                (newSubmit.isSelf === 'Pełnoletni uczeń'
-                  ? user.email
-                  : curDocument.pupilEmail) || ''
-              }
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                onChange={(e) => handleOnChange(e)}
+                icon='at'
+                iconPosition='left'
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                label='Email ucznia'
+                type='email'
+                name='pupilEmail'
+                data-name='pupilEmail'
+                placeholder='Podaj adres email ucznia'
+                defaultValue={
+                  (newSubmit.isSelf === 'Pełnoletni uczeń'
+                    ? user.email
+                    : curDocument.pupilEmail) || ''
+                }
+              />
+            </label>
             {submitErrors?.pupilEmail && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilEmail}
               </Label>
             )}
+            <label>
+
             <Form.Input
               onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
               onChange={(e) => handleOnChange(e)}
@@ -320,7 +338,7 @@ const SubA_I_II = () => {
               name='pupilPhone'
               data-name='pupilPhone'
               defaultValue={curDocument?.pupilPhone || ''}
-            />
+            /></label>
             {submitErrors?.pupilPhone && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilPhone}

@@ -34,21 +34,7 @@ export const uploadFile = async (req: any, res: Response) => {
   req.clientIp = clientIp;
 
   try {
-    const virus = await scanFile(req.file.path);
-    console.log(virus);
 
-    if (virus) {
-      fs.unlinkSync(req.file.path);
-      STATUS = 'error';
-      INFO = msg.client.fail.virusDet;
-
-      makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(400).json({
-        resStatus: STATUS,
-        msgPL: INFO,
-        alertTitle: 'Wykryto niebezpieczny plik!',
-      });
-    }
 
     if (!fileTypeAllowed.includes(type)) {
       fs.unlinkSync(req.file.path);
@@ -90,6 +76,21 @@ export const uploadFile = async (req: any, res: Response) => {
         alertTitle: 'Błąd załącznika',
       });
     }
+
+       const virus = await scanFile(req.file.path);
+
+       if (virus) {
+         fs.unlinkSync(req.file.path);
+         STATUS = 'error';
+         INFO = msg.client.fail.virusDet;
+
+         makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+         return res.status(400).json({
+           resStatus: STATUS,
+           msgPL: INFO,
+           alertTitle: 'Wykryto niebezpieczny plik!',
+         });
+       }
 
 
     const user = await User.findOneOrFail(req.session.userId);

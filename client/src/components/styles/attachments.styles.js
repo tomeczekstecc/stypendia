@@ -62,7 +62,7 @@ export const Wrapper = styled.div`
     position: absolute !important;
     width: 100% !important;
     left: 0 !important;
-transform: translateY(-70px) !important;
+    transform: translateY(-70px) !important;
     font-size: 0.9rem !important;
     text-align: center !important;
     /* margin-left:15% !important; */
@@ -77,16 +77,18 @@ transform: translateY(-70px) !important;
   }
 
   .obligatory {
-    color: red;
+    color: #b50000 !important;
   }
 
   .ui.fluid.image::before {
     display: none !important;
   }
-  img{
+  img {
     overflow: hidden !important;
-    border-top-left-radius : 4px !important;
-    border-top-right-radius : 4px !important;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
     overflow: hidden !important;
   }
+
+
 `;

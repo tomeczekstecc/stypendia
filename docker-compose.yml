@@ -81,6 +81,7 @@ services:
     depends_on:
       - mongo_logs
 
+      
   clamAV:
     image:  mkodockx/docker-clamav:alpine
     restart: always

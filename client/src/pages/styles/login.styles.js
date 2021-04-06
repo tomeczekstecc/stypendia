@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
   margin-left: 2rem;
   display: grid;
-  grid-template-columns: 5fr 2fr;
+  grid-template-columns: 5fr 3fr;
   margin-bottom: 10rem;
   .main-segment {
     padding-top: 2rem !important;
@@ -64,13 +70,13 @@ export const Wrapper = styled.div`
   }
 
   .right-container {
-    margin-top: 7rem;
+    margin-top: 4.5rem;
     justify-self: start;
-    margin-left: 1rem;
-    margin-right: 3vw;
+    margin-left: 2rem;
+    margin-right: 5vw;
   }
   .login-btn {
-    color: white!important;
-    font-size: 1.35rem !important;;
+    color: white !important;
+    font-size: 1.35rem !important;
   }
 `;

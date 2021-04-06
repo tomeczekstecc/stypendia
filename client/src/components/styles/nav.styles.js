@@ -19,11 +19,10 @@ export const Wrapper = styled.div`
     display: ${(props) => (props.mode === 'watch' ? 'none !important' : null)};
   }
 
-  .buttonik1 {
+  /* .buttonik1 {
     background-color: #098024 !important;
-    /* font-size: 1.3em !important; */
   }
   .buttonik1:hover {
     background-color: #0a942a !important;
-  }
+  } */
 `;

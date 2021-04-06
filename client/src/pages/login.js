@@ -90,7 +90,7 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <Container>
+      <Container stackable>
         <Title content='Logowanie' />
 
         <Segment placeholder className='main-segment' size='large'>

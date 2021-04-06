@@ -29,7 +29,7 @@ export const Wrapper = styled.div`
   }
 
   span {
-    color: #820000;
+    color: #eb0000;
   }
   .checkBox {
     margin-bottom: 30px !important;

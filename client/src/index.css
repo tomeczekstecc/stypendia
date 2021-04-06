@@ -4,3 +4,9 @@
 .ui.blue.ribbon.label{
   background-color: #1479c4 !important;
 }
+
+.ui.green.basic.label{
+  background-color: #098024 !important;
+  color: red !important;
+}
+

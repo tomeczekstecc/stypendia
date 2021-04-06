@@ -20,4 +20,10 @@ export const Wrapper = styled.div`
   .msg {
     text-align: left;
   }
+  .buttonik1 {
+    background-color: #1479c4 !important;
+  }
+  .buttonik1:hover {
+    background-color: #1584d6 !important;
+  }
 `;

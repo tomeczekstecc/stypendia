@@ -171,7 +171,7 @@ export const Wrapper = styled.div`
   .visible {
     padding-top: 5px;
     text-align: left;
-    color: red;
+    color: #eb0000 !important;
     font-size: 13px;
     line-height: 1.15;
   }
@@ -206,7 +206,7 @@ export const Wrapper = styled.div`
   }
 
   .star {
-    color: #820000 !important;
+    color: #eb0000 !important;
   }
   .lower-label {
     padding-bottom: 0 !important;
@@ -225,5 +225,6 @@ export const Wrapper = styled.div`
   }
   .results-counter {
     color: #01827c !important;
+    border-color: #01827c !important;
   }
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   .ausWarning {
     font-size: 12px;
-    color: red;
+    color: #eb0000 !important;
     line-height: 1.2;
     padding-bottom: 5px;
   }

@@ -77,7 +77,7 @@ export const Wrapper = styled.div`
   }
 
   .obligatory {
-    color: #b50000 !important;
+    color: #eb0000 !important;
   }
 
   .ui.fluid.image::before {
@@ -89,6 +89,4 @@ export const Wrapper = styled.div`
     border-top-right-radius: 4px !important;
     overflow: hidden !important;
   }
-
-
 `;

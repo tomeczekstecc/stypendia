@@ -119,7 +119,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
 
         <Button
           className='nav-button submit buttonik1'
-          positive
+          color='violet'
           loading={isLoading}
           onClick={() => addNewSubmit(newSubmit)}
           icon='thumbs up'

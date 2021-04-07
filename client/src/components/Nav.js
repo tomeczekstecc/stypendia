@@ -109,7 +109,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
           content='Wróć'
         />
         <Button
-          className='nav-button save'
+          className='nav-button save  buttonik2'
           onClick={() => updateSubmit(curSubmit)}
           primary
           loading={isLoading}

@@ -41,16 +41,18 @@ const Errors = ({ setActiveItem }) => {
           <div>
             {mapped &&
               mapped.map((e, i) => {
-
                 const link = mapLink(e);
                 return (
                   <div
                     onClick={() => handleClick(link)}
                     className='errorek'
-                    style={{ color: 'red', fontWeight: 'bold' }}
+                    style={{
+                      color: '#eb0000',
+                      fontWeight: 'bold',
+                    }}
                     key={e}
                   >
-                    <Link style={{ color: 'red' }} to='/submit'>
+                    <Link style={{ color: '#eb0000' }} to='/submit'>
                       {e && i + 1 + '. '} {e}{' '}
                     </Link>
                   </div>
@@ -62,8 +64,8 @@ const Errors = ({ setActiveItem }) => {
           {/* <Button color='red' onClick={() => setOpen(false)}>
           <Icon name='remove' /> No
         </Button> */}
-          <Button primary onClick={() => setOpen(false)}>
-            <Icon name='checkmark' /> Rozumiem
+          <Button id='buttonik11' onClick={() => setOpen(false)}>
+            <Icon id='checkmark11' name='checkmark' /> Rozumiem
           </Button>
         </Modal.Actions>
       </Modal>

@@ -18,11 +18,10 @@ export const Wrapper = styled.div`
   .submit {
     display: ${(props) => (props.mode === 'watch' ? 'none !important' : null)};
   }
-
-  /* .buttonik1 {
-    background-color: #098024 !important;
+  .buttonik2 {
+    background-color: #1479c4 !important;
   }
-  .buttonik1:hover {
-    background-color: #0a942a !important;
-  } */
+  .buttonik2:hover {
+    background-color: #1584d6 !important;
+  }
 `;

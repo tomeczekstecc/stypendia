@@ -5,8 +5,18 @@
   background-color: #1479c4 !important;
 }
 
-.ui.green.basic.label{
+.ui.blue.basic.label {
   background-color: #098024 !important;
   color: red !important;
 }
 
+  #buttonik11 {
+    background-color: #1479c4 !important;
+  }
+  #buttonik11:hover {
+    background-color: #1584d6 !important;
+  }
+
+  #checkmark11,   #buttonik11 {
+    color: #fff !important;
+  }

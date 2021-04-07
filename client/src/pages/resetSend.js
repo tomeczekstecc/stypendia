@@ -99,6 +99,7 @@ const ResetSend = ({ history }) => {
                   return (
                     <div key={input.id}>
                       <Form.Input
+                        aria-label='input'
                         onChange={(e) => handleOnChange(e)}
                         required
                         className='input'
@@ -125,12 +126,14 @@ const ResetSend = ({ history }) => {
                   );
                 })}
                 <Button
+          
                   loading={isLoading}
                   type='submit'
                   content='Wyślij link'
                   primary
                   size='large'
                   onClick={handleOnClick}
+                  className='login-btn buttonik1'
                 />
               </Form>
             </Grid.Column>

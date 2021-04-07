@@ -29,14 +29,13 @@ export const uploadFile = async (req: any, res: Response) => {
   CONTROLLER = 'uploadFile';
   ACTION = 'dodawanie pliku';
 
-
-//  await scanFile(req.file.path);
-
   const { type, submitTempId, submitId, clientIp } = req.body;
 
   req.clientIp = clientIp;
 
   try {
+
+
     if (!fileTypeAllowed.includes(type)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
@@ -45,20 +44,21 @@ export const uploadFile = async (req: any, res: Response) => {
         ` - dozwolone wartości to: ${fileTypeAllowed.join(', ')} `;
 
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(200).json({
+      return res.status(401).json({
         resStatus: STATUS,
         msgPL: INFO,
 
         alertTitle: 'Błąd załącznika',
       });
     }
+
     if (!mimeTypeAllowed.includes(req.file?.mimetype)) {
       fs.unlinkSync(req.file.path);
       STATUS = 'error';
       INFO = msg.client.fail.mime;
 
       makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
-      return res.status(200).json({
+      return res.status(401).json({
         resStatus: STATUS,
         msgPL: INFO,
         alertTitle: 'Błąd załącznika',
@@ -77,10 +77,21 @@ export const uploadFile = async (req: any, res: Response) => {
       });
     }
 
-    //TODO  chech  if file-type already exists - and delete old -https://www.youtube.com/watch?v=2Oov8miYK-g&t=1035s ???
+       const virus = await scanFile(req.file.path);
 
-    //TODO scanFile(req.file.path);
-    // https://kainikhil.medium.com/installing-clamav-and-clam-f4d26d8150c4
+       if (virus) {
+         fs.unlinkSync(req.file.path);
+         STATUS = 'error';
+         INFO = msg.client.fail.virusDet;
+
+         makeLog(OBJECT, undefined, ACTION, CONTROLLER, INFO, STATUS, req);
+         return res.status(400).json({
+           resStatus: STATUS,
+           msgPL: INFO,
+           alertTitle: 'Wykryto niebezpieczny plik!',
+         });
+       }
+
 
     const user = await User.findOneOrFail(req.session.userId);
     const fileBody = mapFileBody(req.file);

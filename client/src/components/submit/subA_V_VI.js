@@ -114,6 +114,7 @@ const SubA_V_VI = () => {
               </Header>
 
               <Form.Input
+                aria-label='ocena_matematyka'
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Ocena z matematyki'
                 required
@@ -126,8 +127,8 @@ const SubA_V_VI = () => {
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
-                    value={curDocument?.priMathGrade || 'default'}
-                    onChange={(e) => handleOnChange(e)}
+                    defaultValue={curDocument?.priMathGrade|| 'default'}
+                    // onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='calculator'
@@ -149,7 +150,9 @@ const SubA_V_VI = () => {
                   {submitErrors?.priMathGrade}
                 </Label>
               )}
+
               <Form.Input
+                aria-label='ocena_język'
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Język nowożytny i ocena'
                 required
@@ -174,6 +177,7 @@ const SubA_V_VI = () => {
                 defaultValue={curDocument?.priLang}
                 onChange={(e) => handleOnChange(e)}
               />
+
               {submitErrors?.priLang && (
                 <Label
                   basic
@@ -195,7 +199,9 @@ const SubA_V_VI = () => {
                   {submitErrors?.priLangGrade}
                 </Label>
               )}
+
               <Form.Input
+                aria-label='inny przemiot'
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 label='Inny przedmiot i ocena'
                 required
@@ -220,6 +226,7 @@ const SubA_V_VI = () => {
                 defaultValue={curDocument?.priOtherSubj}
                 onChange={(e) => handleOnChange(e)}
               />
+
               {submitErrors?.priOtherSubj && (
                 <Label
                   basic

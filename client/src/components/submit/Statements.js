@@ -306,6 +306,7 @@ const Statements = () => {
             </Label>
           )}
           <Checkbox
+          aria-label='checkbox'
             className={submitMode === 'watch' ? 'acc-dimmed' : ''}
             onChange={(e) => handleOnChange(e)}
             as='h3'

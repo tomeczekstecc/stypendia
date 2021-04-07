@@ -171,8 +171,8 @@ export const Wrapper = styled.div`
   .visible {
     padding-top: 5px;
     text-align: left;
-    color: red;
-    font-size: 13px;
+    color: #eb0000 !important;
+    font-size: 14px;
     line-height: 1.15;
   }
   .hidden {
@@ -206,7 +206,7 @@ export const Wrapper = styled.div`
   }
 
   .star {
-    color: red !important;
+    color: #990000 !important;
   }
   .lower-label {
     padding-bottom: 0 !important;
@@ -220,7 +220,15 @@ export const Wrapper = styled.div`
     opacity: 0.75 !important;
     cursor: not-allowed !important;
   }
-  .disabled{
-   cursor: not-allowed !important;
+  .disabled {
+    cursor: not-allowed !important;
+  }
+  .results-counter {
+    color: #01827c !important;
+    border-color: #01827c !important;
+  }
+  .ui.blue.basic.label {
+    color: #1479c4 !important;
+    border-color: #1479c4 !important;
   }
 `;

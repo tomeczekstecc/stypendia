@@ -88,23 +88,24 @@ const SubA_III_IV = () => {
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              className={`${
-                submitMode === 'watch' ? 'disabled-item input ' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              required
-              label='Pełna nazwa szkoły'
-              name='schoolName'
-              data-name='schoolName'
-              icon='building outline'
-              placeholder='Podaj pełną nazwę (2 do 254 znaków)'
-              iconPosition='left'
-              onChange={(e) => handleOnChange(e)}
-              defaultValue={curDocument?.schoolName || ''}
-            />
-
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                className={`${
+                  submitMode === 'watch' ? 'disabled-item input ' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                required
+                label='Pełna nazwa szkoły'
+                name='schoolName'
+                data-name='schoolName'
+                icon='building outline'
+                placeholder='Podaj pełną nazwę (2 do 254 znaków)'
+                iconPosition='left'
+                onChange={(e) => handleOnChange(e)}
+                defaultValue={curDocument?.schoolName || ''}
+              />
+            </label>
             {submitErrors?.schoolName && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.schoolName}
@@ -152,6 +153,8 @@ const SubA_III_IV = () => {
             <div className='adress-wrapper'>
               <Header as='h4'>Adres szkoły:</Header>
               <Segment>
+                <label>
+
                 <Form.Input
                   onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                   required
@@ -167,7 +170,7 @@ const SubA_III_IV = () => {
                   data-name='schoolStreetName'
                   defaultValue={curDocument?.schoolStreetName || ''}
                   onChange={(e) => handleOnChange(e)}
-                />
+                /></label>
 
                 {submitErrors?.schoolStreetName && (
                   <Label
@@ -179,23 +182,24 @@ const SubA_III_IV = () => {
                     {submitErrors?.schoolStreetName}
                   </Label>
                 )}
-
-                <Form.Input
-                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                  required
-                  className={`${
-                    submitMode === 'watch' ? 'input disabled-item' : 'input'
-                  }`}
-                  disabled={submitMode === 'watch'}
-                  label='Numer domu'
-                  icon='building'
-                  iconPosition='left'
-                  placeholder='Podaj numer domu (1 do 254 znaków)'
-                  name='schoolStreetNr'
-                  data-name='schoolStreetNr'
-                  defaultValue={curDocument?.schoolStreetNr || ''}
-                  onChange={(e) => handleOnChange(e)}
-                />
+                <label>
+                  <Form.Input
+                    onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                    required
+                    className={`${
+                      submitMode === 'watch' ? 'input disabled-item' : 'input'
+                    }`}
+                    disabled={submitMode === 'watch'}
+                    label='Numer domu'
+                    icon='building'
+                    iconPosition='left'
+                    placeholder='Podaj numer domu (1 do 254 znaków)'
+                    name='schoolStreetNr'
+                    data-name='schoolStreetNr'
+                    defaultValue={curDocument?.schoolStreetNr || ''}
+                    onChange={(e) => handleOnChange(e)}
+                  />
+                </label>
                 {submitErrors?.schoolStreetNr && (
                   <Label
                     basic
@@ -206,22 +210,24 @@ const SubA_III_IV = () => {
                     {submitErrors?.schoolStreetNr}
                   </Label>
                 )}
-                <Form.Input
-                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                  label='Kod pocztowy'
-                  required
-                  className={`${
-                    submitMode === 'watch' ? 'input disabled-item' : 'input'
-                  }`}
-                  disabled={submitMode === 'watch'}
-                  icon='zip'
-                  iconPosition='left'
-                  placeholder='Podaj kod pocztowy w formacie XX-XXX'
-                  name='schoolZip'
-                  data-name='schoolZip'
-                  defaultValue={curDocument?.schoolZip || ''}
-                  onChange={(e) => handleOnChange(e)}
-                />
+                <label>
+                  <Form.Input
+                    onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                    label='Kod pocztowy'
+                    required
+                    className={`${
+                      submitMode === 'watch' ? 'input disabled-item' : 'input'
+                    }`}
+                    disabled={submitMode === 'watch'}
+                    icon='zip'
+                    iconPosition='left'
+                    placeholder='Podaj kod pocztowy w formacie XX-XXX'
+                    name='schoolZip'
+                    data-name='schoolZip'
+                    defaultValue={curDocument?.schoolZip || ''}
+                    onChange={(e) => handleOnChange(e)}
+                  />
+                </label>
                 {submitErrors?.schoolZip && (
                   <Label
                     basic
@@ -232,22 +238,24 @@ const SubA_III_IV = () => {
                     {submitErrors?.schoolZip}
                   </Label>
                 )}
-                <Form.Input
-                  onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                  className={`${
-                    submitMode === 'watch' ? 'input disabled-item' : 'input'
-                  }`}
-                  disabled={submitMode === 'watch'}
-                  icon='map marker alternate'
-                  iconPosition='left'
-                  label='Miejscowość'
-                  required
-                  placeholder='Podaj miejscowość (2 do 254 znaków)'
-                  name='schoolTown'
-                  data-name='schoolTown'
-                  defaultValue={curDocument?.schoolTown || ''}
-                  onChange={(e) => handleOnChange(e)}
-                />
+                <label>
+                  <Form.Input
+                    onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                    className={`${
+                      submitMode === 'watch' ? 'input disabled-item' : 'input'
+                    }`}
+                    disabled={submitMode === 'watch'}
+                    icon='map marker alternate'
+                    iconPosition='left'
+                    label='Miejscowość'
+                    required
+                    placeholder='Podaj miejscowość (2 do 254 znaków)'
+                    name='schoolTown'
+                    data-name='schoolTown'
+                    defaultValue={curDocument?.schoolTown || ''}
+                    onChange={(e) => handleOnChange(e)}
+                  />
+                </label>
                 {submitErrors?.schoolTown && (
                   <Label
                     basic
@@ -306,41 +314,46 @@ const SubA_III_IV = () => {
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              required
-              icon='user'
-              iconPosition='left'
-              label='Imię doradcy'
-              name='counselorFirstName'
-              data-name='counselorFirstName'
-              placeholder='Podaj imię (2 do 254 znaków)'
-              defaultValue={curDocument?.counselorFirstName || ''}
-              onChange={(e) => handleOnChange(e)}
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                required
+                icon='user'
+                iconPosition='left'
+                label='Imię doradcy'
+                name='counselorFirstName'
+                data-name='counselorFirstName'
+                placeholder='Podaj imię (2 do 254 znaków)'
+                defaultValue={curDocument?.counselorFirstName || ''}
+                onChange={(e) => handleOnChange(e)}
+              />
+            </label>
             {submitErrors?.counselorFirstName && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.counselorFirstName}
               </Label>
             )}
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              icon='user'
-              required
-              iconPosition='left'
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              label='Nazwisko doradcy'
-              name='counselorLastName'
-              data-name='counselorLastName'
-              placeholder='Podaj nazwisko (2 do 254 znaków)'
-              defaultValue={curDocument?.counselorLastName || ''}
-              onChange={(e) => handleOnChange(e)}
-            />
+            <label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                icon='user'
+                required
+                iconPosition='left'
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                label='Nazwisko doradcy'
+                name='counselorLastName'
+                data-name='counselorLastName'
+                placeholder='Podaj nazwisko (2 do 254 znaków)'
+                defaultValue={curDocument?.counselorLastName || ''}
+                onChange={(e) => handleOnChange(e)}
+              />
+            </label>
+
             {submitErrors?.counselorLastName && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.counselorLastName}

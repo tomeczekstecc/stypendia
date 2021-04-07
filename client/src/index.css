@@ -1,0 +1,19 @@
+.ui.green.ribbon.label{
+  background-color: #098024 !important;
+}
+.ui.blue.ribbon.label{
+  background-color: #1479c4 !important;
+}
+
+
+
+  #buttonik11 {
+    background-color: #1479c4 !important;
+  }
+  #buttonik11:hover {
+    background-color: #1584d6 !important;
+  }
+
+  #checkmark11,   #buttonik11 {
+    color: #fff !important;
+  }

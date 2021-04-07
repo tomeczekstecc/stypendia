@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  z-index: 999999999999999999999 !important;
-  .errorek {
-    color: red !important;
-    font-weight: bold !important
+  #buttonik11 {
+    background-color: #1479c4 !important;
   }
-  .errorek:hover {
-    text-decoration: underline !important;
-    font-weight: bold !important;
+  #buttonik11:hover {
+    background-color: #1584d6 !important;
   }
 `;

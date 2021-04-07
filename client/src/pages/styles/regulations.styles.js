@@ -11,4 +11,5 @@ export const Wrapper = styled.div`
     line-height: 1.8;
     font-size: 1rem;
   }
+
 `;

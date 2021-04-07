@@ -1,23 +1,23 @@
 version: '3'
 services:
-  stypendia-server:
-    restart: always
-    build:
-      context: .
-      args:
-        NODE_ENV: development
-    volumes:
-      - ./:/app
-      - /app/node_modules
-    ports:
-      - 5003:5003
-    environment:
-      - NODE_ENV=development
-    command: npm run devStart
-    # depends_on:
-    #   db_stypendia:
-    #     condition: service_healthy
-
+  # stypendia-server:
+  #   container_name: stypendia_server_dev
+  #   restart: always
+  #   build:
+  #     context: .
+  #     args:
+  #       NODE_ENV: development
+  #   volumes:
+  #     - ./:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - 5003:5003
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run devStart
+  #   depends_on:
+  #     db_stypendia:
+  #       condition: service_healthy
 
   db_stypendia:
     image: mysql
@@ -26,10 +26,9 @@ services:
     env_file:
       - ./.env
     ports:
-      - 3308:3306
+      - ${MYSQL_PORT}:3306
     volumes:
       - ./data/db:/var/lib/mysql
-
 
   adminer_stypendia:
     image: adminer
@@ -37,7 +36,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - 8083:8080
+      - ${ADMINER_PORT}:8080
     depends_on:
       - db_stypendia
 
@@ -45,51 +44,49 @@ services:
     image: redis:alpine
     restart: always
     ports:
-      - 6380:6379
-
+      - ${REDIS_PORT}:6379
 
   mongo_logs:
     image: mongo
     restart: always
-    # env_file:
-    #   - ./.env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootowski
-      - MONGO_INITDB_ROOT_PASSWORD=A4P!umWaqSVj8^S&
-      - MONGO_USERNAME=adminowski
-      - MONGO_PASSWORD=XPy4hPZt%B7?tjRr
-      - MONGO_HOST=localhost
-      - MONGO_PORT=27017
-      - MONGO_INITDB_DATABASE=logs
+    env_file:
+      - ./.env
+    # environment:
+    # MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+    # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    # MONGO_USERNAME: ${MONGO_USERNAME}
+    # MONGO_PASSWORD: ${MONGO_PASSWORD}
+    # MONGO_HOST: ${MONGO_HOST}
+    # MONGO_PORT: ${MONGO_PORT}
+    # MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
-      - 27019:27017
+      - ${MONGO_PORT}:27017
     volumes:
       - ./data/logs:/var/lib/logs
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
 
-
   mongoweb_logs:
     image: mongo-express
     restart: always
-    # env_file:
-    #   - ./.env
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo_logs
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootowski
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=A4P!umWaqSVj8^S&
-      - ME_CONFIG_BASICAUTH_USERNAME=adminowski
-      - ME_CONFIG_BASICAUTH_PASSWORD=XPy4hPZt%B7?tjRr
+    env_file:
+      - ./.env
+    # environment:
+    #   ME_CONFIG_MONGODB_SERVER: ${ME_CONFIG_MONGODB_SERVER}
+    #   ME_CONFIG_MONGODB_ADMINUSERNAME: ${ME_CONFIG_MONGODB_ADMINUSERNAME}
+    #   ME_CONFIG_MONGODB_ADMINPASSWORD: ${ME_CONFIG_MONGODB_ADMINPASSWORD}
+    #   ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
+    #   ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
     ports:
       - 8084:8081
     depends_on:
       - mongo_logs
 
-  # clamAV:
-  #   image:  mkodockx/docker-clamav:alpine
-  #   restart: always
-  #   ports:
-  #     - 3310:3310
-  #   volumes:
-  #     - ./data/clamav:/var/lib/clamav
 
+  clamAV:
+    image:  mkodockx/docker-clamav:alpine
+    restart: always
+    ports:
+      - 3310:3310
+    volumes:
+      - ./data/clamav:/var/lib/clamav
 # https://github.com/openbridge/clamav

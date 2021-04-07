@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SubmitContext, AuthContext } from '../context';
 import { Button, Card, Icon } from 'semantic-ui-react';
+import {Wrapper} from './styles/newCallToAction.styles'
 
 const NewCallToAction = () => {
   const authContext = useContext(AuthContext);
@@ -21,7 +22,7 @@ const NewCallToAction = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <Link to='/submit'>
         <Card.Group
           itemsPerRow={5}
@@ -36,16 +37,18 @@ const NewCallToAction = () => {
               <Icon name='pencil' size='huge' color='black' />
             </Card.Content>
             <Card.Content extra>
-              <Button primary size='large' icon labelPosition='right'>
-                Złóż nowy wniosek
+              <Button className='new-btn'  primary  icon labelPosition='right'>
+                Nowy wniosek
                 <Icon name='right arrow' />
               </Button>
             </Card.Content>
           </Card>
         </Card.Group>
       </Link>
-    </>
+    </Wrapper>
   );
 };
 
 export default NewCallToAction;
+
+

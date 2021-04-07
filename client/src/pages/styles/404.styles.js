@@ -10,5 +10,7 @@ export const Wrapper = styled.div`
 
   .btn {
     margin-top: 1rem !important;
+    color:white !important;
+    font-size: 1.5rem !important;
   }
 `;

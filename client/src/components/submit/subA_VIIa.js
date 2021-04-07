@@ -233,7 +233,7 @@ const SubA_VIIa = () => {
             <strong> trzy planowane</strong> do osiągnięcia rezultaty, które
             uczeń/uczennica zamierza osiągnąć w roku szkolnym 2020/2021.
           </p>{' '}
-          <Label size='large' basic color='teal'>
+          <Label className = 'results-counter' size='large' basic >
             Liczba wybranych rezultatów:
             {curDocument?.tab1Results} (brakuje: {3 - curDocument?.tab1Results})
           </Label>
@@ -256,25 +256,28 @@ const SubA_VIIa = () => {
           {accordionsVIIa.map((acc) => (
             <div key={acc.id}>
               <Accordion.Title>
-                <Checkbox
-                  checked={
-                    curDocument &&
-                    curDocument[acc.checkeboxName] &&
-                    curDocument[acc.checkeboxName] === true
-                  }
-                  name={acc.checkeboxName}
-                  data-name={acc.checkeboxName}
-                  data-type='checkbox'
-                  onChange={(e) =>
-                    handleOnChange(e, acc.checkeboxName, acc.areaName)
-                  }
-                  disabled={
-                    curDocument.tab1Results >= 3 &&
-                    curDocument[acc.checkeboxName] !== true
-                  }
-                  toggle
-                  label={acc.label}
-                />
+                <label>
+                  <Checkbox
+                    aria-label='checkbox'
+                    checked={
+                      curDocument &&
+                      curDocument[acc.checkeboxName] &&
+                      curDocument[acc.checkeboxName] === true
+                    }
+                    name={acc.checkeboxName}
+                    data-name={acc.checkeboxName}
+                    data-type='checkbox'
+                    onChange={(e) =>
+                      handleOnChange(e, acc.checkeboxName, acc.areaName)
+                    }
+                    disabled={
+                      curDocument.tab1Results >= 3 &&
+                      curDocument[acc.checkeboxName] !== true
+                    }
+                    toggle
+                    label={acc.label}
+                  />
+                </label>
               </Accordion.Title>
 
               {acc.areaName && (
@@ -285,8 +288,13 @@ const SubA_VIIa = () => {
                     curDocument[acc.checkeboxName] === true
                   }
                 >
+
+
                   <Form className='form-vii'>
+                    {' '}
+
                     <textarea
+                    aria-label='textarea'
                       rows={5}
                       value={
                         (curDocument &&
@@ -302,6 +310,7 @@ const SubA_VIIa = () => {
                       className='form-textArea'
                     ></textarea>
                   </Form>
+
                   {submitErrors && submitErrors[acc.areaName] && (
                     <Label
                       basic

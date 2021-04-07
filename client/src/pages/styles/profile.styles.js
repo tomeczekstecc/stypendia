@@ -24,4 +24,12 @@ export const Wrapper = styled.div`
     transform: translateY(-60%) !important;
     margin-right: 0 !important;
   }
+
+  .passw {
+    background-color: #1479c4 !important;
+  }
+  .passw:hover {
+    background-color: #1584d6 !important;
+    /* font-size: 1.3em !important; */
+  }
 `;

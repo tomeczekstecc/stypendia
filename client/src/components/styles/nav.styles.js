@@ -18,7 +18,10 @@ export const Wrapper = styled.div`
   .submit {
     display: ${(props) => (props.mode === 'watch' ? 'none !important' : null)};
   }
-
-.sticky {}
-
+  .buttonik2 {
+    background-color: #1479c4 !important;
+  }
+  .buttonik2:hover {
+    background-color: #1584d6 !important;
+  }
 `;

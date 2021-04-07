@@ -18,6 +18,7 @@ import RandomAtt from './RandomAtt';
 import Title from '../Title';
 import { clearValidation } from '../../utils/clearValidation';
 
+
 const Attachments = () => {
   const getUsersFiles = async () => {
     const res = await axios.get(`/api/v1/files/info`, { submitMode });
@@ -158,9 +159,16 @@ const Attachments = () => {
     }
 
     try {
-      const res = await axios.post('/api/v1/files/upload', formData);
+      axios
+        .post('/api/v1/files/upload', formData)
+        .then((res) => {
+          addAlert(res.data);
+          getUsersFiles();
 
-      res.data.resStatus !== 'success' && addAlert(res.data);
+        })
+        .catch((err) => {
+          addAlert(err.response.data);
+        });
 
       if (submitMode === 'edit') {
         await updateCurSubmit({
@@ -171,12 +179,11 @@ const Attachments = () => {
           ...newSubmit,
         });
       }
-
     } catch (err) {
       console.log(err);
     }
-    file = null
-    formData = null
+    file = null;
+    formData = null;
   };
 
   useEffect(() => {
@@ -203,6 +210,8 @@ const Attachments = () => {
     >
       <SubALayout leadHeader='CZĘŚĆ A – ZAŁĄCZNIKI'>
         <input
+          aria-label='hidden'
+          aria-hidden='true'
           type='file'
           hidden={true}
           ref={fileInputRef}
@@ -236,6 +245,7 @@ const Attachments = () => {
               <>
                 <div className='img-button'>
                   <Button
+                    title='pobierz'
                     onClick={(e) => callFetch(e, statement[0].id)}
                     primary
                     icon
@@ -246,6 +256,7 @@ const Attachments = () => {
                   </Button>
 
                   <Button
+                    title='usuń'
                     onClick={(e) => deleteFile(e, statement[0].id)}
                     className='trash-btn btn'
                     color='red'
@@ -256,6 +267,7 @@ const Attachments = () => {
                   </Button>
                 </div>
                 <Image
+                  alt='placeholder'
                   className='img-c'
                   fluid
                   label={{
@@ -270,6 +282,7 @@ const Attachments = () => {
               </>
             ) : (
               <Image
+                alt='placeholder'
                 fluid
                 label={{
                   as: 'div',
@@ -324,6 +337,7 @@ const Attachments = () => {
               <>
                 <div className='img-button'>
                   <Button
+                    title='pobierz'
                     onClick={(e) => callFetch(e, report_card[0]?.id)}
                     primary
                     icon
@@ -334,6 +348,7 @@ const Attachments = () => {
                   </Button>
 
                   <Button
+                    title='usuń'
                     onClick={(e) => deleteFile(e, report_card[0]?.id)}
                     className='trash-btn btn'
                     color='red'
@@ -344,6 +359,7 @@ const Attachments = () => {
                   </Button>
                 </div>
                 <Image
+                  alt='placeholder'
                   fluid
                   label={{
                     as: 'div',
@@ -357,6 +373,7 @@ const Attachments = () => {
               </>
             ) : (
               <Image
+                alt='placeholder'
                 fluid
                 label={{
                   as: 'div',
@@ -411,6 +428,7 @@ const Attachments = () => {
               <>
                 <div className='img-button'>
                   <Button
+                    title='pobierz'
                     onClick={(e) => callFetch(e, allowance[0].id)}
                     primary
                     icon
@@ -421,6 +439,7 @@ const Attachments = () => {
                   </Button>
 
                   <Button
+                    title='usuń'
                     onClick={(e) => deleteFile(e, allowance[0].id)}
                     className='trash-btn btn'
                     color='red'
@@ -431,6 +450,7 @@ const Attachments = () => {
                   </Button>
                 </div>
                 <Image
+                  alt='placeholder'
                   fluid
                   label={{
                     as: 'div',
@@ -444,6 +464,7 @@ const Attachments = () => {
               </>
             ) : (
               <Image
+                alt='placeholder'
                 fluid
                 label={{
                   as: 'div',
@@ -497,6 +518,7 @@ const Attachments = () => {
               <>
                 <div className='img-button'>
                   <Button
+                    title='pobierz'
                     onClick={(e) => callFetch(e, attestation[0]?.id)}
                     primary
                     icon
@@ -507,6 +529,7 @@ const Attachments = () => {
                   </Button>
 
                   <Button
+                    title='usuń'
                     onClick={(e) => deleteFile(e, attestation[0]?.id)}
                     className='trash-btn btn'
                     color='red'
@@ -517,6 +540,7 @@ const Attachments = () => {
                   </Button>
                 </div>
                 <Image
+                  alt='placeholder'
                   fluid
                   label={{
                     as: 'div',
@@ -530,6 +554,7 @@ const Attachments = () => {
               </>
             ) : (
               <Image
+                alt='placeholder'
                 fluid
                 label={{
                   as: 'div',

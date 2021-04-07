@@ -63,9 +63,11 @@ const AllUsersSubmits = () => {
                   content={'oczekuje na decyzje'}
                 ></Label>
                 <Image
+                  as='mage'
                   floated='left'
                   size='mini'
                   src='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+                  alt='user'
                 />
 
                 <Card.Header>
@@ -79,22 +81,26 @@ const AllUsersSubmits = () => {
                   <Button
                     color='green'
                     onClick={() => handleOnClick(s.uuid, 'watch')}
-                    className='watch-btn'
+                    className='watch-btn buttonik1'
                   >
                     Zobacz
                   </Button>{' '}
-                  <Button primary onClick={() => handleOnClick(s.uuid, 'edit')}>
+                  <Button
+                    className='buttonik2'
+                    primary
+                    onClick={() => handleOnClick(s.uuid, 'edit')}
+                  >
                     Popraw
                   </Button>
                   <Button
                     disabled={s.pdfReady === 0}
-                    className='pdf-btn'
+                    className='pdf-btn buttonik'
                     basic
                     color='blue'
                     onClick={() => fetchPdf(s.numer)}
                   >
-                    <Icon name='download' />
-                    <strong>PDF</strong>
+                    <Icon className='pdf-btn' name='download' />
+                    <strong className='pdf-btn'>PDF</strong>
                   </Button>
                 </div>
               </Card.Content>

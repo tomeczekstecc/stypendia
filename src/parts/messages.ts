@@ -56,6 +56,7 @@ export const msg = {
         'Dodano załącznik z orzeczeniem o niepełnosprawności, ale w częścii VI zaznaczono NIE przy pytaniu trzecim',
       attGeneralERR:
         'Błąd dodanych załączników - nie dołączono wymaganych załączników lub dołączono nadmiarowe załączniki',
+      virusDet: 'Ten plik jest podejrzany.'
     },
     ok: {
       passChange: 'Udało się zmienić hasło',

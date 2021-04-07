@@ -109,7 +109,7 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
           content='Wróć'
         />
         <Button
-          className='nav-button save'
+          className='nav-button save  buttonik2'
           onClick={() => updateSubmit(curSubmit)}
           primary
           loading={isLoading}
@@ -118,16 +118,16 @@ const Nav = ({ activeItem, setActiveItem, ...props }) => {
         />
 
         <Button
-          className='nav-button submit'
-          positive
+          className='nav-button submit buttonik1'
+          color='violet'
           loading={isLoading}
           onClick={() => addNewSubmit(newSubmit)}
           icon='thumbs up'
-          content='Złóż'
+          content='Zapisz'
         />
         <Button
           onClick={() => setActiveItem(activeItem + 1)}
-          className='nav-button'
+          className='nav-button '
           labelPosition='right'
           icon='right chevron'
           content='Dalej'

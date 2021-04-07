@@ -192,6 +192,7 @@ const Budget = () => {
                 <Table.Cell>{r.categoryName}</Table.Cell>
                 <Table.Cell textAlign='right' className='input-cell' selectable>
                   <input
+                    aria-label='koszt'
                     onChange={(e) => handleOnChange(e)}
                     name={r.costName}
                     data-name={r.costName}
@@ -259,14 +260,16 @@ const Budget = () => {
             <Label size='large'>
               <strong> A.</strong>
             </Label>{' '}
-            Wpisz wszystkie kategorie oraz uzasadnienie planowanych wydatków, które nie mieszczą się w katalogu
-            wskazanym w § 8 ust. 5 Regulaminu - jeśli dotyczy i w wierszu 12 zaplanowano kwotę
+            Wpisz wszystkie kategorie oraz uzasadnienie planowanych wydatków,
+            które nie mieszczą się w katalogu wskazanym w § 8 ust. 5 Regulaminu
+            - jeśli dotyczy i w wierszu 12 zaplanowano kwotę
           </Accordion.Title>
 
-          <Accordion.Content disabled={!curDocument.cost12>0} active={true}>
+          <Accordion.Content disabled={!curDocument.cost12 > 0} active={true}>
             <Form className='form-vii'>
               <textarea
-              disabled={!curDocument.cost12>0}
+                aria-label='textarea'
+                disabled={!curDocument.cost12 > 0}
                 rows={5}
                 value={
                   (curDocument &&
@@ -305,6 +308,7 @@ const Budget = () => {
           <Accordion.Content active={true}>
             <Form className='form-vii'>
               <TextArea
+                aria-label='textarea'
                 rows={5}
                 value={
                   (curDocument &&

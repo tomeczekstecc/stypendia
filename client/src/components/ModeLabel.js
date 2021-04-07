@@ -18,7 +18,7 @@ const ModeLabel = ({ mode }) => {
       setText('TRYB EDYTOWANIA WNIOSKU');
       setIcon('edit');
     } else if (mode === 'new') {
-      setColor('green');
+      setColor('violet');
       setText('TRYB DODAWANIA WNIOSKU');
       setIcon('plus');
     }

@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
 
   .span {
     font-size: 1rem !important;
+    color: #00357a;
   }
 
   .buttonWrapper {
@@ -28,7 +29,7 @@ export const Wrapper = styled.div`
   }
 
   span {
-    color: red !important;
+    color: #eb0000;
   }
   .checkBox {
     margin-bottom: 30px !important;
@@ -46,8 +47,12 @@ export const Wrapper = styled.div`
 
     bottom: 10px !important;
   }
-  .spacer{
-    margin-bottom:5rem !important;
+  .spacer {
+    margin-bottom: 5rem !important;
     min-height: 100px;
+  }
+
+  .important-links {
+    max-width: 40vw !important;
   }
 `;

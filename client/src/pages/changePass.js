@@ -91,6 +91,7 @@ const ChangePass = ({ history }) => {
                   return (
                     <div key={input.id}>
                       <Form.Input
+                        aria-label='input'
                         onChange={(e) => handleOnChange(e)}
                         required
                         className='input'
@@ -117,6 +118,7 @@ const ChangePass = ({ history }) => {
                   );
                 })}
                 <Button
+                  className='buttonik1'
                   loading={isLoading}
                   type='submit'
                   content='Zmień hasło'

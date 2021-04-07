@@ -229,13 +229,16 @@ export const Wrapper = styled.div`
   .labeler.disabled-item,
   .disabled-item.dropdown,
   .ui.disabled.left.icon.input {
-
     cursor: no-drop !important;
     color: rgba(0, 0, 0, 1) !important;
-    opacity: .8 !important;
+    opacity: 0.8 !important;
   }
 
-  .disabled-item:hover {
+  .not-allowed {
     cursor: not-allowed !important;
   }
+
+  .hidden-label{
+    display: none !important
+  } 
 `;

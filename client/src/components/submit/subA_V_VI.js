@@ -128,7 +128,7 @@ const SubA_V_VI = () => {
                     basic
                     options={optionsGrades}
                     defaultValue={curDocument?.priMathGrade|| 'default'}
-                    // onChange={(e) => handleOnChange(e)}
+                    onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='calculator'

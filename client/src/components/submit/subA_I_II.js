@@ -31,8 +31,6 @@ const SubA_I_II = () => {
   const handleOnChange = async (e) => {
     clearValidation(e, submitErrors);
 
-    if (submitErrors && submitErrors[e.target.offsetParent.dataset.name])
-      submitErrors[e.target.offsetParent.dataset.name] = null;
 
     if (submitMode === 'edit') {
       await updateCurSubmit({
@@ -61,6 +59,7 @@ const SubA_I_II = () => {
           .name]: e.target.innerText || e.target.value,
       });
     }
+
   };
   useEffect(() => {
     resetTimeLeft();
@@ -84,46 +83,45 @@ const SubA_I_II = () => {
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-
-              <Form.Input
+            <Form.Input
               aria-label='imię wnioskodawcy'
-                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                className={'input disabled-item'}
-                disabled
-                label='Imię wnioskodawcy'
-                name='firstName'
-                data-name='firstName'
-                icon='user'
-                iconPosition='left'
-                value={user?.firstName || ''} //
-              />
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+              className='input disabled-item not-allowed'
+              disabled
+              label='Imię wnioskodawcy'
+              name='firstName'
+              data-name='firstName'
+              icon='user'
+              iconPosition='left'
+              value={user?.firstName || ''} //
+            />
 
-              <Form.Input
-                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                className='input disabled-item'
-                disabled
-                icon='user'
-                iconPosition='left'
-                label='Nazwisko wnioskodawcy'
-                aria-label='Nazwisko wnioskodawcy'
-                name='lastName'
-                data-name='lastName'
-                value={user?.lastName || ''}
-              />
+            <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+              className='input disabled-item'
+              disabled
+              icon='user'
+              iconPosition='left'
+              label='Nazwisko wnioskodawcy'
+              aria-label='Nazwisko wnioskodawcy'
+              name='lastName'
+              data-name='lastName'
+              value={user?.lastName || ''}
+            />
 
-              <Form.Input
-                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                className='input disabled-item'
-                disabled
-                label='Email wnioskodawcy'
-                aria-label='Email wnioskodawcy'
-                         icon='at'
-                iconPosition='left'
-                placeholder='Podaj email wnioskodawcy'
-                name='phone'
-                data-name='phone'
-                value={user?.email || ''}
-              />
+            <Form.Input
+              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+              className='input disabled-item'
+              disabled
+              label='Email wnioskodawcy'
+              aria-label='Email wnioskodawcy'
+              icon='at'
+              iconPosition='left'
+              placeholder='Podaj email wnioskodawcy'
+              name='phone'
+              data-name='phone'
+              value={user?.email || ''}
+            />
             <label>
               <Form.Input
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
@@ -235,11 +233,18 @@ const SubA_I_II = () => {
               <Form.Input
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 onChange={(e) => handleOnChange(e)}
-                required
+                required={curDocument.isSelf !== 'Pełnoletni uczeń'}
                 className={`${
-                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  submitMode === 'watch'
+                    ? 'input disabled-item'
+                    : curDocument.isSelf === 'Pełnoletni uczeń'
+                    ? 'hidden-label input'
+                    : 'input'
                 }`}
-                disabled={submitMode === 'watch'}
+                disabled={
+                  submitMode === 'watch' ||
+                  curDocument.isSelf === 'Pełnoletni uczeń'
+                }
                 icon='user'
                 iconPosition='left'
                 label='Imię ucznia'
@@ -263,12 +268,19 @@ const SubA_I_II = () => {
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
                 onChange={(e) => handleOnChange(e)}
                 icon='user'
-                required
+                required={curDocument.isSelf !== 'Pełnoletni uczeń'}
                 iconPosition='left'
                 className={`${
-                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  submitMode === 'watch'
+                    ? 'input disabled-item'
+                    : curDocument.isSelf === 'Pełnoletni uczeń'
+                    ? 'hidden-label input'
+                    : 'input'
                 }`}
-                disabled={submitMode === 'watch'}
+                disabled={
+                  submitMode === 'watch' ||
+                  curDocument.isSelf === 'Pełnoletni uczeń'
+                }
                 label='Nazwisko ucznia'
                 name='pupilLastName'
                 data-name='pupilLastName'
@@ -292,9 +304,16 @@ const SubA_I_II = () => {
                 icon='at'
                 iconPosition='left'
                 className={`${
-                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                  submitMode === 'watch'
+                    ? 'input disabled-item'
+                    : curDocument.isSelf === 'Pełnoletni uczeń'
+                    ? 'hidden-label input'
+                    : 'input'
                 }`}
-                disabled={submitMode === 'watch'}
+                disabled={
+                  submitMode === 'watch' ||
+                  curDocument.isSelf === 'Pełnoletni uczeń'
+                }
                 label='Email ucznia'
                 type='email'
                 name='pupilEmail'
@@ -313,23 +332,23 @@ const SubA_I_II = () => {
               </Label>
             )}
             <label>
-
-            <Form.Input
-              onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-              onChange={(e) => handleOnChange(e)}
-              className={`${
-                submitMode === 'watch' ? 'input disabled-item' : 'input'
-              }`}
-              disabled={submitMode === 'watch'}
-              label='Numer telefonu ucznia'
-              icon='phone'
-              iconPosition='left'
-              placeholder='Podaj numer telefonu (9 do 15 znaków)'
-              type='phone'
-              name='pupilPhone'
-              data-name='pupilPhone'
-              defaultValue={curDocument?.pupilPhone || ''}
-            /></label>
+              <Form.Input
+                onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
+                onChange={(e) => handleOnChange(e)}
+                className={`${
+                  submitMode === 'watch' ? 'input disabled-item' : 'input'
+                }`}
+                disabled={submitMode === 'watch'}
+                label='Numer telefonu ucznia'
+                icon='phone'
+                iconPosition='left'
+                placeholder='Podaj numer telefonu (9 do 15 znaków)'
+                type='phone'
+                name='pupilPhone'
+                data-name='pupilPhone'
+                defaultValue={curDocument?.pupilPhone || ''}
+              />
+            </label>
             {submitErrors?.pupilPhone && (
               <Label basic color='red' pointing='above' className='small-text'>
                 {submitErrors?.pupilPhone}

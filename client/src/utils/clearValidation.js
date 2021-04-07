@@ -37,7 +37,7 @@ export const clearValidation = (e, submitErrors) => {
     if(e?.target?.name==='allowance') submitErrors.isAllowedAtt = null
     if(e?.target?.name==='attestation') submitErrors.isHandicapAtt = null
     if(e?.target?.name==='random') submitErrors.isFinalistAtt = null
-    console.log(e?.target?.name);
+
     submitErrors[e?.target?.name] = null;
   }
 };

@@ -3,15 +3,6 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,700;1,300&display=swap');
   padding-top: 80px !important;
-  .disabled-item,
-  .disabled-item label,
-  .labeler .disabled-item,
-  .disabled-item .input,
-  .disabled-item .dropdown {
-    color: rgba(0, 0, 0, 1) !important;
-    opacity: 0.8 !important;
-    cursor: not-allowed !important;
-  }
 
   .lead-header {
     position: absolute !important;
@@ -79,7 +70,7 @@ export const Wrapper = styled.div`
   input,
   select {
     cursor: ${(props) =>
-      props.submitMode === 'watch' ? 'not-allowed' : ''} !important;
+      props.submitMode === 'watch' ? 'not-allowed' : null} !important;
   }
   .small-text {
     text-align: center !important;
@@ -220,9 +211,7 @@ export const Wrapper = styled.div`
     opacity: 0.75 !important;
     cursor: not-allowed !important;
   }
-  .disabled {
-    cursor: not-allowed !important;
-  }
+
   .results-counter {
     color: #01827c !important;
     border-color: #01827c !important;
@@ -230,5 +219,23 @@ export const Wrapper = styled.div`
   .ui.blue.basic.label {
     color: #1479c4 !important;
     border-color: #1479c4 !important;
+  }
+
+  .disabled,
+  .disabled-item,
+  .input.disabled-item,
+  .disabled-item .input,
+  label .disabled-item,
+  .labeler.disabled-item,
+  .disabled-item.dropdown,
+  .ui.disabled.left.icon.input {
+
+    cursor: no-drop !important;
+    color: rgba(0, 0, 0, 1) !important;
+    opacity: .8 !important;
+  }
+
+  .disabled-item:hover {
+    cursor: not-allowed !important;
   }
 `;

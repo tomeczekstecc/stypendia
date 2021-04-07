@@ -84,55 +84,46 @@ const SubA_I_II = () => {
         </Header>
         <Form className='form'>
           <Form.Group grouped>
-            <label>
+
               <Form.Input
+              aria-label='imię wnioskodawcy'
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                className={`${
-                  submitMode === 'watch' ? 'input disabled-item' : 'input'
-                }`}
-                disabled={submitMode === 'watch'}
+                className={'input disabled-item'}
+                disabled
                 label='Imię wnioskodawcy'
                 name='firstName'
                 data-name='firstName'
                 icon='user'
-                required
                 iconPosition='left'
                 value={user?.firstName || ''} //
               />
-            </label>
-            <label>
+
               <Form.Input
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                className={`${
-                  submitMode === 'watch' ? 'input disabled-item' : 'input'
-                }`}
-                disabled={submitMode === 'watch'}
+                className='input disabled-item'
+                disabled
                 icon='user'
                 iconPosition='left'
-                required
                 label='Nazwisko wnioskodawcy'
+                aria-label='Nazwisko wnioskodawcy'
                 name='lastName'
                 data-name='lastName'
                 value={user?.lastName || ''}
               />
-            </label>
-            <label>
+
               <Form.Input
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}
-                className={`${
-                  submitMode === 'watch' ? 'input disabled-item' : 'input'
-                }`}
-                disabled={submitMode === 'watch'}
+                className='input disabled-item'
+                disabled
                 label='Email wnioskodawcy'
-                required
-                icon='at'
+                aria-label='Email wnioskodawcy'
+                         icon='at'
                 iconPosition='left'
                 placeholder='Podaj email wnioskodawcy'
                 name='phone'
                 data-name='phone'
                 value={user?.email || ''}
               />
-            </label>
             <label>
               <Form.Input
                 onKeyDown={(e) => handleSpecialDelete(e, curDocument)}

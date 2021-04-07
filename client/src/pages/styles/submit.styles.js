@@ -238,7 +238,7 @@ export const Wrapper = styled.div`
     cursor: not-allowed !important;
   }
 
-  .hidden-label{
-    display: none !important
-  } 
+  .hidden-label {
+    display: none !important;
+  }
 `;

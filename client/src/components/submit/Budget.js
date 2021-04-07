@@ -37,6 +37,7 @@ const Budget = () => {
   const [curDocument, setCurDocument] = useState({});
 
   const handleOnChange = async (e) => {
+    if (+e.target.value < 0 || +e.target.innerText < 0) return;
     if (submitMode === 'watch') return;
     if (
       submitMode === 'watch' ||
@@ -63,7 +64,6 @@ const Budget = () => {
   };
 
   const handleOnChange2 = async (e) => {
-
     placeCursorBack(e);
     clearValidation(e, submitErrors);
 

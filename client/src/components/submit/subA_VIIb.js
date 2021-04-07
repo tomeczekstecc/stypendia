@@ -211,7 +211,7 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
           <p>
             Uczeń/uczennica w czasie trwania projektu jest zobowiązany do
             realizowania wskazanych celów edukacyjnych i planowanych do
-            uzyskania rezultatów. z dwóch wybranych przedmiotów wraz z
+            uzyskania rezultatów z dwóch wybranych przedmiotów wraz z
             kandydatem na opiekuna dydaktycznego Stypendysty/opiekunem
             dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu{' '}
             <strong>trzy planowane</strong> do osiągnięcia rezultaty, które

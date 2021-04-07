@@ -224,7 +224,7 @@ const Attachments = () => {
             W tej części wniosku należy dodać załączniki obowiązkowe:{' '}
             <strong>Oświadczenie opiekuna dydaktycznego</strong> oraz{' '}
             <strong>Świadectwo szkolne za ostatni rok szkolny</strong>.
-            Dodatkowo, w zależności od udzeielonych odpowiedzi w części VI.
+            Dodatkowo, w zależności od udzielonych odpowiedzi w części VI.
             DODATKOWE KRYTERIA, możesz dodać jedną zgodę na indywidualny tryb
             nauki oraz jeden załącznik związany z orzeczeniem o
             niepełnosprawności. Możesz także dodać załączniki potwierdzające

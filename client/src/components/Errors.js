@@ -24,7 +24,7 @@ const Errors = ({ setActiveItem }) => {
   const content =
     submitErrors &&
     `W formularzu należy poprawić błędnie wprowadzone dane. Liczba błędów: ${mapped.length}.
-    Kliknij w błąd, aby przejść do dpowiedniej strony`;
+    Kliknij w błąd, aby przejść do odpowiedniej strony`;
 
   return (
     <Wrapper>

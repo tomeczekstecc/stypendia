@@ -52,7 +52,7 @@ export const createApp = (store: Store) => {
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
    return res.json({ csrfToken: req.csrfToken() });
   });
-  // app.use(limiter);
+  app.use(limiter);
   app.use(express.json());
 
   app.use(morgan('dev'));

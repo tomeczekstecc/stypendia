@@ -127,7 +127,7 @@ const SubA_V_VI = () => {
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
-                    defaultValue={curDocument?.priMathGrade|| 'default'}
+                    value={curDocument?.priMathGrade || 'default'}
                     onChange={(e) => handleOnChange(e)}
                   />
                 }

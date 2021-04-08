@@ -1,5 +1,5 @@
 import React, { createRef, useContext, useEffect, useState } from 'react';
-import { Button, Card, Icon, Image, Label, Message } from 'semantic-ui-react';
+import { Button, Card, Header, Icon, Image, Label, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
@@ -216,6 +216,9 @@ const Attachments = () => {
           onChange={uploadImage}
         />
         <Title content='Załączniki do wniosku' />
+          <Header className='sub-header' floated='left' as='h4'>
+           IX. ZAŁĄCZNIKI:
+          </Header>
         <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>

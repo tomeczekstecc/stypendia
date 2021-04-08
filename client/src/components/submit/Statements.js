@@ -62,6 +62,9 @@ const Statements = () => {
   return (
     <SubALayout>
       <Title content='Oświadczenia' />
+        <Header className='sub-header' floated='left' as='h4'>
+          X. OŚWIADCZENIA:
+        </Header>
       <Wrapper>
         <Header className='sub-header' floated='left' as='h4'>
           Oświadczenie rodzica/opiekuna prawnego niepełnoletniego ucznia /
@@ -306,7 +309,7 @@ const Statements = () => {
             </Label>
           )}
           <Checkbox
-          aria-label='checkbox'
+            aria-label='checkbox'
             className={submitMode === 'watch' ? 'acc-dimmed' : ''}
             onChange={(e) => handleOnChange(e)}
             as='h3'

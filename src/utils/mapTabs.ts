@@ -82,11 +82,11 @@ const results = [
   },
   {
     name: 'isTab1j',
-    value: 'Stworzenie własnej strony internetowej dotyczącej',
+    value: 'Stworzenie własnej strony internetowej dotyczącej:',
   },
   {
     name: 'isTab1j',
-    value: 'Stworzenie własnej strony internetowej dotyczącej',
+    value: 'Stworzenie własnej strony internetowej dotyczącej:',
   },
 
   {
@@ -135,11 +135,11 @@ const results = [
   },
   {
     name: 'isTab2j',
-    value: 'Stworzenie własnej strony internetowej dotyczącej',
+    value: 'Stworzenie własnej strony internetowej dotyczącej:',
   },
   {
     name: 'isTab2j',
-    value: 'Stworzenie własnej strony internetowej dotyczącej',
+    value: 'Stworzenie własnej strony internetowej dotyczącej:',
   },
 
   {

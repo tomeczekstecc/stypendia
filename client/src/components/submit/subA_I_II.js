@@ -202,7 +202,7 @@ const SubA_I_II = () => {
       </Grid.Column>
       <Grid.Column>
         <Header className='sub-header' floated='left' as='h4'>
-          II. DANE OSOBOWE UCZNIA:
+          II. DANE OSOBOWE UCZENNICY/UCZNIA:
         </Header>
         <Form className='form'>
           <Form.Group grouped>
@@ -216,7 +216,7 @@ const SubA_I_II = () => {
                 disabled={submitMode === 'watch'}
                 required
                 placeholder='Podaj PESEL (11 znaków)'
-                label='PESEL ucznia'
+                label='PESEL uczennicy/ucznia'
                 name='pupilPesel'
                 data-name='pupilPesel'
                 icon='id card outline'
@@ -247,7 +247,7 @@ const SubA_I_II = () => {
                 }
                 icon='user'
                 iconPosition='left'
-                label='Imię ucznia'
+                label='Imię uczennicy/ucznia'
                 name='pupilFirstName'
                 data-name='pupilFirstName'
                 placeholder='Podaj imię ucznia (2 do 254 znaków)'
@@ -281,7 +281,7 @@ const SubA_I_II = () => {
                   submitMode === 'watch' ||
                   curDocument.isSelf === 'Pełnoletni uczeń'
                 }
-                label='Nazwisko ucznia'
+                label='Nazwisko uczennicy/ucznia'
                 name='pupilLastName'
                 data-name='pupilLastName'
                 placeholder='Podaj nazwisko ucznia (2 do 254 znaków)'
@@ -314,7 +314,7 @@ const SubA_I_II = () => {
                   submitMode === 'watch' ||
                   curDocument.isSelf === 'Pełnoletni uczeń'
                 }
-                label='Email ucznia'
+                label='Email uczennicy/ucznia'
                 type='email'
                 name='pupilEmail'
                 data-name='pupilEmail'
@@ -339,7 +339,7 @@ const SubA_I_II = () => {
                   submitMode === 'watch' ? 'input disabled-item' : 'input'
                 }`}
                 disabled={submitMode === 'watch'}
-                label='Numer telefonu ucznia'
+                label='Numer telefonu uczennicy/ucznia'
                 icon='phone'
                 iconPosition='left'
                 placeholder='Podaj numer telefonu (9 do 15 znaków)'

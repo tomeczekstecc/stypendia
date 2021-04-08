@@ -74,7 +74,7 @@ export const rightMenuItems = [
     icon: 'settings',
     name: 'settings',
     title: 'Ustawienia',
-    url: '/settings',
+    url: '/building',
     isLoggedInDisplay: true,
   },
   {
@@ -82,7 +82,7 @@ export const rightMenuItems = [
     icon: 'settings',
     name: 'settings',
     title: 'Ustawienia',
-    url: '/settings',
+    url: '/building',
     isLoggedInDisplay: false,
   },
   {
@@ -114,21 +114,21 @@ export const verItems = [
   {
     id: uuidv4(),
     icon: 'settings',
-    to: '/settings',
+    to: '/building',
     button: 'Ustawienia',
     name: 'Przejdź do ustawień',
   },
   {
     id: uuidv4(),
     icon: 'phone volume',
-    to: '/contact',
+    to: '/building',
     button: 'Kontakt',
     name: 'Skontaktuj się z nami',
   },
   {
     id: uuidv4(),
     icon: 'help circle',
-    to: '/register',
+    to: '/building',
     button: 'Pomoc',
     name: 'Przeszukaj pomoc',
   },

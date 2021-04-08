@@ -18,7 +18,6 @@ import RandomAtt from './RandomAtt';
 import Title from '../Title';
 import { clearValidation } from '../../utils/clearValidation';
 
-
 const Attachments = () => {
   const getUsersFiles = async () => {
     const res = await axios.get(`/api/v1/files/info`, { submitMode });
@@ -164,7 +163,6 @@ const Attachments = () => {
         .then((res) => {
           addAlert(res.data);
           getUsersFiles();
-
         })
         .catch((err) => {
           addAlert(err.response.data);
@@ -489,7 +487,14 @@ const Attachments = () => {
                 </Label>
               )}
               <Card.Header className='card-header' textAlign='left'>
-                Zgoda na indywidualny tryb nauki
+                Zgoda na indywidualny tryb nauki{' '}
+                {curDocument && curDocument.isAllowed === 'Tak' && (
+                  <span className='obligatory'>
+                    {' '}
+                    <span className='black-dash'> - </span> załącznik
+                    obowiązkowy
+                  </span>
+                )}
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {allowance[0] && allowance[0].createdAt && (
@@ -579,7 +584,14 @@ const Attachments = () => {
                 </Label>
               )}
               <Card.Header className='card-header' textAlign='left'>
-                Orzeczenie o niepełnosprawności
+                Orzeczenie o niepełnosprawności{' '}
+                {curDocument && curDocument.isHandicap === 'Tak' && (
+                  <span className='obligatory'>
+                    {' '}
+                    <span className='black-dash'> - </span> załącznik
+                    obowiązkowy
+                  </span>
+                )}
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {attestation[0] && attestation[0].createdAt && (

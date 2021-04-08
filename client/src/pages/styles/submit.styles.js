@@ -241,4 +241,7 @@ export const Wrapper = styled.div`
   .hidden-label {
     display: none !important;
   }
+  .black-dash {
+    color: black;
+  }
 `;

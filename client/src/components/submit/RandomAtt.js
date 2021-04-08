@@ -130,6 +130,7 @@ const RandomAtt = () => {
       setCurDocument(submitToWatch);
     }
     getUsersFiles();
+    console.log(files);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
@@ -266,7 +267,13 @@ const RandomAtt = () => {
             )}
 
             <Card.Header className='card-header' textAlign='left'>
-              Dodaj zaświadczenie o uzyskanych tytułach
+              Dodaj zaświadczenie o uzyskanych tytułach{' '}
+              {curDocument && curDocument.isFinalist === 'Tak' && (
+                <span className='obligatory'>
+                  {' '}
+                  <span className='black-dash'> - </span> załącznik obowiązkowy
+                </span>
+              )}
             </Card.Header>
             <Card.Meta textAlign='left'></Card.Meta>
             <Card.Meta textAlign='left'></Card.Meta>

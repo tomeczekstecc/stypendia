@@ -227,7 +227,7 @@ const Attachments = () => {
             nauki oraz jeden załącznik związany z orzeczeniem o
             niepełnosprawności. Możesz także dodać załączniki potwierdzające
             uzyskanie tytułu w olimpiadach. Pamiętaj, iż dopuszczalna wielkość
-            każdego z plików (załączników) to 20MB. Dopuszatne formaty plików
+            każdego z plików (załączników) to 20MB. Dopuszczalne formaty plików
             to: <strong> .pdf, .jpg. </strong>
             oraz <strong>.png.</strong> Kliknij w odpowiednie pole, aby dodać
             dokument właściwego typu.

@@ -43,7 +43,7 @@ export const changePass = async (req: any, res: Response) => {
 
     if (!passwordMatches) {
       STATUS = 'error';
-      INFO = msg.client.fail.logInFailed;
+      INFO = msg.client.fail.passChange;
       makeLog(
         OBJECT,
         req.session.userId,

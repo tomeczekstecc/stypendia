@@ -227,13 +227,13 @@ const SubA_VIIa = () => {
           <p>
             Uczeń/uczennica w czasie trwania projektu jest zobowiązany do
             realizowania wskazanych celów edukacyjnych i planowanych do
-            uzyskania rezultatów z dwóch wybranych przedmiotów wraz z
-            kandydatem na opiekuna dydaktycznego Stypendysty/opiekunem
-            dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu
+            uzyskania rezultatów z dwóch wybranych przedmiotów wraz z kandydatem
+            na opiekuna dydaktycznego Stypendysty/opiekunem dydaktycznym. W tej
+            tabeli wybierz dla wybranego przedmiotu
             <strong> trzy planowane</strong> do osiągnięcia rezultaty, które
             uczeń/uczennica zamierza osiągnąć w roku szkolnym 2020/2021.
           </p>{' '}
-          <Label className = 'results-counter' size='large' basic >
+          <Label className='results-counter' size='large' basic>
             Liczba wybranych rezultatów:
             {curDocument?.tab1Results} (brakuje: {3 - curDocument?.tab1Results})
           </Label>
@@ -288,13 +288,10 @@ const SubA_VIIa = () => {
                     curDocument[acc.checkeboxName] === true
                   }
                 >
-
-
                   <Form className='form-vii'>
                     {' '}
-
                     <textarea
-                    aria-label='textarea'
+                      aria-label='textarea'
                       rows={5}
                       value={
                         (curDocument &&
@@ -307,7 +304,13 @@ const SubA_VIIa = () => {
                       data-type='textarea'
                       data-name={acc.areaName}
                       placeholder={acc.placeholder}
-                      className='form-textArea'
+                      // className='form-textArea'
+                      className={`${
+                        submitMode === 'watch'
+                          ? 'form-textArea disabled-item'
+                          : 'form-textArea'
+                      }`}
+                      disabled={submitMode === 'watch'}
                     ></textarea>
                   </Form>
 

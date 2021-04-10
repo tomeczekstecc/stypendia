@@ -5,7 +5,7 @@ export const registerInputs = [
     id: uuidv4(),
     icon: 'user',
     label: 'Nazwa użytkownika',
-    placeholder: 'Podaj nazwę (od 2 do 254 znaków)',
+    placeholder: 'Podaj nazwę (od 2 do 50 znaków)',
     type: 'text',
     name: 'login',
   },

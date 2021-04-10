@@ -304,7 +304,6 @@ const SubA_VIIa = () => {
                       data-type='textarea'
                       data-name={acc.areaName}
                       placeholder={acc.placeholder}
-                      // className='form-textArea'
                       className={`${
                         submitMode === 'watch'
                           ? 'form-textArea disabled-item'

@@ -1,5 +1,11 @@
-import React, { createRef, useContext, useEffect, useState } from 'react';
-import { Button, Card, Icon, Image, Label} from 'semantic-ui-react';
+import React, {
+  createRef,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
+import { Button, Card, Icon, Image, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
@@ -10,14 +16,16 @@ import { toLocaleDate } from '../../utils';
 import { clearValidation } from '../../utils/clearValidation';
 
 const RandomAtt = () => {
-  const getUsersFiles = async () => {
+  const [files, setFiles] = useState([]);
+
+  const getUsersFiles = useCallback(async () => {
     const res = await axios.get(`/api/v1/files/info`, { submitMode });
     if (submitMode === 'new') {
       setFiles(res.data.files.filter((f) => !f.submitId));
     } else {
       setFiles(res.data.files.filter((f) => f.submitId));
     }
-  };
+  }, [files]);
 
   const history = useHistory();
   const authContext = useContext(AuthContext);
@@ -39,9 +47,9 @@ const RandomAtt = () => {
   } = submitContext;
   submitMode === '' && history.push('/');
   const [curDocument, setCurDocument] = useState(null);
-  const [files, setFiles] = useState([]);
 
   const fileInputRef = createRef();
+
   const openFileInput = (type) => {
     if (submitMode === 'watch') return;
     fileInputRef.current.name = type;
@@ -89,7 +97,6 @@ const RandomAtt = () => {
   };
 
   const uploadImage = async (e) => {
-
     clearValidation(e, submitErrors);
     const file = e.target.files[0];
     const formData = new FormData();
@@ -122,6 +129,7 @@ const RandomAtt = () => {
 
   useEffect(() => {
     resetTimeLeft();
+    getUsersFiles();
     if (submitMode === 'new') {
       setCurDocument(newSubmit);
     } else if (submitMode === 'edit') {
@@ -129,8 +137,7 @@ const RandomAtt = () => {
     } else if (submitMode === 'watch') {
       setCurDocument(submitToWatch);
     }
-    getUsersFiles();
-    console.log(files);
+    console.log(files.filter((f) => f.type === 'random'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMode, submitToWatch, newSubmit, curSubmit]);
 
@@ -268,12 +275,15 @@ const RandomAtt = () => {
 
             <Card.Header className='card-header' textAlign='left'>
               Dodaj zaświadczenie o uzyskanych tytułach{' '}
-              {curDocument && curDocument.isFinalist === 'Tak' && (
-                <span className='obligatory'>
-                  {' '}
-                  <span className='black-dash'> - </span> załącznik obowiązkowy
-                </span>
-              )}
+              {curDocument &&
+                curDocument.isFinalist === 'Tak' &&
+                files.filter((f) => f.type === 'random').length === 0 && (
+                  <span className='obligatory'>
+                    {' '}
+                    <span className='black-dash'> - </span> załącznik
+                    wymagany
+                  </span>
+                )}
             </Card.Header>
             <Card.Meta textAlign='left'></Card.Meta>
             <Card.Meta textAlign='left'></Card.Meta>

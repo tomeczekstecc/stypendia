@@ -495,7 +495,7 @@ const Attachments = () => {
                   <span className='obligatory'>
                     {' '}
                     <span className='black-dash'> - </span> załącznik
-                    obowiązkowy
+                    wymagany
                   </span>
                 )}
               </Card.Header>
@@ -592,7 +592,7 @@ const Attachments = () => {
                   <span className='obligatory'>
                     {' '}
                     <span className='black-dash'> - </span> załącznik
-                    obowiązkowy
+                    wymagany
                   </span>
                 )}
               </Card.Header>

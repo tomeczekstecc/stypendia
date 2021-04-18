@@ -1,5 +1,5 @@
-// const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'build';
-const rootDir = 'src';
+const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'build';
+// const rootDir = 'src';
 
 module.exports = {
   type: process.env.DB_DIALECT,
@@ -12,8 +12,10 @@ module.exports = {
   synchronize: true,
   // logging: process.env.NODE_ENV === 'development',
   logging: false,
-  entities: [rootDir + '/entity/**/*.{ts,js}'],
-  migrations: [rootDir + '/migration/**/*.{ts,js}'],
+  // entities: [rootDir + '/entity/**/*.{ts,js}'],
+  // migrations: [rootDir + '/migration/**/*.{ts,js}'],
+  entities: [rootDir + '/entity/**/*.js'],
+  migrations: [rootDir + '/migration/**/*.js'],
   //   subscribers: rootDir + ['/subscriber/**/*.{.ts,.js}'],
 
   cli: {

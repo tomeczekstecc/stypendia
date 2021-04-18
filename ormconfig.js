@@ -17,6 +17,7 @@ module.exports = {
     rootDir +
       (process.env.NODE_ENV === 'development' ? '/entity/**/*.{ts,js}' : '/entity/**/*.js'),
   ],
+  
   migrations: [
     rootDir +
       (process.env.NODE_ENV === 'development' ? '/migration/**/*.{ts,js}' : '/migration/**/*.js'),

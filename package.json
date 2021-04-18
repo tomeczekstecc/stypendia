@@ -1,7 +1,8 @@
 {
   "name": "new-typeorm-project",
   "version": "0.0.1",
-  "main": "iondex8.ts",
+  "type": "module",
+  "main": "index.ts",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/tomeczekstecc/stypendia",

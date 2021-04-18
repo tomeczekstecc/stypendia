@@ -174,7 +174,7 @@ const Login = () => {
           className='intro-warning'
           warning
           header='Przenosiny MantisBT'
-          content='MantisBT przeniesiono na inny serwer. Czekam na odblokowanie porty przez dostawcę internetu'
+          content='MantisBT przeniesiono na inny serwer. Czekam na odblokowanie portu przez dostawcę internetu. Będzie dostępny pod nowym adresem. '
         />{' '}
         <Message
           className='intro-warning'

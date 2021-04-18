@@ -1,7 +1,6 @@
 {
   "name": "new-typeorm-project",
   "version": "0.0.1",
-  "type": "module",
   "main": "index.ts",
   "license": "MIT",
   "repository": {

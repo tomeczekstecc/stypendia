@@ -2,6 +2,7 @@ const rootDir = process.env.NODE_ENV === 'development' ? 'src' : 'build';
 // const rootDir = 'src';
 
 module.exports = {
+  
   type: process.env.DB_DIALECT,
   host: process.env.MYSQL_HOST,
   port: process.env.MYSQL_PORT,

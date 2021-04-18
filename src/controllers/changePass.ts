@@ -10,7 +10,6 @@ import { msg } from '../parts/messages';
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;
 
-
 export const changePass = async (req: any, res: Response) => {
   CONTROLLER = 'changePass';
   ACTION = 'zmiana hasła';

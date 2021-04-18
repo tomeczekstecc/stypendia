@@ -182,7 +182,7 @@ const Login = () => {
           header='Duża aktualizacja serwera'
           content='Podniesiono wersję systemu operacyjnego z Ubuntu 18.04.LTS na 20.04.LTS(64bit). Mogą występować nieoczekiwane błedy.'
         />{' '}
-        
+
         <Message
           className='intro-warning'
           warning

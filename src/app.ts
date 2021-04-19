@@ -47,7 +47,9 @@ export const createApp = (store: Store) => {
       store,
     })
   );
-  const csrfProtection = csrf();
+const csrfProtection = csrf({
+  cookie: false,
+});
 
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
    return res.json({ csrfToken: req.csrfToken() });

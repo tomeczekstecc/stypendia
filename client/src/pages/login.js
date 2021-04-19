@@ -173,6 +173,19 @@ const Login = () => {
         <Message
           className='intro-warning'
           warning
+          header='Przenosiny MantisBT'
+          content='MantisBT przeniesiono na inny serwer. Czekam na odblokowanie portu przez dostawcę internetu. Będzie dostępny pod nowym adresem. '
+        />{' '}
+        <Message
+          className='intro-warning'
+          warning
+          header='Duża aktualizacja serwera'
+          content='Podniesiono wersję systemu operacyjnego z Ubuntu 18.04.LTS na 20.04.LTS(64bit). Mogą występować nieoczekiwane błedy.'
+        />{' '}
+
+        <Message
+          className='intro-warning'
+          warning
           header='Usunięto dane'
           content='W związku z ważną przebudową 3 kwietnia usnięto wszystkie dane - w tym konta i wnioski :('
         />{' '}

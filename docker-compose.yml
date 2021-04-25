@@ -1,42 +1,41 @@
 version: '3'
+
 services:
-  # stypendia-server:
-  #   container_name: stypendia_server_dev
-  #   restart: always
-  #   build:
-  #     context: .
-  #     args:
-  #       NODE_ENV: development
-  #   volumes:
-  #     - ./:/app
-  #     - /app/node_modules
-  #   ports:
-  #     - 5003:5003
-  #   environment:
-  #     - NODE_ENV=development
-  #   command: npm run devStart
-  #   depends_on:
-  #     db_stypendia:
-  #       condition: service_healthy
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - 3004:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+
+  stypendia-server:
+    container_name: stypendia_server_dev
+    restart: always
+    build:
+      context: .
+    ports:
+      - 5003:5003
+    depends_on:
+      - db_stypendia
+
+
 
   db_stypendia:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    env_file:
-      - ./.env
     ports:
-      - ${MYSQL_PORT}:3306
+      - 3308:3306
     volumes:
       - ./data/db:/var/lib/mysql
 
   adminer_stypendia:
     image: adminer
     restart: always
-    env_file:
-      - ./.env
     ports:
-      - ${ADMINER_PORT}:8080
+      - 8083:8080
     depends_on:
       - db_stypendia
 
@@ -44,23 +43,13 @@ services:
     image: redis:alpine
     restart: always
     ports:
-      - ${REDIS_PORT}:6379
+      - 6380:6379
 
-  mongo_logs:
+  mongo_logs_stypendia:
     image: mongo
     restart: always
-    env_file:
-      - ./.env
-    # environment:
-    # MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-    # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    # MONGO_USERNAME: ${MONGO_USERNAME}
-    # MONGO_PASSWORD: ${MONGO_PASSWORD}
-    # MONGO_HOST: ${MONGO_HOST}
-    # MONGO_PORT: ${MONGO_PORT}
-    # MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
-      - ${MONGO_PORT}:27017
+      - 27019:27017
     volumes:
       - ./data/logs:/var/lib/logs
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
@@ -68,18 +57,10 @@ services:
   mongoweb_logs:
     image: mongo-express
     restart: always
-    env_file:
-      - ./.env
-    # environment:
-    #   ME_CONFIG_MONGODB_SERVER: ${ME_CONFIG_MONGODB_SERVER}
-    #   ME_CONFIG_MONGODB_ADMINUSERNAME: ${ME_CONFIG_MONGODB_ADMINUSERNAME}
-    #   ME_CONFIG_MONGODB_ADMINPASSWORD: ${ME_CONFIG_MONGODB_ADMINPASSWORD}
-    #   ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
-    #   ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
     ports:
       - 8084:8081
     depends_on:
-      - mongo_logs
+      - mongo_logs_stypendia
 
 
   clamAV:

@@ -133,7 +133,7 @@ const Login = () => {
                   className='login-btn'
                   loading={isLoading}
                   type='submit'
-                  content='Zaloguj się !'
+                  content='Zaloguj się'
                   primary
                   size='huge'
                   onClick={handleOnClick}

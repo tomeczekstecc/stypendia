@@ -1,0 +1,44 @@
+version: '3'
+services:
+
+  nginx:
+    ports:
+      - 3004:80
+
+
+  stypendia-server:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    env_file:
+      - ./.env.dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+      - node-app-data:/app/node_modules
+    command: npm run devStart
+
+
+  db_stypendia:
+    env_file:
+      - ./.env.dev
+    volumes:
+      - ./data/db:/var/lib/mysql
+
+  adminer_stypendia:
+    env_file:
+      - ./.env.dev
+
+  mongo_logs_stypendia:
+    env_file:
+      - ./.env.dev
+
+
+  mongoweb_logs:
+    env_file:
+      - ./.env.dev
+
+volumes:
+  node-app-data:

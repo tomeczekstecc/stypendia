@@ -47,21 +47,20 @@ export const createApp = (store: Store) => {
       store,
     })
   );
-  const csrfProtection = csrf();
+const csrfProtection = csrf({
+  cookie: false,
+});
 
   app.get('/api/v1/csrf', csrfProtection, (req: any, res, next) => {
    return res.json({ csrfToken: req.csrfToken() });
   });
-  // app.use(limiter);
+  app.use(limiter);
   app.use(express.json());
 
   app.use(morgan('dev'));
   app.use(active); // TODO wywala aplikację
 
-  // app.use((req: any, _, next) => {
-  //   console.log(req.session);
-  //   next();
-  // });
+
 
   app.use('/api/v1/users', userRouter);
   app.use('/api/v1/user_history', userHistoryRouter);

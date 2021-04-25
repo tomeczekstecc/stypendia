@@ -19,7 +19,7 @@ import Title from '../components/Title';
 
 const Verify = ({ location: { search }, history }) => {
   const appContext = useContext(AppContext);
-  const { setIsLoading, isLoading } = appContext;
+  const [isLoading, setIsLoading ] = useState(true);
 
   const alertContext = useContext(AlertContext);
   const { addAlert } = alertContext;
@@ -56,6 +56,7 @@ const Verify = ({ location: { search }, history }) => {
       })
       .catch((err) => {
         setIsLoading(false);
+          setIsSuccess(false);
         addAlert(err.response.data);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,6 +65,7 @@ const Verify = ({ location: { search }, history }) => {
   return (
     <Wrapper>
       <Title content='Weryfikacja konta' />
+
       <Loader active={isLoading} size='huge'>
         Weryfikujemy
       </Loader>

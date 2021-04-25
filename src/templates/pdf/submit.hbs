@@ -347,34 +347,34 @@
 
     <div class="row">
       <div class="small-box-container">
-        <div class="small-box-title">Dane osobowe wnioskodwcy:</div>
+        <div class="small-box-title">I. Dane osobowe wnioskodawcy:</div>
         <div class="small-box">
           <div class="small-box-left">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Imię:</div>
+              <div for="name" class="normal-input-title">Imię wnioskodawcy:</div>
               <div name="name" class="normal-input"><span>{{user.firstName}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div for="name" class="normal-input-title">Nazwisko wnioskodawcy:</div>
               <div name="name" class="normal-input"><span>{{user.lastName}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Status prawny:</div>
+              <div for="name" class="normal-input-title">Status wnioskodawcy:</div>
               <div name="name" class="normal-input"><span>{{submit.isSelf}}</span></div>
             </div>
           </div>
 
           <div class="small-box-right">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Telefon kontaktowy:</div>
+              <div for="name" class="normal-input-title">Numer telefonu wnioskodawcy:</div>
               <div name="name" class="normal-input"><span>{{submit.phone}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Email:</div>
+              <div for="name" class="normal-input-title">Email wnioskodawcy:</div>
               <div name="name" class="normal-input"><span>{{user.email}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Konto ePuap:</div>
+              <div for="name" class="normal-input-title">Adres skrzynki ePuap:</div>
               <div name="name" class="normal-input"><span>{{submit.epuapAdr}}</span></div>
             </div>
           </div>
@@ -383,31 +383,31 @@
 
 
       <div class="small-box-container">
-        <div class="small-box-title">Dane osobowe uczennicy/ucznia:</div>
+        <div class="small-box-title">II. Dane osobowe uczennicy/ucznia:</div>
         <div class="small-box">
           <div class="small-box-left">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Imię:</div>
+              <div for="name" class="normal-input-title">Imię uczennicy/ucznia:</div>
               <div name="name" class="normal-input"><span>{{submit.pupilFirstName}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div for="name" class="normal-input-title">Nazwisko uczennicy/ucznia:</div>
               <div name="name" class="normal-input"><span>{{submit.pupilLastName}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">PESEL:</div>
+              <div for="name" class="normal-input-title">PESEL uczennicy/ucznia:</div>
               <div name="name" class="normal-input"><span>{{submit.pupilPesel}}</span></div>
             </div>
           </div>
 
           <div class="small-box-right">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Telefon kontaktowy:</div>
-              <div name="name" class="normal-input"><span>{{submit.pupilPhone}}</span></div>
+              <div for="name" class="normal-input-title">Email uczennicy/ucznia:</div>
+              <div name="name" class="normal-input"><span>{{submit.pupilEmail}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Email:</div>
-              <div name="name" class="normal-input"><span>{{submit.pupilEmail}}</span></div>
+              <div for="name" class="normal-input-title">Numer telefonu uczennicy/ucznia:</div>
+              <div name="name" class="normal-input"><span>{{submit.pupilPhone}}</span></div>
             </div>
 
           </div>
@@ -420,22 +420,22 @@
 
     <div class="row">
       <div class="small-box-container">
-        <div class="small-box-title">Informacje o szkole:</div>
+        <div class="small-box-title">III. Dane szkoły:</div>
         <div class="small-box school">
           <div class="small-box-left">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title school-name">Nazwa:</div>
+              <div for="name" class="normal-input-title school-name">Pełna nazwa szkoły:</div>
               <div name="name" class="normal-input"><span>{{submit.schoolName}}</span></div>
             </div>
 
             <div class="flex-2">
               <div class="normal-input-container adress">
-                <div for="name" class="normal-input-title">Adres:</div>
+                <div for="name" class="normal-input-title">Adres szkoły:</div>
                 <div name="name" class="normal-input gap-right"><span>{{submit.schoolStreetName}}
                     {{submit.schoolStreetNr}}</span></div>
               </div>
               <div class="normal-input-container zip">
-                <div for="name" class="normal-input-title">Kod pocztowy:</div>
+                <div for="name" class="normal-input-title">Kod pocztowy szkoły:</div>
                 <div name="name" class="  normal-input"><span>{{submit.schoolZip}}</span></div>
               </div>
 
@@ -446,7 +446,7 @@
           <div class="small-box-right">
             <div class="flex-3">
               <div class="normal-input-container town">
-                <div for="name" class="normal-input-title">Miejscowość:</div>
+                <div for="name" class="normal-input-title">Miejscowość i województwo szkoły:</div>
                 <div name="name" class="normal-input gap-right"><span>{{submit.schoolTown}}
                     ({{submit.schoolVoyev}})</span></div>
               </div>
@@ -461,19 +461,19 @@
 
 
       <div class="small-box-container">
-        <div class="small-box-title">Dane kandydata na opiekuna dydaktycznego:</div>
+        <div class="small-box-title">IV. Dane kandydata na opiekuna dydaktycznego:</div>
         <div class="small-box">
           <div class="small-box-left">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Imię:</div>
+              <div for="name" class="normal-input-title">Imię doradcy:</div>
               <div name="name" class="normal-input"><span>{{submit.counselorFirstName}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div for="name" class="normal-input-title">Nazwisko doradcy:</div>
               <div name="name" class="normal-input"><span>{{submit.counselorLastName}}</span></div>
             </div>
             <div class="normal-input-container ghost">
-              <div for="name" class="normal-input-title">Nazwisko:</div>
+              <div for="name" class="normal-input-title">Nazwisko doradcy:</div>
               <div name="name" class="normal-input"><span>Warazyniak</span></div>
             </div>
 
@@ -481,7 +481,7 @@
 
           <div class="small-box-right">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Profil:</div>
+              <div for="name" class="normal-input-title">Profil doradcy:</div>
               <div name="name" class="normal-input"><span>{{submit.counselorProfile}}</span></div>
             </div>
 
@@ -495,31 +495,31 @@
 
     <div class="row">
       <div class="small-box-container">
-        <div class="small-box-title">Podstawowe kryteria oceny:</div>
+        <div class="small-box-title">V. Podstawowe kryteria oceny:</div>
         <div class="small-box">
           <div class="small-box-left">
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Matematyka</div>
-              <div name="name" class="normal-input"><span>{{submit.priMathGrade}}</span></div>
+              <div for="name" class="normal-input-title">Matematyka:</div>
+              <div name="name" class="normal-input"><span>Ocena: {{submit.priMathGrade}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Inny przedmiot ({{submit.priOtherSubj}}):</div>
-              <div name="name" class="normal-input"><span>{{submit.priOtherSubjGrade}}</span></div>
+              <div name="name" class="normal-input"><span>Ocena: {{submit.priOtherSubjGrade}}</span></div>
             </div>
             <div class="normal-input-container">
-              <div for="name" class="normal-input-title">Średnia wszystkich przedmiotów:</div>
-              <div name="name" class="normal-input"><span>{{submit.allTotalAver}}</span></div>
+              <div for="name" class="normal-input-title">Średnia wszystkich ocen:</div>
+              <div name="name" class="normal-input"><span>Średnia ocen: {{submit.allTotalAver}}</span></div>
             </div>
           </div>
 
           <div class="small-box-right">
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Język obcy ({{submit.priLang}}):</div>
-              <div name="name" class="normal-input"><span>{{submit.priLangGrade}}</span></div>
+              <div name="name" class="normal-input"><span>Ocena: {{submit.priLangGrade}}</span></div>
             </div>
             <div class="normal-input-container">
               <div for="name" class="normal-input-title">Średnia przedm.kierunkowych:</div>
-              <div name="name" class="normal-input"><span>{{submit.priTotalAver}}</span></div>
+              <div name="name" class="normal-input"><span>Średnia ocen: {{submit.priTotalAver}}</span></div>
             </div>
             <div class="normal-input-container ghost">
               <div for="name" class="normal-input-title">Konto ePuap</div>
@@ -531,14 +531,14 @@
 
 
       <div class="small-box-container">
-        <div class="small-box-title">Dodatkowe kryteria oceny:</div>
+        <div class="small-box-title">VI. Dodatkowe kryteria oceny:</div>
         <div class="small-box additional">
 
           <div class="normal-input-container">
             <div class="text-container">
-              Laureat/ka lub finalista konkursu o zasiegu co najmniej wojewódzkim lub olimpiady/turnieju co najmniej
-              II
-              stopnia:</div>
+              Uczeń/uczennica w roku szkolnym 2019/2020 uzyskał/a tytułu laureatki/ta lub finalistki/ty konkursu o
+              zasięgu co najmniej
+              wojewódzkim lub olimpiady/turnieju co najmniej II stopnia:</div>
             <div name="name" class="normal-input seven"><span>{{submit.isFinalist}}</span></div>
 
           </div>
@@ -577,7 +577,8 @@
 
 
             <div class="normal-input-container">
-              <h3 class="reversed">Tabela 1</h3>
+              <h4 class="reversed">Tabela 1</h4>
+              <h4>VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY - Przedmiot kierunkowy</h4>
               <div for="name" class="normal-input-title">Przedmiot kierunkowy: </div>
               <div name="name" class="normal-input half"><span>{{submit.tab1Subj}}</span></div>
             </div>
@@ -605,7 +606,8 @@
           <div class="small-box-left">
 
             <div class="normal-input-container">
-              <h3 class="reversed">Tabela 2</h3>
+              <h4 class="reversed">Tabela 2</h4>
+              <h4>VII. ŚCIEŻKA ROZWOJU EDUKACYJNEGO UCZNIA / UCZENNICY - Przedmiot kluczowy</h4>
               <div for="name" class="normal-input-title">Przedmiot kluczowy: </div>
               <div name="name" class="normal-input half"><span>
                   {{#if submit.tab2SubjName}}
@@ -643,7 +645,8 @@
     </div>
     <div class="next-page"></div>
 
-    <div class="part-title expenses">PLAN WYDATKÓW:</div>
+    <div class="part-title expenses">VIII. PLAN WYDATKÓW:</div>
+    <h4>Lista planowanych wydatków na realizację ścieżki rozwoju:</h4>
     <table>
       <thead>
         <tr>
@@ -654,7 +657,7 @@
             Katalog wydatków
           </th>
           <th>
-            Szacunkowy koszt
+            Szacunkowy koszt w pełnych złotych (PLN)
           </th>
         </tr>
       </thead>
@@ -848,7 +851,7 @@
         <tr>
           <td colspan="3">
             <div name="name" class="normal-input">{{submit.substantion2}}</div>
-        
+
             {{!-- <div>{{submit.substantion2}} --}}
             </div>
         </tr>
@@ -861,7 +864,7 @@
 
 
     <br>
-    <div class="part-title files">ZAŁĄCZNIKI:</div>
+    <div class="part-title files">IX. ZAŁĄCZNIKI:</div>
     <table>
       <thead>
         <tr>
@@ -915,7 +918,7 @@
 
     <div class="next-page"></div>
 
-    <div class="part-title expenses">OŚWIADCZENIA:</div>
+    <div class="part-title expenses">X. OŚWIADCZENIA:</div>
     <div class="small-box statements">
       <div class="small-box-left">
         <br />

@@ -211,9 +211,9 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
           <p>
             Uczeń/uczennica w czasie trwania projektu jest zobowiązany do
             realizowania wskazanych celów edukacyjnych i planowanych do
-            uzyskania rezultatów. z dwóch wybranych przedmiotów wraz z
-            kandydatem na opiekuna dydaktycznego Stypendysty/opiekunem
-            dydaktycznym. W tej tabeli wybierz dla wybranego przedmiotu{' '}
+            uzyskania rezultatów z dwóch wybranych przedmiotów wraz z kandydatem
+            na opiekuna dydaktycznego Stypendysty/opiekunem dydaktycznym. W tej
+            tabeli wybierz dla wybranego przedmiotu{' '}
             <strong>trzy planowane</strong> do osiągnięcia rezultaty, które
             uczeń/uczennica zamierza osiągnąć w roku szkolnym 2020/2021.
           </p>
@@ -285,7 +285,11 @@ if (e.target.dataset.type !== 'textarea' && e.target.dataset.name !== undefined)
                       data-name={acc.areaName}
                       data-type='textarea'
                       placeholder={acc.placeholder}
-                      className='form-textArea'
+                      className={`${
+                        submitMode === 'watch'
+                          ? 'form-textArea disabled-item'
+                          : 'form-textArea'
+                      }`}
                     ></textarea>
                   </Form>
                   {submitErrors && submitErrors[acc.areaName] && (

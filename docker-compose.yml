@@ -88,5 +88,5 @@ services:
     ports:
       - 3310:3310
     volumes:
-      - ./data/clamav:/var/lib/clamav
+      - ./data/clamav:/var/lib/clamav1
 # https://github.com/openbridge/clamav

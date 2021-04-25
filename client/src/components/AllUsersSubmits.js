@@ -63,8 +63,7 @@ const AllUsersSubmits = () => {
                   content={'oczekuje na decyzje'}
                 ></Label>
                 <Image
-                  as='mage'
-                  floated='left'
+                                  floated='left'
                   size='mini'
                   src='https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
                   alt='user'

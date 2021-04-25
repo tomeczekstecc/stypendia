@@ -310,7 +310,7 @@ const SubA_III_IV = () => {
       </Grid.Column>
       <Grid.Column>
         <Header className='sub-header' floated='left' as='h4'>
-          IV. DANE OPIEKUNA DYDAKTYCZNEGO:
+          IV. DANE KANDYDATA NA OPIEKUNA DYDAKTYCZNEGO:
         </Header>
         <Form className='form'>
           <Form.Group grouped>

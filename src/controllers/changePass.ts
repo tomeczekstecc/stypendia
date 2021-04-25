@@ -7,6 +7,7 @@ import { validate } from 'class-validator';
 import { mapErrors } from '../utils';
 import { msg } from '../parts/messages';
 
+
 const OBJECT = 'User';
 let ACTION, INFO, STATUS, CONTROLLER;
 
@@ -43,7 +44,7 @@ export const changePass = async (req: any, res: Response) => {
 
     if (!passwordMatches) {
       STATUS = 'error';
-      INFO = msg.client.fail.logInFailed;
+      INFO = msg.client.fail.passChange;
       makeLog(
         OBJECT,
         req.session.userId,

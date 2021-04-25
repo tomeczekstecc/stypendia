@@ -80,7 +80,7 @@ export async function generatePdf(data, type) {
     return checksum;
   };
 
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ args:  ['--no-sandbox', '--disable-setuid-sandbox'] });
   const page = await browser.newPage();
   const content = await compile('submit', data);
   await page.setContent(content);

@@ -1,5 +1,5 @@
 import React, { createRef, useContext, useEffect, useState } from 'react';
-import { Button, Card, Icon, Image, Label, Message } from 'semantic-ui-react';
+import { Button, Card, Header, Icon, Image, Label, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext, SubmitContext, AlertContext } from '../../context';
@@ -17,7 +17,6 @@ import { toLocaleDate } from '../../utils';
 import RandomAtt from './RandomAtt';
 import Title from '../Title';
 import { clearValidation } from '../../utils/clearValidation';
-
 
 const Attachments = () => {
   const getUsersFiles = async () => {
@@ -164,7 +163,6 @@ const Attachments = () => {
         .then((res) => {
           addAlert(res.data);
           getUsersFiles();
-
         })
         .catch((err) => {
           addAlert(err.response.data);
@@ -218,18 +216,21 @@ const Attachments = () => {
           onChange={uploadImage}
         />
         <Title content='Załączniki do wniosku' />
+          <Header className='sub-header' floated='left' as='h4'>
+           IX. ZAŁĄCZNIKI:
+          </Header>
         <Message info floating>
           <Message.Header>Dodawanie załączników</Message.Header>
           <p>
             W tej części wniosku należy dodać załączniki obowiązkowe:{' '}
             <strong>Oświadczenie opiekuna dydaktycznego</strong> oraz{' '}
             <strong>Świadectwo szkolne za ostatni rok szkolny</strong>.
-            Dodatkowo, w zależności od udzeielonych odpowiedzi w części VI.
+            Dodatkowo, w zależności od udzielonych odpowiedzi w części VI.
             DODATKOWE KRYTERIA, możesz dodać jedną zgodę na indywidualny tryb
             nauki oraz jeden załącznik związany z orzeczeniem o
             niepełnosprawności. Możesz także dodać załączniki potwierdzające
             uzyskanie tytułu w olimpiadach. Pamiętaj, iż dopuszczalna wielkość
-            każdego z plików (załączników) to 20MB. Dopuszatne formaty plików
+            każdego z plików (załączników) to 20MB. Dopuszczalne formaty plików
             to: <strong> .pdf, .jpg. </strong>
             oraz <strong>.png.</strong> Kliknij w odpowiednie pole, aby dodać
             dokument właściwego typu.
@@ -489,7 +490,14 @@ const Attachments = () => {
                 </Label>
               )}
               <Card.Header className='card-header' textAlign='left'>
-                Zgoda na indywidualny tryb nauki
+                Zgoda na indywidualny tryb nauki{' '}
+                {curDocument && curDocument.isAllowed === 'Tak' && (
+                  <span className='obligatory'>
+                    {' '}
+                    <span className='black-dash'> - </span> załącznik
+                    wymagany
+                  </span>
+                )}
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {allowance[0] && allowance[0].createdAt && (
@@ -579,7 +587,14 @@ const Attachments = () => {
                 </Label>
               )}
               <Card.Header className='card-header' textAlign='left'>
-                Orzeczenie o niepełnosprawności
+                Orzeczenie o niepełnosprawności{' '}
+                {curDocument && curDocument.isHandicap === 'Tak' && (
+                  <span className='obligatory'>
+                    {' '}
+                    <span className='black-dash'> - </span> załącznik
+                    wymagany
+                  </span>
+                )}
               </Card.Header>
               <Card.Meta textAlign='left'>
                 {attestation[0] && attestation[0].createdAt && (

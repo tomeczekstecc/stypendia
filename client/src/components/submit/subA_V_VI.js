@@ -104,7 +104,7 @@ const SubA_V_VI = () => {
       <Title content='Kryteria oceny - podstawowe i dodatkowe' />
       <Grid.Column className='column'>
         <Header className='sub-header' floated='left' as='h4'>
-          V. PODSTAWOWE KRYTERIA:
+          V. PODSTAWOWE KRYTERIA OCENY:
         </Header>
         <Form className='form'>
           <Form.Group grouped>
@@ -127,8 +127,8 @@ const SubA_V_VI = () => {
                     className='priMathGrade'
                     basic
                     options={optionsGrades}
-                    defaultValue={curDocument?.priMathGrade|| 'default'}
-                    // onChange={(e) => handleOnChange(e)}
+                    value={curDocument?.priMathGrade || 'default'}
+                    onChange={(e) => handleOnChange(e)}
                   />
                 }
                 icon='calculator'
@@ -308,7 +308,7 @@ const SubA_V_VI = () => {
       </Grid.Column>
       <Grid.Column>
         <Header className='sub-header' floated='left' as='h4'>
-          VI. DODATKOWE KRYTERIA:
+          VI. DODATKOWE KRYTERIA OCENY:
         </Header>
         <Form className='form'>
           <Form.Group grouped>

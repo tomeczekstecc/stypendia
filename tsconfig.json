@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "lib": ["es5", "es6"],
+    "lib": ["es5", "es6", "dom","esnext.bigint"],
     "target": "es5",
     "module": "commonjs",
     "esModuleInterop": true,
@@ -10,7 +10,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-
   },
   "include": ["src/**/*"],  "exclude": ["node_modules", "client"]
 }

@@ -8,6 +8,7 @@ const Regulations = () => {
   return (
     <Wrapper>
       <Header as='h2' attached='top'>
+        
         REGULAMIN APLIKACJI INTERNETOWEJ slaskietalenty.com [w budowie]
       </Header>
       <Segment textAlign='left' attached>

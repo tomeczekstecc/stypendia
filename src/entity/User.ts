@@ -35,6 +35,7 @@ export class User extends Model {
   })
   login: string;
 
+  
   @Column({ comment: 'Imię użytkownika' })
   @Length(2, 254, {
     message: 'Imię użytkownika musi zawierać od 2 do 254 znaków',

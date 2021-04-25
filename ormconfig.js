@@ -13,17 +13,17 @@ module.exports = {
   synchronize: true,
   // logging: process.env.NODE_ENV === 'development',
   logging: false,
-  // entities: [
-  //   rootDir +
-  //     (process.env.NODE_ENV === 'development' ? '/entity/**/*.{ts,js}' : '/entity/**/*.js'),
-  // ],
+  entities: [
+    rootDir +
+      (process.env.NODE_ENV === 'development' ? '/entity/**/*.{ts,js}' : '/entity/**/*.js'),
+  ],
 
-  // migrations: [
-  //   rootDir +
-  //     (process.env.NODE_ENV === 'development' ? '/migration/**/*.{ts,js}' : '/migration/**/*.js'),
-  // ],
-  entities: [rootDir + '/entity/**/*.js'],
-  migrations: [rootDir + '/migration/**/*.js'],
+  migrations: [
+    rootDir +
+      (process.env.NODE_ENV === 'development' ? '/migration/**/*.{ts,js}' : '/migration/**/*.js'),
+  ],
+  // entities: [rootDir + '/entity/**/*.js'],
+  // migrations: [rootDir + '/migration/**/*.js'],
   //subscribers: rootDir + ['/subscriber/**/*.{.ts,.js}'],
 
   cli: {

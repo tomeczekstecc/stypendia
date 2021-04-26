@@ -35,10 +35,16 @@ services:
     env_file:
       - ./.env.dev
 
-
   mongoweb_logs:
+    image: mongo-express
+    restart: always
     env_file:
       - ./.env.dev
+    ports:
+      - 8084:8081
+    depends_on:
+      - mongo_logs_stypendia
+
 
 volumes:
   node-app-data:

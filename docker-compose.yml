@@ -8,10 +8,11 @@ services:
       - 3004:80
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - stypendia-server
 
 
   stypendia-server:
-    container_name: stypendia_server_dev
     restart: always
     build:
       context: .

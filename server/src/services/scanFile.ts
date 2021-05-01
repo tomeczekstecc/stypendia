@@ -17,7 +17,7 @@ const ClamScan = new NodeClam().init({
     clamdscan: {
         socket: null, // This is pretty typical
         host: 'localhost', // If you want to connect locally but not through socket
-        port: 3310, // Because, why not
+        port: 3311, // Because, why not
         timeout: 300000, // 5 minutes
         local_fallback: true, // Use local preferred binary to scan if socket/tcp fails
         // path: '/bin/clamdscan', // Special path to the clamdscan binary on your server

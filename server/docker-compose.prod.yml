@@ -16,36 +16,34 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NODE_ENV: development
+        NODE_ENV: production
     env_file:
-      - .env.dev
+      - .env.prod
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     volumes:
       - ./:/app
-      - node-app-data:/app/node_modules
-    command: npm run devStart
 
 
   db_stypendia:
     env_file:
-      - .env.dev
+      - .env.prod
     volumes:
       - ./data/db:/var/lib/mysql
 
   adminer_stypendia:
     env_file:
-      - .env.dev
+      - .env.prod
 
   mongo_logs_stypendia:
     env_file:
-      - .env.dev
+      - .env.prod
 
   mongoweb_logs:
     image: mongo-express
     restart: always
     env_file:
-      - .env.dev
+      - .env.prod
     ports:
       - 8084:8081
     depends_on:

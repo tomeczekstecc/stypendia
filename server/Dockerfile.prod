@@ -11,6 +11,8 @@ RUN npm install
 #  else npm install --only production; \
 #  fi
 
+RUN npm build
+
 COPY . .
 
 ENV PORT 5003

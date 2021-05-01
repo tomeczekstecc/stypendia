@@ -15,7 +15,7 @@ services:
       - db_stypendia
 
   db_stypendia:
-    image: mariadb
+    image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:

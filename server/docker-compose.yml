@@ -4,11 +4,6 @@ services:
 
 
   stypendia-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    # env_file: ./.env.dev
     ports:
       - 5003:5003
     depends_on:

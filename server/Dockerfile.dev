@@ -1,9 +1,11 @@
-FROM node:15
+FROM node:14
 
 WORKDIR /app
 
 COPY package.json ./
 
+RUN npm cache clean --force
+RUN npm cache verify
 RUN npm install
 # w nawiasie jedna spacja z przodu i z tyłu
 # RUN if [ "$NODE_ENV" = "development" ]; \

@@ -26,7 +26,6 @@ services:
     command: npm run build && npm start
 
 
-
   db_stypendia:
     env_file:
       - .env.prod

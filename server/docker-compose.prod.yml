@@ -23,6 +23,8 @@ services:
       - NODE_ENV=production
     volumes:
       - ./:/app
+    command: npm run build && npm start
+
 
 
   db_stypendia:

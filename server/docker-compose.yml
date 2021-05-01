@@ -17,12 +17,11 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
+    # env_file: ./.env.dev
     ports:
       - 5003:5003
     depends_on:
       - db_stypendia
-
-
 
   db_stypendia:
     image: mysql
@@ -71,5 +70,5 @@ services:
     ports:
       - 3310:3310
     volumes:
-      - ./data/clamav:/var/lib/clamav1
+      - ./data/clamav:/var/lib/clamav
 # https://github.com/openbridge/clamav

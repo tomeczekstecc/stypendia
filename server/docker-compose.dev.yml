@@ -16,9 +16,9 @@ services:
       - .env.dev
     environment:
       - NODE_ENV=development
-    # volumes:
-    #   - ./:/app
-#      - node-app-data:/app/node_modules
+    volumes:
+      - ./:/app
+      - node-app-data:/app/node_modules
     command: npm run devStart
 
 
@@ -47,5 +47,5 @@ services:
       - mongo_logs_stypendia
 
 
-# volumes:
-#   node-app-data:
+volumes:
+  node-app-data:

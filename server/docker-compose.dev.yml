@@ -9,7 +9,7 @@ services:
   stypendia-server:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       args:
         NODE_ENV: development
     env_file:

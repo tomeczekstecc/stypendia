@@ -11,22 +11,9 @@ services:
     volumes:
       - web-root:/var/www/html
       - ./nginx:/etc/nginx/conf.d
-      # - certbot-etc:/etc/letsencrypt
-      # - certbot-var:/var/lib/letsencrypt
-    depends_on:
       - stypendia-server
       - stypendia-front
 
-  # certbot:
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   volumes:
-  #     - certbot-etc:/etc/letsencrypt
-  #     - certbot-var:/var/lib/letsencrypt
-  #     - web-root:/var/www/html
-  #   depends_on:
-  #     - webserver
-  #   command: certonly --webroot --webroot-path=/var/www/html --email sammy@example.com --agree-tos --no-eff-email --staging -d example.com  -d www.example.com
 
   stypendia-front:
     build:
@@ -77,6 +64,3 @@ services:
 
 volumes:
   node-app-data:
-  # certbot-etc:
-  # certbot-var:
-  web-root:

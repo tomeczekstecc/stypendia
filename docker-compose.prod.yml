@@ -30,7 +30,7 @@ services:
       - ./server/.env.prod
     environment:
       - NODE_ENV=production
-    command: npm run build
+
 
 
   db_stypendia:

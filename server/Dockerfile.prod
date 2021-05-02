@@ -15,8 +15,10 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 ENV PORT 5003
 
 EXPOSE $PORT
 
-CMD ["npm", "run", "build"]
+CMD ["node","build/index.js"]

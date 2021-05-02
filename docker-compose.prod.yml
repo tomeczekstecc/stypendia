@@ -21,6 +21,7 @@ services:
       dockerfile: Dockerfile.prod
     env_file:
       - ./client/.env
+    volumes:  
       - ./client/build:/app/build
 
   stypendia-server:

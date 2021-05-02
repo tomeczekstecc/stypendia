@@ -3,6 +3,7 @@ services:
 
   nginx:
     image: nginx:stable-alpine
+    restart: always
     ports:
       - 80:80
     volumes:

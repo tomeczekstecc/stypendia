@@ -3,11 +3,13 @@ version: '3'
 services:
   
   stypendia-front:
+    restart: always
     depends_on:
       - stypendia-server
 
 
   stypendia-server:
+    restart: always
     ports:
       - 5003:5003
     depends_on:

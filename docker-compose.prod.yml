@@ -9,10 +9,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - web-root:/var/www/html
       - ./nginx:/etc/nginx/conf.d
-      - stypendia-server
-      - stypendia-front
 
 
   stypendia-front:

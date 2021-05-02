@@ -1,6 +1,10 @@
 version: '3'
 
 services:
+  
+  stypendia-front:
+    depends_on:
+      - stypendia-server
 
 
   stypendia-server:
@@ -10,13 +14,13 @@ services:
       - db_stypendia
 
   db_stypendia:
-    image: mysql
+    image: mariadb
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
       - 3308:3306
     volumes:
-      - ./data/db:/var/lib/mysql
+      - ./server/data/db:/var/lib/mysql
 
   adminer_stypendia:
     image: adminer
@@ -38,8 +42,8 @@ services:
     ports:
       - 27019:27017
     volumes:
-      - ./data/logs:/var/lib/logs
-      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - ./server/data/logs:/var/lib/logs
+      - ./server/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
 
   mongoweb_logs:
     image: mongo-express
@@ -56,5 +60,5 @@ services:
     ports:
       - 3311:3311
     volumes:
-      - ./data/clamav:/var/lib/clamav
+      - ./server/data/clamav:/var/lib/clamav
 # https://github.com/openbridge/clamav

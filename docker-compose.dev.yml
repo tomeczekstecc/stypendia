@@ -5,42 +5,53 @@ services:
   #   ports:
   #     - 3004:80
 
+  stypendia-front:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./client/.env
+    ports:
+      - 3002:3002
+    volumes:
+      - ./client/app
+      - react-app-data:/app/node_modules
 
   stypendia-server:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile.dev
       args:
         NODE_ENV: development
     env_file:
-      - .env.dev
+      - ./server/.env.dev
     environment:
       - NODE_ENV=development
     volumes:
-      - ./:/app
+      - ./server:/app
       - node-app-data:/app/node_modules
     command: npm run devStart
 
 
   db_stypendia:
     env_file:
-      - .env.dev
+      - ./server/.env.dev
     volumes:
-      - ./data/db:/var/lib/mysql
+      - ./server/data/db:/var/lib/mysql
 
   adminer_stypendia:
     env_file:
-      - .env.dev
+      - ./server/.env.dev
 
   mongo_logs_stypendia:
     env_file:
-      - .env.dev
+      - ./server/.env.dev
 
   mongoweb_logs:
     image: mongo-express
     restart: always
     env_file:
-      - .env.dev
+      - ./server/.env.dev
     ports:
       - 8084:8081
     depends_on:
@@ -49,3 +60,4 @@ services:
 
 volumes:
   node-app-data:
+  react-app-data:

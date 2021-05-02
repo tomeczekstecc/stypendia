@@ -13,12 +13,12 @@ services:
 
   stypendia-server:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile.prod
       args:
         NODE_ENV: production
     env_file:
-      - .env.prod
+      - ./server/.env.prod
     environment:
       - NODE_ENV=production
     command: npm run build
@@ -26,23 +26,23 @@ services:
 
   db_stypendia:
     env_file:
-      - .env.prod
+      - ./server/.env.prod
     volumes:
-      - ./data/db:/var/lib/mysql
+      - ./server/data/db:/var/lib/mysql
 
   adminer_stypendia:
     env_file:
-      - .env.prod
+      - ./server/.env.prod
 
   mongo_logs_stypendia:
     env_file:
-      - .env.prod
+      - ./server/.env.prod
 
   mongoweb_logs:
     image: mongo-express
     restart: always
     env_file:
-      - .env.prod
+      - ./server/.env.prod
     ports:
       - 8084:8081
     depends_on:

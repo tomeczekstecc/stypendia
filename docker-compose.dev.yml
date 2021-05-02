@@ -17,6 +17,7 @@ services:
       - ./client/app
       - react-app-data:/app/node_modules
 
+
   stypendia-server:
     build:
       context: ./server

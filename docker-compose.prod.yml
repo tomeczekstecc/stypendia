@@ -10,9 +10,10 @@ services:
       - 80:80
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-
+      - static-front:/
     depends_on:
       - stypendia-server
+      - stypendia-front
 
   stypendia-front:
     build:
@@ -20,6 +21,7 @@ services:
       dockerfile: Dockerfile.prod
     env_file:
       - ./client/.env
+      - ./client/build:/app/build
 
   stypendia-server:
     build:

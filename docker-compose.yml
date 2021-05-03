@@ -2,11 +2,6 @@ version: '3'
 
 services:
   
-  # stypendia-front:
-  #   restart: always
-  #   depends_on:
-  #     - stypendia-server
-
 
   stypendia-server:
     restart: always

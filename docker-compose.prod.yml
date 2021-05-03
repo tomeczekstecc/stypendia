@@ -3,22 +3,6 @@ services:
 
 
 
-  nginx:
-    image: nginx:stable-alpine
-    restart: always
-    ports:
-      - 80:80
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-
-
-  stypendia-front:
-    build:
-      context: ./client
-      dockerfile: Dockerfile.prod
-    env_file:
-      - ./client/.env
-
   stypendia-server:
     build:
       context: ./server

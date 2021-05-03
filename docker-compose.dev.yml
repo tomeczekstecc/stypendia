@@ -1,9 +1,6 @@
 version: '3'
 services:
 
-  # nginx:
-  #   ports:
-  #     - 3004:80
 
   stypendia-front:
     build:

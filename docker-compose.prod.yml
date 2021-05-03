@@ -3,13 +3,13 @@ services:
 
 
 
-  # nginx:
-  #   image: nginx:stable-alpine
-  #   restart: always
-  #   ports:
-  #     - 80:80
-  #   volumes:
-  #     - ./nginx:/etc/nginx/conf.d
+  nginx:
+    image: nginx:stable-alpine
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
 
 
   stypendia-front:

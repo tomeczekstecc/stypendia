@@ -13,7 +13,6 @@ services:
       - ./server/.env.prod
     environment:
       - NODE_ENV=production
-cd app
 
 
   db_stypendia:

@@ -7,6 +7,6 @@ temp/
 /**/*.env
 /data
 /logs/**
-pdfs/submit/**
-files/**
+# pdfs/submit/**
+# files/**
 .env*
